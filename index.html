@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur de courriels Disney - Voyages en Route</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            padding: 30px;
+        }
+
+        .form-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 4px solid #3498db;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 8px rgba(52, 152, 219, 0.2);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(52, 152, 219, 0.3);
+        }
+
+        .output-section {
+            background: #ffffff;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 25px;
+            max-height: 800px;
+            overflow-y: auto;
+        }
+
+        .email-preview {
+            font-family: 'Aptos', 'Calibri', sans-serif;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+        .email-title {
+            color: #0066cc;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin: 20px 0 10px 0;
+        }
+
+        .copy-btn {
+            margin-top: 15px;
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+        }
+
+        .copy-btn:hover {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+        }
+
+        .hotel-option {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            background: white;
+        }
+
+        .hotel-option h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .add-hotel-btn {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            padding: 10px 20px;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏰 Générateur de courriels Disney</h1>
+            <p>Voyages en Route - Spécialiste Disney & Universal</p>
+        </div>
+        
+        <div class="content">
+            <div class="form-section">
+                <h2>Informations du voyage</h2>
+                
+                <div class="form-group">
+                    <label for="langue">Langue du courriel :</label>
+                    <select id="langue">
+                        <option value="fr">Français</option>
+                        <option value="en">English</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="nomClient">Nom du client :</label>
+                    <input type="text" id="nomClient" placeholder="Nom complet du client">
+                </div>
+
+                <div class="form-group">
+                    <label for="nbAdultes">Nombre d'adultes :</label>
+                    <input type="number" id="nbAdultes" min="1" value="2">
+                </div>
+
+                <div class="form-group">
+                    <label for="nbEnfants">Nombre d'enfants :</label>
+                    <input type="number" id="nbEnfants" min="0" value="0">
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="billetSeulement">
+                    <label for="billetSeulement">Billets seulement (pas d'hôtel)</label>
+                </div>
+
+                <div id="hotelSection">
+                    <button type="button" class="btn add-hotel-btn" onclick="ajouterHotel()">+ Ajouter un hôtel</button>
+                    <div id="hotelOptions"></div>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="avionInclus">
+                    <label for="avionInclus">Avion inclus</label>
+                </div>
+
+                <div id="avionSection" style="display: none;">
+                    <div class="form-group">
+                        <label for="dateAller">Date et heure de départ :</label>
+                        <input type="datetime-local" id="dateAller">
+                    </div>
+                    <div class="form-group">
+                        <label for="aeroportDepart">Aéroport de départ :</label>
+                        <input type="text" id="aeroportDepart" placeholder="Ex: YUL - Montréal">
+                    </div>
+                    <div class="form-group">
+                        <label for="dateRetour">Date et heure de retour :</label>
+                        <input type="datetime-local" id="dateRetour">
+                    </div>
+                    <div class="form-group">
+                        <label for="aeroportRetour">Aéroport de retour :</label>
+                        <input type="text" id="aeroportRetour" placeholder="Ex: MCO - Orlando">
+                    </div>
+                    <div class="form-group">
+                        <label for="prixAvion">Prix total avion (USD) :</label>
+                        <input type="number" id="prixAvion" placeholder="0">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="promotion">Promotion applicable :</label>
+                    <input type="text" id="promotion" placeholder="Nom de la promotion ou laissez vide si aucune">
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="promotionDateFin">
+                    <label for="promotionDateFin">La promotion a une date de fin connue</label>
+                </div>
+
+                <button type="button" class="btn" onclick="genererCourriel()">Générer le courriel</button>
+            </div>
+
+            <div class="output-section">
+                <h2>Aperçu du courriel</h2>
+                <div id="emailPreview" class="email-preview">
+                    Le courriel généré apparaîtra ici...
+                </div>
+                <button type="button" class="btn copy-btn" onclick="copierCourriel()">📋 Copier le courriel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const hotelsList = [
+            "Bay Lake Tower at Disney's Contemporary Resort",
+            "Boulder Ridge Villas at Disney's Wilderness Lodge",
+            "Copper Creek Villas & Cabins à Disney's Wilderness Lodge",
+            "Disney's All-Star Movies Resort",
+            "Disney's All-Star Music Resort",
+            "Disney's All-Star Sports Resort",
+            "Disney's Animal Kingdom Lodge",
+            "Disney's Animal Kingdom Villas - Jambo House",
+            "Disney's Animal Kingdom Villas - Kidani Village",
+            "Disney's Art of Animation Resort",
+            "Disney's Beach Club Resort",
+            "Disney's Beach Club Villas",
+            "Disney's BoardWalk Inn",
+            "Disney's BoardWalk Villas",
+            "Disney's Caribbean Beach Resort",
+            "Disney's Contemporary Resort",
+            "Disney's Coronado Springs Resort",
+            "Disney's Grand Floridian Resort & Spa",
+            "Disney's Old Key West Resort",
+            "Disney's Polynesian Village Resort",
+            "Disney's Polynesian Villas & Bungalows",
+            "Disney's Pop Century Resort",
+            "Disney's Port Orleans Resort - French Quarter",
+            "Disney's Port Orleans Resort - Riverside",
+            "Disney's Saratoga Springs Resort & Spa",
+            "Disney's Wilderness Lodge",
+            "Disney's Yacht Club Resort",
+            "Disney's Riviera Resort",
+            "The Cabins at Disney's Fort Wilderness Resort",
+            "The Cabins at Disney's Fort Wilderness Resort – A Disney Vacation Club Resort",
+            "Les terrains de camping au Disney's Fort Wilderness Resort",
+            "Les villas au Disney's Grand Floridian Resort & Spa"
+        ];
+
+        const hotelDescriptions = {
+            "Bay Lake Tower at Disney's Contemporary Resort": {
+                fr: "Un complexe de villas Disney Vacation Club moderne offrant une vue imprenable sur le Magic Kingdom et le lagon Bay Lake. Situé au cœur de la magie Disney avec un accès privilégié au monorail.",
+                en: "A modern Disney Vacation Club villa resort offering stunning views of Magic Kingdom and Bay Lake. Located at the heart of Disney magic with privileged monorail access."
+            },
+            "Disney's Grand Floridian Resort & Spa": {
+                fr: "Le plus luxueux des hôtels Disney, inspiré de l'élégance victorienne de la Floride. Un service exceptionnel et une ambiance raffinée pour une expérience Disney premium.",
+                en: "Disney's most luxurious hotel, inspired by Victorian Florida elegance. Exceptional service and refined ambiance for a premium Disney experience."
+            },
+            "Disney's Contemporary Resort": {
+                fr: "Un hôtel iconique de Disney World avec son design futuriste et le monorail qui traverse le hall principal. Vue spectaculaire sur Magic Kingdom depuis les chambres côté parc.",
+                en: "An iconic Disney World hotel with futuristic design and the monorail running through the main lobby. Spectacular Magic Kingdom views from park-view rooms."
+            },
+            "Disney's Polynesian Village Resort": {
+                fr: "Évadez-vous dans un paradis tropical inspiré des îles du Pacifique Sud. Ambiance décontractée avec plages privées, restaurants exotiques et accès monorail au Magic Kingdom.",
+                en: "Escape to a tropical paradise inspired by the South Pacific islands. Relaxed atmosphere with private beaches, exotic restaurants and monorail access to Magic Kingdom."
+            }
+        };
+
+        let compteurHotels = 0;
+
+        document.getElementById('avionInclus').addEventListener('change', function() {
+            const avionSection = document.getElementById('avionSection');
+            avionSection.style.display = this.checked ? 'block' : 'none';
+        });
+
+        document.getElementById('billetSeulement').addEventListener('change', function() {
+            const hotelSection = document.getElementById('hotelSection');
+            hotelSection.style.display = this.checked ? 'none' : 'block';
+        });
+
+        function ajouterHotel() {
+            compteurHotels++;
+            const hotelDiv = document.createElement('div');
+            hotelDiv.className = 'hotel-option';
+            hotelDiv.id = `hotel${compteurHotels}`;
+            
+            hotelDiv.innerHTML = `
+                <h4>Hôtel ${compteurHotels}</h4>
+                <div class="form-group">
+                    <label>Sélectionner l'hôtel :</label>
+                    <select id="hotelSelect${compteurHotels}">
+                        <option value="">-- Choisir un hôtel --</option>
+                        ${hotelsList.map(hotel => `<option value="${hotel}">${hotel}</option>`).join('')}
+                    </select>
+                </div>
+                <button type="button" onclick="supprimerHotel(${compteurHotels})" style="background: #e74c3c; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer;">Supprimer</button>
+            `;
+            
+            document.getElementById('hotelOptions').appendChild(hotelDiv);
+        }
+
+        function supprimerHotel(id) {
+            const hotelDiv = document.getElementById(`hotel${id}`);
+            if (hotelDiv) {
+                hotelDiv.remove();
+            }
+        }
+
+        function obtenirDescriptionHotel(nomHotel, langue) {
+            if (hotelDescriptions[nomHotel]) {
+                return hotelDescriptions[nomHotel][langue];
+            }
+            
+            // Description générique basée sur le nom
+            if (langue === 'fr') {
+                if (nomHotel.includes('All-Star')) return "Un hôtel Disney à thème amusant offrant un excellent rapport qualité-prix avec des décorations colorées et une ambiance familiale.";
+                if (nomHotel.includes('Pop Century')) return "Un hôtel Disney célébrant la culture pop américaine avec des icônes géantes et une atmosphère nostalgique.";
+                if (nomHotel.includes('Art of Animation')) return "Un hôtel Disney immersif célébrant l'art de l'animation avec des suites familiales et des aires thématiques spectaculaires.";
+                if (nomHotel.includes('Wilderness Lodge')) return "Un lodge rustique inspiré des parcs nationaux américains, offrant une atmosphère de montagne au cœur de la Floride.";
+                if (nomHotel.includes('Beach Club') || nomHotel.includes('Yacht Club')) return "Un complexe élégant sur le thème nautique de la Nouvelle-Angleterre avec plage de sable et piscine spectaculaire.";
+                if (nomHotel.includes('BoardWalk')) return "Un hôtel sur le thème du boardwalk atlantique des années 1930 avec divertissements, restaurants et ambiance festive.";
+                if (nomHotel.includes('Animal Kingdom')) return "Une expérience safari unique où vous pouvez observer plus de 200 espèces d'animaux depuis votre balcon.";
+                if (nomHotel.includes('Caribbean Beach')) return "Un complexe tropical coloré inspiré des Caraïbes avec plages de sable blanc et ambiance insulaire décontractée.";
+                return "Un magnifique hôtel Disney offrant le confort et la magie Disney dans un cadre enchanteur.";
+            } else {
+                if (nomHotel.includes('All-Star')) return "A fun Disney themed hotel offering excellent value with colorful decorations and family-friendly atmosphere.";
+                if (nomHotel.includes('Pop Century')) return "A Disney hotel celebrating American pop culture with giant icons and nostalgic atmosphere.";
+                if (nomHotel.includes('Art of Animation')) return "An immersive Disney hotel celebrating animation art with family suites and spectacular themed areas.";
+                if (nomHotel.includes('Wilderness Lodge')) return "A rustic lodge inspired by American national parks, offering mountain atmosphere in the heart of Florida.";
+                if (nomHotel.includes('Beach Club') || nomHotel.includes('Yacht Club')) return "An elegant New England nautical-themed resort with sandy beach and spectacular pool.";
+                if (nomHotel.includes('BoardWalk')) return "A 1930s Atlantic boardwalk themed hotel with entertainment, restaurants and festive atmosphere.";
+                if (nomHotel.includes('Animal Kingdom')) return "A unique safari experience where you can observe over 200 animal species from your balcony.";
+                if (nomHotel.includes('Caribbean Beach')) return "A colorful tropical resort inspired by the Caribbean with white sand beaches and relaxed island atmosphere.";
+                return "A beautiful Disney hotel offering comfort and Disney magic in an enchanting setting.";
+            }
+        }
+
+        function genererCourriel() {
+            const langue = document.getElementById('langue').value;
+            const nomClient = document.getElementById('nomClient').value;
+            const nbAdultes = document.getElementById('nbAdultes').value;
+            const nbEnfants = document.getElementById('nbEnfants').value;
+            const billetSeulement = document.getElementById('billetSeulement').checked;
+            const avionInclus = document.getElementById('avionInclus').checked;
+            const promotion = document.getElementById('promotion').value;
+            const promotionDateFin = document.getElementById('promotionDateFin').checked;
+
+            let courriel = '';
+
+            // 1. Présentation
+            if (langue === 'fr') {
+                courriel += `Bonjour ${nomClient || '[Nom du client]'},\n\n`;
+                courriel += `Je suis Pierre-Luc Morin, conseiller en voyages chez Voyages en Route, spécialisé en destinations Disney et Universal. Il me fera plaisir de vous aider dans la planification de votre voyage magique!\n\n`;
+            } else {
+                courriel += `Hello ${nomClient || '[Client Name]'},\n\n`;
+                courriel += `I am Pierre-Luc Morin, travel advisor at Voyages en Route, specialized in Disney and Universal destinations. I will be delighted to help you plan your magical trip!\n\n`;
+            }
+
+            // 2. Votre voyage
+            if (langue === 'fr') {
+                courriel += `VOTRE VOYAGE\n\n`;
+                if (billetSeulement) {
+                    courriel += `Vous trouverez en pièce jointe la soumission avec les prix pour vos billets Disney seulement. Veuillez noter que tous les prix indiqués sont en dollars américains (USD).\n\n`;
+                } else {
+                    const hotelsSelectionnés = [];
+                    for (let i = 1; i <= compteurHotels; i++) {
+                        const selectElement = document.getElementById(`hotelSelect${i}`);
+                        if (selectElement && selectElement.value) {
+                            hotelsSelectionnés.push(selectElement.value);
+                        }
+                    }
+
+                    if (hotelsSelectionnés.length > 0) {
+                        if (hotelsSelectionnés.length === 1) {
+                            courriel += `Vous trouverez en pièce jointe la soumission avec les prix pour votre séjour.\n\n`;
+                            courriel += `VOTRE HÔTEL : ${hotelsSelectionnés[0]}\n\n`;
+                            courriel += `${obtenirDescriptionHotel(hotelsSelectionnés[0], 'fr')}\n\n`;
+                        } else {
+                            courriel += `Vous trouverez en pièces jointes les soumissions avec les prix pour vos différentes options d'hébergement.\n\n`;
+                            hotelsSelectionnés.forEach((hotel, index) => {
+                                courriel += `OPTION ${index + 1} : ${hotel}\n\n`;
+                                courriel += `${obtenirDescriptionHotel(hotel, 'fr')}\n\n`;
+                            });
+                        }
+                    }
+                    courriel += `Veuillez noter que tous les prix indiqués sont en dollars américains (USD).\n\n`;
+                }
+            } else {
+                courriel += `YOUR TRIP\n\n`;
+                if (billetSeulement) {
+                    courriel += `You will find attached the quote with prices for your Disney tickets only. Please note that all prices indicated are in US dollars (USD).\n\n`;
+                } else {
+                    const hotelsSelectionnés = [];
+                    for (let i = 1; i <= compteurHotels; i++) {
+                        const selectElement = document.getElementById(`hotelSelect${i}`);
+                        if (selectElement && selectElement.value) {
+                            hotelsSelectionnés.push(selectElement.value);
+                        }
+                    }
+
+                    if (hotelsSelectionnés.length > 0) {
+                        if (hotelsSelectionnés.length === 1) {
+                            courriel += `You will find attached the quote with prices for your stay.\n\n`;
+                            courriel += `YOUR HOTEL: ${hotelsSelectionnés[0]}\n\n`;
+                            courriel += `${obtenirDescriptionHotel(hotelsSelectionnés[0], 'en')}\n\n`;
+                        } else {
+                            courriel += `You will find attached the quotes with prices for your different accommodation options.\n\n`;
+                            hotelsSelectionnés.forEach((hotel, index) => {
+                                courriel += `OPTION ${index + 1}: ${hotel}\n\n`;
+                                courriel += `${obtenirDescriptionHotel(hotel, 'en')}\n\n`;
+                            });
+                        }
+                    }
+                    courriel += `Please note that all prices indicated are in US dollars (USD).\n\n`;
+                }
+            }
+
+            // 3. Avion
+            if (avionInclus) {
+                const dateAller = document.getElementById('dateAller').value;
+                const aeroportDepart = document.getElementById('aeroportDepart').value;
+                const dateRetour = document.getElementById('dateRetour').value;
+                const aeroportRetour = document.getElementById('aeroportRetour').value;
+                const prixAvion = document.getElementById('prixAvion').value;
+                const totalPersonnes = parseInt(nbAdultes) + parseInt(nbEnfants);
+
+                if (langue === 'fr') {
+                    courriel += `TRANSPORT AÉRIEN\n\n`;
+                    courriel += `Aller : ${dateAller ? new Date(dateAller).toLocaleString('fr-CA') : '[Date/heure à définir]'}\n`;
+                    courriel += `De : ${aeroportDepart || '[Aéroport de départ]'}\n`;
+                    courriel += `Vers : ${aeroportRetour || '[Aéroport de destination]'}\n\n`;
+                    courriel += `Retour : ${dateRetour ? new Date(dateRetour).toLocaleString('fr-CA') : '[Date/heure à définir]'}\n`;
+                    courriel += `De : ${aeroportRetour || '[Aéroport de destination]'}\n`;
+                    courriel += `Vers : ${aeroportDepart || '[Aéroport de départ]'}\n\n`;
+                    courriel += `Nombre de passagers : ${totalPersonnes} (${nbAdultes} adulte${nbAdultes > 1 ? 's' : ''}${nbEnfants > 0 ? `, ${nbEnfants} enfant${nbEnfants > 1 ? 's' : ''}` : ''})\n`;
+                    courriel += `Prix total approximatif : ${prixAvion || '[Prix]'} USD\n\n`;
+                    courriel += `IMPORTANT : Les prix aériens sont sujets à changement sans préavis. Des frais de service de 50$ par personne sont applicables en surplus pour la réservation des vols. En cas de problème avec vos vols, c'est moi qui m'en occupe pour vous. Si vous préférez réserver vos vols de votre côté, aucun frais ne s'applique sur la portion Disney de votre voyage, mais je ne pourrai pas vous offrir de support en cas de problème.\n\n`;
+                } else {
+                    courriel += `AIR TRANSPORTATION\n\n`;
+                    courriel += `Departure: ${dateAller ? new Date(dateAller).toLocaleString('en-CA') : '[Date/time to be defined]'}\n`;
+                    courriel += `From: ${aeroportDepart || '[Departure airport]'}\n`;
+                    courriel += `To: ${aeroportRetour || '[Destination airport]'}\n\n`;
+                    courriel += `Return: ${dateRetour ? new Date(dateRetour).toLocaleString('en-CA') : '[Date/time to be defined]'}\n`;
+                    courriel += `From: ${aeroportRetour || '[Destination airport]'}\n`;
+                    courriel += `To: ${aeroportDepart || '[Departure airport]'}\n\n`;
+                    courriel += `Number of passengers: ${totalPersonnes} (${nbAdultes} adult${nbAdultes > 1 ? 's' : ''}${nbEnfants > 0 ? `, ${nbEnfants} child${nbEnfants > 1 ? 'ren' : ''}` : ''})\n`;
+                    courriel += `Approximate total price: ${prixAvion || '[Price]'} USD\n\n`;
+                    courriel += `IMPORTANT: Airfare prices are subject to change without notice. Service fees of $50 per person apply in addition for flight bookings. In case of problems with your flights, I will take care of it for you. If you prefer to book your flights on your own, no fees apply to the Disney portion of your trip, but I cannot offer support in case of problems.\n\n`;
+                }
+            }
+
+            // 4. Promotion
+            if (promotion.trim()) {
+                if (langue === 'fr') {
+                    courriel += `PROMOTION APPLICABLE\n\n`;
+                    courriel += `Bonne nouvelle! La promotion "${promotion}" est applicable à votre réservation.`;
+                    if (promotionDateFin) {
+                        courriel += ` Cette promotion a une date de fin, il est donc important de réserver rapidement pour en bénéficier.\n\n`;
+                    } else {
+                        courriel += ` Nous ne connaissons pas la date de fin de cette promotion pour le moment.\n\n`;
+                    }
+                } else {
+                    courriel += `APPLICABLE PROMOTION\n\n`;
+                    courriel += `Good news! The "${promotion}" promotion is applicable to your booking.`;
+                    if (promotionDateFin) {
+                        courriel += ` This promotion has an end date, so it's important to book quickly to benefit from it.\n\n`;
+                    } else {
+                        courriel += ` We don't know the end date of this promotion at the moment.\n\n`;
+                    }
+                }
+            } else {
+                if (langue === 'fr') {
+                    courriel += `RÉSERVATION ET PROMOTIONS\n\n`;
+                    courriel += `Si vous réservez maintenant, c'est 200 USD de dépôt et nous ferons appliquer les promotions disponibles d'ici le départ. Ce montant est remboursable jusqu'à 30 jours avant le check-in.\n\n`;
+                } else {
+                    courriel += `BOOKING AND PROMOTIONS\n\n`;
+                    courriel += `If you book now, it's a 200 USD deposit and we will apply available promotions before departure. This amount is refundable up to 30 days before check-in.\n\n`;
+                }
+            }
+
+            // 5. La suite
+            if (langue === 'fr') {
+                courriel += `LA SUITE\n\n`;
+                courriel += `Je vous laisse regarder et je reste disponible si vous avez des questions par courriel (répondre à ce courriel) ou par téléphone au 819-347-9103.\n\n`;
+                courriel += `Merci de votre confiance et au plaisir de planifier votre voyage magique!\n\n`;
+                courriel += `Pierre-Luc Morin\nConseiller en voyages\nVoyages en Route`;
+            } else {
+                courriel += `NEXT STEPS\n\n`;
+                courriel += `Please take a look and I remain available if you have any questions by email (reply to this email) or by phone at 819-347-9103.\n\n`;
+                courriel += `Thank you for your trust and looking forward to planning your magical trip!\n\n`;
+                courriel += `Pierre-Luc Morin\nTravel Advisor\nVoyages en Route`;
+            }
+
+            // Appliquer le style et afficher
+            const preview = document.getElementById('emailPreview');
+            preview.innerHTML = courriel.replace(/^([A-Z\s]+)$/gm, '<div class="email-title">$1</div>');
+            preview.style.fontFamily = "'Aptos', 'Calibri', sans-serif";
+        }
+
+        function copierCourriel() {
+            const preview = document.getElementById('emailPreview');
+            const texte = preview.innerText || preview.textContent;
+            
+            navigator.clipboard.writeText(texte).then(function() {
+                const btn = document.querySelector('.copy-btn');
+                const originalText = btn.textContent;
+                btn.textContent = '✅ Copié!';
+                btn.style.background = 'linear-gradient(135deg, #27ae60, #2ecc71)';
+                
+                setTimeout(function() {
+                    btn.textContent = originalText;
+                    btn.style.background = 'linear-gradient(135deg, #27ae60, #2ecc71)';
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Erreur lors de la copie: ', err);
+                alert('Erreur lors de la copie. Veuillez sélectionner le texte manuellement.');
+            });
+        }
+
+        // Initialiser avec un hôtel par défaut
+        window.onload = function() {
+            ajouterHotel();
+        };
+    </script>
+</body>
+</html>
