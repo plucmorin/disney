@@ -312,4 +312,379 @@
 
         const hotelDescriptions = { /* Hotel descriptions remain the same */
             "Bay Lake Tower at Disney's Contemporary Resort": { fr: "CATÉGORIE DELUXE VILLA - Complexe Disney Vacation Club moderne au thème contemporain/futuriste. Situé adjacent au Contemporary Resort avec accès monorail direct au Magic Kingdom. Villas spacieuses avec cuisinettes, vue sur Magic Kingdom ou Bay Lake. Avantages : Early Theme Park Entry, piscine avec toboggan, restaurants sur place, accès aux installations du Contemporary Resort.", en: "DELUXE VILLA CATEGORY - Modern Disney Vacation Club resort with contemporary/futuristic theme. Located adjacent to Contemporary Resort with direct monorail access to Magic Kingdom. Spacious villas with kitchenettes, Magic Kingdom or Bay Lake views. Benefits: Early Theme Park Entry, pool with slide, on-site restaurants, access to Contemporary Resort amenities." },
-            "Boulder Ridge Villas at Disney's Wilderness Lodge": { fr: "
+            "Boulder Ridge Villas at Disney's Wilderness Lodge": { fr: "CATÉGORIE DELUXE VILLA - Villas Disney Vacation Club au thème des parcs nationaux américains dans une ambiance de lodge rustique. Architecture inspirée du Old Faithful Inn. Villas avec cuisinettes, balcons donnant sur la forêt ou la cour. Avantages : Early Theme Park Entry, piscines thématiques, transport en bateau vers Magic Kingdom, restaurants signature.", en: "DELUXE VILLA CATEGORY - Disney Vacation Club villas with American national parks theme in rustic lodge atmosphere. Architecture inspired by Old Faithful Inn. Villas with kitchenettes, balconies overlooking forest or courtyard. Benefits: Early Theme Park Entry, themed pools, boat transportation to Magic Kingdom, signature restaurants." },
+            "Copper Creek Villas & Cabins à Disney's Wilderness Lodge": { fr: "CATÉGORIE DELUXE VILLA - Villas et cabines Disney Vacation Club au thème des parcs nationaux dans un cadre de nature sauvage. Nouvelles villas avec cuisinettes complètes, cabines isolées en forêt. Ambiance rustique luxueuse. Avantages : Early Theme Park Entry, piscines avec toboggan, transport en bateau, spa Senses, restaurants gastronomiques.", en: "DELUXE VILLA CATEGORY - Disney Vacation Club villas and cabins with national parks theme in wilderness setting. New villas with full kitchenettes, secluded forest cabins. Luxurious rustic atmosphere. Benefits: Early Theme Park Entry, pools with slide, boat transportation, Senses Spa, gourmet restaurants." },
+            "Disney's All-Star Movies Resort": { fr: "CATÉGORIE VALUE - Hôtel thématique célébrant les films Disney classiques avec des icônes géantes (101 Dalmatiens, Toy Story, Fantasia, Love Bug, Mighty Ducks). Chambres standard économiques pour familles. Avantages : Early Theme Park Entry, piscines thématiques, aires de jeux, food court, transport en autobus vers tous les parcs.", en: "VALUE CATEGORY - Themed hotel celebrating classic Disney movies with giant icons (101 Dalmatians, Toy Story, Fantasia, Love Bug, Mighty Ducks). Budget-friendly standard rooms for families. Benefits: Early Theme Park Entry, themed pools, playgrounds, food court, bus transportation to all parks." },
+            "Disney's All-Star Music Resort": { fr: "CATÉGORIE VALUE - Hôtel thématique dédié à la musique avec des sections country, jazz, rock, calypso et Broadway. Décorations musicales géantes colorées. Chambres standard abordables. Avantages : Early Theme Park Entry, piscines thématiques avec musique, aires de jeux, food court, transport en autobus.", en: "VALUE CATEGORY - Music-themed hotel with country, jazz, rock, calypso and Broadway sections. Giant colorful musical decorations. Affordable standard rooms. Benefits: Early Theme Park Entry, themed pools with music, playgrounds, food court, bus transportation." },
+            "Disney's All-Star Sports Resort": { fr: "CATÉGORIE VALUE - Hôtel sportif avec sections baseball, football américain, tennis, basketball et surf. Décorations sportives géantes et terrains de jeux. Chambres standard économiques parfaites pour les familles actives. Avantages : Early Theme Park Entry, piscines thématiques, terrains de sport, food court, transport en autobus.", en: "VALUE CATEGORY - Sports-themed hotel with baseball, football, tennis, basketball and surfing sections. Giant sports decorations and playing fields. Budget standard rooms perfect for active families. Benefits: Early Theme Park Entry, themed pools, sports courts, food court, bus transportation." },
+            "Disney's Animal Kingdom Lodge": { fr: "CATÉGORIE DELUXE - Hôtel safari luxueux avec architecture africaine authentique où plus de 200 animaux évoluent dans 4 savanes. Chambres avec vue sur savane ou piscine. Restaurants africains primés. Avantages : Early Theme Park Entry, piscines avec toboggan, programmes éducatifs animaliers, restaurants signature, spa Senses.", en: "DELUXE CATEGORY - Luxurious safari hotel with authentic African architecture where over 200 animals roam 4 savannas. Rooms with savanna or pool views. Award-winning African restaurants. Benefits: Early Theme Park Entry, pools with slide, animal educational programs, signature restaurants, Senses Spa." },
+            "Disney's Animal Kingdom Villas - Jambo House": { fr: "CATÉGORIE DELUXE VILLA - Villas Disney Vacation Club dans le bâtiment principal d'Animal Kingdom Lodge. Architecture africaine avec vue sur les savanes peuplées d'animaux. Villas avec cuisinettes, balcons donnant sur la savane. Avantages : Early Theme Park Entry, observation d'animaux 24h/24, piscines thématiques, restaurants africains, programmes éducatifs.", en: "DELUXE VILLA CATEGORY - Disney Vacation Club villas in the main Animal Kingdom Lodge building. African architecture with animal-populated savanna views. Villas with kitchenettes, savanna-view balconies. Benefits: Early Theme Park Entry, 24/7 animal viewing, themed pools, African restaurants, educational programs." },
+            "Disney's Animal Kingdom Villas - Kidani Village": { fr: "CATÉGORIE DELUXE VILLA - Villas Disney Vacation Club avec thème africain et savanes privées. Architecture inspirée de village africain traditionnel. Villas spacieuses avec cuisinettes complètes, terrasses avec vue sur savane. Avantages : Early Theme Park Entry, savanes exclusives, piscines avec aire de jeux aquatique, restaurants, programmes animaliers.", en: "DELUXE VILLA CATEGORY - Disney Vacation Club villas with African theme and private savannas. Architecture inspired by traditional African village. Spacious villas with full kitchenettes, savanna-view terraces. Benefits: Early Theme Park Entry, exclusive savannas, pools with water play area, restaurants, animal programs." },
+            "Disney's Art of Animation Resort": { fr: "CATÉGORIE VALUE - Hôtel immersif célébrant l'animation Disney avec sections La Petite Sirène, Le Roi Lion, Cars et Nemo. Chambres standard et suites familiales. Décorations spectaculaires grandeur nature. Avantages : Early Theme Park Entry, plus grande piscine Disney World (Big Blue Pool), aires de jeux thématiques, food court, transport en autobus.", en: "VALUE CATEGORY - Immersive hotel celebrating Disney animation with Little Mermaid, Lion King, Cars and Finding Nemo sections. Standard rooms and family suites. Spectacular life-size decorations. Benefits: Early Theme Park Entry, Disney World's largest pool (Big Blue Pool), themed playgrounds, food court, bus transportation." },
+            "Disney's Beach Club Resort": { fr: "CATÉGORIE DELUXE - Hôtel élégant au thème nautique de la Nouvelle-Angleterre des années 1870. Situé près d'EPCOT avec plage de sable et la spectaculaire Stormalong Bay. Chambres luxueuses avec balcons. Avantages : Early Theme Park Entry, accès à pied à EPCOT et Hollywood Studios, Stormalong Bay (3 acres), restaurants signature, spa.", en: "DELUXE CATEGORY - Elegant hotel with 1870s New England nautical theme. Located near EPCOT with sandy beach and spectacular Stormalong Bay. Luxurious rooms with balconies. Benefits: Early Theme Park Entry, walking distance to EPCOT and Hollywood Studios, Stormalong Bay (3 acres), signature restaurants, spa." },
+            "Disney's Beach Club Villas": { fr: "CATÉGORIE DELUXE VILLA - Villas Disney Vacation Club adjacentes au Beach Club Resort avec même thème nautique élégant. Villas avec cuisinettes, proche d'EPCOT. Accès à Stormalong Bay. Avantages : Early Theme Park Entry, accès à pied aux parcs EPCOT/Hollywood Studios, Stormalong Bay, restaurants du Beach Club, transport en bateau.", en: "DELUXE VILLA CATEGORY - Disney Vacation Club villas adjacent to Beach Club Resort with same elegant nautical theme. Villas with kitchenettes, near EPCOT. Access to Stormalong Bay. Benefits: Early Theme Park Entry, walking distance to EPCOT/Hollywood Studios, Stormalong Bay, Beach Club restaurants, boat transportation." },
+            "Disney's BoardWalk Inn": { fr: "CATÉGORIE DELUXE - Hôtel romantique inspiré du boardwalk atlantique des années 1930 avec promenade animée. Architecture victorienne colorée, divertissements de rue, boutiques. Avantages : Early Theme Park Entry, accès à pied à EPCOT et Hollywood Studios, BoardWalk avec restaurants et bars, piscines thématiques, spa, transport en bateau.", en: "DELUXE CATEGORY - Romantic hotel inspired by 1930s Atlantic boardwalk with lively promenade. Colorful Victorian architecture, street entertainment, shops. Benefits: Early Theme Park Entry, walking distance to EPCOT and Hollywood Studios, BoardWalk with restaurants and bars, themed pools, spa, boat transportation." },
+            "Disney's BoardWalk Villas": { fr: "CATÉGORIE DELUXE VILLA - Villas Disney Vacation Club sur le BoardWalk avec thème années 1930. Villas avec cuisinettes, balcons donnant sur le BoardWalk ou jardins. Ambiance festive permanente. Avantages : Early Theme Park Entry, accès à pied aux parcs, divertissements sur le BoardWalk, restaurants et bars, piscines, transport en bateau.", en: "DELUXE VILLA CATEGORY - Disney Vacation Club villas on the BoardWalk with 1930s theme. Villas with kitchenettes, balconies overlooking BoardWalk or gardens. Permanent festive atmosphere. Benefits: Early Theme Park Entry, walking distance to parks, BoardWalk entertainment, restaurants and bars, pools, boat transportation." },
+            "Disney's Caribbean Beach Resort": { fr: "CATÉGORIE MODERATE - Complexe tropical inspiré des Caraïbes avec 6 villages colorés autour du lac Barefoot Bay. Thème pirate avec secteur Skyliner. Chambres rénovées avec mobilier tropical. Avantages : Early Theme Park Entry, Skyliner vers EPCOT/Hollywood Studios, plages de sable, piscines avec forteresse pirate, restaurants, bars.", en: "MODERATE CATEGORY - Tropical resort inspired by the Caribbean with 6 colorful villages around Barefoot Bay lake. Pirate theme with Skyliner section. Renovated rooms with tropical furnishings. Benefits: Early Theme Park Entry, Skyliner to EPCOT/Hollywood Studios, sandy beaches, pools with pirate fortress, restaurants, bars." },
+            "Disney's Contemporary Resort": { fr: "CATÉGORIE DELUXE - Hôtel iconique futuriste en forme de A où le monorail traverse le hall principal. Architecture moderne des années 1970, vue sur Magic Kingdom et Bay Lake. Avantages : Early Theme Park Entry, monorail direct vers Magic Kingdom, restaurants signature dont California Grill, piscines, plage, spa, marina.", en: "DELUXE CATEGORY - Iconic futuristic A-frame hotel where monorail runs through main lobby. Modern 1970s architecture, Magic Kingdom and Bay Lake views. Benefits: Early Theme Park Entry, direct monorail to Magic Kingdom, signature restaurants including California Grill, pools, beach, spa, marina." },
+            "Disney's Coronado Springs Resort": { fr: "CATÉGORIE MODERATE - Complexe au thème du Sud-Ouest américain et Mexique avec lac artificiel de 15 acres. Tour Gran Destino récemment ajoutée. Chambres rénovées, centre de congrès. Avantages : Early Theme Park Entry, restaurants variés dont rooftop, piscines avec pyramide maya, spa, centre de fitness, transport en autobus.", en: "MODERATE CATEGORY - Resort with American Southwest and Mexican theme featuring 15-acre man-made lake. Recently added Gran Destino Tower. Renovated rooms, convention center. Benefits: Early Theme Park Entry, varied restaurants including rooftop, pools with Mayan pyramid, spa, fitness center, bus transportation." },
+            "Disney's Grand Floridian Resort & Spa": { fr: "CATÉGORIE DELUXE - Le plus luxueux hôtel Disney avec thème victorien élégant de la Floride des années 1880. Architecture blanche majestueuse, orchestre dans le hall. Service de conciergerie disponible. Avantages : Early Theme Park Entry, monorail vers Magic Kingdom, restaurants gastronomiques, spa Senses complet, plage privée, marina, mariage Disney.", en: "DELUXE CATEGORY - Disney's most luxurious hotel with elegant Victorian Florida 1880s theme. Majestic white architecture, lobby orchestra. Concierge service available. Benefits: Early Theme Park Entry, monorail to Magic Kingdom, gourmet restaurants, full Senses Spa, private beach, marina, Disney weddings." },
+            "Disney's Old Key West Resort": { fr: "CATÉGORIE DELUXE VILLA - Premier complexe Disney Vacation Club avec thème des Keys de Floride. Villas spacieuses style maisons de vacances avec cuisinettes complètes, terrasses privées. Ambiance décontractée de village. Avantages : Early Theme Park Entry, villas les plus spacieuses, piscines paisibles, terrain de golf, restaurants, transport en bateau vers Disney Springs.", en: "DELUXE VILLA CATEGORY - First Disney Vacation Club resort with Florida Keys theme. Spacious vacation home-style villas with full kitchenettes, private porches. Relaxed village atmosphere. Benefits: Early Theme Park Entry, most spacious villas, peaceful pools, golf course, restaurants, boat transportation to Disney Springs." },
+            "Disney's Polynesian Village Resort": { fr: "CATÉGORIE DELUXE - Paradis tropical inspiré des îles du Pacifique Sud avec plages de sable volcanique. Bâtiments longhouses polynésiens, végétation luxuriante. Ambiance Tiki romantique. Avantages : Early Theme Park Entry, monorail vers Magic Kingdom, restaurants polynésiens authentiques, plage avec feux de camp, piscines volcaniques, spa, spirit d'Aloha.", en: "DELUXE CATEGORY - Tropical paradise inspired by South Pacific islands with volcanic sand beaches. Polynesian longhouse buildings, lush vegetation. Romantic Tiki atmosphere. Benefits: Early Theme Park Entry, monorail to Magic Kingdom, authentic Polynesian restaurants, beach with campfires, volcanic pools, spa, spirit of Aloha." },
+            "Disney's Polynesian Villas & Bungalows": { fr: "CATÉGORIE DELUXE VILLA - Villas et bungalows Disney Vacation Club avec thème polynésien authentique. Bungalows sur pilotis au-dessus du Seven Seas Lagoon, villas dans les arbres. Vues spectaculaires sur Magic Kingdom. Avantages : Early Theme Park Entry, bungalows uniques sur l'eau, monorail, vues sur feux d'artifice, restaurants polynésiens, plages privées.", en: "DELUXE VILLA CATEGORY - Disney Vacation Club villas and bungalows with authentic Polynesian theme. Overwater bungalows above Seven Seas Lagoon, tree-house villas. Spectacular Magic Kingdom views. Benefits: Early Theme Park Entry, unique overwater bungalows, monorail, fireworks views, Polynesian restaurants, private beaches." },
+            "Disney's Pop Century Resort": { fr: "CATÉGORIE VALUE - Hôtel nostalgique célébrant la culture pop américaine des décennies 1950-1990. Icônes géantes colorées (yo-yo, téléphones, etc.). Chambres rénovées avec mobilier moderne. Avantages : Early Theme Park Entry, Skyliner vers EPCOT/Hollywood Studios, piscines thématiques par décennie, food court, transport rapide, prix abordable.", en: "VALUE CATEGORY - Nostalgic hotel celebrating American pop culture from 1950s-1990s decades. Giant colorful icons (yo-yo, phones, etc.). Renovated rooms with modern furnishings. Benefits: Early Theme Park Entry, Skyliner to EPCOT/Hollywood Studios, decade-themed pools, food court, rapid transportation, affordable pricing." },
+            "Disney's Port Orleans Resort - French Quarter": { fr: "CATÉGORIE MODERATE - Hôtel au charme intime du Vieux Carré français de La Nouvelle-Orléans. Architecture créole, cours paisibles, ambiance jazz. Plus petit et romantique des resorts modérés. Avantages : Early Theme Park Entry, transport en bateau vers Disney Springs, piscines avec toboggan dragon, restaurants cajuns, bars, atmosphère authentique.", en: "MODERATE CATEGORY - Hotel with intimate French Quarter New Orleans charm. Creole architecture, peaceful courtyards, jazz atmosphere. Smallest and most romantic of moderate resorts. Benefits: Early Theme Park Entry, boat transportation to Disney Springs, pools with dragon slide, Cajun restaurants, bars, authentic atmosphere." },
+            "Disney's Port Orleans Resort - Riverside": { fr: "CATÉGORIE MODERATE - Grand complexe au thème du Sud américain avec sections plantation et bayou. Architecture antebellum, jardins luxuriants, rivière Sassagoula. Chambres Royal Guest rooms dans Alligator Bayou. Avantages : Early Theme Park Entry, transport en bateau vers Disney Springs, piscines avec aire de jeux, restaurants du Sud, location de vélos, pêche.", en: "MODERATE CATEGORY - Large resort with American South theme featuring plantation and bayou sections. Antebellum architecture, lush gardens, Sassagoula River. Royal Guest rooms in Alligator Bayou. Benefits: Early Theme Park Entry, boat transportation to Disney Springs, pools with play area, Southern restaurants, bike rentals, fishing." },
+            "Disney's Saratoga Springs Resort & Spa": { fr: "CATÉGORIE DELUXE VILLA - Villas Disney Vacation Club inspirées des sources thermales victorieuses de Saratoga Springs, NY. Architecture victorienne élégante, terrains de golf, lac. Villas spacieuses avec cuisinettes. Avantages : Early Theme Park Entry, transport en bateau vers Disney Springs, spa Senses, golf, piscines paisibles, restaurants, villas très spacieuses.", en: "DELUXE VILLA CATEGORY - Disney Vacation Club villas inspired by Victorian Saratoga Springs, NY hot springs. Elegant Victorian architecture, golf course, lake. Spacious villas with kitchenettes. Benefits: Early Theme Park Entry, boat transportation to Disney Springs, Senses Spa, golf, peaceful pools, restaurants, very spacious villas." },
+            "Disney's Wilderness Lodge": { fr: "CATÉGORIE DELUXE - Lodge rustique inspiré des parcs nationaux américains avec architecture de rondins monumentale. Hall impressionnant avec cheminée géante, geyser artificiel. Ambiance nature authentique. Avantages : Early Theme Park Entry, transport en bateau vers Magic Kingdom, piscines avec sources chaudes, restaurants signature, spa, programmes nature.", en: "DELUXE CATEGORY - Rustic lodge inspired by American national parks with monumental log architecture. Impressive lobby with giant fireplace, artificial geyser. Authentic nature atmosphere. Benefits: Early Theme Park Entry, boat transportation to Magic Kingdom, pools with hot springs, signature restaurants, spa, nature programs." },
+            "Disney's Yacht Club Resort": { fr: "CATÉGORIE DELUXE - Hôtel nautique élégant inspiré des yacht clubs de Nouvelle-Angleterre des années 1880. Architecture bleu et blanc sophistiquée, ambiance maritime de luxe. Avantages : Early Theme Park Entry, accès à pied à EPCOT et Hollywood Studios, Stormalong Bay (partagée avec Beach Club), restaurants signature, spa, plage, transport en bateau.", en: "DELUXE CATEGORY - Elegant nautical hotel inspired by 1880s New England yacht clubs. Sophisticated blue and white architecture, luxury maritime atmosphere. Benefits: Early Theme Park Entry, walking distance to EPCOT and Hollywood Studios, Stormalong Bay (shared with Beach Club), signature restaurants, spa, beach, boat transportation." },
+            "Disney's Riviera Resort": { fr: "CATÉGORIE DELUXE VILLA - Nouveau complexe Disney Vacation Club (2019) au thème de la Riviera européenne avec art Disney. Architecture méditerranéenne élégante, terrasse sur le toit. Villas modernes avec cuisinettes. Avantages : Early Theme Park Entry, Skyliner vers EPCOT/Hollywood Studios, restaurants raffinés dont rooftop, piscines avec toboggan, art Disney exclusif, villas contemporaines.", en: "DELUXE VILLA CATEGORY - New Disney Vacation Club resort (2019) with European Riviera theme featuring Disney art. Elegant Mediterranean architecture, rooftop terrace. Modern villas with kitchenettes. Benefits: Early Theme Park Entry, Skyliner to EPCOT/Hollywood Studios, refined restaurants including rooftop, pools with slide, exclusive Disney art, contemporary villas." },
+            "The Cabins at Disney's Fort Wilderness Resort": { fr: "CATÉGORIE MODERATE - Cabines rustiques dans une forêt de 750 acres pour une expérience de camping de luxe. Cabines avec cuisinettes complètes, terrasses avec barbecue. Ambiance nature authentique avec cerfs et lapins. Avantages : Early Theme Park Entry, transport en bateau vers Magic Kingdom, activités de plein air, feux de camp avec guimauves, piscines, location de vélos et voiturettes de golf.", en: "MODERATE CATEGORY - Rustic cabins in 750-acre forest for luxury camping experience. Cabins with full kitchenettes, decks with grills. Authentic nature atmosphere with deer and rabbits. Benefits: Early Theme Park Entry, boat transportation to Magic Kingdom, outdoor activities, campfires with marshmallows, pools, bike and golf cart rentals." },
+            "The Cabins at Disney's Fort Wilderness Resort – A Disney Vacation Club Resort": { fr: "CATÉGORIE DELUXE VILLA - Cabines Disney Vacation Club rénovées dans la forêt de Fort Wilderness. Cabines spacieuses avec cuisinettes complètes, terrasses dans la nature. Expérience unique de 'glamping' Disney. Avantages : Early Theme Park Entry, transport en bateau vers Magic Kingdom, activités nature, feux de camp Disney, piscines, vie sauvage, location d'équipements de plein air.", en: "DELUXE VILLA CATEGORY - Renovated Disney Vacation Club cabins in Fort Wilderness forest. Spacious cabins with full kitchenettes, nature decks. Unique Disney 'glamping' experience. Benefits: Early Theme Park Entry, boat transportation to Magic Kingdom, nature activities, Disney campfires, pools, wildlife, outdoor equipment rentals." },
+            "Les terrains de camping au Disney's Fort Wilderness Resort": { fr: "CATÉGORIE MODERATE - Terrains de camping dans une forêt de 750 acres pour VR, roulottes et tentes. Sites avec hookups complets, certains en bord de lac. Expérience camping authentique avec commodités Disney. Avantages : Early Theme Park Entry, transport en bateau vers Magic Kingdom, activités familiales, feux de camp avec personnages Disney, piscines, location d'équipements, magasins général.", en: "MODERATE CATEGORY - Campgrounds in 750-acre forest for RVs, trailers and tents. Sites with full hookups, some lakefront. Authentic camping experience with Disney amenities. Benefits: Early Theme Park Entry, boat transportation to Magic Kingdom, family activities, campfires with Disney characters, pools, equipment rentals, general store." },
+            "Les villas au Disney's Grand Floridian Resort & Spa": { fr: "CATÉGORIE DELUXE VILLA - Villas Disney Vacation Club dans le plus prestigieux hôtel Disney avec élégance victorienne. Villas luxueuses avec cuisinettes, certaines avec vue sur Magic Kingdom. Service exceptionnel. Avantages : Early Theme Park Entry, monorail vers Magic Kingdom, restaurants gastronomiques, spa Senses complet, plage privée, service de conciergerie, mariage Disney.", en: "DELUXE VILLA CATEGORY - Disney Vacation Club villas in Disney's most prestigious hotel with Victorian elegance. Luxurious villas with kitchenettes, some with Magic Kingdom views. Exceptional service. Benefits: Early Theme Park Entry, monorail to Magic Kingdom, gourmet restaurants, full Senses Spa, private beach, concierge service, Disney weddings." }
+        };
+
+        let compteurHotels = 0;
+
+        document.getElementById('avionInclus').addEventListener('change', function() {
+            const avionSection = document.getElementById('avionSection');
+            avionSection.style.display = this.checked ? 'block' : 'none';
+        });
+
+        document.getElementById('billetSeulement').addEventListener('change', function() {
+            const hotelSection = document.getElementById('hotelSection');
+            hotelSection.style.display = this.checked ? 'none' : 'block';
+            if(this.checked) { 
+                document.getElementById('hotelOptions').innerHTML = '';
+                compteurHotels = 0; 
+            } else {
+                if (document.getElementById('hotelOptions').childElementCount === 0) ajouterHotel();
+            }
+        });
+
+        function ajouterHotel() {
+            compteurHotels++; // This counter might become inaccurate if hotels are removed and added, consider using child count or unique IDs.
+            const hotelDiv = document.createElement('div');
+            hotelDiv.className = 'hotel-option';
+            const uniqueId = `hotel_option_${Date.now()}_${compteurHotels}`; // More robust ID for removal
+            hotelDiv.id = uniqueId;
+            
+            const hotelNumber = document.getElementById('hotelOptions').childElementCount + 1;
+
+
+            hotelDiv.innerHTML = `
+                <button type="button" class="remove-hotel-btn" onclick="supprimerHotel('${uniqueId}')">Supprimer</button>
+                <h4>Hôtel Option ${hotelNumber}</h4>
+                <div class="form-group">
+                    <label for="hotelSelect${uniqueId}">Sélectionner l'hôtel :</label>
+                    <select id="hotelSelect${uniqueId}">
+                        <option value="">-- Choisir un hôtel --</option>
+                        ${hotelsList.map(hotel => `<option value="${hotel}">${hotel}</option>`).join('')}
+                    </select>
+                </div>
+            `;
+            
+            document.getElementById('hotelOptions').appendChild(hotelDiv);
+        }
+
+        function supprimerHotel(id) {
+            const hotelDiv = document.getElementById(id);
+            if (hotelDiv) {
+                hotelDiv.remove();
+                // Re-number remaining hotel headers
+                const hotelOptionsContainer = document.getElementById('hotelOptions');
+                const remainingHotels = hotelOptionsContainer.getElementsByClassName('hotel-option');
+                for (let i = 0; i < remainingHotels.length; i++) {
+                    remainingHotels[i].querySelector('h4').textContent = `Hôtel Option ${i + 1}`;
+                }
+            }
+        }
+        
+        function formaterDescriptionHotel(description, langue) {
+            if (!description) return "";
+            let formattedDescription = "";
+            const categorieKey = langue === 'fr' ? "CATÉGORIE" : "CATEGORY";
+            const avantagesKey = langue === 'fr' ? "Avantages :" : "Benefits:";
+            const categorieMatch = description.match(new RegExp(`^(${categorieKey}[^-]+?) - `, "i"));
+            let restDescription = description;
+
+            if (categorieMatch && categorieMatch[1]) {
+                formattedDescription += `*${categorieMatch[1].trim()}*\n`;
+                restDescription = description.substring(categorieMatch[0].length); 
+            }
+
+            const avantagesIndex = restDescription.toLowerCase().indexOf(avantagesKey.toLowerCase());
+            if (avantagesIndex !== -1) {
+                const mainDesc = restDescription.substring(0, avantagesIndex).trim();
+                const originalAvantagesKey = restDescription.substring(avantagesIndex, avantagesIndex + avantagesKey.length);
+                const avantagesText = restDescription.substring(avantagesIndex + avantagesKey.length).trim();
+
+                if (mainDesc) formattedDescription += `${mainDesc}\n\n`; else formattedDescription += '\n';
+                formattedDescription += `**${originalAvantagesKey}**\n`; 
+                const avantagesList = avantagesText.split(/,\s*(?![^()]*\))/); 
+                avantagesList.forEach(avantage => {
+                    if (avantage.trim()) {
+                       formattedDescription += `  - ${avantage.trim()}\n`;
+                    }
+                });
+            } else {
+                 if (restDescription.trim()) formattedDescription += `${restDescription.trim()}\n`;
+            }
+            return formattedDescription;
+        }
+
+        function obtenirDescriptionHotel(nomHotel, langue) {
+            if (hotelDescriptions[nomHotel] && hotelDescriptions[nomHotel][langue]) {
+                return hotelDescriptions[nomHotel][langue];
+            }
+            if (langue === 'fr') {
+                return "CATÉGORIE NON SPÉCIFIÉE - Un magnifique hôtel Disney offrant le confort et la magie Disney dans un cadre enchanteur. Avantages : Early Theme Park Entry.";
+            } else {
+                return "CATEGORY UNSPECIFIED - A beautiful Disney hotel offering comfort and Disney magic in an enchanting setting. Benefits: Early Theme Park Entry.";
+            }
+        }
+
+        function genererCourriel() {
+            const langue = document.getElementById('langue').value;
+            const nomClient = document.getElementById('nomClient').value;
+            const nbAdultes = document.getElementById('nbAdultes').value;
+            const nbEnfants = document.getElementById('nbEnfants').value;
+            const billetSeulement = document.getElementById('billetSeulement').checked;
+            const avionInclus = document.getElementById('avionInclus').checked;
+            const promotion = document.getElementById('promotion').value;
+            const promotionDateFin = document.getElementById('promotionDateFin').checked;
+
+            let courriel = ''; 
+
+            // 1. Présentation
+            if (langue === 'fr') {
+                courriel += `Bonjour ${nomClient || '[Nom du client]'},\n\nJ'espère que vous allez bien.\n\n`;
+                courriel += `C'est avec grand plaisir que je, Pierre-Luc Morin, votre conseiller en voyages dédié chez Voyages en Route et spécialiste des destinations Disney et Universal, vous accompagne dans la création d'un voyage absolument magique !\n\n`;
+            } else {
+                courriel += `Hello ${nomClient || '[Client Name]'},\n\nI hope this email finds you well.\n\n`;
+                courriel += `It is with great pleasure that I, Pierre-Luc Morin, your dedicated travel advisor at Voyages en Route and a specialist in Disney and Universal destinations, assist you in crafting an absolutely magical journey!\n\n`;
+            }
+
+            // 2. Votre voyage
+            const titreVoyage = langue === 'fr' ? "🏰 VOTRE SÉJOUR MAGIQUE CHEZ DISNEY" : "🏰 YOUR MAGICAL DISNEY STAY";
+            courriel += `${titreVoyage}\n\n`;
+
+            if (billetSeulement) {
+                if (langue === 'fr') {
+                    courriel += `Voici les informations pour vos billets Disney seulement. Vous trouverez la soumission détaillée en pièce jointe. Notez que tous les prix sont en dollars américains (USD).\n\n`;
+                } else {
+                    courriel += `Here is the information for your Disney tickets only. You will find the detailed quote attached. Please note that all prices are in US dollars (USD).\n\n`;
+                }
+            } else {
+                const hotelsSelectionnésElements = document.querySelectorAll('#hotelOptions .hotel-option select');
+                const hotelsSelectionnés = [];
+                hotelsSelectionnésElements.forEach(selectElement => {
+                    if (selectElement.value) {
+                        hotelsSelectionnés.push(selectElement.value);
+                    }
+                });
+
+
+                if (hotelsSelectionnés.length > 0) {
+                     const introHotels = langue === 'fr' ? 
+                        `Voici quelques magnifiques options d'hôtels que j'ai sélectionnées spécialement pour vous, chacune offrant une expérience Disney unique (soumissions en pièce jointe) :\n\n` :
+                        `Here are a few wonderful hotel options I've handpicked for you, each offering a unique Disney experience (quotes attached):\n\n`;
+                    courriel += introHotels;
+
+                    if (langue === 'fr') {
+                        if (hotelsSelectionnés.length === 1) {
+                            courriel += `VOTRE HÔTEL DE RÊVE : ${hotelsSelectionnés[0]}\n\n`;
+                            const descHotel = obtenirDescriptionHotel(hotelsSelectionnés[0], 'fr');
+                            courriel += formaterDescriptionHotel(descHotel, 'fr') + '\n';
+                        } else {
+                            hotelsSelectionnés.forEach((hotel, index) => {
+                                courriel += `OPTION D'HÉBERGEMENT ${index + 1} : ${hotel}\n\n`;
+                                const descHotel = obtenirDescriptionHotel(hotel, 'fr');
+                                courriel += formaterDescriptionHotel(descHotel, 'fr') + '\n';
+                            });
+                        }
+                        courriel += `Chaque option est conçue pour vous plonger au cœur de la féérie Disney.\n\n`;
+                    } else { // English
+                        if (hotelsSelectionnés.length === 1) {
+                            courriel += `YOUR DREAM HOTEL: ${hotelsSelectionnés[0]}\n\n`;
+                            const descHotel = obtenirDescriptionHotel(hotelsSelectionnés[0], 'en');
+                            courriel += formaterDescriptionHotel(descHotel, 'en') + '\n';
+                        } else {
+                            hotelsSelectionnés.forEach((hotel, index) => {
+                                courriel += `ACCOMMODATION OPTION ${index + 1}: ${hotel}\n\n`;
+                                const descHotel = obtenirDescriptionHotel(hotel, 'en');
+                                courriel += formaterDescriptionHotel(descHotel, 'en') + '\n';
+                            });
+                        }
+                        courriel += `Each option is designed to immerse you in the heart of Disney magic.\n\n`;
+                    }
+                } else {
+                     if (langue === 'fr') courriel += "Aucun hôtel n'a été sélectionné pour le moment. N'hésitez pas à me faire part de vos préférences !\n\n";
+                     else courriel += "No hotel has been selected yet. Feel free to let me know your preferences!\n\n";
+                }
+                if (langue === 'fr') {
+                    courriel += `Veuillez noter que tous les prix pour l'hébergement et les billets Disney sont indiqués en dollars américains (USD) et sont sujets à disponibilité.\n\n`;
+                } else {
+                    courriel += `Please note that all prices for accommodation and Disney tickets are quoted in US dollars (USD) and are subject to availability.\n\n`;
+                }
+            }
+
+            // 3. Avion
+            if (avionInclus) {
+                const dateAller = document.getElementById('dateAller').value;
+                const aeroportDepart = document.getElementById('aeroportDepart').value;
+                const dateRetour = document.getElementById('dateRetour').value;
+                const aeroportRetour = document.getElementById('aeroportRetour').value;
+                const prixAvion = document.getElementById('prixAvion').value;
+                const totalPersonnes = parseInt(nbAdultes) + parseInt(nbEnfants);
+
+                const introAvion = langue === 'fr' ? 
+                    `Pour compléter votre voyage vers la magie, voici les détails concernant le transport aérien que nous avons exploré :\n\n` :
+                    `To complete your journey to the magic, here are the details regarding the air transportation we explored:\n\n`;
+
+                if (langue === 'fr') {
+                    courriel += `✈️ VOTRE ENVOL VERS L'AVENTURE\n\n${introAvion}`;
+                    courriel += `Aller : ${dateAller ? new Date(dateAller).toLocaleString('fr-CA', {dateStyle:'long', timeStyle:'short'}) : '[Date/heure de départ à confirmer]'}\n`;
+                    courriel += `De : ${aeroportDepart || '[Aéroport de départ à préciser]'}\n`;
+                    courriel += `Vers : ${aeroportRetour || '[Aéroport de destination à préciser]'}\n\n`;
+                    courriel += `Retour : ${dateRetour ? new Date(dateRetour).toLocaleString('fr-CA', {dateStyle:'long', timeStyle:'short'}) : '[Date/heure de retour à confirmer]'}\n`;
+                    courriel += `De : ${aeroportRetour || '[Aéroport de destination à préciser]'}\n`;
+                    courriel += `Vers : ${aeroportDepart || '[Aéroport de départ à préciser]'}\n\n`;
+                    courriel += `Nombre de passagers : ${totalPersonnes} (${nbAdultes} adulte${nbAdultes > 1 ? 's' : ''}${nbEnfants > 0 ? `, ${nbEnfants} enfant${nbEnfants > 1 ? 's' : ''}` : ''})\n`;
+                    courriel += `Prix total approximatif des vols : ${prixAvion || '[Prix à confirmer]'} CAD\n\n`;
+                    courriel += `IMPORTANT : Les tarifs aériens sont dynamiques et peuvent changer jusqu'à la réservation. Des frais de service de 50$ CAD par personne s'appliquent pour la réservation des vols via nos services. En me confiant vos vols, je m'occupe de tout désagrément potentiel. Si vous optez pour une réservation personnelle, ces frais ne s'appliquent pas, mais le support en cas de problème avec les vols ne sera pas inclus pour cette portion.\n\n`;
+                } else {
+                    courriel += `✈️ YOUR FLIGHT TO ADVENTURE\n\n${introAvion}`;
+                    courriel += `Departure: ${dateAller ? new Date(dateAller).toLocaleString('en-CA', {dateStyle:'long', timeStyle:'short'}) : '[Departure date/time to be confirmed]'}\n`;
+                    courriel += `From: ${aeroportDepart || '[Departure airport to be specified]'}\n`;
+                    courriel += `To: ${aeroportRetour || '[Destination airport to be specified]'}\n\n`;
+                    courriel += `Return: ${dateRetour ? new Date(dateRetour).toLocaleString('en-CA', {dateStyle:'long', timeStyle:'short'}) : '[Return date/time to be confirmed]'}\n`;
+                    courriel += `From: ${aeroportRetour || '[Destination airport to be specified]'}\n`;
+                    courriel += `To: ${aeroportDepart || '[Departure airport to be specified]'}\n\n`;
+                    courriel += `Number of passengers: ${totalPersonnes} (${nbAdultes} adult${nbAdultes > 1 ? 's' : ''}${nbEnfants > 0 ? `, ${nbEnfants} child${nbEnfants > 1 ? 'ren' : ''}` : ''})\n`;
+                    courriel += `Approximate total flight price: ${prixAvion || '[Price to be confirmed]'} CAD\n\n`; 
+                    courriel += `IMPORTANT: Airfares are dynamic and subject to change until booked. A service fee of $50 CAD per person applies for flight bookings through our services. By entrusting me with your flights, I will handle any potential issues. If you choose to book them personally, this fee does not apply, but support for flight-related issues will not be included for that portion.\n\n`;
+                }
+            }
+
+            // 4. Promotion
+            if (promotion.trim()) {
+                if (langue === 'fr') {
+                    courriel += `🎁 UNE TOUCHE DE MAGIE SUPPLÉMENTAIRE : PROMOTION SPÉCIALE !\n\n`;
+                    courriel += `Excellente nouvelle ! J'ai le plaisir de vous informer que la promotion "${promotion}" peut être appliquée à votre réservation, ajoutant encore plus de valeur à votre séjour magique !`;
+                    if (promotionDateFin) {
+                        courriel += ` Cette offre est d'une durée limitée, il est donc judicieux de réserver rapidement pour enchanter votre voyage sans tarder.\n\n`;
+                    } else {
+                        courriel += ` La date de fin de cette promotion n'est pas encore connue, mais les meilleures offres partent vite !\n\n`;
+                    }
+                } else {
+                    courriel += `🎁 AN EXTRA TOUCH OF MAGIC: SPECIAL PROMOTION!\n\n`;
+                    courriel += `Excellent news! I'm thrilled to let you know that the "${promotion}" promotion can be applied to your booking, adding even more value to your magical stay!`;
+                    if (promotionDateFin) {
+                        courriel += ` This offer is for a limited time, so it's wise to book quickly to enchant your trip without delay.\n\n`;
+                    } else {
+                        courriel += ` The end date for this promotion is not yet known, but the best offers go quickly!\n\n`;
+                    }
+                }
+            } else {
+                if (langue === 'fr') {
+                    courriel += `🌟 RÉSERVATION ET OPTIMISATION DE VOTRE SÉJOUR\n\n`;
+                    courriel += `Pour garantir votre place au cœur de la magie, un dépôt de seulement 200 USD est requis. Soyez assuré que je veillerai personnellement à appliquer toute nouvelle promotion applicable d'ici votre départ pour optimiser la valeur de votre voyage. Ce dépôt est entièrement remboursable jusqu'à 30 jours avant votre arrivée, vous offrant une flexibilité totale pour planifier en toute sérénité.\n\n`;
+                } else {
+                    courriel += `🌟 BOOKING AND OPTIMIZING YOUR STAY\n\n`;
+                    courriel += `To secure your spot in the heart of the magic, a deposit of only 200 USD is required. Rest assured, I will personally ensure any new applicable promotions are applied before your departure to maximize the value of your trip. This deposit is fully refundable up to 30 days before your check-in, offering you complete flexibility to plan with peace of mind.\n\n`;
+                }
+            }
+
+            // 5. La suite
+            if (langue === 'fr') {
+                courriel += `✨ LA MAGIE CONTINUE...\n\n`;
+                courriel += `Prenez le temps de rêver à ces options et de considérer ce qui ferait de ce voyage une expérience véritablement inoubliable. Je suis à votre entière disposition pour répondre à toutes vos questions, affiner chaque détail ou procéder à la réservation de cette escapade féérique.\n\nN'hésitez pas à me joindre par courriel (en répondant simplement à celui-ci) ou par téléphone au 819-347-9103.\n\n`;
+                courriel += `Merci encore pour votre confiance. J'ai sincèrement hâte de transformer ce rêve Disney en une magnifique réalité pour vous !\n\n`;
+                courriel += `Chaleureusement,\n\n`;
+                courriel += `Pierre-Luc Morin\nConseiller en voyages | Spécialiste Disney & Universal\nVoyages en Route\nVotre créateur de souvenirs magiques`;
+            } else {
+                courriel += `✨ THE MAGIC CONTINUES...\n\n`;
+                courriel += `Take your time to dream about these options and consider what would make this trip a truly unforgettable experience. I am at your complete disposal to answer any questions, refine every detail, or proceed with booking this enchanting getaway.\n\nPlease feel free to reach me by email (by simply replying to this one) or by phone at 819-347-9103.\n\n`;
+                courriel += `Thank you again for your trust. I genuinely look forward to turning this Disney dream into a wonderful reality for you!\n\n`;
+                courriel += `Warmly,\n\n`;
+                courriel += `Pierre-Luc Morin\nTravel Advisor | Disney & Universal Specialist\nVoyages en Route\nYour Magical Memory Maker`;
+            }
+
+            const preview = document.getElementById('emailPreview');
+            let styledCourriel = courriel; 
+
+            function escapeRegExpLocal(string) {
+                return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            }
+
+            const mainTitles = [
+                "🏰 VOTRE SÉJOUR MAGIQUE CHEZ DISNEY", "🏰 YOUR MAGICAL DISNEY STAY",
+                "✈️ VOTRE ENVOL VERS L'AVENTURE", "✈️ YOUR FLIGHT TO ADVENTURE",
+                "🎁 UNE TOUCHE DE MAGIE SUPPLÉMENTAIRE : PROMOTION SPÉCIALE !", "🎁 AN EXTRA TOUCH OF MAGIC: SPECIAL PROMOTION!",
+                "🌟 RÉSERVATION ET OPTIMISATION DE VOTRE SÉJOUR", "🌟 BOOKING AND OPTIMIZING YOUR STAY",
+                "✨ LA MAGIE CONTINUE...", "✨ THE MAGIC CONTINUES..."
+            ];
+            
+            mainTitles.forEach(title => {
+                const titleRegex = new RegExp(`^(${escapeRegExpLocal(title)})$`, "gm");
+                styledCourriel = styledCourriel.replace(titleRegex, (match) => {
+                    let hr = '<hr style="border:0; border-top: 1px solid #eee; margin: 30px 0 20px 0;">';
+                     // Don't add HR if the title is the very first one after the greeting block
+                    if (styledCourriel.toLowerCase().indexOf(match.toLowerCase()) < (courriel.indexOf('\n\n') + 150) && (match.startsWith("🏰") || match.startsWith("✈️"))) {
+                         // A bit of heuristic: if it's the first major section title
+                         hr = ''; // No HR for the very first section title
+                    }
+                    return `${hr}<div class="email-title">${match}</div>`;
+                });
+            });
+            
+            const hotelNameLineRegexFr = /^(VOTRE HÔTEL DE RÊVE : .*|OPTION D'HÉBERGEMENT \d+ : .*)$/gm;
+            styledCourriel = styledCourriel.replace(hotelNameLineRegexFr, '<div style="font-weight: bold; color: #1a2533; margin-top: 18px; margin-bottom: 8px; font-size: 1.15em;">$1</div>');
+            const hotelNameLineRegexEn = /^(YOUR DREAM HOTEL: .*|ACCOMMODATION OPTION \d+: .*)$/gm;
+            styledCourriel = styledCourriel.replace(hotelNameLineRegexEn, '<div style="font-weight: bold; color: #1a2533; margin-top: 18px; margin-bottom: 8px; font-size: 1.15em;">$1</div>');
+            
+            styledCourriel = styledCourriel.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'); 
+            styledCourriel = styledCourriel.replace(/\*(.*?)\*/g, '<em>$1</em>');    
+            
+            // Style "IMPORTANT:" notes for preview
+            styledCourriel = styledCourriel.replace(/^(IMPORTANT\s?:[\s\S]*?)(?=\n\n|\n[A-Z\s✨🏰✈️🎁🌟]+?:|$)/gim, (match) => {
+                 // Ensure the match doesn't spill into the next major section title
+                return `<div style="border: 1px solid #e67e22; background-color: #fff9f0; padding: 12px; margin: 15px 0; border-radius: 8px; font-size: 0.98em; line-height: 1.5;">${match.trim()}</div>`;
+            });
+
+
+            preview.innerHTML = styledCourriel;
+        }
+
+        function copierCourriel() {
+            const preview = document.getElementById('emailPreview');
+            const texte = preview.innerText || preview.textContent; 
+            
+            navigator.clipboard.writeText(texte).then(function() {
+                const btn = document.querySelector('.copy-btn');
+                const originalText = btn.textContent;
+                const lang = document.getElementById('langue').value;
+                btn.textContent = lang === 'fr' ? '✅ Copié avec succès !' : '✅ Copied successfully!';
+                btn.style.background = 'linear-gradient(135deg, #2ecc71, #27ae60)'; 
+                
+                setTimeout(function() {
+                    btn.textContent = originalText;
+                    btn.style.background = 'linear-gradient(135deg, #27ae60, #2ecc71)';
+                }, 2500);
+            }).catch(function(err) {
+                console.error('Erreur lors de la copie: ', err);
+                const lang = document.getElementById('langue').value;
+                alert(lang === 'fr' ? 'Erreur lors de la copie. Veuillez sélectionner le texte manuellement.' : 'Error copying. Please select the text manually.');
+            });
+        }
+
+        window.onload = function() {
+            if (!document.getElementById('billetSeulement').checked && document.getElementById('hotelOptions').childElementCount === 0) {
+                 ajouterHotel(); 
+            }
+        };
+    </script>
+</body>
+</html>
