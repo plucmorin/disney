@@ -5,222 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Générateur de courriels Disney - Voyages en Route</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #2c3e50, #3498db);
-            color: white;
-            padding: 30px;
-            text-align: center;
-        }
-
-        .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            padding: 30px;
-        }
-
-        .form-section {
-            background: #f8f9fa;
-            padding: 25px;
-            border-radius: 10px;
-            border-left: 4px solid #3498db;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #2c3e50;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 14px;
-            transition: border-color 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #3498db;
-            box-shadow: 0 0 8px rgba(52, 152, 219, 0.2);
-        }
-
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .checkbox-group input[type="checkbox"] {
-            width: auto;
-        }
-
-        .btn {
-            width: 100%;
+        /* Styles for the generator page itself (unchanged from your previous version) */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); overflow: hidden; }
+        .header { background: linear-gradient(135deg, #2c3e50, #3498db); color: white; padding: 30px; text-align: center; }
+        .header h1 { font-size: 2.5em; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .content { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; padding: 30px; }
+        .form-section { background: #f8f9fa; padding: 25px; border-radius: 10px; border-left: 4px solid #3498db; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #2c3e50; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 14px; transition: border-color 0.3s ease; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: #3498db; box-shadow: 0 0 8px rgba(52, 152, 219, 0.2); }
+        .checkbox-group { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; }
+        .checkbox-group input[type="checkbox"] { width: auto; }
+        .btn { width: 100%; padding: 15px; background: linear-gradient(135deg, #3498db, #2980b9); color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(52, 152, 219, 0.3); }
+        
+        .output-section { background: #ffffff; border: 2px solid #e0e0e0; border-radius: 10px; padding: 25px; max-height: 800px; overflow-y: auto; }
+        .output-section h2 { color: #2c3e50; margin-bottom: 20px; font-size: 1.6em; text-align: center; font-weight: 600; }
+        
+        /* Styles for the HTML code preview */
+        .email-code-preview {
+            font-family: 'Courier New', Courier, monospace; /* Monospace font for code */
+            font-size: 13px;
+            line-height: 1.5;
+            white-space: pre-wrap; /* Preserve whitespace and newlines */
+            word-wrap: break-word; /* Break long lines */
+            background-color: #f4f4f4; /* Light background for code block */
+            border: 1px solid #ccc;
             padding: 15px;
-            background: linear-gradient(135deg, #3498db, #2980b9);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border-radius: 5px;
+            color: #333;
+            max-height: 600px; /* Ensure it doesn't get too tall */
+            overflow: auto; /* Add scrollbars if content overflows */
+        }
+        .email-code-preview code {
+            font-family: inherit; /* Inherit from pre */
         }
 
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(52, 152, 219, 0.3);
-        }
-
-        .output-section {
-            background: #ffffff;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            padding: 25px;
-            max-height: 800px; 
-            overflow-y: auto;
-        }
-        .output-section h2 { 
-            color: #2c3e50;
-            margin-bottom: 20px; 
-            font-size: 1.6em; 
-            text-align: center;
-            font-weight: 600; 
-        }
-
-        .email-preview {
-            font-family: 'Aptos', 'Calibri', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            line-height: 1.65; 
-            white-space: pre-wrap; 
-            color: #333; 
-            font-size: 15px; 
-        }
-
-        .email-title { 
-            color: #0050A0; 
-            font-weight: bold;
-            text-transform: uppercase;
-            margin-top: 30px; 
-            margin-bottom: 18px; 
-            font-size: 1.3em; 
-            padding-bottom: 5px;
-            border-bottom: 1px solid #e0e0e0; 
-        }
-
-
-        .copy-btn {
-            margin-top: 20px; 
-            background: linear-gradient(135deg, #27ae60, #2ecc71);
-        }
-
-        .copy-btn:hover {
-            background: linear-gradient(135deg, #2ecc71, #27ae60); 
-            transform: translateY(-2px); 
-            box-shadow: 0 8px 20px rgba(39, 174, 96, 0.3); 
-        }
-
-        .hotel-option {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 15px;
-            background: white;
-            position: relative; /* For positioning the remove button */
-        }
-
-        .hotel-option h4 {
-            color: #2c3e50;
-            margin-bottom: 10px;
-            margin-right: 90px; /* Make space for the remove button */
-        }
-
-        .add-hotel-btn {
-            background: linear-gradient(135deg, #e67e22, #d35400); 
-            padding: 10px 20px;
-            margin-bottom: 15px;
-        }
-         .add-hotel-btn:hover {
-            background: linear-gradient(135deg, #d35400, #e67e22);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(230, 126, 34, 0.3);
-        }
-
-
-        .remove-hotel-btn { 
-            background: linear-gradient(135deg, #e74c3c, #c0392b) !important; 
-            color: white !important;
-            border: none !important;
-            padding: 8px 15px !important;
-            border-radius: 5px !important;
-            cursor: pointer !important;
-            transition: transform 0.2s ease, box-shadow 0.2s ease !important;
-            font-size: 0.9em; 
-            position: absolute; /* Position button within .hotel-option */
-            top: 15px; /* Adjust as needed */
-            right: 15px; /* Adjust as needed */
-        }
-        .remove-hotel-btn:hover {
-             transform: translateY(-2px) !important;
-             box-shadow: 0 6px 15px rgba(231, 76, 60, 0.3) !important;
-        }
-
+        .copy-btn { margin-top: 20px; background: linear-gradient(135deg, #27ae60, #2ecc71); }
+        .copy-btn:hover { background: linear-gradient(135deg, #2ecc71, #27ae60); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(39, 174, 96, 0.3); }
+        .hotel-option { border: 1px solid #ddd; border-radius: 8px; padding: 15px; margin-bottom: 15px; background: white; position: relative; }
+        .hotel-option h4 { color: #2c3e50; margin-bottom: 10px; margin-right: 90px; }
+        .add-hotel-btn { background: linear-gradient(135deg, #e67e22, #d35400); padding: 10px 20px; margin-bottom: 15px; }
+        .add-hotel-btn:hover { background: linear-gradient(135deg, #d35400, #e67e22); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(230, 126, 34, 0.3); }
+        .remove-hotel-btn { background: linear-gradient(135deg, #e74c3c, #c0392b) !important; color: white !important; border: none !important; padding: 8px 15px !important; border-radius: 5px !important; cursor: pointer !important; transition: transform 0.2s ease, box-shadow 0.2s ease !important; font-size: 0.9em; position: absolute; top: 15px; right: 15px; }
+        .remove-hotel-btn:hover { transform: translateY(-2px) !important; box-shadow: 0 6px 15px rgba(231, 76, 60, 0.3) !important; }
 
         @media (max-width: 768px) {
-            .content {
-                grid-template-columns: 1fr;
-            }
-            .hotel-option h4 {
-                margin-right: 0; /* Adjust for smaller screens if button wraps */
-            }
-            .remove-hotel-btn {
-                position: relative; /* Or static, depending on desired mobile layout */
-                float: none;
-                display: block; /* Make it full width or adjust as needed */
-                margin-top: 10px;
-                top: auto;
-                right: auto;
-            }
+            .content { grid-template-columns: 1fr; }
+            .hotel-option h4 { margin-right: 0; }
+            .remove-hotel-btn { position: relative; float: none; display: block; margin-top: 10px; top: auto; right: auto; }
         }
     </style>
 </head>
@@ -234,7 +70,7 @@
         <div class="content">
             <div class="form-section">
                 <h2>Informations du voyage</h2>
-                
+                {/* Form content remains the same as your previous version */}
                 <div class="form-group">
                     <label for="langue">Langue du courriel :</label>
                     <select id="langue">
@@ -242,37 +78,30 @@
                         <option value="en">English</option>
                     </select>
                 </div>
-
                 <div class="form-group">
                     <label for="nomClient">Nom du client :</label>
                     <input type="text" id="nomClient" placeholder="Nom complet du client">
                 </div>
-
                 <div class="form-group">
                     <label for="nbAdultes">Nombre d'adultes :</label>
                     <input type="number" id="nbAdultes" min="1" value="2">
                 </div>
-
                 <div class="form-group">
                     <label for="nbEnfants">Nombre d'enfants :</label>
                     <input type="number" id="nbEnfants" min="0" value="0">
                 </div>
-
                 <div class="checkbox-group">
                     <input type="checkbox" id="billetSeulement">
                     <label for="billetSeulement">Billets seulement (pas d'hôtel)</label>
                 </div>
-
                 <div id="hotelSection">
                     <button type="button" class="btn add-hotel-btn" onclick="ajouterHotel()">+ Ajouter un hôtel</button>
                     <div id="hotelOptions"></div>
                 </div>
-
                 <div class="checkbox-group">
                     <input type="checkbox" id="avionInclus">
                     <label for="avionInclus">Avion inclus</label>
                 </div>
-
                 <div id="avionSection" style="display: none;">
                     <div class="form-group">
                         <label for="dateAller">Date et heure de départ :</label>
@@ -295,36 +124,32 @@
                         <input type="number" id="prixAvion" placeholder="0">
                     </div>
                 </div>
-
                 <div class="form-group">
                     <label for="promotion">Promotion applicable :</label>
                     <input type="text" id="promotion" placeholder="Nom de la promotion ou laissez vide si aucune">
                 </div>
-
                 <div class="checkbox-group">
                     <input type="checkbox" id="promotionDateFin">
                     <label for="promotionDateFin">La promotion a une date de fin connue</label>
                 </div>
-
                 <button type="button" class="btn" onclick="genererCourriel()">Générer le courriel</button>
             </div>
 
             <div class="output-section">
-                <h2>Aperçu du courriel</h2>
-                <div id="emailPreview" class="email-preview">
-                    Le courriel généré apparaîtra ici...
+                <h2>Code HTML du Courriel</h2> {/* MODIFIED TITLE */}
+                <div id="emailPreviewContainer" class="email-code-preview"> {/* MODIFIED class for styling the code view */}
+                    <code>{/* Generated HTML code will appear here, escaped */}</code>
                 </div>
-                <button type="button" class="btn copy-btn" onclick="copierCourriel()">📋 Copier le courriel</button>
+                <button type="button" class="btn copy-btn" onclick="copierCourriel()">📋 Copier le Code HTML</button> {/* MODIFIED BUTTON TEXT */}
             </div>
         </div>
     </div>
 
     <script>
-        const hotelsList = [
-            "Bay Lake Tower at Disney's Contemporary Resort", "Boulder Ridge Villas at Disney's Wilderness Lodge", "Copper Creek Villas & Cabins à Disney's Wilderness Lodge", "Disney's All-Star Movies Resort", "Disney's All-Star Music Resort", "Disney's All-Star Sports Resort", "Disney's Animal Kingdom Lodge", "Disney's Animal Kingdom Villas - Jambo House", "Disney's Animal Kingdom Villas - Kidani Village", "Disney's Art of Animation Resort", "Disney's Beach Club Resort", "Disney's Beach Club Villas", "Disney's BoardWalk Inn", "Disney's BoardWalk Villas", "Disney's Caribbean Beach Resort", "Disney's Contemporary Resort", "Disney's Coronado Springs Resort", "Disney's Grand Floridian Resort & Spa", "Disney's Old Key West Resort", "Disney's Polynesian Village Resort", "Disney's Polynesian Villas & Bungalows", "Disney's Pop Century Resort", "Disney's Port Orleans Resort - French Quarter", "Disney's Port Orleans Resort - Riverside", "Disney's Saratoga Springs Resort & Spa", "Disney's Wilderness Lodge", "Disney's Yacht Club Resort", "Disney's Riviera Resort", "The Cabins at Disney's Fort Wilderness Resort", "The Cabins at Disney's Fort Wilderness Resort – A Disney Vacation Club Resort", "Les terrains de camping au Disney's Fort Wilderness Resort", "Les villas au Disney's Grand Floridian Resort & Spa"
+        const hotelsList = [ /* ... Same as before ... */ 
+             "Bay Lake Tower at Disney's Contemporary Resort", "Boulder Ridge Villas at Disney's Wilderness Lodge", "Copper Creek Villas & Cabins à Disney's Wilderness Lodge", "Disney's All-Star Movies Resort", "Disney's All-Star Music Resort", "Disney's All-Star Sports Resort", "Disney's Animal Kingdom Lodge", "Disney's Animal Kingdom Villas - Jambo House", "Disney's Animal Kingdom Villas - Kidani Village", "Disney's Art of Animation Resort", "Disney's Beach Club Resort", "Disney's Beach Club Villas", "Disney's BoardWalk Inn", "Disney's BoardWalk Villas", "Disney's Caribbean Beach Resort", "Disney's Contemporary Resort", "Disney's Coronado Springs Resort", "Disney's Grand Floridian Resort & Spa", "Disney's Old Key West Resort", "Disney's Polynesian Village Resort", "Disney's Polynesian Villas & Bungalows", "Disney's Pop Century Resort", "Disney's Port Orleans Resort - French Quarter", "Disney's Port Orleans Resort - Riverside", "Disney's Saratoga Springs Resort & Spa", "Disney's Wilderness Lodge", "Disney's Yacht Club Resort", "Disney's Riviera Resort", "The Cabins at Disney's Fort Wilderness Resort", "The Cabins at Disney's Fort Wilderness Resort – A Disney Vacation Club Resort", "Les terrains de camping au Disney's Fort Wilderness Resort", "Les villas au Disney's Grand Floridian Resort & Spa"
         ];
-
-        const hotelDescriptions = {
+        const hotelDescriptions = { /* ... Same as before ... */ 
             "Bay Lake Tower at Disney's Contemporary Resort": { fr: "CATÉGORIE DELUXE VILLA - Complexe Disney Vacation Club moderne au thème contemporain/futuriste. Situé adjacent au Contemporary Resort avec accès monorail direct au Magic Kingdom. Villas spacieuses avec cuisinettes, vue sur Magic Kingdom ou Bay Lake. Avantages : Early Theme Park Entry, piscine avec toboggan, restaurants sur place, accès aux installations du Contemporary Resort.", en: "DELUXE VILLA CATEGORY - Modern Disney Vacation Club resort with contemporary/futuristic theme. Located adjacent to Contemporary Resort with direct monorail access to Magic Kingdom. Spacious villas with kitchenettes, Magic Kingdom or Bay Lake views. Benefits: Early Theme Park Entry, pool with slide, on-site restaurants, access to Contemporary Resort amenities." },
             "Boulder Ridge Villas at Disney's Wilderness Lodge": { fr: "CATÉGORIE DELUXE VILLA - Villas Disney Vacation Club au thème des parcs nationaux américains dans une ambiance de lodge rustique. Architecture inspirée du Old Faithful Inn. Villas avec cuisinettes, balcons donnant sur la forêt ou la cour. Avantages : Early Theme Park Entry, piscines thématiques, transport en bateau vers Magic Kingdom, restaurants signature.", en: "DELUXE VILLA CATEGORY - Disney Vacation Club villas with American national parks theme in rustic lodge atmosphere. Architecture inspired by Old Faithful Inn. Villas with kitchenettes, balconies overlooking forest or courtyard. Benefits: Early Theme Park Entry, themed pools, boat transportation to Magic Kingdom, signature restaurants." },
             "Copper Creek Villas & Cabins à Disney's Wilderness Lodge": { fr: "CATÉGORIE DELUXE VILLA - Villas et cabines Disney Vacation Club au thème des parcs nationaux dans un cadre de nature sauvage. Nouvelles villas avec cuisinettes complètes, cabines isolées en forêt. Ambiance rustique luxueuse. Avantages : Early Theme Park Entry, piscines avec toboggan, transport en bateau, spa Senses, restaurants gastronomiques.", en: "DELUXE VILLA CATEGORY - Disney Vacation Club villas and cabins with national parks theme in wilderness setting. New villas with full kitchenettes, secluded forest cabins. Luxurious rustic atmosphere. Benefits: Early Theme Park Entry, pools with slide, boat transportation, Senses Spa, gourmet restaurants." },
@@ -359,16 +184,14 @@
             "Les villas au Disney's Grand Floridian Resort & Spa": { fr: "CATÉGORIE DELUXE VILLA - Villas Disney Vacation Club dans le plus prestigieux hôtel Disney avec élégance victorienne. Villas luxueuses avec cuisinettes, certaines avec vue sur Magic Kingdom. Service exceptionnel. Avantages : Early Theme Park Entry, monorail vers Magic Kingdom, restaurants gastronomiques, spa Senses complet, plage privée, service de conciergerie, mariage Disney.", en: "DELUXE VILLA CATEGORY - Disney Vacation Club villas in Disney's most prestigious hotel with Victorian elegance. Luxurious villas with kitchenettes, some with Magic Kingdom views. Exceptional service. Benefits: Early Theme Park Entry, monorail to Magic Kingdom, gourmet restaurants, full Senses Spa, private beach, concierge service, Disney weddings." }
         };
 
-        let plainTextEmailForCopying = ''; // MODIFIED: Variable to hold the pure text email
+        let generatedHtmlEmail = ''; // MODIFIED: Variable to hold the generated HTML email code
 
         document.getElementById('avionInclus').addEventListener('change', function() {
-            const avionSection = document.getElementById('avionSection');
-            avionSection.style.display = this.checked ? 'block' : 'none';
+            document.getElementById('avionSection').style.display = this.checked ? 'block' : 'none';
         });
 
         document.getElementById('billetSeulement').addEventListener('change', function() {
-            const hotelSection = document.getElementById('hotelSection');
-            hotelSection.style.display = this.checked ? 'none' : 'block';
+            document.getElementById('hotelSection').style.display = this.checked ? 'none' : 'block';
             if(this.checked) { 
                 document.getElementById('hotelOptions').innerHTML = '';
             } else {
@@ -379,14 +202,9 @@
         function ajouterHotel() {
             const hotelDiv = document.createElement('div');
             hotelDiv.className = 'hotel-option';
-            // Using a more unique ID for the div itself, helpful for removal
             const uniqueDivId = `hotel_div_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`; 
             hotelDiv.id = uniqueDivId;
-            
-            // Numbering based on current count for display
             const hotelNumber = document.getElementById('hotelOptions').childElementCount + 1;
-
-            // Unique ID for the select element to associate its label properly if needed, and for robust selection.
             const selectId = `hotelSelect_${uniqueDivId}`;
 
             hotelDiv.innerHTML = `
@@ -394,7 +212,7 @@
                 <h4>Hôtel Option ${hotelNumber}</h4>
                 <div class="form-group">
                     <label for="${selectId}">Sélectionner l'hôtel :</label>
-                    <select id="${selectId}" class="hotel-select-dropdown"> {/* Added class for easier selection */}
+                    <select id="${selectId}" class="hotel-select-dropdown">
                         <option value="">-- Choisir un hôtel --</option>
                         ${hotelsList.map(hotel => `<option value="${hotel}">${hotel}</option>`).join('')}
                     </select>
@@ -407,7 +225,6 @@
             const hotelDiv = document.getElementById(id);
             if (hotelDiv) {
                 hotelDiv.remove();
-                // Re-number remaining hotel headers for visual consistency
                 const hotelOptionsContainer = document.getElementById('hotelOptions');
                 const remainingHotels = hotelOptionsContainer.getElementsByClassName('hotel-option');
                 for (let i = 0; i < remainingHotels.length; i++) {
@@ -416,40 +233,45 @@
             }
         }
         
-        function formaterDescriptionHotel(description, langue) {
+        // MODIFIED: This function now generates HTML for hotel descriptions
+        function formaterDescriptionHotelHTML(description, langue, styles) {
             if (!description) return "";
-            let formattedDescription = "";
+            let htmlOutput = "";
             const categorieKey = langue === 'fr' ? "CATÉGORIE" : "CATEGORY";
             const avantagesKey = langue === 'fr' ? "Avantages :" : "Benefits:";
+            
             const categorieMatch = description.match(new RegExp(`^(${categorieKey}[^-]+?) - `, "i"));
             let restDescription = description;
 
             if (categorieMatch && categorieMatch[1]) {
-                formattedDescription += `*${categorieMatch[1].trim()}*\n`;
+                htmlOutput += `<p style="${styles.p} ${styles.em}">${categorieMatch[1].trim()}</p>`;
                 restDescription = description.substring(categorieMatch[0].length); 
             }
 
             const avantagesIndex = restDescription.toLowerCase().indexOf(avantagesKey.toLowerCase());
             if (avantagesIndex !== -1) {
-                const mainDesc = restDescription.substring(0, avantagesIndex).trim();
+                const mainDescText = restDescription.substring(0, avantagesIndex).trim();
                 const originalAvantagesKey = restDescription.substring(avantagesIndex, avantagesIndex + avantagesKey.length);
                 const avantagesText = restDescription.substring(avantagesIndex + avantagesKey.length).trim();
 
-                if (mainDesc) formattedDescription += `${mainDesc}\n\n`; else formattedDescription += '\n';
-                formattedDescription += `**${originalAvantagesKey}**\n`; 
+                if (mainDescText) htmlOutput += `<p style="${styles.p}">${mainDescText.replace(/\n/g, "<br>")}</p>`;
+                htmlOutput += `<p style="${styles.p} ${styles.strong}">${originalAvantagesKey}</p>`;
+                htmlOutput += `<ul style="${styles.ul}">`;
                 const avantagesList = avantagesText.split(/,\s*(?![^()]*\))/); 
                 avantagesList.forEach(avantage => {
                     if (avantage.trim()) {
-                       formattedDescription += `  - ${avantage.trim()}\n`;
+                       htmlOutput += `<li style="${styles.li}">${avantage.trim()}</li>`;
                     }
                 });
+                htmlOutput += `</ul>`;
             } else {
-                 if (restDescription.trim()) formattedDescription += `${restDescription.trim()}\n`;
+                 if (restDescription.trim()) htmlOutput += `<p style="${styles.p}">${restDescription.replace(/\n/g, "<br>")}</p>`;
             }
-            return formattedDescription;
+            return htmlOutput;
         }
 
         function obtenirDescriptionHotel(nomHotel, langue) {
+            // ... (this function remains the same)
             if (hotelDescriptions[nomHotel] && hotelDescriptions[nomHotel][langue]) {
                 return hotelDescriptions[nomHotel][langue];
             }
@@ -459,10 +281,11 @@
                 return "CATEGORY UNSPECIFIED - A beautiful Disney hotel offering comfort and Disney magic in an enchanting setting. Benefits: Early Theme Park Entry.";
             }
         }
-
+        
+        // MODIFIED: This function now generates an HTML email string
         function genererCourriel() {
             const langue = document.getElementById('langue').value;
-            const nomClient = document.getElementById('nomClient').value;
+            const nomClient = document.getElementById('nomClient').value || (langue === 'fr' ? '[Nom du client]' : '[Client Name]');
             const nbAdultes = document.getElementById('nbAdultes').value;
             const nbEnfants = document.getElementById('nbEnfants').value;
             const billetSeulement = document.getElementById('billetSeulement').checked;
@@ -470,29 +293,50 @@
             const promotion = document.getElementById('promotion').value;
             const promotionDateFin = document.getElementById('promotionDateFin').checked;
 
-            let courriel = ''; 
+            // Inline styles object for consistency
+            const styles = {
+                body: "margin:0 !important; padding:0 !important; background-color:#f4f8fb; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%;",
+                wrapper: "width:100%; table-layout:fixed; background-color:#f4f8fb;",
+                mainTable: "background-color:#ffffff; margin:0 auto; width:100%; max-width:600px; border-spacing:0; font-family:Arial,sans-serif; color:#333333; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);",
+                headerCell: "padding:0;",
+                headerP: "text-align:center; margin:0; padding:25px 20px; background-color:#0050A0; color:white; font-size:26px; font-weight:bold; border-radius: 8px 8px 0 0;",
+                contentCell: "padding:25px 30px;",
+                footerCell: "background-color:#eef2f5; text-align:center; padding:20px; border-radius: 0 0 8px 8px;",
+                footerP: "margin:0; font-size:12px; color:#555555; line-height:1.5;",
+                p: "margin:0 0 1em 0; font-size:15px; line-height:1.65; color:#333333;",
+                h2: "font-size:20px; color:#0050A0; margin:25px 0 15px 0; padding-bottom:8px; border-bottom:1px solid #ddeeff; text-transform:uppercase; font-weight:bold;",
+                h3: "font-size:18px; color:#1a2533; margin:20px 0 10px 0; font-weight:bold;",
+                ul: "margin:0 0 1em 20px; padding:0; list-style-type:disc;",
+                li: "margin-bottom:6px; font-size:15px; line-height:1.65;",
+                em: "font-style:italic;",
+                strong: "font-weight:bold;",
+                importantNote: "border-left:4px solid #ff9900; background-color:#fffaf0; padding:12px 15px; margin:18px 0; border-radius:0 6px 6px 0; font-size:14px; line-height:1.55; color:#444444;"
+            };
+
+            let htmlContent = ""; // This will build the content inside the main table cell
 
             // 1. Présentation
             if (langue === 'fr') {
-                courriel += `Bonjour ${nomClient || '[Nom du client]'},\n\nJ'espère que vous allez bien.\n\n`;
-                courriel += `C'est avec grand plaisir que je, Pierre-Luc Morin, votre conseiller en voyages dédié chez Voyages en Route et spécialiste des destinations Disney et Universal, vous accompagne dans la création d'un voyage absolument magique !\n\n`;
+                htmlContent += `<p style="${styles.p}">Bonjour ${nomClient},</p>`;
+                htmlContent += `<p style="${styles.p}">J'espère que vous allez bien.</p>`;
+                htmlContent += `<p style="${styles.p}">C'est avec grand plaisir que je, Pierre-Luc Morin, votre conseiller en voyages dédié chez Voyages en Route et spécialiste des destinations Disney et Universal, vous accompagne dans la création d'un voyage absolument magique !</p>`;
             } else {
-                courriel += `Hello ${nomClient || '[Client Name]'},\n\nI hope this email finds you well.\n\n`;
-                courriel += `It is with great pleasure that I, Pierre-Luc Morin, your dedicated travel advisor at Voyages en Route and a specialist in Disney and Universal destinations, assist you in crafting an absolutely magical journey!\n\n`;
+                htmlContent += `<p style="${styles.p}">Hello ${nomClient},</p>`;
+                htmlContent += `<p style="${styles.p}">I hope this email finds you well.</p>`;
+                htmlContent += `<p style="${styles.p}">It is with great pleasure that I, Pierre-Luc Morin, your dedicated travel advisor at Voyages en Route and a specialist in Disney and Universal destinations, assist you in crafting an absolutely magical journey!</p>`;
             }
 
             // 2. Votre voyage
             const titreVoyage = langue === 'fr' ? "🏰 VOTRE SÉJOUR MAGIQUE CHEZ DISNEY" : "🏰 YOUR MAGICAL DISNEY STAY";
-            courriel += `${titreVoyage}\n\n`;
+            htmlContent += `<h2 style="${styles.h2}">${titreVoyage}</h2>`;
 
             if (billetSeulement) {
                 if (langue === 'fr') {
-                    courriel += `Voici les informations pour vos billets Disney seulement. Vous trouverez la soumission détaillée en pièce jointe. Notez que tous les prix sont en dollars américains (USD).\n\n`;
+                    htmlContent += `<p style="${styles.p}">Voici les informations pour vos billets Disney seulement. Vous trouverez la soumission détaillée en pièce jointe. Notez que tous les prix sont en dollars américains (USD).</p>`;
                 } else {
-                    courriel += `Here is the information for your Disney tickets only. You will find the detailed quote attached. Please note that all prices are in US dollars (USD).\n\n`;
+                    htmlContent += `<p style="${styles.p}">Here is the information for your Disney tickets only. You will find the detailed quote attached. Please note that all prices are in US dollars (USD).</p>`;
                 }
             } else {
-                // MODIFIED: Robust hotel selection
                 const hotelsSelectionnésElements = document.querySelectorAll('#hotelOptions .hotel-select-dropdown');
                 const hotelsSelectionnés = [];
                 hotelsSelectionnésElements.forEach(selectElement => {
@@ -502,47 +346,31 @@
                 });
 
                 if (hotelsSelectionnés.length > 0) {
-                     const introHotels = langue === 'fr' ? 
-                        `Voici quelques magnifiques options d'hôtels que j'ai sélectionnées spécialement pour vous, chacune offrant une expérience Disney unique (soumissions en pièce jointe) :\n\n` :
-                        `Here are a few wonderful hotel options I've handpicked for you, each offering a unique Disney experience (quotes attached):\n\n`;
-                    courriel += introHotels;
+                    const introHotels = langue === 'fr' ? 
+                       `<p style="${styles.p}">Voici quelques magnifiques options d'hôtels que j'ai sélectionnées spécialement pour vous, chacune offrant une expérience Disney unique (soumissions en pièce jointe) :</p>` :
+                       `<p style="${styles.p}">Here are a few wonderful hotel options I've handpicked for you, each offering a unique Disney experience (quotes attached):</p>`;
+                    htmlContent += introHotels;
 
-                    if (langue === 'fr') {
-                        if (hotelsSelectionnés.length === 1) {
-                            courriel += `VOTRE HÔTEL DE RÊVE : ${hotelsSelectionnés[0]}\n\n`;
-                            const descHotel = obtenirDescriptionHotel(hotelsSelectionnés[0], 'fr');
-                            courriel += formaterDescriptionHotel(descHotel, 'fr') + '\n';
-                        } else {
-                            hotelsSelectionnés.forEach((hotel, index) => {
-                                courriel += `OPTION D'HÉBERGEMENT ${index + 1} : ${hotel}\n\n`;
-                                const descHotel = obtenirDescriptionHotel(hotel, 'fr');
-                                courriel += formaterDescriptionHotel(descHotel, 'fr') + '\n';
-                            });
-                        }
-                        courriel += `Chaque option est conçue pour vous plonger au cœur de la féérie Disney.\n\n`;
-                    } else { // English
-                        if (hotelsSelectionnés.length === 1) {
-                            courriel += `YOUR DREAM HOTEL: ${hotelsSelectionnés[0]}\n\n`;
-                            const descHotel = obtenirDescriptionHotel(hotelsSelectionnés[0], 'en');
-                            courriel += formaterDescriptionHotel(descHotel, 'en') + '\n';
-                        } else {
-                            hotelsSelectionnés.forEach((hotel, index) => {
-                                courriel += `ACCOMMODATION OPTION ${index + 1}: ${hotel}\n\n`;
-                                const descHotel = obtenirDescriptionHotel(hotel, 'en');
-                                courriel += formaterDescriptionHotel(descHotel, 'en') + '\n';
-                            });
-                        }
-                        courriel += `Each option is designed to immerse you in the heart of Disney magic.\n\n`;
-                    }
+                    hotelsSelectionnés.forEach((hotel, index) => {
+                        const hotelTitre = langue === 'fr' ? 
+                            (hotelsSelectionnés.length === 1 ? `VOTRE HÔTEL DE RÊVE : ${hotel}` : `OPTION D'HÉBERGEMENT ${index + 1} : ${hotel}`) :
+                            (hotelsSelectionnés.length === 1 ? `YOUR DREAM HOTEL: ${hotel}` : `ACCOMMODATION OPTION ${index + 1}: ${hotel}`);
+                        htmlContent += `<h3 style="${styles.h3}">${hotelTitre}</h3>`;
+                        const descHotelText = obtenirDescriptionHotel(hotel, langue);
+                        htmlContent += formaterDescriptionHotelHTML(descHotelText, langue, styles);
+                    });
+                    
+                    const outroHotels = langue === 'fr' ? 
+                        `<p style="${styles.p}">Chaque option est conçue pour vous plonger au cœur de la féérie Disney.</p>`:
+                        `<p style="${styles.p}">Each option is designed to immerse you in the heart of Disney magic.</p>`;
+                    htmlContent += outroHotels;
+
                 } else {
-                     if (langue === 'fr') courriel += "Aucun hôtel n'a été sélectionné pour le moment. N'hésitez pas à me faire part de vos préférences !\n\n";
-                     else courriel += "No hotel has been selected yet. Feel free to let me know your preferences!\n\n";
+                     htmlContent += langue === 'fr' ? `<p style="${styles.p}">Aucun hôtel n'a été sélectionné pour le moment. N'hésitez pas à me faire part de vos préférences !</p>` : `<p style="${styles.p}">No hotel has been selected yet. Feel free to let me know your preferences!</p>`;
                 }
-                if (langue === 'fr') {
-                    courriel += `Veuillez noter que tous les prix pour l'hébergement et les billets Disney sont indiqués en dollars américains (USD) et sont sujets à disponibilité.\n\n`;
-                } else {
-                    courriel += `Please note that all prices for accommodation and Disney tickets are quoted in US dollars (USD) and are subject to availability.\n\n`;
-                }
+                htmlContent += langue === 'fr' ? 
+                    `<p style="${styles.p}">Veuillez noter que tous les prix pour l'hébergement et les billets Disney sont indiqués en dollars américains (USD) et sont sujets à disponibilité.</p>` : 
+                    `<p style="${styles.p}">Please note that all prices for accommodation and Disney tickets are quoted in US dollars (USD) and are subject to availability.</p>`;
             }
 
             // 3. Avion
@@ -553,143 +381,149 @@
                 const aeroportRetour = document.getElementById('aeroportRetour').value;
                 const prixAvion = document.getElementById('prixAvion').value;
                 const totalPersonnes = parseInt(nbAdultes) + parseInt(nbEnfants);
+                
+                const titreAvion = langue === 'fr' ? "✈️ VOTRE ENVOL VERS L'AVENTURE" : "✈️ YOUR FLIGHT TO ADVENTURE";
+                htmlContent += `<h2 style="${styles.h2}">${titreAvion}</h2>`;
+                
                 const introAvion = langue === 'fr' ? 
-                    `Pour compléter votre voyage vers la magie, voici les détails concernant le transport aérien que nous avons exploré :\n\n` :
-                    `To complete your journey to the magic, here are the details regarding the air transportation we explored:\n\n`;
+                    `<p style="${styles.p}">Pour compléter votre voyage vers la magie, voici les détails concernant le transport aérien que nous avons exploré :</p>` :
+                    `<p style="${styles.p}">To complete your journey to the magic, here are the details regarding the air transportation we explored:</p>`;
+                htmlContent += introAvion;
 
+                let flightDetails = "";
                 if (langue === 'fr') {
-                    courriel += `✈️ VOTRE ENVOL VERS L'AVENTURE\n\n${introAvion}`;
-                    courriel += `Aller : ${dateAller ? new Date(dateAller).toLocaleString('fr-CA', {dateStyle:'long', timeStyle:'short'}) : '[Date/heure de départ à confirmer]'}\n`;
-                    courriel += `De : ${aeroportDepart || '[Aéroport de départ à préciser]'}\n`;
-                    courriel += `Vers : ${aeroportRetour || '[Aéroport de destination à préciser]'}\n\n`;
-                    courriel += `Retour : ${dateRetour ? new Date(dateRetour).toLocaleString('fr-CA', {dateStyle:'long', timeStyle:'short'}) : '[Date/heure de retour à confirmer]'}\n`;
-                    courriel += `De : ${aeroportRetour || '[Aéroport de destination à préciser]'}\n`;
-                    courriel += `Vers : ${aeroportDepart || '[Aéroport de départ à préciser]'}\n\n`;
-                    courriel += `Nombre de passagers : ${totalPersonnes} (${nbAdultes} adulte${nbAdultes > 1 ? 's' : ''}${nbEnfants > 0 ? `, ${nbEnfants} enfant${nbEnfants > 1 ? 's' : ''}` : ''})\n`;
-                    courriel += `Prix total approximatif des vols : ${prixAvion || '[Prix à confirmer]'} CAD\n\n`;
-                    courriel += `IMPORTANT : Les tarifs aériens sont dynamiques et peuvent changer jusqu'à la réservation. Des frais de service de 50$ CAD par personne s'appliquent pour la réservation des vols via nos services. En me confiant vos vols, je m'occupe de tout désagrément potentiel. Si vous optez pour une réservation personnelle, ces frais ne s'appliquent pas, mais le support en cas de problème avec les vols ne sera pas inclus pour cette portion.\n\n`;
+                    flightDetails += `<p style="${styles.p}"><strong>Aller :</strong> ${dateAller ? new Date(dateAller).toLocaleString('fr-CA', {dateStyle:'long', timeStyle:'short'}) : '[Date/heure de départ à confirmer]'}<br>`;
+                    flightDetails += `<strong>De :</strong> ${aeroportDepart || '[Aéroport de départ à préciser]'}<br>`;
+                    flightDetails += `<strong>Vers :</strong> ${aeroportRetour || '[Aéroport de destination à préciser]'}</p>`;
+                    flightDetails += `<p style="${styles.p}"><strong>Retour :</strong> ${dateRetour ? new Date(dateRetour).toLocaleString('fr-CA', {dateStyle:'long', timeStyle:'short'}) : '[Date/heure de retour à confirmer]'}<br>`;
+                    flightDetails += `<strong>De :</strong> ${aeroportRetour || '[Aéroport de destination à préciser]'}<br>`;
+                    flightDetails += `<strong>Vers :</strong> ${aeroportDepart || '[Aéroport de départ à préciser]'}</p>`;
+                    flightDetails += `<p style="${styles.p}"><strong>Nombre de passagers :</strong> ${totalPersonnes} (${nbAdultes} adulte${nbAdultes > 1 ? 's' : ''}${nbEnfants > 0 ? `, ${nbEnfants} enfant${nbEnfants > 1 ? 's' : ''}` : ''})</p>`;
+                    flightDetails += `<p style="${styles.p}"><strong>Prix total approximatif des vols :</strong> ${prixAvion || '[Prix à confirmer]'} CAD</p>`;
+                    flightDetails += `<div style="${styles.importantNote}"><strong>IMPORTANT :</strong> Les tarifs aériens sont dynamiques et peuvent changer jusqu'à la réservation. Des frais de service de 50$ CAD par personne s'appliquent pour la réservation des vols via nos services. En me confiant vos vols, je m'occupe de tout désagrément potentiel. Si vous optez pour une réservation personnelle, ces frais ne s'appliquent pas, mais le support en cas de problème avec les vols ne sera pas inclus pour cette portion.</div>`;
                 } else {
-                    courriel += `✈️ YOUR FLIGHT TO ADVENTURE\n\n${introAvion}`;
-                    courriel += `Departure: ${dateAller ? new Date(dateAller).toLocaleString('en-CA', {dateStyle:'long', timeStyle:'short'}) : '[Departure date/time to be confirmed]'}\n`;
-                    courriel += `From: ${aeroportDepart || '[Departure airport to be specified]'}\n`;
-                    courriel += `To: ${aeroportRetour || '[Destination airport to be specified]'}\n\n`;
-                    courriel += `Return: ${dateRetour ? new Date(dateRetour).toLocaleString('en-CA', {dateStyle:'long', timeStyle:'short'}) : '[Return date/time to be confirmed]'}\n`;
-                    courriel += `From: ${aeroportRetour || '[Destination airport to be specified]'}\n`;
-                    courriel += `To: ${aeroportDepart || '[Departure airport to be specified]'}\n\n`;
-                    courriel += `Number of passengers: ${totalPersonnes} (${nbAdultes} adult${nbAdultes > 1 ? 's' : ''}${nbEnfants > 0 ? `, ${nbEnfants} child${nbEnfants > 1 ? 'ren' : ''}` : ''})\n`;
-                    courriel += `Approximate total flight price: ${prixAvion || '[Price to be confirmed]'} CAD\n\n`; 
-                    courriel += `IMPORTANT: Airfares are dynamic and subject to change until booked. A service fee of $50 CAD per person applies for flight bookings through our services. By entrusting me with your flights, I will handle any potential issues. If you choose to book them personally, this fee does not apply, but support for flight-related issues will not be included for that portion.\n\n`;
+                    flightDetails += `<p style="${styles.p}"><strong>Departure:</strong> ${dateAller ? new Date(dateAller).toLocaleString('en-CA', {dateStyle:'long', timeStyle:'short'}) : '[Departure date/time to be confirmed]'}<br>`;
+                    flightDetails += `<strong>From:</strong> ${aeroportDepart || '[Departure airport to be specified]'}<br>`;
+                    flightDetails += `<strong>To:</strong> ${aeroportRetour || '[Destination airport to be specified]'}</p>`;
+                    flightDetails += `<p style="${styles.p}"><strong>Return:</strong> ${dateRetour ? new Date(dateRetour).toLocaleString('en-CA', {dateStyle:'long', timeStyle:'short'}) : '[Return date/time to be confirmed]'}<br>`;
+                    flightDetails += `<strong>From:</strong> ${aeroportRetour || '[Destination airport to be specified]'}<br>`;
+                    flightDetails += `<strong>To:</strong> ${aeroportDepart || '[Departure airport to be specified]'}</p>`;
+                    flightDetails += `<p style="${styles.p}"><strong>Number of passengers:</strong> ${totalPersonnes} (${nbAdultes} adult${nbAdultes > 1 ? 's' : ''}${nbEnfants > 0 ? `, ${nbEnfants} child${nbEnfants > 1 ? 'ren' : ''}` : ''})</p>`;
+                    flightDetails += `<p style="${styles.p}"><strong>Approximate total flight price:</strong> ${prixAvion || '[Price to be confirmed]'} CAD</p>`;
+                    flightDetails += `<div style="${styles.importantNote}"><strong>IMPORTANT:</strong> Airfares are dynamic and subject to change until booked. A service fee of $50 CAD per person applies for flight bookings through our services. By entrusting me with your flights, I will handle any potential issues. If you choose to book them personally, this fee does not apply, but support for flight-related issues will not be included for that portion.</div>`;
                 }
+                htmlContent += flightDetails;
             }
 
             // 4. Promotion
             if (promotion.trim()) {
+                const titrePromo = langue === 'fr' ? "🎁 UNE TOUCHE DE MAGIE SUPPLÉMENTAIRE : PROMOTION SPÉCIALE !" : "🎁 AN EXTRA TOUCH OF MAGIC: SPECIAL PROMOTION!";
+                htmlContent += `<h2 style="${styles.h2}">${titrePromo}</h2>`;
                 if (langue === 'fr') {
-                    courriel += `🎁 UNE TOUCHE DE MAGIE SUPPLÉMENTAIRE : PROMOTION SPÉCIALE !\n\n`;
-                    courriel += `Excellente nouvelle ! J'ai le plaisir de vous informer que la promotion "${promotion}" peut être appliquée à votre réservation, ajoutant encore plus de valeur à votre séjour magique !`;
-                    if (promotionDateFin) {
-                        courriel += ` Cette offre est d'une durée limitée, il est donc judicieux de réserver rapidement pour enchanter votre voyage sans tarder.\n\n`;
-                    } else {
-                        courriel += ` La date de fin de cette promotion n'est pas encore connue, mais les meilleures offres partent vite !\n\n`;
-                    }
+                    htmlContent += `<p style="${styles.p}">Excellente nouvelle ! J'ai le plaisir de vous informer que la promotion "${promotion}" peut être appliquée à votre réservation, ajoutant encore plus de valeur à votre séjour magique !`;
+                    htmlContent += promotionDateFin ? ` Cette offre est d'une durée limitée, il est donc judicieux de réserver rapidement pour enchanter votre voyage sans tarder.</p>` : ` La date de fin de cette promotion n'est pas encore connue, mais les meilleures offres partent vite !</p>`;
                 } else {
-                    courriel += `🎁 AN EXTRA TOUCH OF MAGIC: SPECIAL PROMOTION!\n\n`;
-                    courriel += `Excellent news! I'm thrilled to let you know that the "${promotion}" promotion can be applied to your booking, adding even more value to your magical stay!`;
-                    if (promotionDateFin) {
-                        courriel += ` This offer is for a limited time, so it's wise to book quickly to enchant your trip without delay.\n\n`;
-                    } else {
-                        courriel += ` The end date for this promotion is not yet known, but the best offers go quickly!\n\n`;
-                    }
+                    htmlContent += `<p style="${styles.p}">Excellent news! I'm thrilled to let you know that the "${promotion}" promotion can be applied to your booking, adding even more value to your magical stay!`;
+                    htmlContent += promotionDateFin ? ` This offer is for a limited time, so it's wise to book quickly to enchant your trip without delay.</p>` : ` The end date for this promotion is not yet known, but the best offers go quickly!</p>`;
                 }
             } else {
+                const titreReservation = langue === 'fr' ? "🌟 RÉSERVATION ET OPTIMISATION DE VOTRE SÉJOUR" : "🌟 BOOKING AND OPTIMIZING YOUR STAY";
+                htmlContent += `<h2 style="${styles.h2}">${titreReservation}</h2>`;
                 if (langue === 'fr') {
-                    courriel += `🌟 RÉSERVATION ET OPTIMISATION DE VOTRE SÉJOUR\n\n`;
-                    courriel += `Pour garantir votre place au cœur de la magie, un dépôt de seulement 200 USD est requis. Soyez assuré que je veillerai personnellement à appliquer toute nouvelle promotion applicable d'ici votre départ pour optimiser la valeur de votre voyage. Ce dépôt est entièrement remboursable jusqu'à 30 jours avant votre arrivée, vous offrant une flexibilité totale pour planifier en toute sérénité.\n\n`;
+                    htmlContent += `<p style="${styles.p}">Pour garantir votre place au cœur de la magie, un dépôt de seulement 200 USD est requis. Soyez assuré que je veillerai personnellement à appliquer toute nouvelle promotion applicable d'ici votre départ pour optimiser la valeur de votre voyage. Ce dépôt est entièrement remboursable jusqu'à 30 jours avant votre arrivée, vous offrant une flexibilité totale pour planifier en toute sérénité.</p>`;
                 } else {
-                    courriel += `🌟 BOOKING AND OPTIMIZING YOUR STAY\n\n`;
-                    courriel += `To secure your spot in the heart of the magic, a deposit of only 200 USD is required. Rest assured, I will personally ensure any new applicable promotions are applied before your departure to maximize the value of your trip. This deposit is fully refundable up to 30 days before your check-in, offering you complete flexibility to plan with peace of mind.\n\n`;
+                    htmlContent += `<p style="${styles.p}">To secure your spot in the heart of the magic, a deposit of only 200 USD is required. Rest assured, I will personally ensure any new applicable promotions are applied before your departure to maximize the value of your trip. This deposit is fully refundable up to 30 days before your check-in, offering you complete flexibility to plan with peace of mind.</p>`;
                 }
             }
 
             // 5. La suite
+            const titreSuite = langue === 'fr' ? "✨ LA MAGIE CONTINUE..." : "✨ THE MAGIC CONTINUES...";
+            htmlContent += `<h2 style="${styles.h2}">${titreSuite}</h2>`;
             if (langue === 'fr') {
-                courriel += `✨ LA MAGIE CONTINUE...\n\n`;
-                courriel += `Prenez le temps de rêver à ces options et de considérer ce qui ferait de ce voyage une expérience véritablement inoubliable. Je suis à votre entière disposition pour répondre à toutes vos questions, affiner chaque détail ou procéder à la réservation de cette escapade féérique.\n\nN'hésitez pas à me joindre par courriel (en répondant simplement à celui-ci) ou par téléphone au 819-347-9103.\n\n`;
-                courriel += `Merci encore pour votre confiance. J'ai sincèrement hâte de transformer ce rêve Disney en une magnifique réalité pour vous !\n\n`;
-                courriel += `Chaleureusement,\n\n`;
-                courriel += `Pierre-Luc Morin\nConseiller en voyages | Spécialiste Disney & Universal\nVoyages en Route\nVotre créateur de souvenirs magiques`;
+                htmlContent += `<p style="${styles.p}">Prenez le temps de rêver à ces options et de considérer ce qui ferait de ce voyage une expérience véritablement inoubliable. Je suis à votre entière disposition pour répondre à toutes vos questions, affiner chaque détail ou procéder à la réservation de cette escapade féérique.</p>`;
+                htmlContent += `<p style="${styles.p}">N'hésitez pas à me joindre par courriel (en répondant simplement à celui-ci) ou par téléphone au <a href="tel:819-347-9103" style="color:#0050A0; text-decoration:none;">819-347-9103</a>.</p>`;
+                htmlContent += `<p style="${styles.p}">Merci encore pour votre confiance. J'ai sincèrement hâte de transformer ce rêve Disney en une magnifique réalité pour vous !</p>`;
+                htmlContent += `<p style="${styles.p} margin-top:20px;">Chaleureusement,</p>`;
+                htmlContent += `<p style="${styles.p} margin-bottom:0; ${styles.strong}">Pierre-Luc Morin</p>`;
+                htmlContent += `<p style="${styles.p} margin-bottom:0; font-size:14px;">Conseiller en voyages | Spécialiste Disney & Universal</p>`;
+                htmlContent += `<p style="${styles.p} margin-bottom:0; font-size:14px;">Voyages en Route</p>`;
+                htmlContent += `<p style="${styles.p} margin-bottom:0; font-size:14px; ${styles.em}">Votre créateur de souvenirs magiques</p>`;
             } else {
-                courriel += `✨ THE MAGIC CONTINUES...\n\n`;
-                courriel += `Take your time to dream about these options and consider what would make this trip a truly unforgettable experience. I am at your complete disposal to answer any questions, refine every detail, or proceed with booking this enchanting getaway.\n\nPlease feel free to reach me by email (by simply replying to this one) or by phone at 819-347-9103.\n\n`;
-                courriel += `Thank you again for your trust. I genuinely look forward to turning this Disney dream into a wonderful reality for you!\n\n`;
-                courriel += `Warmly,\n\n`;
-                courriel += `Pierre-Luc Morin\nTravel Advisor | Disney & Universal Specialist\nVoyages en Route\nYour Magical Memory Maker`;
-            }
-            // END OF 'courriel' STRING BUILDING
-
-            plainTextEmailForCopying = courriel; // MODIFIED: Store the pure text email for copying
-
-            // --- Apply styling for the preview pane ---
-            const preview = document.getElementById('emailPreview');
-            let styledCourriel = courriel; // Start with the plain text for styling the preview
-
-            function escapeRegExpLocal(string) {
-                return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                htmlContent += `<p style="${styles.p}">Take your time to dream about these options and consider what would make this trip a truly unforgettable experience. I am at your complete disposal to answer any questions, refine every detail, or proceed with booking this enchanting getaway.</p>`;
+                htmlContent += `<p style="${styles.p}">Please feel free to reach me by email (by simply replying to this one) or by phone at <a href="tel:819-347-9103" style="color:#0050A0; text-decoration:none;">819-347-9103</a>.</p>`;
+                htmlContent += `<p style="${styles.p}">Thank you again for your trust. I genuinely look forward to turning this Disney dream into a wonderful reality for you!</p>`;
+                htmlContent += `<p style="${styles.p} margin-top:20px;">Warmly,</p>`;
+                htmlContent += `<p style="${styles.p} margin-bottom:0; ${styles.strong}">Pierre-Luc Morin</p>`;
+                htmlContent += `<p style="${styles.p} margin-bottom:0; font-size:14px;">Travel Advisor | Disney & Universal Specialist</p>`;
+                htmlContent += `<p style="${styles.p} margin-bottom:0; font-size:14px;">Voyages en Route</p>`;
+                htmlContent += `<p style="${styles.p} margin-bottom:0; font-size:14px; ${styles.em}">Your Magical Memory Maker</p>`;
             }
 
-            const mainTitles = [
-                "🏰 VOTRE SÉJOUR MAGIQUE CHEZ DISNEY", "🏰 YOUR MAGICAL DISNEY STAY",
-                "✈️ VOTRE ENVOL VERS L'AVENTURE", "✈️ YOUR FLIGHT TO ADVENTURE",
-                "🎁 UNE TOUCHE DE MAGIE SUPPLÉMENTAIRE : PROMOTION SPÉCIALE !", "🎁 AN EXTRA TOUCH OF MAGIC: SPECIAL PROMOTION!",
-                "🌟 RÉSERVATION ET OPTIMISATION DE VOTRE SÉJOUR", "🌟 BOOKING AND OPTIMIZING YOUR STAY",
-                "✨ LA MAGIE CONTINUE...", "✨ THE MAGIC CONTINUES..."
-            ];
-            
-            mainTitles.forEach(title => {
-                const titleRegex = new RegExp(`^(${escapeRegExpLocal(title)})$`, "gm");
-                styledCourriel = styledCourriel.replace(titleRegex, (match) => {
-                    let hr = '<hr style="border:0; border-top: 1px solid #eee; margin: 30px 0 20px 0;">';
-                    // Heuristic to avoid HR for the very first section title if it appears right after the intro
-                    if (styledCourriel.toLowerCase().indexOf(match.toLowerCase()) < (courriel.indexOf('\n\n') + 150) && (match.startsWith("🏰"))) {
-                         hr = ''; 
-                    }
-                    return `${hr}<div class="email-title">${match}</div>`;
-                });
-            });
-            
-            const hotelNameLineRegexFr = /^(VOTRE HÔTEL DE RÊVE : .*|OPTION D'HÉBERGEMENT \d+ : .*)$/gm;
-            styledCourriel = styledCourriel.replace(hotelNameLineRegexFr, '<div style="font-weight: bold; color: #1a2533; margin-top: 18px; margin-bottom: 8px; font-size: 1.15em;">$1</div>');
-            const hotelNameLineRegexEn = /^(YOUR DREAM HOTEL: .*|ACCOMMODATION OPTION \d+: .*)$/gm;
-            styledCourriel = styledCourriel.replace(hotelNameLineRegexEn, '<div style="font-weight: bold; color: #1a2533; margin-top: 18px; margin-bottom: 8px; font-size: 1.15em;">$1</div>');
-            
-            styledCourriel = styledCourriel.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'); 
-            styledCourriel = styledCourriel.replace(/\*(.*?)\*/g, '<em>$1</em>');    
-            
-            styledCourriel = styledCourriel.replace(/^(IMPORTANT\s?:[\s\S]*?)(?=\n\n|\n[A-Z\s✨🏰✈️🎁🌟#*]+?:|$)/gim, (match) => {
-                return `<div style="border-left: 4px solid #e67e22; background-color: #fff9f0; padding: 12px 12px 12px 18px; margin: 15px 0; border-radius: 0 8px 8px 0; font-size: 0.98em; line-height: 1.5;">${match.trim()}</div>`;
-            });
+            // Assemble the full HTML email
+            let fullHtmlEmail = `<!DOCTYPE html>
+<html lang="${langue}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${langue === 'fr' ? 'Votre Soumission Disney Personnalisée' : 'Your Personalized Disney Quote'}</title>
+    <style type="text/css">
+        body { ${styles.body} }
+        a { color: #0050A0; text-decoration: underline; }
+    </style>
+</head>
+<body style="${styles.body}">
+    <center class="wrapper" style="${styles.wrapper}">
+        <table class="main" width="100%" style="${styles.mainTable}">
+            <tr>
+                <td style="${styles.headerCell}">
+                    <p style="${styles.headerP}">
+                        🏰 Voyages en Route 🏰
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td style="${styles.contentCell}">
+                    ${htmlContent}
+                </td>
+            </tr>
+            <tr>
+                <td style="${styles.footerCell}">
+                    <p style="${styles.footerP}">
+                        Voyages en Route - Votre spécialiste Disney & Universal<br>
+                        ${langue === 'fr' ? 'Pour toute question, contactez' : 'For any questions, contact'} Pierre-Luc Morin: <a href="tel:819-347-9103" style="color:#0050A0; text-decoration:none;">819-347-9103</a>
+                    </p>
+                </td>
+            </tr>
+        </table>
+    </center>
+</body>
+</html>`;
 
-            preview.innerHTML = styledCourriel;
+            generatedHtmlEmail = fullHtmlEmail; // Store for copying
+
+            // Display HTML code in preview
+            const previewContainer = document.getElementById('emailPreviewContainer');
+            const codeElement = previewContainer.querySelector('code');
+            // Escape HTML characters for display as text
+            const escapedHtml = fullHtmlEmail.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+            codeElement.textContent = escapedHtml; // Use textContent to display as raw text
         }
 
         function copierCourriel() {
-            // MODIFIED: Use the stored plain text variable
-            if (!plainTextEmailForCopying) { 
-                console.warn('Aucun courriel généré à copier ou le contenu est vide.');
+            if (!generatedHtmlEmail) { 
+                console.warn('Aucun code HTML de courriel généré à copier.');
                 const langElement = document.getElementById('langue');
                 const lang = langElement ? langElement.value : 'fr';
                 alert(lang === 'fr' ? 'Veuillez d\'abord générer un courriel.' : 'Please generate an email first.');
                 return;
             }
 
-            const texteACopier = plainTextEmailForCopying; 
-            
-            navigator.clipboard.writeText(texteACopier).then(function() {
+            navigator.clipboard.writeText(generatedHtmlEmail).then(function() {
                 const btn = document.querySelector('.copy-btn');
                 const originalText = btn.textContent; 
                 const langElement = document.getElementById('langue');
                 const lang = langElement ? langElement.value : 'fr';
-                btn.textContent = lang === 'fr' ? '✅ Copié avec succès !' : '✅ Copied successfully!';
+                btn.textContent = lang === 'fr' ? '✅ Code HTML Copié !' : '✅ HTML Code Copied!';
                 btn.style.background = 'linear-gradient(135deg, #2ecc71, #27ae60)'; 
                 
                 setTimeout(function() {
@@ -697,16 +531,11 @@
                     btn.style.background = 'linear-gradient(135deg, #27ae60, #2ecc71)';
                 }, 2500);
             }).catch(function(err) {
-                console.error('Erreur lors de la copie:', err);
+                console.error('Erreur lors de la copie du code HTML:', err);
                 const langElement = document.getElementById('langue');
                 const lang = langElement ? langElement.value : 'fr';
-                let alertMsg = lang === 'fr' ? 'Erreur lors de la copie. ' : 'Error copying. ';
-                if (navigator.clipboard === undefined) {
-                    alertMsg += lang === 'fr' ? "L'API Clipboard n'est pas supportée par votre navigateur ou la page n'est pas sécurisée (HTTPS)." : "Clipboard API not supported by your browser or page is not secure (HTTPS).";
-                } else {
-                    alertMsg += lang === 'fr' ? "Vérifiez les permissions du presse-papiers ou réessayez." : "Check clipboard permissions or try again.";
-                }
-                alert(alertMsg);
+                let alertMsg = lang === 'fr' ? 'Erreur lors de la copie du code HTML. ' : 'Error copying HTML code. ';
+                alert(alertMsg + (lang === 'fr' ? "Vérifiez les permissions ou réessayez." : "Check permissions or try again."));
             });
         }
 
@@ -714,6 +543,11 @@
             if (!document.getElementById('billetSeulement').checked && document.getElementById('hotelOptions').childElementCount === 0) {
                  ajouterHotel(); 
             }
+            // Initialize with empty code preview
+            document.getElementById('emailPreviewContainer').querySelector('code').textContent = 
+                document.getElementById('langue').value === 'fr' ? 
+                "Le code HTML du courriel apparaîtra ici..." : 
+                "The email's HTML code will appear here...";
         };
     </script>
 </body>
