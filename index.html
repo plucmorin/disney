@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Générateur d'e-mail Disney (Client-Side v5 - Whimsical)</title>
+    <title>Générateur d'e-mail Disney (Client-Side v6 - Professionnel)</title>
     <style>
         body { font-family: sans-serif; margin: 20px; background-color: #f4f4f4; color: #333; line-height: 1.6; }
         .container { background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); max-width: 900px; margin: auto;}
@@ -77,7 +77,7 @@
                     <label>Choix d'hôtel(s) :</label>
                     <div id="hotel_selections">
                         </div>
-                    <button type="button" id="add_hotel_button">Ajouter une autre option d'hôtel</button>
+                    <button type="button" id="add_hotel_button">Ajouter une option d'hôtel</button>
                 </div>
             </div>
 
@@ -128,7 +128,7 @@
 
         <div id="emailOutputContainer">
             <h2>E-mail Généré (Prêt à copier)</h2>
-            <p><em><b>Important :</b> Certaines polices "fantaisistes" pourraient ne pas s'afficher chez tous les destinataires. Des polices alternatives sont prévues. Le fond du message s'adaptera au mode clair/sombre de la messagerie du destinataire. Après avoir collé dans votre client e-mail, envoyez-vous un test pour vérifier le rendu final.</em></p>
+            <p><em><b>Important :</b> La police "Aptos" ne s'affichera que si le destinataire l'a installée. Des polices alternatives (Arial, Helvetica) sont prévues. Le fond du message s'adaptera au mode clair/sombre de la messagerie du destinataire. Après avoir collé dans votre client e-mail, envoyez-vous un test pour vérifier le rendu final.</em></p>
             <div id="emailOutput" contenteditable="true">
                 </div>
             <button type="button" id="copyHtmlButton">Copier le contenu de l'e-mail</button>
@@ -173,57 +173,47 @@
         ];
 
         // --- STYLES POUR L'EMAIL (appliqués inline) ---
-        const REGULAR_FONT_STACK = "Aptos, Arial, Helvetica, sans-serif"; // Police standard pour le corps du texte
-        const WHIMSICAL_FONT_STACK = "'Segoe Print', 'Comic Sans MS', 'Chalkboard SE', cursive, sans-serif"; // Police fantaisiste pour les titres
-
+        const REGULAR_FONT_STACK = "Aptos, Arial, Helvetica, sans-serif";
         const BASE_FONT_SIZE = "11pt";
         const BASE_LINE_HEIGHT = "1.5";
-        const TEXT_COLOR_BODY = "#000000"; // Noir pour le corps, sera inversé par les clients en mode sombre
+        const TEXT_COLOR_BODY = "#000000"; 
 
-        // MODIFICATION: Fond transparent pour le conteneur principal et les éléments de texte
         const EMAIL_MAIN_CONTAINER_STYLE = `font-family: ${REGULAR_FONT_STACK}; font-size: ${BASE_FONT_SIZE}; line-height: ${BASE_LINE_HEIGHT}; color: ${TEXT_COLOR_BODY}; background-color: transparent; padding: 5px;`;
         const PARAGRAPH_STYLE = `font-family: ${REGULAR_FONT_STACK}; font-size: ${BASE_FONT_SIZE}; line-height: ${BASE_LINE_HEIGHT}; margin-top: 12px; margin-bottom: 12px; color: ${TEXT_COLOR_BODY}; background-color: transparent;`;
         const LIST_STYLE = `font-family: ${REGULAR_FONT_STACK}; font-size: ${BASE_FONT_SIZE}; line-height: ${BASE_LINE_HEIGHT}; padding-left: 25px; margin-top: 12px; margin-bottom: 12px; color: ${TEXT_COLOR_BODY}; background-color: transparent;`;
         const LIST_ITEM_STYLE = `margin-bottom: 6px; background-color: transparent;`;
         
-        // MODIFICATION: Styles pour les titres "Whimsical"
-        const HEADING_MAIN_COLOR = "#5DADE2"; // Bleu ciel vibrant
-        const HEADING_SUB_COLOR = "#FF69B4";  // Rose bonbon
-        const DECORATIVE_DIVIDER_COLOR = "#FDBA30"; // Or/Jaune Disney pour les séparateurs
+        // MODIFICATION: Couleurs professionnelles pour les bannières
+        const BANNER_PROFESSIONAL_BACKGROUND_COLOR = "#005A9C"; // Bleu marine professionnel
+        const BANNER_PROFESSIONAL_TEXT_COLOR = "#FFFFFF";       // Texte blanc
 
-        // Fonction pour créer les titres de section "Whimsical"
-        function createWhimsicalHeading(text, isMainTitle = true) {
-            const headingTag = isMainTitle ? 'h2' : 'h3';
-            const headingColor = isMainTitle ? HEADING_MAIN_COLOR : HEADING_SUB_COLOR;
-            const fontSize = isMainTitle ? "1.6em" : "1.4em";
-            const dividerText = `｡･:*:･ﾟ★&nbsp;&nbsp;&nbsp;⭐&nbsp;&nbsp;&nbsp;★ﾟ･:*:･｡`;
-
-            let headingHtml = `<p style="text-align:center; color: ${DECORATIVE_DIVIDER_COLOR}; font-size:1.3em; margin:20px 0 5px 0; line-height:1; background-color: transparent;">${dividerText}</p>`;
-            headingHtml += `<${headingTag} style="font-family: ${WHIMSICAL_FONT_STACK}; color: ${headingColor}; text-align:center; margin:0 0 5px 0; font-size:${fontSize}; text-transform: uppercase; font-weight:bold; background-color: transparent;">${text}</${headingTag}>`;
-            headingHtml += `<p style="text-align:center; color: ${DECORATIVE_DIVIDER_COLOR}; font-size:1.3em; margin:5px 0 20px 0; line-height:1; background-color: transparent;">${dividerText}</p>`;
-            return headingHtml;
+        // MODIFICATION: Fonction pour créer les bannières professionnelles
+        function createProfessionalBanner(text, isMainTitle = true) {
+            const fontSize = isMainTitle ? "1.4em" : "1.2em"; // Tailles de police ajustées
+            const padding = isMainTitle ? "15px 10px" : "12px 10px";
+            return `
+            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: ${BANNER_PROFESSIONAL_BACKGROUND_COLOR}; margin-top: 25px; margin-bottom: 25px;">
+              <tr>
+                <td align="center" style="padding: ${padding}; font-family: ${REGULAR_FONT_STACK}; font-size: ${fontSize}; color: ${BANNER_PROFESSIONAL_TEXT_COLOR}; text-transform: uppercase; font-weight: bold; line-height: 1.3;">
+                  ${text}
+                </td>
+              </tr>
+            </table>`;
         }
         
-        const SIMPLER_HORIZONTAL_RULE = `<p style="text-align:center; color: ${DECORATIVE_DIVIDER_COLOR}; margin: 30px 0; font-size: 1.2em; background-color: transparent;">~ &#x2728; ~</p>`; // • • • ou un autre séparateur simple
+        // MODIFICATION: Séparateur horizontal professionnel
+        const PROFESSIONAL_HORIZONTAL_RULE = `<div style="border-top: 1px solid #B0BEC5; margin: 30px 0; background-color: transparent;"></div>`;
 
         const BOLD_STYLE = "font-weight: bold;";
         const ITALIC_STYLE = "font-style: italic;";
 
-        function getHotelByName(name) {
-            return DISNEY_HOTELS.find(hotel => hotel.name === name);
-        }
-        function formatDateFR(dateStr) { /* ... Identique ... */ 
-            if (!dateStr) return ""; try { const date = new Date(dateStr + 'T00:00:00'); const options = { year: 'numeric', month: 'long', day: 'numeric' }; return date.toLocaleDateString('fr-FR', options); } catch (e) { return dateStr; }
-        }
-        function formatTime(timeStr) { /* ... Identique ... */ 
-            if (!timeStr) return ""; try { const [hours, minutes] = timeStr.split(':'); let h = parseInt(hours, 10); return `${String(h).padStart(2, '0')} h ${String(minutes).padStart(2, '0')}`; } catch (e) { return timeStr; }
-        }
+        function getHotelByName(name) { return DISNEY_HOTELS.find(hotel => hotel.name === name); }
+        function formatDateFR(dateStr) { if (!dateStr) return ""; try { const date = new Date(dateStr + 'T00:00:00'); const options = { year: 'numeric', month: 'long', day: 'numeric' }; return date.toLocaleDateString('fr-FR', options); } catch (e) { return dateStr; } }
+        function formatTime(timeStr) { if (!timeStr) return ""; try { const [hours, minutes] = timeStr.split(':'); let h = parseInt(hours, 10); return `${String(h).padStart(2, '0')} h ${String(minutes).padStart(2, '0')}`; } catch (e) { return timeStr; } }
 
         function generateEmailHTML(data) {
             let emailParts = [`<div style="${EMAIL_MAIN_CONTAINER_STYLE}">`];
-            const lang = data.langue || 'fr';
-
-            const TEXTS_FR = { /* ... Vos textes avec balises <strong> et <em> restent ici ... */ 
+            const T = { /* ... L'objet TEXTS_FR avec les textes et l'emphase reste ici ... */ 
                 banner1: "VOTRE SÉJOUR AU WALT DISNEY WORLD RESORT EN FLORIDE",
                 greeting: `Bonjour <strong style="${BOLD_STYLE}">${data.client_name || 'estimé(e) voyageur(se)'}</strong>,`,
                 intro1: `Je vous écris au nom de Voyages en Route, où nous avons le plaisir d’accompagner les familles et voyageurs dans la planification de leurs séjours. Je m'appelle <strong style="${BOLD_STYLE}">Pierre-Luc Morin</strong> et je serais votre conseiller en voyages spécialisé en destinations <strong style="${BOLD_STYLE}">Disney et Universal</strong>.`,
@@ -248,16 +238,16 @@
                 closing2: `N'hésitez pas à me joindre par courriel (en répondant simplement à celui-ci) ou par téléphone au <strong style="${BOLD_STYLE}">819-347-9103</strong>.`,
                 closing3: `Merci encore pour votre confiance. J'ai sincèrement hâte de transformer ce <strong style="${BOLD_STYLE}">rêve Disney</strong> en une <strong style="${BOLD_STYLE}">magnifique réalité pour vous !</strong>`
             };
-            const T = TEXTS_FR;
 
-            // MODIFICATION: Utilisation de createWhimsicalHeading
-            emailParts.push(createWhimsicalHeading(T.banner1, true));
+
+            // MODIFICATION: Utilisation de createProfessionalBanner et PROFESSIONAL_HORIZONTAL_RULE
+            emailParts.push(createProfessionalBanner(T.banner1, true));
             emailParts.push(`<p style="${PARAGRAPH_STYLE}">${T.greeting}</p>`);
             emailParts.push(`<p style="${PARAGRAPH_STYLE}">${T.intro1}</p>`);
             emailParts.push(`<p style="${PARAGRAPH_STYLE}">${T.intro2}</p>`);
-            emailParts.push(SIMPLER_HORIZONTAL_RULE);
+            emailParts.push(PROFESSIONAL_HORIZONTAL_RULE);
 
-            emailParts.push(createWhimsicalHeading(T.banner_disney_stay, false));
+            emailParts.push(createProfessionalBanner(T.banner_disney_stay, false));
             const selectedHotels = Array.isArray(data.hotel_names) ? data.hotel_names.filter(h => h) : [];
 
             if (data.booking_type === 'hotel_tickets' && selectedHotels.length > 0) {
@@ -267,10 +257,9 @@
                     emailParts.push(`<p style="${PARAGRAPH_STYLE}">Cette proposition inclut l’hébergement ainsi que les billets pour les parcs Disney.</p>`);
                     emailParts.push(`<p style="${PARAGRAPH_STYLE}">Tous les détails (dates, prix, inclusions et conditions) se trouvent dans le document PDF ci-joint.</p>`);
                     if (hotel) {
-                        // Le nom de l'hôtel est déjà en gras dans la phrase d'intro. La description suit.
                         emailParts.push(`<div style="${PARAGRAPH_STYLE} margin-top:15px;"><strong style="${BOLD_STYLE} text-transform: uppercase;">${hotel.name}</strong><br>${hotel.description}</div>`);
                     }
-                } else { // Plusieurs hôtels
+                } else { 
                     emailParts.push(`<p style="${PARAGRAPH_STYLE}">Pour votre séjour au Walt Disney World Resort en Floride, plusieurs options d’hébergement sont possibles selon vos besoins. Les options possibles sont :</p>`);
                     let hotelListHtml = `<ul style="${LIST_STYLE}">`;
                     selectedHotels.forEach(hotelName => { hotelListHtml += `<li style="${LIST_ITEM_STYLE}">${hotelName}</li>`; });
@@ -310,10 +299,10 @@
             } else if (data.booking_type === 'tickets_only') {
                 emailParts.push(`<p style="${PARAGRAPH_STYLE} ${ITALIC_STYLE}">${T.tickets_only_price_disclaimer}</p>`);
             }
-            emailParts.push(SIMPLER_HORIZONTAL_RULE);
+            emailParts.push(PROFESSIONAL_HORIZONTAL_RULE);
 
             if (data.include_flights) {
-                emailParts.push(createWhimsicalHeading(T.banner_travel_fees, false));
+                emailParts.push(createProfessionalBanner(T.banner_travel_fees, false));
                 emailParts.push(`<p style="${PARAGRAPH_STYLE}">${T.flight_intro}</p>`);
                 let flightDetailsHtml = `<div style="margin-left: 20px; background-color: transparent;">`;
                 flightDetailsHtml += `<p style="${PARAGRAPH_STYLE}"><strong style="${BOLD_STYLE}">Aller :</strong> ${formatDateFR(data.departure_date_aller)} à ${formatTime(data.departure_time_aller)}<br>De : ${data.departure_airport_aller || 'N/A'}<br>Vers : ${data.arrival_airport_aller || 'N/A'}</p>`;
@@ -331,10 +320,10 @@
                 emailParts.push(flightDetailsHtml);
                 emailParts.push(`<p style="${PARAGRAPH_STYLE}">${T.flight_price_info}</p>`);
                 emailParts.push(`<p style="${PARAGRAPH_STYLE}">${T.flight_important_label} ${T.flight_important_text}</p>`);
-                emailParts.push(SIMPLER_HORIZONTAL_RULE);
+                emailParts.push(PROFESSIONAL_HORIZONTAL_RULE);
             }
 
-            emailParts.push(createWhimsicalHeading(T.banner_magic_continues, false));
+            emailParts.push(createProfessionalBanner(T.banner_magic_continues, false));
             emailParts.push(`<p style="${PARAGRAPH_STYLE}">${T.closing1}</p>`);
             emailParts.push(`<p style="${PARAGRAPH_STYLE}">${T.closing2}</p>`);
             emailParts.push(`<p style="${PARAGRAPH_STYLE}">${T.closing3}</p>`);
@@ -393,8 +382,9 @@
                 }
             });
             
-            hotelSelectionsDiv.appendChild(createHotelSelector(true));
+            hotelSelectionsDiv.appendChild(createHotelSelector(true)); // Ajoute le premier sélecteur
             updateAddHotelButtonState();
+
 
             const includeFlightsCheckbox = document.getElementById('include_flights');
             const flightDetailsDiv = document.getElementById('flight_details');
