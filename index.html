@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Générateur d'e-mail Disney (Client-Side v2)</title>
+    <title>Générateur d'e-mail Disney (Client-Side v3)</title>
     <style>
         body { font-family: sans-serif; margin: 20px; background-color: #f4f4f4; color: #333; line-height: 1.6; }
         .container { background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); max-width: 900px; margin: auto;}
@@ -31,7 +31,7 @@
         #emailOutput {
             padding: 20px;
             border: 1px solid #ccc;
-            background-color: #f9f9f9;
+            background-color: #f0f0f0; /* Fond gris clair pour la zone de prévisualisation sur la page web SEULEMENT */
             border-radius: 5px;
             min-height: 200px;
             font-family: Aptos, Arial, sans-serif; /* Prévisualisation */
@@ -177,12 +177,13 @@
         const FONT_STACK = "Aptos, Arial, Helvetica, sans-serif";
         const BASE_FONT_SIZE = "11pt";
         const BASE_LINE_HEIGHT = "1.5";
-        const PARAGRAPH_STYLE = `font-family: ${FONT_STACK}; font-size: ${BASE_FONT_SIZE}; line-height: ${BASE_LINE_HEIGHT}; margin-top: 10px; margin-bottom: 10px; color: #000000;`;
-        const LIST_STYLE = `font-family: ${FONT_STACK}; font-size: ${BASE_FONT_SIZE}; line-height: ${BASE_LINE_HEIGHT}; padding-left: 25px; margin-top: 10px; margin-bottom: 10px; color: #000000;`;
-        const LIST_ITEM_STYLE = `margin-bottom: 5px;`;
+        const EMAIL_MAIN_CONTAINER_STYLE = `font-family: ${FONT_STACK}; font-size: ${BASE_FONT_SIZE}; line-height: ${BASE_LINE_HEIGHT}; color: #000000; background-color: #FFFFFF; padding: 5px;`; // Fond blanc pour le corps de l'email
+        const PARAGRAPH_STYLE = `font-family: ${FONT_STACK}; font-size: ${BASE_FONT_SIZE}; line-height: ${BASE_LINE_HEIGHT}; margin-top: 10px; margin-bottom: 10px; color: #000000; background-color: transparent;`;
+        const LIST_STYLE = `font-family: ${FONT_STACK}; font-size: ${BASE_FONT_SIZE}; line-height: ${BASE_LINE_HEIGHT}; padding-left: 25px; margin-top: 10px; margin-bottom: 10px; color: #000000; background-color: transparent;`;
+        const LIST_ITEM_STYLE = `margin-bottom: 5px; background-color: transparent;`;
         
-        const BANNER_BACKGROUND_COLOR = "#004a99"; // Un bleu foncé pour les bannières
-        const BANNER_TEXT_COLOR = "#FFFFFF"; // Texte blanc pour les bannières
+        const BANNER_BACKGROUND_COLOR = "#004a99"; 
+        const BANNER_TEXT_COLOR = "#FFFFFF"; 
 
         function createBanner(text, isMainTitle = true) {
             const fontSize = isMainTitle ? "1.3em" : "1.15em";
@@ -198,6 +199,9 @@
         
         const HORIZONTAL_RULE_STYLE = "border: none; border-top: 1px solid #cccccc; margin: 25px 0;";
 
+        // Helper for emphasis
+        const BOLD_STYLE = "font-weight: bold;";
+        const ITALIC_STYLE = "font-style: italic;";
 
         // --- FONCTIONS UTILITAIRES ---
         function getHotelByName(name) {
@@ -207,7 +211,7 @@
         function formatDateFR(dateStr) {
             if (!dateStr) return "";
             try {
-                const date = new Date(dateStr + 'T00:00:00'); // Assurer que c'est interprété comme date locale
+                const date = new Date(dateStr + 'T00:00:00');
                 const options = { year: 'numeric', month: 'long', day: 'numeric' };
                 return date.toLocaleDateString('fr-FR', options);
             } catch (e) { return dateStr; }
@@ -218,63 +222,61 @@
              try {
                 const [hours, minutes] = timeStr.split(':');
                 let h = parseInt(hours, 10);
-                let suffix = ""; // Pourrait être utilisé pour AM/PM si besoin, mais on reste sur 24h pour l'instant
                 return `${String(h).padStart(2, '0')} h ${String(minutes).padStart(2, '0')}`;
             } catch (e) { return timeStr; }
         }
 
         // --- LOGIQUE DE GÉNÉRATION DE L'EMAIL ---
         function generateEmailHTML(data) {
-            let emailParts = [`<div style="font-family: ${FONT_STACK}; font-size: ${BASE_FONT_SIZE}; line-height: ${BASE_LINE_HEIGHT}; color: #000000;">`];
+            // MODIFICATION: Ajout de EMAIL_MAIN_CONTAINER_STYLE
+            let emailParts = [`<div style="${EMAIL_MAIN_CONTAINER_STYLE}">`];
             const lang = data.langue || 'fr';
 
+            // MODIFICATION: Ajout de balises <strong> et <em> avec styles pour l'emphase
             const TEXTS_FR = {
                 banner1: "VOTRE SÉJOUR AU WALT DISNEY WORLD RESORT EN FLORIDE",
-                greeting: `Bonjour ${data.client_name || 'estimé(e) voyageur(se)'},`,
-                intro1: "Je vous écris au nom de Voyages en Route, où nous avons le plaisir d’accompagner les familles et voyageurs dans la planification de leurs séjours. Je m'appelle Pierre-Luc Morin et je serais votre conseiller en voyages spécialisé en destinations Disney et Universal.",
-                intro2: "Merci de nous avoir confié votre projet de voyage. J’ai pris soin de préparer une proposition basée sur les critères que vous avez partagés dans votre demande. Cette soumission est ajustable, et je serai heureux d’explorer avec vous différentes options afin de vous créer une expérience propre à vous et inoubliable.",
+                greeting: `Bonjour <strong style="${BOLD_STYLE}">${data.client_name || 'estimé(e) voyageur(se)'}</strong>,`,
+                intro1: `Je vous écris au nom de Voyages en Route, où nous avons le plaisir d’accompagner les familles et voyageurs dans la planification de leurs séjours. Je m'appelle <strong style="${BOLD_STYLE}">Pierre-Luc Morin</strong> et je serais votre conseiller en voyages spécialisé en destinations <strong style="${BOLD_STYLE}">Disney et Universal</strong>.`,
+                intro2: `Merci de nous avoir confié votre projet de voyage. J’ai pris soin de préparer une proposition basée sur les critères que vous avez partagés dans votre demande. Cette soumission est <strong style="${BOLD_STYLE}">ajustable</strong>, et je serai heureux d’explorer avec vous différentes options afin de vous créer une expérience <strong style="${BOLD_STYLE}">propre à vous et inoubliable</strong>.`,
                 banner_disney_stay: "SÉJOUR DISNEY",
-                disney_advantages_intro: "Séjourner dans un hôtel Disney, c’est profiter d’un univers immersif du matin au soir, mais aussi de nombreux avantages exclusifs, tels que :",
+                disney_advantages_intro: `Séjourner dans un hôtel Disney, c’est profiter d’un univers immersif du matin au soir, mais aussi de <strong style="${BOLD_STYLE}">nombreux avantages exclusifs</strong>, tels que :`,
                 disney_advantages_list_items: [
-                    "l’Early Theme Park Entry, pour accéder aux parcs avant l’ouverture officielle ;",
-                    "le transport gratuit vers tous les parcs et sites Disney (excluant les transferts aéroports) ;",
-                    "l’accès simplifié aux réservations avec l’application Disney Experience ;",
-                    "et un service client exceptionnel, signé Disney, à chaque étape de votre séjour."
+                    `<strong style="${BOLD_STYLE}">l’Early Theme Park Entry</strong>, pour accéder aux parcs avant l’ouverture officielle ;`,
+                    `le <strong style="${BOLD_STYLE}">transport gratuit</strong> vers tous les parcs et sites Disney (excluant les transferts aéroports) ;`,
+                    `l’<strong style="${BOLD_STYLE}">accès simplifié</strong> aux réservations avec l’application Disney Experience ;`,
+                    `et un <strong style="${BOLD_STYLE}">service client exceptionnel</strong>, signé Disney, à chaque étape de votre séjour.`
                 ],
                 disney_price_disclaimer: "Veuillez noter que tous les prix pour l'hébergement et les billets Disney sont indiqués en dollars américains (USD) et sont sujets à disponibilité.",
                 tickets_only_price_disclaimer: "Veuillez noter que tous les prix des billets Disney sont indiqués en dollars américains (USD) et sont sujets à disponibilité.",
                 banner_travel_fees: "FRAIS DE DÉPLACEMENT",
                 flight_intro: "Pour compléter votre voyage vers la magie, voici les détails concernant le transport aérien que nous avons exploré :",
-                flight_price_info: "Les prix sont à titre indicatif et peuvent changer à tout moment.",
-                flight_important_label: "IMPORTANT :",
-                flight_important_text: "Les tarifs aériens sont dynamiques et peuvent changer jusqu'à la réservation. Des frais de service de 50$ CAD par personne s'appliquent pour la réservation des vols via nos services. En me confiant vos vols, je m'occupe de tout désagrément potentiel. Si vous optez pour une réservation personnelle, ces frais ne s'appliquent pas, mais le support en cas de problème avec les vols ne sera pas inclus pour cette portion.",
+                flight_price_info: `<em style="${ITALIC_STYLE}">Les prix sont à titre indicatif et peuvent changer à tout moment.</em>`,
+                flight_important_label: `<strong style="${BOLD_STYLE}">IMPORTANT :</strong>`,
+                flight_important_text: `Les tarifs aériens sont dynamiques et peuvent changer jusqu'à la réservation. Des frais de service de <strong style="${BOLD_STYLE}">50$ CAD par personne</strong> s'appliquent pour la réservation des vols via nos services. En me confiant vos vols, je m'occupe de tout désagrément potentiel. Si vous optez pour une réservation personnelle, ces frais ne s'appliquent pas, mais le support en cas de problème avec les vols ne sera pas inclus pour cette portion.`,
                 banner_magic_continues: "LA MAGIE CONTINUE",
-                closing1: "Prenez le temps de rêver à ces options et de considérer ce qui ferait de ce voyage une expérience véritablement inoubliable. Je suis à votre entière disposition pour répondre à toutes vos questions, affiner chaque détail ou procéder à la réservation de cette escapade féérique.",
-                closing2: "N'hésitez pas à me joindre par courriel (en répondant simplement à celui-ci) ou par téléphone au 819-347-9103.",
-                closing3: "Merci encore pour votre confiance. J'ai sincèrement hâte de transformer ce rêve Disney en une magnifique réalité pour vous !"
+                closing1: `Prenez le temps de rêver à ces options et de considérer ce qui ferait de ce voyage une expérience <strong style="${BOLD_STYLE}">véritablement inoubliable</strong>. Je suis à votre <strong style="${BOLD_STYLE}">entière disposition</strong> pour répondre à toutes vos questions, affiner chaque détail ou procéder à la réservation de cette <em style="${ITALIC_STYLE}">escapade féérique</em>.`,
+                closing2: `N'hésitez pas à me joindre par courriel (en répondant simplement à celui-ci) ou par téléphone au <strong style="${BOLD_STYLE}">819-347-9103</strong>.`,
+                closing3: `Merci encore pour votre confiance. J'ai sincèrement hâte de transformer ce <strong style="${BOLD_STYLE}">rêve Disney</strong> en une <strong style="${BOLD_STYLE}">magnifique réalité pour vous !</strong>`
             };
             const T = TEXTS_FR;
 
-            // Section 1: Introduction
             emailParts.push(createBanner(T.banner1, true));
             emailParts.push(`<p style="${PARAGRAPH_STYLE}">${T.greeting}</p>`);
             emailParts.push(`<p style="${PARAGRAPH_STYLE}">${T.intro1}</p>`);
             emailParts.push(`<p style="${PARAGRAPH_STYLE}">${T.intro2}</p>`);
             emailParts.push(`<div style="${HORIZONTAL_RULE_STYLE}"></div>`);
 
-            // Section 2: Séjour Disney
             emailParts.push(createBanner(T.banner_disney_stay, false));
-
             const selectedHotels = Array.isArray(data.hotel_names) ? data.hotel_names.filter(h => h) : [];
 
             if (data.booking_type === 'hotel_tickets' && selectedHotels.length > 0) {
                 if (selectedHotels.length === 1) {
                     const hotel = getHotelByName(selectedHotels[0]);
-                    emailParts.push(`<p style="${PARAGRAPH_STYLE}">Pour votre séjour au Walt Disney World Resort en Floride, j’ai préparé une option qui répond pleinement à vos besoins. J’ai sélectionné comme l’hébergement <strong style="font-weight:bold;">${hotel.name}</strong>.</p>`);
+                    emailParts.push(`<p style="${PARAGRAPH_STYLE}">Pour votre séjour au Walt Disney World Resort en Floride, j’ai préparé une option qui répond pleinement à vos besoins. J’ai sélectionné comme l’hébergement <strong style="${BOLD_STYLE}">${hotel.name}</strong>.</p>`);
                     emailParts.push(`<p style="${PARAGRAPH_STYLE}">Cette proposition inclut l’hébergement ainsi que les billets pour les parcs Disney.</p>`);
                     emailParts.push(`<p style="${PARAGRAPH_STYLE}">Tous les détails (dates, prix, inclusions et conditions) se trouvent dans le document PDF ci-joint.</p>`);
                     if (hotel) {
-                        emailParts.push(`<div style="${PARAGRAPH_STYLE} margin-top:15px;"><strong style="font-weight:bold; text-transform: uppercase;">${hotel.name}</strong><br>${hotel.description}</div>`);
+                        emailParts.push(`<div style="${PARAGRAPH_STYLE} margin-top:15px;"><strong style="${BOLD_STYLE} text-transform: uppercase;">${hotel.name}</strong><br>${hotel.description}</div>`);
                     }
                 } else {
                     emailParts.push(`<p style="${PARAGRAPH_STYLE}">Pour votre séjour au Walt Disney World Resort en Floride, plusieurs options d’hébergement sont possibles selon vos besoins. Les options possibles sont :</p>`);
@@ -287,7 +289,7 @@
                     selectedHotels.forEach((hotelName, index) => {
                         const hotel = getHotelByName(hotelName);
                         if (hotel) {
-                             emailParts.push(`<div style="${PARAGRAPH_STYLE} margin-top:15px;"><strong style="font-weight:bold;">OPTION ${index + 1} – ${hotel.name.toUpperCase()}</strong><br>${hotel.description}</div>`);
+                             emailParts.push(`<div style="${PARAGRAPH_STYLE} margin-top:15px;"><strong style="${BOLD_STYLE}">OPTION ${index + 1} – ${hotel.name.toUpperCase()}</strong><br>${hotel.description}</div>`);
                         }
                     });
                 }
@@ -301,35 +303,35 @@
                 emailParts.push(`<p style="${PARAGRAPH_STYLE}">Pour votre séjour au Walt Disney World Resort en Floride, j’ai préparé pour vous un document ci-joint indiquant le prix ainsi que les conditions applicables aux billets de parc.</p>`);
             }
 
-            // Section 3: Promotions
             let promoText = "";
             if (data.promotion_type === 'aucune') {
-                promoText = "Pour garantir votre place au cœur de la magie, un dépôt de seulement 200 USD est requis. Soyez assuré que je veillerai personnellement à appliquer toute nouvelle promotion applicable d'ici votre départ pour optimiser la valeur de votre voyage. Ce dépôt est entièrement remboursable jusqu'à 30 jours avant votre arrivée, vous offrant une flexibilité totale pour planifier en toute sérénité.";
+                // MODIFICATION: Ajout d'emphase
+                promoText = `Pour garantir votre place au cœur de la magie, un dépôt de seulement <strong style="${BOLD_STYLE}">200 USD</strong> est requis. Soyez assuré que je veillerai personnellement à appliquer toute nouvelle promotion applicable d'ici votre départ pour optimiser la valeur de votre voyage. Ce dépôt est <strong style="${BOLD_STYLE}">entièrement remboursable jusqu'à 30 jours avant votre arrivée</strong>, vous offrant une <strong style="${BOLD_STYLE}">flexibilité totale</strong> pour planifier en toute sérénité.`;
             } else { 
-                let promoEndDateInfo = data.promotion_end_date ? ` (prend fin le ${formatDateFR(data.promotion_end_date)})` : "";
-                let promoNameInfo = data.promotion_name ? ` : <strong style="font-weight:bold;">${data.promotion_name}</strong>` : "";
-                promoText = `Une promotion est applicable pour votre séjour${promoNameInfo}${promoEndDateInfo}. L’offre est cependant limitée. Pour garantir votre place au cœur de la magie, un dépôt de seulement 200 USD est requis. Soyez assuré que je veillerai personnellement à appliquer toute nouvelle promotion applicable d'ici votre départ pour optimiser la valeur de votre voyage. Ce dépôt est entièrement remboursable jusqu'à 30 jours avant votre arrivée, vous offrant une flexibilité totale pour planifier en toute sérénité.`;
+                let promoEndDateInfo = data.promotion_end_date ? ` (prend fin le <strong style="${BOLD_STYLE}">${formatDateFR(data.promotion_end_date)}</strong>)` : "";
+                let promoNameInfo = data.promotion_name ? ` : <strong style="${BOLD_STYLE}">${data.promotion_name}</strong>` : "";
+                // MODIFICATION: Ajout d'emphase
+                promoText = `Une promotion est applicable pour votre séjour${promoNameInfo}${promoEndDateInfo}. L’offre est cependant <em style="${ITALIC_STYLE}">limitée</em>. Pour garantir votre place au cœur de la magie, un dépôt de seulement <strong style="${BOLD_STYLE}">200 USD</strong> est requis. Soyez assuré que je veillerai personnellement à appliquer toute nouvelle promotion applicable d'ici votre départ pour optimiser la valeur de votre voyage. Ce dépôt est <strong style="${BOLD_STYLE}">entièrement remboursable jusqu'à 30 jours avant votre arrivée</strong>, vous offrant une <strong style="${BOLD_STYLE}">flexibilité totale</strong> pour planifier en toute sérénité.`;
             }
-            emailParts.push(`<p style="${PARAGRAPH_STYLE} margin-top:15px;"><strong style="font-weight:bold;">PROMOTIONS :</strong><br>${promoText}</p>`);
+            emailParts.push(`<p style="${PARAGRAPH_STYLE} margin-top:15px;"><strong style="${BOLD_STYLE}">PROMOTIONS :</strong><br>${promoText}</p>`);
             
             if (data.booking_type === 'hotel_tickets' && selectedHotels.length > 0) {
-                 emailParts.push(`<p style="${PARAGRAPH_STYLE} font-style:italic;">${T.disney_price_disclaimer}</p>`);
+                 emailParts.push(`<p style="${PARAGRAPH_STYLE} ${ITALIC_STYLE}">${T.disney_price_disclaimer}</p>`);
             } else if (data.booking_type === 'tickets_only') {
-                emailParts.push(`<p style="${PARAGRAPH_STYLE} font-style:italic;">${T.tickets_only_price_disclaimer}</p>`);
+                emailParts.push(`<p style="${PARAGRAPH_STYLE} ${ITALIC_STYLE}">${T.tickets_only_price_disclaimer}</p>`);
             }
             emailParts.push(`<div style="${HORIZONTAL_RULE_STYLE}"></div>`);
 
-            // Section 4: Frais de déplacement (Vols)
             if (data.include_flights) {
                 emailParts.push(createBanner(T.banner_travel_fees, false));
                 emailParts.push(`<p style="${PARAGRAPH_STYLE}">${T.flight_intro}</p>`);
                 
-                let flightDetailsHtml = `<div style="margin-left: 20px;">`; // Pas de style de paragraphe global ici
-                flightDetailsHtml += `<p style="${PARAGRAPH_STYLE}"><strong style="font-weight:bold;">Aller :</strong> ${formatDateFR(data.departure_date_aller)} à ${formatTime(data.departure_time_aller)}<br>`;
+                let flightDetailsHtml = `<div style="margin-left: 20px; background-color: transparent;">`;
+                flightDetailsHtml += `<p style="${PARAGRAPH_STYLE}"><strong style="${BOLD_STYLE}">Aller :</strong> ${formatDateFR(data.departure_date_aller)} à ${formatTime(data.departure_time_aller)}<br>`;
                 flightDetailsHtml += `De : ${data.departure_airport_aller || 'N/A'}<br>`;
                 flightDetailsHtml += `Vers : ${data.arrival_airport_aller || 'N/A'}</p>`;
                 
-                flightDetailsHtml += `<p style="${PARAGRAPH_STYLE}"><strong style="font-weight:bold;">Retour :</strong> ${formatDateFR(data.departure_date_retour)} à ${formatTime(data.departure_time_retour)}<br>`;
+                flightDetailsHtml += `<p style="${PARAGRAPH_STYLE}"><strong style="${BOLD_STYLE}">Retour :</strong> ${formatDateFR(data.departure_date_retour)} à ${formatTime(data.departure_time_retour)}<br>`;
                 flightDetailsHtml += `De : ${data.departure_airport_retour || 'N/A'}<br>`;
                 flightDetailsHtml += `Vers : ${data.arrival_airport_retour || 'N/A'}</p>`;
                 
@@ -339,33 +341,29 @@
                 const adultText = numAdults > 1 ? "adultes" : "adulte";
                 const childText = numChildren === 0 ? "" : (numChildren > 1 ? `${numChildren} enfants` : `${numChildren} enfant`);
                 let passengerSummary = `${numAdults} ${adultText}`;
-                if (numChildren > 0) {
-                    passengerSummary += `, ${childText}`;
-                }
+                if (numChildren > 0) { passengerSummary += `, ${childText}`; }
 
-                flightDetailsHtml += `<p style="${PARAGRAPH_STYLE}"><strong style="font-weight:bold;">Nombre de passagers :</strong> ${totalPassengers} (${passengerSummary})</p>`;
-                flightDetailsHtml += `<p style="${PARAGRAPH_STYLE}"><strong style="font-weight:bold;">Prix total approximatif des vols :</strong> ${data.flight_price || 'N/A'} CAD</p>`;
+                flightDetailsHtml += `<p style="${PARAGRAPH_STYLE}"><strong style="${BOLD_STYLE}">Nombre de passagers :</strong> ${totalPassengers} (${passengerSummary})</p>`;
+                flightDetailsHtml += `<p style="${PARAGRAPH_STYLE}"><strong style="${BOLD_STYLE}">Prix total approximatif des vols :</strong> ${data.flight_price || 'N/A'} CAD</p>`;
                 flightDetailsHtml += "</div>";
                 emailParts.push(flightDetailsHtml);
 
-                emailParts.push(`<p style="${PARAGRAPH_STYLE} font-style:italic;">${T.flight_price_info}</p>`);
-                emailParts.push(`<p style="${PARAGRAPH_STYLE}"><strong style="font-weight:bold;">${T.flight_important_label}</strong> ${T.flight_important_text}</p>`);
+                emailParts.push(`<p style="${PARAGRAPH_STYLE}">${T.flight_price_info}</p>`); // Déjà en italique
+                emailParts.push(`<p style="${PARAGRAPH_STYLE}">${T.flight_important_label} ${T.flight_important_text}</p>`); // Déjà en gras
                 emailParts.push(`<div style="${HORIZONTAL_RULE_STYLE}"></div>`);
             }
 
-            // Section 5: Conclusion
             emailParts.push(createBanner(T.banner_magic_continues, false));
             emailParts.push(`<p style="${PARAGRAPH_STYLE}">${T.closing1}</p>`);
             emailParts.push(`<p style="${PARAGRAPH_STYLE}">${T.closing2}</p>`);
             emailParts.push(`<p style="${PARAGRAPH_STYLE}">${T.closing3}</p>`);
-            // Signature retirée comme demandé
 
             emailParts.push("</div>"); 
             return emailParts.join("\n");
         }
 
-
         // --- GESTION DU FORMULAIRE ET DES INTERACTIONS ---
+        // (Cette partie reste identique à la v2, car elle gère l'interface et la collecte de données)
         document.addEventListener('DOMContentLoaded', function() {
             const initialHotelSelect = document.querySelector('.hotel-name-select');
             DISNEY_HOTELS.forEach(hotel => {
