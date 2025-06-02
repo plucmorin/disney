@@ -3,42 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Générateur d'e-mail Disney (Client-Side v6 - Professionnel)</title>
+    <title>Générateur d'e-mail Disney (Logo Option A)</title>
     <style>
         body { font-family: sans-serif; margin: 20px; background-color: #f4f4f4; color: #333; line-height: 1.6; }
         .container { background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); max-width: 900px; margin: auto;}
         h1 { text-align: center; margin-bottom: 30px; color: #007bff;}
-        h2 { margin-top: 25px; color: #007bff; border-bottom: 1px solid #eee; padding-bottom: 5px;} /* Style pour les H2 du formulaire */
+        h2 { margin-top: 25px; color: #007bff; border-bottom: 1px solid #eee; padding-bottom: 5px;}
         label { display: block; margin-top: 15px; font-weight: bold; }
         input[type="text"], input[type="number"], input[type="date"], input[type="time"], select, textarea {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
+            width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box;
         }
         input[type="checkbox"] { margin-right: 5px; vertical-align: middle; }
         button, .remove-hotel-button {
             background-color: #007bff; color: white; padding: 10px 15px;
-            border: none; border-radius: 4px; cursor: pointer; margin-top: 10px;
-            font-size: 0.95em;
+            border: none; border-radius: 4px; cursor: pointer; margin-top: 10px; font-size: 0.95em;
         }
         button:hover, .remove-hotel-button:hover { background-color: #0056b3; }
         .remove-hotel-button { background-color: #dc3545; margin-left:10px; }
         .remove-hotel-button:hover { background-color: #c82333; }
-
         .form-section { border: 1px solid #eee; padding: 15px; margin-bottom: 20px; border-radius: 5px; background-color: #fdfdfd; }
         .hidden { display: none; }
         #emailOutputContainer { margin-top: 30px; }
-        #emailOutput { /* Style pour la zone de prévisualisation sur la page web */
-            padding: 20px;
-            border: 1px solid #ccc;
-            background-color: #f0f0f0; /* Fond pour la zone de prévisualisation seulement */
-            border-radius: 5px;
-            min-height: 200px;
-            /* La police de la prévisualisation est maintenant définie par le contenu généré */
-        }
+        #emailOutput { padding: 20px; border: 1px solid #ccc; background-color: #f0f0f0; border-radius: 5px; min-height: 200px; }
         .hotel-selection { display: flex; align-items: center; margin-bottom: 10px; }
         .hotel-selection select { flex-grow: 1; }
     </style>
@@ -46,25 +32,16 @@
 <body>
     <div class="container">
         <h1>Générateur d'e-mail pour Voyages Disney</h1>
-
         <form id="disneyForm">
             <div class="form-section">
                 <h2>Informations Générales</h2>
-                <label for="langue">Langue de l'e-mail :</label>
-                <select id="langue" name="langue">
-                    <option value="fr" selected>Français</option>
-                </select>
-
                 <label for="client_name">Nom de la personne cliente :</label>
                 <input type="text" id="client_name" name="client_name" placeholder="Entrez le nom du client" required>
-
                 <label for="adults">Nombre d'adultes :</label>
                 <input type="number" id="adults" name="adults" min="1" value="2" required>
-
                 <label for="children">Nombre d'enfants (0 si aucun) :</label>
                 <input type="number" id="children" name="children" min="0" value="0" required>
             </div>
-
             <div class="form-section">
                 <h2>Hébergement et Billets</h2>
                 <label for="booking_type">Type de réservation :</label>
@@ -72,15 +49,12 @@
                     <option value="hotel_tickets">Hôtel + Billets</option>
                     <option value="tickets_only">Billets seulement</option>
                 </select>
-
                 <div id="hotel_options_container">
                     <label>Choix d'hôtel(s) :</label>
-                    <div id="hotel_selections">
-                        </div>
+                    <div id="hotel_selections"></div>
                     <button type="button" id="add_hotel_button">Ajouter une option d'hôtel</button>
                 </div>
             </div>
-
             <div class="form-section">
                 <h2>Vols</h2>
                 <label><input type="checkbox" id="include_flights" name="include_flights"> Inclure les vols ?</label>
@@ -93,7 +67,6 @@
                     <input type="text" id="departure_airport_aller" name="departure_airport_aller" placeholder="Ex: YUL - Montréal">
                     <label for="arrival_airport_aller">Aéroport d'arrivée (Aller) :</label>
                     <input type="text" id="arrival_airport_aller" name="arrival_airport_aller" placeholder="Ex: MCO - Orlando" value="MCO - Orlando">
-
                     <label for="departure_date_retour">Date de départ (Retour) :</label>
                     <input type="date" id="departure_date_retour" name="departure_date_retour">
                     <label for="departure_time_retour">Heure de départ (Retour) :</label>
@@ -102,12 +75,10 @@
                     <input type="text" id="departure_airport_retour" name="departure_airport_retour" placeholder="Ex: MCO - Orlando" value="MCO - Orlando">
                     <label for="arrival_airport_retour">Aéroport d'arrivée (Retour) :</label>
                     <input type="text" id="arrival_airport_retour" name="arrival_airport_retour" placeholder="Ex: YUL - Montréal">
-
                     <label for="flight_price">Prix total approximatif des vols (CAD) :</label>
                     <input type="number" id="flight_price" name="flight_price" step="0.01">
                 </div>
             </div>
-
             <div class="form-section">
                 <h2>Promotion</h2>
                 <label for="promotion_type">Type de promotion :</label>
@@ -122,22 +93,19 @@
                     <input type="date" id="promotion_end_date" name="promotion_end_date">
                 </div>
             </div>
-
             <button type="submit">Générer l'e-mail</button>
         </form>
 
         <div id="emailOutputContainer">
             <h2>E-mail Généré (Prêt à copier)</h2>
-            <p><em><b>Important :</b> La police "Aptos" ne s'affichera que si le destinataire l'a installée. Des polices alternatives (Arial, Helvetica) sont prévues. Le fond du message s'adaptera au mode clair/sombre de la messagerie du destinataire. Après avoir collé dans votre client e-mail, envoyez-vous un test pour vérifier le rendu final.</em></p>
-            <div id="emailOutput" contenteditable="true">
-                </div>
+            <p><em><b>Important :</b> La police "Aptos" ne s'affichera que si le destinataire l'a installée... Testez l'envoi.</em></p>
+            <div id="emailOutput" contenteditable="true"></div>
             <button type="button" id="copyHtmlButton">Copier le contenu de l'e-mail</button>
         </div>
     </div>
 
     <script>
-        // --- CONSTANTES ET DONNÉES ---
-        const DISNEY_HOTELS = [ /* ... votre liste d'hôtels reste ici ... */ 
+        const DISNEY_HOTELS = [ /* ... Votre liste d'hôtels ici ... */ 
             { name: "Bay Lake Tower at Disney's Contemporary Resort", description: "Connecté au Magic Kingdom par une passerelle, cet hôtel moderne offre des vues spectaculaires et des villas luxueuses." },
             { name: "Boulder Ridge Villas at Disney's Wilderness Lodge", description: "Inspirées par les gîtes des parcs nationaux de l'Ouest américain de la fin du XIXe siècle, ces villas offrent un charme rustique et une ambiance chaleureuse." },
             { name: "Copper Creek Villas & Cabins at Disney's Wilderness Lodge", description: "Des villas et cabines élégantes au bord de l'eau, offrant un mélange de luxe moderne et de nature sauvage, inspirées par l'héritage ferroviaire du Nord-Ouest Pacifique." },
@@ -172,40 +140,54 @@
             { name: "Les villas au Disney's Grand Floridian Resort & Spa", description: "Des villas luxueuses offrant l'élégance victorienne du Grand Floridian avec plus d'espace, des cuisines et des vues magnifiques, pour une expérience DVC haut de gamme." }
         ];
 
-        // --- STYLES POUR L'EMAIL (appliqués inline) ---
         const REGULAR_FONT_STACK = "Aptos, Arial, Helvetica, sans-serif";
         const BASE_FONT_SIZE = "11pt";
         const BASE_LINE_HEIGHT = "1.5";
-        const TEXT_COLOR_BODY = "#000000"; 
-
+        const TEXT_COLOR_BODY = "#000000";
         const EMAIL_MAIN_CONTAINER_STYLE = `font-family: ${REGULAR_FONT_STACK}; font-size: ${BASE_FONT_SIZE}; line-height: ${BASE_LINE_HEIGHT}; color: ${TEXT_COLOR_BODY}; background-color: transparent; padding: 5px;`;
         const PARAGRAPH_STYLE = `font-family: ${REGULAR_FONT_STACK}; font-size: ${BASE_FONT_SIZE}; line-height: ${BASE_LINE_HEIGHT}; margin-top: 12px; margin-bottom: 12px; color: ${TEXT_COLOR_BODY}; background-color: transparent;`;
         const LIST_STYLE = `font-family: ${REGULAR_FONT_STACK}; font-size: ${BASE_FONT_SIZE}; line-height: ${BASE_LINE_HEIGHT}; padding-left: 25px; margin-top: 12px; margin-bottom: 12px; color: ${TEXT_COLOR_BODY}; background-color: transparent;`;
         const LIST_ITEM_STYLE = `margin-bottom: 6px; background-color: transparent;`;
-        
-        // MODIFICATION: Couleurs professionnelles pour les bannières
-        const BANNER_PROFESSIONAL_BACKGROUND_COLOR = "#005A9C"; // Bleu marine professionnel
-        const BANNER_PROFESSIONAL_TEXT_COLOR = "#FFFFFF";       // Texte blanc
+        const PROFESSIONAL_HORIZONTAL_RULE = `<div style="border-top: 1px solid #B0BEC5; margin: 30px 0; background-color: transparent;"></div>`;
+        const BOLD_STYLE = "font-weight: bold;";
+        const ITALIC_STYLE = "font-style: italic;";
 
-        // MODIFICATION: Fonction pour créer les bannières professionnelles
-        function createProfessionalBanner(text, isMainTitle = true) {
-            const fontSize = isMainTitle ? "1.4em" : "1.2em"; // Tailles de police ajustées
-            const padding = isMainTitle ? "15px 10px" : "12px 10px";
+        // --- STYLE DE BANNIÈRE CHOISI (Option A) ---
+        const chosenBannerStyle = {
+            tableBorderTop: "4px solid #FF7F50",    // Orange accent
+            tableBorderBottom: "4px solid #FF7F50", // Orange accent
+            cellBackgroundColor: "#0078C1",         // Primary Blue
+            textColor: "#FFFFFF",                   // White text
+            fontSizeMain: "1.4em",
+            fontSizeSub: "1.2em",
+            paddingMain: "12px 10px",
+            paddingSub: "10px 10px",
+            textAlign: "center",
+            letterSpacing: "0.5px"
+        };
+
+        function createStyledBanner(text, styleOptions, isMainTitle = true) {
+            const fontSize = isMainTitle ? styleOptions.fontSizeMain : styleOptions.fontSizeSub;
+            const padding = isMainTitle ? styleOptions.paddingMain : styleOptions.paddingSub;
+            let tableHtmlStyle = `width: 100%; margin-top: 25px; margin-bottom: 25px;`;
+            if (styleOptions.tableBackgroundColor) tableHtmlStyle += ` background-color: ${styleOptions.tableBackgroundColor};`;
+            if (styleOptions.tableBorderTop) tableHtmlStyle += ` border-top: ${styleOptions.tableBorderTop};`;
+            if (styleOptions.tableBorderBottom) tableHtmlStyle += ` border-bottom: ${styleOptions.tableBorderBottom};`;
+
+            let cellHtmlStyle = `padding: ${padding}; font-family: ${REGULAR_FONT_STACK}; font-size: ${fontSize}; color: ${styleOptions.textColor}; text-transform: uppercase; font-weight: bold; line-height: 1.3; letter-spacing: ${styleOptions.letterSpacing || '0.5px'};`;
+            if (styleOptions.cellBackgroundColor) cellHtmlStyle += ` background-color: ${styleOptions.cellBackgroundColor};`;
+            if (styleOptions.cellBorderBottom) cellHtmlStyle += ` border-bottom: ${styleOptions.cellBorderBottom};`;
+            if (styleOptions.cellBorderTop) cellHtmlStyle += ` border-top: ${styleOptions.cellBorderTop};`;
+
             return `
-            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: ${BANNER_PROFESSIONAL_BACKGROUND_COLOR}; margin-top: 25px; margin-bottom: 25px;">
+            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="${tableHtmlStyle.trim()}">
               <tr>
-                <td align="center" style="padding: ${padding}; font-family: ${REGULAR_FONT_STACK}; font-size: ${fontSize}; color: ${BANNER_PROFESSIONAL_TEXT_COLOR}; text-transform: uppercase; font-weight: bold; line-height: 1.3;">
+                <td align="${styleOptions.textAlign || 'center'}" style="${cellHtmlStyle.trim()}">
                   ${text}
                 </td>
               </tr>
             </table>`;
         }
-        
-        // MODIFICATION: Séparateur horizontal professionnel
-        const PROFESSIONAL_HORIZONTAL_RULE = `<div style="border-top: 1px solid #B0BEC5; margin: 30px 0; background-color: transparent;"></div>`;
-
-        const BOLD_STYLE = "font-weight: bold;";
-        const ITALIC_STYLE = "font-style: italic;";
 
         function getHotelByName(name) { return DISNEY_HOTELS.find(hotel => hotel.name === name); }
         function formatDateFR(dateStr) { if (!dateStr) return ""; try { const date = new Date(dateStr + 'T00:00:00'); const options = { year: 'numeric', month: 'long', day: 'numeric' }; return date.toLocaleDateString('fr-FR', options); } catch (e) { return dateStr; } }
@@ -213,7 +195,7 @@
 
         function generateEmailHTML(data) {
             let emailParts = [`<div style="${EMAIL_MAIN_CONTAINER_STYLE}">`];
-            const T = { /* ... L'objet TEXTS_FR avec les textes et l'emphase reste ici ... */ 
+            const T = { /* ... Votre objet TEXTS_FR ... */ 
                 banner1: "VOTRE SÉJOUR AU WALT DISNEY WORLD RESORT EN FLORIDE",
                 greeting: `Bonjour <strong style="${BOLD_STYLE}">${data.client_name || 'estimé(e) voyageur(se)'}</strong>,`,
                 intro1: `Je vous écris au nom de Voyages en Route, où nous avons le plaisir d’accompagner les familles et voyageurs dans la planification de leurs séjours. Je m'appelle <strong style="${BOLD_STYLE}">Pierre-Luc Morin</strong> et je serais votre conseiller en voyages spécialisé en destinations <strong style="${BOLD_STYLE}">Disney et Universal</strong>.`,
@@ -239,19 +221,18 @@
                 closing3: `Merci encore pour votre confiance. J'ai sincèrement hâte de transformer ce <strong style="${BOLD_STYLE}">rêve Disney</strong> en une <strong style="${BOLD_STYLE}">magnifique réalité pour vous !</strong>`
             };
 
-
-            // MODIFICATION: Utilisation de createProfessionalBanner et PROFESSIONAL_HORIZONTAL_RULE
-            emailParts.push(createProfessionalBanner(T.banner1, true));
+            emailParts.push(createStyledBanner(T.banner1, chosenBannerStyle, true));
             emailParts.push(`<p style="${PARAGRAPH_STYLE}">${T.greeting}</p>`);
             emailParts.push(`<p style="${PARAGRAPH_STYLE}">${T.intro1}</p>`);
             emailParts.push(`<p style="${PARAGRAPH_STYLE}">${T.intro2}</p>`);
             emailParts.push(PROFESSIONAL_HORIZONTAL_RULE);
 
-            emailParts.push(createProfessionalBanner(T.banner_disney_stay, false));
+            emailParts.push(createStyledBanner(T.banner_disney_stay, chosenBannerStyle, false));
             const selectedHotels = Array.isArray(data.hotel_names) ? data.hotel_names.filter(h => h) : [];
 
             if (data.booking_type === 'hotel_tickets' && selectedHotels.length > 0) {
-                if (selectedHotels.length === 1) {
+                // ... (logique d'affichage des hôtels, identique à v5/v6)
+                 if (selectedHotels.length === 1) {
                     const hotel = getHotelByName(selectedHotels[0]);
                     emailParts.push(`<p style="${PARAGRAPH_STYLE}">Pour votre séjour au Walt Disney World Resort en Floride, j’ai préparé une option qui répond pleinement à vos besoins. J’ai sélectionné comme l’hébergement <strong style="${BOLD_STYLE}">${hotel.name}</strong>.</p>`);
                     emailParts.push(`<p style="${PARAGRAPH_STYLE}">Cette proposition inclut l’hébergement ainsi que les billets pour les parcs Disney.</p>`);
@@ -279,12 +260,11 @@
                 T.disney_advantages_list_items.forEach(item => { advantagesListHtml += `<li style="${LIST_ITEM_STYLE}">${item}</li>`; });
                 advantagesListHtml += `</ul>`;
                 emailParts.push(advantagesListHtml);
-
             } else if (data.booking_type === 'tickets_only') {
                 emailParts.push(`<p style="${PARAGRAPH_STYLE}">Pour votre séjour au Walt Disney World Resort en Floride, j’ai préparé pour vous un document ci-joint indiquant le prix ainsi que les conditions applicables aux billets de parc.</p>`);
             }
 
-            let promoText = "";
+            let promoText = ""; // ... (logique promotions, identique)
             if (data.promotion_type === 'aucune') {
                 promoText = `Pour garantir votre place au cœur de la magie, un dépôt de seulement <strong style="${BOLD_STYLE}">200 USD</strong> est requis. Soyez assuré que je veillerai personnellement à appliquer toute nouvelle promotion applicable d'ici votre départ pour optimiser la valeur de votre voyage. Ce dépôt est <strong style="${BOLD_STYLE}">entièrement remboursable jusqu'à 30 jours avant votre arrivée</strong>, vous offrant une <strong style="${BOLD_STYLE}">flexibilité totale</strong> pour planifier en toute sérénité.`;
             } else { 
@@ -301,8 +281,8 @@
             }
             emailParts.push(PROFESSIONAL_HORIZONTAL_RULE);
 
-            if (data.include_flights) {
-                emailParts.push(createProfessionalBanner(T.banner_travel_fees, false));
+            if (data.include_flights) { // ... (logique vols, identique)
+                emailParts.push(createStyledBanner(T.banner_travel_fees, chosenBannerStyle, false));
                 emailParts.push(`<p style="${PARAGRAPH_STYLE}">${T.flight_intro}</p>`);
                 let flightDetailsHtml = `<div style="margin-left: 20px; background-color: transparent;">`;
                 flightDetailsHtml += `<p style="${PARAGRAPH_STYLE}"><strong style="${BOLD_STYLE}">Aller :</strong> ${formatDateFR(data.departure_date_aller)} à ${formatTime(data.departure_time_aller)}<br>De : ${data.departure_airport_aller || 'N/A'}<br>Vers : ${data.arrival_airport_aller || 'N/A'}</p>`;
@@ -323,20 +303,18 @@
                 emailParts.push(PROFESSIONAL_HORIZONTAL_RULE);
             }
 
-            emailParts.push(createProfessionalBanner(T.banner_magic_continues, false));
+            emailParts.push(createStyledBanner(T.banner_magic_continues, chosenBannerStyle, false));
             emailParts.push(`<p style="${PARAGRAPH_STYLE}">${T.closing1}</p>`);
             emailParts.push(`<p style="${PARAGRAPH_STYLE}">${T.closing2}</p>`);
             emailParts.push(`<p style="${PARAGRAPH_STYLE}">${T.closing3}</p>`);
-            emailParts.push("</div>"); 
+            emailParts.push("</div>");
             return emailParts.join("\n");
         }
 
-        // --- GESTION DU FORMULAIRE ET DES INTERACTIONS ---
-        // (Cette partie reste majoritairement identique à v4 pour la logique du formulaire)
+        // --- GESTION DU FORMULAIRE ET INTERACTIONS (identique à v5) ---
         document.addEventListener('DOMContentLoaded', function() {
             const hotelSelectionsDiv = document.getElementById('hotel_selections');
             const addHotelButton = document.getElementById('add_hotel_button');
-            
             function createHotelSelector(isFirst = false) {
                 const hotelSelectionDiv = document.createElement('div');
                 hotelSelectionDiv.classList.add('hotel-selection');
@@ -354,7 +332,6 @@
                     newSelect.appendChild(option);
                 });
                 hotelSelectionDiv.appendChild(newSelect);
-
                 const removeButton = document.createElement('button');
                 removeButton.type = 'button';
                 removeButton.classList.add('remove-hotel-button');
@@ -367,25 +344,16 @@
                 hotelSelectionDiv.appendChild(removeButton);
                 return hotelSelectionDiv;
             }
-
             function updateAddHotelButtonState() {
                 const currentHotelSelectors = hotelSelectionsDiv.querySelectorAll('.hotel-selection').length;
                 addHotelButton.disabled = currentHotelSelectors >= 5;
-                addHotelButton.textContent = currentHotelSelectors >= 5 ? "Maximum 5 hôtels atteints" : "Ajouter une autre option d'hôtel";
+                addHotelButton.textContent = currentHotelSelectors >= 5 ? "Maximum 5 hôtels atteints" : "Ajouter une option d'hôtel";
             }
-
             addHotelButton.addEventListener('click', function() {
                 const currentHotelSelectors = hotelSelectionsDiv.querySelectorAll('.hotel-selection').length;
-                if (currentHotelSelectors < 5) {
-                    hotelSelectionsDiv.appendChild(createHotelSelector());
-                    updateAddHotelButtonState();
-                }
+                if (currentHotelSelectors < 5) { hotelSelectionsDiv.appendChild(createHotelSelector()); updateAddHotelButtonState(); }
             });
-            
-            hotelSelectionsDiv.appendChild(createHotelSelector(true)); // Ajoute le premier sélecteur
-            updateAddHotelButtonState();
-
-
+            hotelSelectionsDiv.appendChild(createHotelSelector(true)); updateAddHotelButtonState();
             const includeFlightsCheckbox = document.getElementById('include_flights');
             const flightDetailsDiv = document.getElementById('flight_details');
             const bookingTypeSelect = document.getElementById('booking_type');
@@ -395,57 +363,36 @@
             const form = document.getElementById('disneyForm');
             const emailOutputDiv = document.getElementById('emailOutput');
             const copyHtmlButton = document.getElementById('copyHtmlButton');
-
             function toggleFlightDetails() { flightDetailsDiv.classList.toggle('hidden', !includeFlightsCheckbox.checked); }
             function toggleHotelOptions() { 
                 const isHotelBooking = bookingTypeSelect.value === 'hotel_tickets';
                 hotelOptionsContainer.classList.toggle('hidden', !isHotelBooking);
-                if (isHotelBooking && hotelSelectionsDiv.children.length === 0) {
-                     hotelSelectionsDiv.appendChild(createHotelSelector(true));
-                }
+                if (isHotelBooking && hotelSelectionsDiv.children.length === 0) { hotelSelectionsDiv.appendChild(createHotelSelector(true));}
                 updateAddHotelButtonState();
             }
             function togglePromotionDetails() { promotionDetailsDiv.classList.toggle('hidden', promotionTypeSelect.value !== 'specifique'); }
-
             includeFlightsCheckbox.addEventListener('change', toggleFlightDetails);
             bookingTypeSelect.addEventListener('change', toggleHotelOptions);
             promotionTypeSelect.addEventListener('change', togglePromotionDetails);
-            
             form.addEventListener('submit', function(event) {
                 event.preventDefault();
-                const formData = new FormData(form);
-                const data = {};
+                const formData = new FormData(form); const data = {};
                 const hotelNameElements = form.querySelectorAll('select[name="hotel_name[]"]');
                 data.hotel_names = Array.from(hotelNameElements).map(select => select.value).filter(value => value !== "");
                 for (let [key, value] of formData.entries()) {
-                    if (key !== 'hotel_name[]') {
-                         if (key === 'include_flights') { data[key] = true; } 
-                         else { data[key] = value; }
-                    }
+                    if (key !== 'hotel_name[]') { if (key === 'include_flights') { data[key] = true; } else { data[key] = value; } }
                 }
-                 if (!formData.has('include_flights')) { data.include_flights = false; }
+                if (!formData.has('include_flights')) { data.include_flights = false; }
                 const emailHtmlContent = generateEmailHTML(data);
                 emailOutputDiv.innerHTML = emailHtmlContent;
             });
-
             copyHtmlButton.addEventListener('click', function() {
-                const range = document.createRange();
-                range.selectNodeContents(emailOutputDiv);
-                const selection = window.getSelection();
-                selection.removeAllRanges();
-                selection.addRange(range);
-                try {
-                    document.execCommand('copy');
-                    alert('Contenu de l\'e-mail copié dans le presse-papiers !');
-                } catch (err) {
-                    alert('Erreur lors de la copie. Veuillez sélectionner manuellement le contenu.');
-                }
+                const range = document.createRange(); range.selectNodeContents(emailOutputDiv);
+                const selection = window.getSelection(); selection.removeAllRanges(); selection.addRange(range);
+                try { document.execCommand('copy'); alert('Contenu copié !'); } catch (err) { alert('Erreur copie.'); }
                 selection.removeAllRanges();
             });
-
-            toggleFlightDetails();
-            toggleHotelOptions();
-            togglePromotionDetails();
+            toggleFlightDetails(); toggleHotelOptions(); togglePromotionDetails();
         });
     </script>
 </body>
