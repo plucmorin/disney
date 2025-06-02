@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Générateur d'e-mail Disney (Logo Option A)</title>
+    <title>Générateur d'e-mail Disney (Logo Option B)</title>
     <style>
         body { font-family: sans-serif; margin: 20px; background-color: #f4f4f4; color: #333; line-height: 1.6; }
         .container { background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); max-width: 900px; margin: auto;}
@@ -152,17 +152,17 @@
         const BOLD_STYLE = "font-weight: bold;";
         const ITALIC_STYLE = "font-style: italic;";
 
-        // --- STYLE DE BANNIÈRE CHOISI (Option A) ---
+        // --- STYLE DE BANNIÈRE CHOISI (Option B) ---
         const chosenBannerStyle = {
-            tableBorderTop: "4px solid #FF7F50",    // Orange accent
-            tableBorderBottom: "4px solid #FF7F50", // Orange accent
-            cellBackgroundColor: "#0078C1",         // Primary Blue
-            textColor: "#FFFFFF",                   // White text
-            fontSizeMain: "1.4em",
-            fontSizeSub: "1.2em",
-            paddingMain: "12px 10px",
-            paddingSub: "10px 10px",
-            textAlign: "center",
+            tableBackgroundColor: "transparent",
+            cellBackgroundColor: "transparent",
+            textColor: "#0078C1", // Primary Blue text
+            cellBorderBottom: "3px solid #FF7F50", // Orange accent line
+            fontSizeMain: "1.5em",
+            fontSizeSub: "1.3em",
+            paddingMain: "15px 10px 10px 10px",
+            paddingSub: "12px 10px 8px 10px",
+            textAlign: "left",
             letterSpacing: "0.5px"
         };
 
@@ -178,7 +178,7 @@
             if (styleOptions.cellBackgroundColor) cellHtmlStyle += ` background-color: ${styleOptions.cellBackgroundColor};`;
             if (styleOptions.cellBorderBottom) cellHtmlStyle += ` border-bottom: ${styleOptions.cellBorderBottom};`;
             if (styleOptions.cellBorderTop) cellHtmlStyle += ` border-top: ${styleOptions.cellBorderTop};`;
-
+            
             return `
             <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="${tableHtmlStyle.trim()}">
               <tr>
@@ -231,7 +231,7 @@
             const selectedHotels = Array.isArray(data.hotel_names) ? data.hotel_names.filter(h => h) : [];
 
             if (data.booking_type === 'hotel_tickets' && selectedHotels.length > 0) {
-                // ... (logique d'affichage des hôtels, identique à v5/v6)
+                // ... (logique d'affichage des hôtels, identique)
                  if (selectedHotels.length === 1) {
                     const hotel = getHotelByName(selectedHotels[0]);
                     emailParts.push(`<p style="${PARAGRAPH_STYLE}">Pour votre séjour au Walt Disney World Resort en Floride, j’ai préparé une option qui répond pleinement à vos besoins. J’ai sélectionné comme l’hébergement <strong style="${BOLD_STYLE}">${hotel.name}</strong>.</p>`);
@@ -265,7 +265,7 @@
             }
 
             let promoText = ""; // ... (logique promotions, identique)
-            if (data.promotion_type === 'aucune') {
+             if (data.promotion_type === 'aucune') {
                 promoText = `Pour garantir votre place au cœur de la magie, un dépôt de seulement <strong style="${BOLD_STYLE}">200 USD</strong> est requis. Soyez assuré que je veillerai personnellement à appliquer toute nouvelle promotion applicable d'ici votre départ pour optimiser la valeur de votre voyage. Ce dépôt est <strong style="${BOLD_STYLE}">entièrement remboursable jusqu'à 30 jours avant votre arrivée</strong>, vous offrant une <strong style="${BOLD_STYLE}">flexibilité totale</strong> pour planifier en toute sérénité.`;
             } else { 
                 let promoEndDateInfo = data.promotion_end_date ? ` (prend fin le <strong style="${BOLD_STYLE}">${formatDateFR(data.promotion_end_date)}</strong>)` : "";
