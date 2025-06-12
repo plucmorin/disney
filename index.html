@@ -147,6 +147,7 @@
         function generateEmailHTML(data) {
              const C = {
                 blue: '#0078C1',
+                blueDark: '#005a9c',
                 orange: '#FF7F50',
                 textDark: '#222222',
                 textLight: '#555555',
@@ -158,6 +159,11 @@
                 green: '#28a745',
             };
 
+            const ICONS = {
+                checkmark: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAZpJREFUOE+11L1rFEEQxfF3pZcQtVERsVBEUNEgq4AgKPhHFhYKgo2VlpZIKkFjqdYFLCxELBQFC8EiPoYlFpYpKiIkaUaSy9y8vB2TbdlNvBnmzcyb5925c/eAj/GpR/hBHGIM5/GvB8zVzR+cww38QyP4gnscwaE0N3GkG3gWn+AFPMDbCjD6Ff0Qf8Kx/E0D0fN83kS0AobxFjfxLd5fA5A9h7iKBzBDg+gZPMZfPMI4vudQz3C3rG2DReP6bWw1p42xGtjb8Vv4QfTCSYxigv8xjs8wT+Ea3tgs2eapZtWB8D52N8+wUrz9A7+JfSTiN+Yxhm1qIBzAKv7GDG5jgN5xDdGkH3Mh7fMClvEahxCV/xGgwjA/4lAN4nIMpPEzgJ55jE0yQy/g2E08wwYbhDO4xhd+EV38gTeMoVPsEXHMNiLsC7l9jL9+QD3AJpxGT/xLsXo3e4gVv4k7rGpwBSYp/xDLe8T8kox3gN45iM+5jC0A5wSgOkfVfxI14hD/MykCrwD0/xCWYpD3ELp8hXfJ6Dt8dYAuL8k+7gVd7C+w9QLsIvjOP2b2IqLtr7A2RjDpexD9cwtZyE96mjy3NfmMtvsFrA8Vz+A82dx/AXy5nkeXwG/0A/8MoyT+MEPke+pWwhi/gD/4V/8D3+J/zE+A+sF5aAco5fFQAAAABJRU5ErkJggg==',
+                plane: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAadJREFUOE+11T9oFEEQx/HPUVEQwaCgEYsICkYQBCwstLSwEEgU7SxsxUIgGAhYWAgrYCMIYkGBHwTBF0hIWDRFRMS08/Kyh53ZdXe3u4N8MOy2OzPzzOzsbBf0f2uAa7iJ53gDt/EFn+AF3sZDFh/CZpzGvTjGfzyNQzxsPspz8Bov4wVeYhLz8Agv4U4c4w0eBiAm8RmX8BffYhgz8Bgv400s4gLu4SMe4CMOw2c8xpOYwwG8h4e4S3v+Bn7EwV/A/nyEB3gU3zGAk1iHAbzlIbxK83IUP+NnPNIePMy/8BRPYU9d9hJfxqu4gTdxED+xFi9iCtfwA88jA1iL2/gWG/EOnmMTDuJb7EW13IVVbMUbeIkpPAWv4g9G4AHeYy1+xxp8hT34AV/hJowR+Apv4SVeYh2u4VssxTJ+xtrYhV14G/8TR7EVl/A5bmIl3sZqPMdKLIe7eB17MR8P4QW+xpocw3o8x9rchD/xDg/iI65iNf5iJS7iLD7GZvzEa9xEDw8hM24WAG8hK+7jE7yJvTiPd3gJk1iE5TiNfbiA9TiE7yM7g4gZ3MUn+AtP8BPGeDxfd8Mv/sM/eB//y7/xP/oX4w/W8V+aVHL1BQAAAABJRU5ErkJggg=='
+            }
+
             const S = {
                 fontStack: `Arial, Helvetica, sans-serif`,
                 p: `font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 1.6; color: ${C.textDark}; margin: 1em 0;`,
@@ -166,35 +172,32 @@
             };
             
             function createBanner(text, type = 'main') {
-                let style, titleStyle;
+                let style, titleStyle, wrapperStyle;
                 switch (type) {
                     case 'closing':
                         style = `background-color: ${C.orange}; padding: 12px 30px;`;
-                        titleStyle = `font-family: Georgia, serif; font-size: 22px; color: ${C.white}; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center; letter-spacing: 1px;`;
+                        titleStyle = `font-family: Georgia, serif; font-size: 24px; color: ${C.white}; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center; letter-spacing: 1px;`;
+                        wrapperStyle = `padding: 5px 0;`
                         break;
                     case 'sub':
                         style = `background-color: ${C.blue}; padding: 10px 30px;`;
                         titleStyle = `font-family: ${S.fontStack}; font-size: 20px; color: ${C.white}; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center;`;
+                        wrapperStyle = `padding: 0;`
                         break;
                     case 'main':
                     default:
-                        style = `background-color: ${C.blue}; padding: 20px 30px;`;
-                        titleStyle = `font-family: Georgia, serif; font-size: 28px; color: ${C.white}; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center; letter-spacing: 1.5px;`;
+                        style = `background: linear-gradient(to right, ${C.blue}, ${C.blueDark}); padding: 25px 30px;`;
+                        titleStyle = `font-family: Georgia, serif; font-size: 32px; color: ${C.white}; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center; letter-spacing: 1.5px; line-height:1.2;`;
+                        wrapperStyle = `border-top: 1px solid rgba(255,255,255,0.3); border-bottom: 1px solid rgba(255,255,255,0.3); padding: 10px 0;`
                         break;
                 }
 
-                return `<tr>
-                          <td style="${style}">
-                            <div style="border-top: 1px solid rgba(255,255,255,0.3); border-bottom: 1px solid rgba(255,255,255,0.3); padding: 5px 0;">
-                              <h1 style="${titleStyle}">${text}</h1>
-                            </div>
-                          </td>
-                        </tr>`;
+                return `<tr><td style="${style}"><div style="${wrapperStyle}"><h1 style="${titleStyle}">${text}</h1></div></td></tr>`;
             }
 
             // TEXTS FROM YOUR ORIGINAL SCRIPT, with non-breaking spaces
             const T = {
-                banner1: "Votre Séjour au Walt Disney World Resort",
+                banner1: "Votre Aventure Magique Commence Ici",
                 greeting: `Bonjour <strong style="${S.strong}">${data.client_name || 'estimé(e) voyageur(se)'}</strong>,`,
                 intro1: `Je vous écris au nom de Voyages en Route, où nous avons le plaisir d’accompagner les familles et voyageurs dans la planification de leurs séjours. Je m'appelle <strong style="${S.strong}">Pierre-Luc Morin</strong> et je serais votre conseiller en voyages spécialisé en destinations <strong style="${S.strong}">Disney et Universal</strong>.`,
                 intro2: `Merci de nous avoir confié votre projet de voyage. J’ai pris soin de préparer une proposition basée sur les critères que vous avez partagés dans votre demande. Cette soumission est <strong style="${S.strong}">ajustable</strong>, et je serai heureux d’explorer avec vous différentes options afin de vous créer une expérience <strong style="${S.strong}">propre à vous et inoubliable</strong>.`,
@@ -233,28 +236,32 @@
                                      </div>`;
                 } else {
                     hotelSection += `<p style="${S.p}">Voici plusieurs options d’hébergement pour votre séjour. Chaque proposition ci-dessous correspond à un forfait détaillé dans un document PDF distinct.</p>`;
-                    let hotelTable = `<table width="100%" border="0" cellpadding="0" cellspacing="10" style="margin-top:20px; border-collapse: separate; background-color: ${C.border}; border-radius: 8px;">
+                    let hotelTable = `<table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-top:20px; border-spacing:0 10px; border-collapse: separate;">
                                         <thead>
                                             <tr>
-                                                <th width="45%" style="padding:12px; font-family:${S.fontStack}; font-size:14px; color:${C.blue}; background-color:${C.blueLight}; text-align:left;">OPTION</th>
+                                                <th width="45%" style="padding:12px; font-family:${S.fontStack}; font-size:14px; color:${C.blue}; background-color:${C.blueLight}; text-align:left; border-radius: 8px 0 0 8px;">OPTION</th>
                                                 <th width="35%" style="padding:12px; font-family:${S.fontStack}; font-size:14px; color:${C.blue}; background-color:${C.blueLight}; text-align:left;">POINTS FORTS</th>
-                                                <th width="20%" style="padding:12px; font-family:${S.fontStack}; font-size:14px; color:${C.blue}; background-color:${C.blueLight}; text-align:right;">FORFAIT (USD)</th>
+                                                <th width="20%" style="padding:12px; font-family:${S.fontStack}; font-size:14px; color:${C.blue}; background-color:${C.blueLight}; text-align:right; border-radius: 0 8px 8px 0;">FORFAIT (USD)</th>
                                             </tr>
                                         </thead>
                                         <tbody>`;
                     selectedHotels.forEach(hotel => {
                         let prosList = '';
                         if (hotel.pros) {
-                            prosList = `<ul style="margin:0; padding:0; list-style-type:none;">` + hotel.pros.split('\n').map(p => p.trim() ? `<li style="margin-bottom:8px;"><span style="color:${C.green}; font-size:18px; vertical-align:middle; margin-right:8px;">&#10004;</span><span style="vertical-align:middle;">${p}</span></li>` : '').join('') + `</ul>`;
+                           prosList = `<ul style="margin:0; padding:0; list-style-type:none;">` + hotel.pros.split('\n').map(p => p.trim() ? `<li style="margin-bottom:8px;"><img src="${ICONS.checkmark}" width="16" height="16" alt="Checkmark" style="vertical-align:middle; margin-right:8px;"><span style="vertical-align:middle;">${p}</span></li>` : '').join('') + `</ul>`;
                         }
 
                         hotelTable += `<tr>
-                            <td style="padding:20px; background-color:${C.white}; vertical-align:top;">
+                            <td style="padding:20px; background-color:${C.white}; vertical-align:top; border: 1px solid ${C.border}; border-right:0; border-radius: 8px 0 0 8px;">
                                 <strong style="font-family:${S.fontStack}; font-size:18px; color:${C.blue};">${hotel.name}</strong>
                                 <p style="font-family:${S.fontStack}; font-size:14px; line-height:1.5; color:${C.textLight}; margin:8px 0 0 0;">${hotel.description}</p>
                             </td>
-                            <td style="padding:20px; background-color:${C.white}; vertical-align:top;">${prosList}</td>
-                            <td style="padding:20px; background-color:${C.white}; vertical-align:top; text-align:right; font-family:${S.fontStack}; font-size:18px; font-weight:bold; color:${C.textDark};">${hotel.price || 'Voir PDF'}</td>
+                            <td style="padding:20px; background-color:${C.white}; vertical-align:top; border-top: 1px solid ${C.border}; border-bottom: 1px solid ${C.border};">
+                                ${prosList}
+                            </td>
+                            <td style="padding:20px; background-color:${C.white}; vertical-align:top; text-align:right; font-family:${S.fontStack}; font-size:18px; font-weight:bold; color:${C.textDark}; border: 1px solid ${C.border}; border-left:0; border-radius: 0 8px 8px 0;">
+                                ${hotel.price || 'Voir PDF'}
+                            </td>
                         </tr>`;
                     });
                     hotelTable += `</tbody></table>`;
@@ -262,8 +269,7 @@
                 }
                 
                 hotelSection += `<p style="${S.p} margin-top:20px;">Chaque proposition de forfait inclut l'hébergement à l'hôtel ainsi que les billets d'entrée pour les parcs Disney. Tous les autres détails, inclusions et conditions se trouvent dans le ou les documents PDF correspondants.</p>`
-
-                let advantagesList = T.disney_advantages_list_items.map(item => `<li style="margin-bottom:8px;"><span style="color:${C.green}; font-size:18px; vertical-align:middle; margin-right:8px;">&#10004;</span><span style="vertical-align:middle;">${item}</span></li>`).join('');
+                let advantagesList = T.disney_advantages_list_items.map(item => `<li style="margin-bottom:8px;"><img src="${ICONS.checkmark}" width="16" height="16" alt="Checkmark" style="vertical-align:middle; margin-right:8px;"><span style="vertical-align:middle;">${item}</span></li>`).join('');
                 hotelSection += `<p style="${S.p} margin-top:30px;">${T.disney_advantages_intro}<ul style="margin:1em 0; padding:0; list-style-type:none;">${advantagesList}</ul>`;
 
             } else if (data.booking_type === 'tickets_only') {
@@ -279,24 +285,43 @@
                 promoText = `Une promotion est applicable pour votre séjour${promoNameInfo}${promoEndDateInfo}. L’offre est cependant <em style="${S.italic}">limitée</em>. Pour garantir votre place au cœur de la magie, un dépôt de seulement <strong style="${S.strong}">200 USD</strong> est requis. Ce dépôt est <strong style="${S.strong}">entièrement remboursable jusqu'à 30 jours avant votre arrivée</strong>, vous offrant une <strong style="${S.strong}">flexibilité totale</strong> pour planifier en toute sérénité.`;
             }
             
-            let promotionSection = `<table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-top:20px;"><tr><td style="padding: 20px 25px; background-color: ${C.orangeLight}; border-left: 5px solid ${C.orange};"><h2 style="font-family:${S.fontStack}; font-size:18px; color:${C.orange}; margin:0 0 10px 0; font-weight:bold;">PROMOTIONS ET DÉPÔT REQUIS</h2><p style="${S.p} margin:0;">${promoText}</p></td></tr></table>`;
+            let promotionSection = `<table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-top:20px;"><tr><td style="padding: 20px 25px; background-color: ${C.orangeLight}; border-left: 5px solid ${C.orange}; border-radius: 0 8px 8px 0;"><h2 style="font-family:${S.fontStack}; font-size:18px; color:${C.orange}; margin:0 0 10px 0; font-weight:bold;">PROMOTIONS ET DÉPÔT REQUIS</h2><p style="${S.p} margin:0;">${promoText}</p></td></tr></table>`;
             let priceDisclaimer = (data.booking_type === 'hotel_tickets' && selectedHotels.length > 0) ? T.disney_price_disclaimer : T.tickets_only_price_disclaimer;
 
             let flightSection = '';
             if (data.include_flights) {
-                let flightDetails = `<p style="${S.p}">${T.flight_intro}</p>
+                 const airportTagStyle = `background-color: ${C.blue}; color: ${C.white}; padding: 3px 8px; border-radius: 4px; font-size: 14px; font-weight: bold; text-decoration: none;`;
+                 let flightDetails = `<p style="${S.p}">${T.flight_intro}</p>
                     <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin:20px 0;">
                         <tr>
-                            <td style="padding:15px; background-color:${C.blueLight}; border-bottom:2px solid ${C.white}; vertical-align:top; width:100px;"><strong style="color:${C.blue};">Aller&nbsp;:</strong></td>
-                            <td style="padding:15px; background-color:${C.blueLight}; border-bottom:2px solid ${C.white}; vertical-align:top;">${formatDateFR(data.departure_date_aller)} à ${formatTime(data.departure_time_aller)}<br><span style="color:${C.textLight};">${data.departure_airport_aller || 'N/A'} vers ${data.arrival_airport_aller || 'N/A'}</span></td>
-                        </tr>
-                        <tr>
-                            <td style="padding:15px; background-color:${C.blueLight}; vertical-align:top;"><strong style="color:${C.blue};">Retour&nbsp;:</strong></td>
-                            <td style="padding:15px; background-color:${C.blueLight}; vertical-align:top;">${formatDateFR(data.departure_date_retour)} à ${formatTime(data.departure_time_retour)}<br><span style="color:${C.textLight};">${data.departure_airport_retour || 'N/A'} vers ${data.arrival_airport_retour || 'N/A'}</span></td>
+                            <td width="50%" style="padding-right: 10px;">
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="background-color:${C.white}; border:1px solid ${C.border}; border-radius: 8px; ">
+                                    <tr><td style="padding: 15px; border-bottom: 1px solid ${C.border};">
+                                        <img src="${ICONS.plane}" width="18" height="18" alt="Plane Icon" style="vertical-align: middle; margin-right: 10px;">
+                                        <strong style="color:${C.blue}; font-size:18px; vertical-align: middle;">Vol Aller</strong>
+                                    </td></tr>
+                                    <tr><td style="padding: 20px; font-size: 15px;">
+                                        <strong style="color:${C.textLight};">Date&nbsp;:</strong> ${formatDateFR(data.departure_date_aller)} à ${formatTime(data.departure_time_aller)}<br><br>
+                                        <span style="${airportTagStyle}">${data.departure_airport_aller || 'N/A'}</span> &rarr; <span style="${airportTagStyle}">${data.arrival_airport_aller || 'N/A'}</span>
+                                    </td></tr>
+                                </table>
+                            </td>
+                            <td width="50%" style="padding-left: 10px;">
+                                 <table width="100%" border="0" cellpadding="0" cellspacing="0" style="background-color:${C.white}; border:1px solid ${C.border}; border-radius: 8px; ">
+                                    <tr><td style="padding: 15px; border-bottom: 1px solid ${C.border};">
+                                        <img src="${ICONS.plane}" width="18" height="18" alt="Plane Icon" style="vertical-align: middle; margin-right: 10px; transform: scaleX(-1);">
+                                        <strong style="color:${C.blue}; font-size:18px; vertical-align: middle;">Vol Retour</strong>
+                                    </td></tr>
+                                    <tr><td style="padding: 20px; font-size: 15px;">
+                                        <strong style="color:${C.textLight};">Date&nbsp;:</strong> ${formatDateFR(data.departure_date_retour)} à ${formatTime(data.departure_time_retour)}<br><br>
+                                        <span style="${airportTagStyle}">${data.departure_airport_retour || 'N/A'}</span> &rarr; <span style="${airportTagStyle}">${data.arrival_airport_retour || 'N/A'}</span>
+                                    </td></tr>
+                                </table>
+                            </td>
                         </tr>
                     </table>`;
                 if (data.flight_notes) {
-                    flightDetails += `<p style="${S.p} font-style:italic; color:${C.textLight}; border-left:3px solid ${C.border}; padding-left:15px;">${data.flight_notes.replace(/\n/g, '<br>')}</p>`;
+                    flightDetails += `<p style="${S.p} font-style:italic; color:${C.textLight}; border-left:3px solid ${C.border}; padding-left:15px; margin-top:20px;">${data.flight_notes.replace(/\n/g, '<br>')}</p>`;
                 }
                 flightDetails += `<p style="${S.p}"><strong style="${S.strong}">Prix total approximatif des vols&nbsp;:</strong> ${data.flight_price || 'N/A'} CAD</p>
                                   <p style="${S.p} font-size:14px; color:${C.textLight};">${T.flight_price_info}</p>
@@ -306,7 +331,7 @@
 
             let closingSection = `<p style="${S.p}">${T.closing1}</p><p style="${S.p}">${T.closing2}</p><p style="${S.p}">${T.closing3}</p>`;
 
-            return `<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><title>${T.banner1}</title></head><body style="margin:0; padding:0; background-color:${C.background};"><table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color:${C.background};"><tr><td align="center"><table width="640" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width: 640px; margin: 20px auto; background-color: ${C.white};">
+            return `<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><title>${T.banner1}</title></head><body style="margin:0; padding:0; background-color:${C.background};"><table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color:${C.background};"><tr><td align="center"><table width="680" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width: 680px; max-width: 100%; margin: 20px auto; background-color: ${C.white};">
                 ${createBanner(T.banner1, 'main')}
                 <tr><td style="padding: 20px 30px 30px 30px;">${introSection}</td></tr>
                 ${createBanner(T.banner_disney_stay, 'sub')}
