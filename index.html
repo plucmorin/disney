@@ -121,7 +121,7 @@
 
     <script>
         const DISNEY_HOTELS = [
-            // Deluxe Villas
+             // Deluxe Villas
             { name: "Bay Lake Tower at Contemporary", description: "Ce croissant de lune moderne adjacent au Contemporary offre des villas luxueuses et une vue imprenable sur Magic Kingdom. Son sky-bridge le connecte directement à l'hôtel principal et au monorail.", level: "Deluxe Villa", pointsForts: ["Distance de marche de Magic Kingdom", "Accès à la ligne du monorail", "Vues spectaculaires sur les feux d'artifice", "Piscine privée avec glissade d'eau"] },
             { name: "Villas at Grand Floridian", description: "Le summum du luxe et de l'élégance victorienne dans un format de villa spacieuse. Profitez du service impeccable et des restaurants primés du Grand Floridian, le tout sur la ligne du monorail.", level: "Deluxe Villa", pointsForts: ["Hébergement le plus luxueux de Disney", "Restaurants gastronomiques sur place", "Spa Senses de classe mondiale", "Accès direct au monorail"] },
             { name: "Polynesian Villas & Bungalows", description: "Évadez-vous dans un paradis tropical avec ces villas et bungalows sur l'eau. L'ambiance des îles du Pacifique Sud, la vue sur le lagon et l'accès au monorail en font une escapade de rêve.", level: "Deluxe Villa", pointsForts: ["Bungalows uniques sur pilotis", "Ambiance tropicale immersive", "Situé sur la ligne du monorail", "Excellents restaurants thématiques ('Ohana)"] },
@@ -172,15 +172,9 @@
                 level: { value: '#4CAF50', moderate: '#2196F3', deluxe: '#673AB7', deluxe_villa: '#9C27B0' }
             };
 
-            const ICONS = {
-                calendar: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAS5JREFUOE/tlL1Kw1AUhU/PRAYXEVwll46Cg4ODgy5dOgjiP9BBSFAXcaGgoChdUJcugq4uBRFnBxfBQRKnUn4dGgqJB815lXvPuf8/F4J/rOEFn+AHHOKYdvyP7w8Y+FE0vwI/4gM+YArX8BPNMQ+n8B4P8Bjv8DP2AnwP14hEnMMPbEYn+B3v8BwP8QlXYgnxCQ7xGBvxCV9wBW9gwTkc51jic5zC50zASRzCDdyhT3wF2zASz/AebsHZTAR+wQc8wBpcwwPsxTYswjEcwgN8wA28x5o8xqJcws5Mgk/wL7/jfvyP7+MhnsPyTaAb3sV3PIcmPMT32I/z9A08wR+cB1/BDhzD41zCDTzFKbzHKv7Enwg+YJgC+gAAAABJRU5ErkJggg==',
-                clock: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAYpJREFUOE/tlT9oFEEQxX/XUREMLGy0sLARBCwsNLAQSAQbC4sVC4GBgIWFhbCwjSBYWFikYCFYBYshCCKFBIlDMTKz+7Kzvdld4YcFu92Z+c2b92Z2A/5xDS/gBR7hEd7jFO7hN94PGF40fwMv4wVeYhJz8Agv4U4c4w0eBiAm8RmX8BffYhgz8Bgv400s4gLu4SMe4CMOw2c8xpOYwwG8h4e4S3v+Bn7EwV/A/nyEB3gU3zGAk1iHAbzlIbxK83IUP+NnPNIePMy/8BRPYU9d9hJfxqu4gTdxED+xFi9iCtfwA88jA1iL2/gWG/EOnmMTDuJb7EW13IVVbMUbeIkpPAWv4g9GIEHeI+1+B1r8B324A/4CmfBDOC5/AAVeIXHeBu/YhX+4gHeZAo/YCPe4wO8xTJ+xtrYhV14G/8TR7EVl/A5bmIl3sZqPMdKLIe7eB17MR8P4QW+xpocw3o8x9rchD/xDg/iI65iNf5iJS7iLD7GZvzEa9xEDw8hM24WAG8hK+7jE/yJvTiPd3gJk1iE5TiNfbiA9TiE7yM7g4j9A1eGWeAX8uE/AAAAAElFTkSuQmCC',
-                airline: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAATZJREFUOE/tlb1SwkAUhp/sDVi0aQtCK1hYWIo9goW9P6CCpY1YWFhYVlpaWdgJq2APgoWNkIgFwRrM3bCzcB+5uDnkA99y7uN8z7n/nwsx/WMaV/AWP+IJRjHHRvwPzwcY6V+wfgMv8Ao/YRJv8BLv4Vsc4wweBiBC4iuu4w+WYQyv4Am+xjN+woU8xE5cxnN8wT2sYQzfYD++5QMe4D7ewnsswWc8w+c8wVscYg3e4AMe4wPewWc8xhp8hyN4D/9gD47hUv7EBvzFHqyFc/gC65gL++A7PMYmHMX9eBHb8AjX8AV/YB4OsBP38D0r8A5PMIkHeBfb0Qz78CneYQke4Q+eYS0u4Sfsxaq5C+tYhi94E9/jC9zCbRjD46zD3dhmJe5jM7biEw7iM3biFfzHIl7GDs4Q+I7HuIXHeIeTeIp7uIUjDAcI/sM/cI/3eIH3eYUnGMW/8hYFw2V+sEwAAAAASUVORK5CYII='
-            };
-
             const S = {
                 fontStack: `Arial, Helvetica, sans-serif`,
-                p: `font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 1.6; color: ${C.textDark}; margin: 1em 0;`,
+                p: `font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 1.6; color: ${C.textDark}; margin: 1em 0; text-align: justify;`,
                 strong: `font-weight: bold;`,
                 italic: `font-style: italic;`,
             };
@@ -195,7 +189,7 @@
                 return `<tr><td style="${style}"><div style="${wrapperStyle}"><h1 style="${titleStyle}">${text}</h1></div></td></tr>`;
             }
 
-            const T = {
+             const T = {
                 banner1: "Votre Aventure Magique Commence Ici",
                 greeting: `Bonjour <strong style="${S.strong}">${data.client_name || 'estimé(e) voyageur(se)'}</strong>,`,
                 intro1: `Je vous écris au nom de Voyages en Route, où nous avons le plaisir d’accompagner les familles et voyageurs dans la planification de leurs séjours. Je m'appelle Pierre-Luc Morin et je serais votre conseiller en voyages spécialisé en destinations <strong style="${S.strong}">Disney et Universal</strong>.`,
@@ -236,16 +230,16 @@
                                         </div>
                                          <div style="padding:20px; background-color:${C.white}; border-radius: 0 0 8px 8px;">
                                             <span style="background-color:${levelColor}; color:${C.white}; padding: 4px 10px; border-radius: 15px; font-size: 12px; font-weight: bold;">${hotel.level}</span>
-                                            <p style="font-family:${S.fontStack}; font-size:15px; line-height:1.5; color:${C.textLight}; margin:15px 0 0 0;">${hotel.description}</p>
+                                            <p style="font-family:${S.fontStack}; font-size:15px; line-height:1.5; color:${C.textLight}; margin:15px 0 0 0; text-align:justify;">${hotel.description}</p>
                                          </div>
                                      </div>`;
                 } else {
                     hotelSection += `<p style="${S.p}">Voici plusieurs options d’hébergement pour votre séjour. Chaque proposition ci-dessous correspond à un forfait détaillé dans un document PDF distinct.</p>`;
-                    let hotelTable = `<table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-top:20px; border-collapse: collapse;">
+                    let hotelTable = `<table class="responsive-table" width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-top:20px; border-collapse: collapse;">
                                         <thead>
                                             <tr>
-                                                <th colspan="2" style="padding:12px 20px; font-family:${S.fontStack}; font-size:14px; color:${C.blue}; background-color:${C.blueLight}; text-align:left;">OPTION</th>
-                                                <th style="padding:12px 20px; font-family:${S.fontStack}; font-size:14px; color:${C.blue}; background-color:${C.blueLight}; text-align:right;">FORFAIT (USD)</th>
+                                                <th class="mobile-hide" colspan="2" style="padding:12px 20px; font-family:${S.fontStack}; font-size:14px; color:${C.blue}; background-color:${C.blueLight}; text-align:left;">OPTION</th>
+                                                <th class="mobile-hide" style="padding:12px 20px; font-family:${S.fontStack}; font-size:14px; color:${C.blue}; background-color:${C.blueLight}; text-align:right;">FORFAIT</th>
                                             </tr>
                                         </thead>
                                         <tbody>`;
@@ -254,21 +248,27 @@
                         let prosList = `<ul style="margin:0; padding:0; list-style-type:none;">` + hotel.pointsForts.map(p => p.trim() ? `<li style="margin-bottom:8px;"><span style="color:${C.blue}; font-size:18px; vertical-align:middle; margin-right:8px; font-weight:bold;">&#10004;</span><span style="vertical-align:middle;">${p}</span></li>` : '').join('') + `</ul>`;
 
                         hotelTable += `
-                            <tr style="background-color:${C.col1};">
-                                <td colspan="3" style="padding:0; border-top: 10px solid ${C.background};">
+                            <tr class="hotel-card-row">
+                                <td colspan="3" class="stack-column-full" style="padding:0; border-top: 10px solid ${C.background};">
                                     <div style="background-color:${C.blue}; color:${C.white}; padding:15px 20px;">
                                         <strong style="font-family:${S.fontStack}; font-size:18px;">${hotel.name}</strong>
                                     </div>
-                                    <div style="padding:20px;">
+                                    <div style="padding:20px; background-color:${C.col1};">
                                         <span style="background-color:${levelColor}; color:${C.white}; padding: 4px 10px; border-radius: 15px; font-size: 12px; font-weight: bold;">${hotel.level}</span>
-                                        <p style="font-family:${S.fontStack}; font-size:14px; line-height:1.5; color:${C.textLight}; margin:15px 0 0 0;">${hotel.description}</p>
+                                        <p style="font-family:${S.fontStack}; font-size:14px; line-height:1.5; color:${C.textLight}; margin:15px 0 0 0; text-align:justify;">${hotel.description}</p>
                                     </div>
                                 </td>
                             </tr>
-                            <tr style="border-bottom: 1px solid ${C.border};">
-                                <td width="50%" style="padding:20px; background-color:${C.col2}; vertical-align:top;">${prosList}</td>
-                                <td width="25%" style="background-color:${C.col2}; vertical-align:top;"></td>
-                                <td width="25%" style="padding:20px; background-color:${C.col3}; vertical-align:middle; text-align:right; font-family:${S.fontStack}; font-size:20px; font-weight:bold; color:${C.textDark};">${hotel.price || 'Voir PDF'}</td>
+                            <tr class="hotel-card-row" style="border-bottom: 1px solid ${C.border};">
+                                <td width="50%" class="stack-column" style="padding:20px; background-color:${C.col2}; vertical-align:top;">
+                                    <strong class="mobile-show" style="color:${C.blue};">POINTS FORTS&nbsp;:</strong>
+                                    ${prosList}
+                                </td>
+                                <td width="25%" class="stack-column" style="background-color:${C.col2}; vertical-align:top;"></td>
+                                <td width="25%" class="stack-column" style="padding:20px; background-color:${C.col3}; vertical-align:middle; text-align:right;">
+                                    <strong class="mobile-show" style="color:${C.blue};">FORFAIT (USD)&nbsp;:</strong>
+                                    <span style="font-family:${S.fontStack}; font-size:20px; font-weight:bold; color:${C.textDark};">${hotel.price || 'Voir PDF'}</span>
+                                </td>
                             </tr>`;
                     });
                     hotelTable += `</tbody></table>`;
@@ -277,7 +277,7 @@
                 
                 hotelSection += `<p style="${S.p} margin-top:20px;">Chaque proposition de forfait inclut l'hébergement à l'hôtel ainsi que les billets d'entrée pour les parcs Disney. Tous les autres détails, inclusions et conditions se trouvent dans le ou les documents PDF correspondants.</p>`
                 let advantagesList = T.disney_advantages_list_items.map(item => `<li style="margin-bottom:8px;"><span style="color:${C.blue}; font-size:18px; vertical-align:middle; margin-right:8px; font-weight:bold;">&#10004;</span><span style="vertical-align:middle;">${item}</span></li>`).join('');
-                hotelSection += `<p style="${S.p} margin-top:30px;">${T.disney_advantages_intro}<ul style="margin:1em 0; padding:0; list-style-type:none;">${advantagesList}</ul>`;
+                hotelSection += `<p style="${S.p} margin-top:30px; text-align:left;">${T.disney_advantages_intro}<ul style="margin:1em 0; padding:0; list-style-type:none; text-align:left;">${advantagesList}</ul>`;
 
             } else if (data.booking_type === 'tickets_only') {
                 hotelSection = `<p style="${S.p}">J’ai préparé pour vous un document ci-joint indiquant le prix ainsi que les conditions applicables aux billets de parc.</p>`;
@@ -300,23 +300,23 @@
                  const airportTagStyle = `background-color: ${C.blue}; color: ${C.white}; padding: 3px 8px; border-radius: 4px; font-size: 14px; font-weight: bold; text-decoration: none; display:inline-block;`;
                  const flightInfoLine = (icon, label, value) => {
                      if (!value || value.trim() === '') return '';
-                     return `<div style="margin-top:15px;"><img src="${icon}" width="16" height="16" alt="Icon" style="vertical-align: middle; margin-right: 8px;"><strong style="color:${C.textLight}; vertical-align: middle;">${label}&nbsp;:</strong> ${value}</div>`;
+                     return `<div style="margin-top:15px;">${icon}<strong style="color:${C.textLight}; vertical-align: middle;">${label}&nbsp;:</strong> ${value}</div>`;
                  }
 
-                 let flightAllerDetails = flightInfoLine(ICONS.airline, 'Compagnie', `${data.airline_aller || ''} ${data.flight_number_aller || ''}`);
-                 let flightRetourDetails = flightInfoLine(ICONS.airline, 'Compagnie', `${data.airline_retour || ''} ${data.flight_number_retour || ''}`);
+                 let flightAllerDetails = flightInfoLine('ℹ️', 'Compagnie', `${data.airline_aller || ''} ${data.flight_number_aller || ''}`);
+                 let flightRetourDetails = flightInfoLine('ℹ️', 'Compagnie', `${data.airline_retour || ''} ${data.flight_number_retour || ''}`);
 
                  let flightDetails = `<p style="${S.p}">${T.flight_intro}</p>
-                    <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin:20px 0;">
+                    <table class="responsive-flights" width="100%" border="0" cellpadding="0" cellspacing="0" style="margin:20px 0;">
                         <tr>
-                            <td width="50%" style="padding-right: 10px; vertical-align:top;">
+                            <td class="stack-column-flight" style="padding-right: 10px; vertical-align:top; padding-bottom: 20px;">
                                 <table width="100%" border="0" cellpadding="0" cellspacing="0" style="border:1px solid ${C.border}; border-radius: 8px; ">
                                     <tr><td align="center" style="padding: 15px; border-bottom: 1px solid ${C.border}; background-color:${C.blueLight}; border-radius: 8px 8px 0 0;">
                                         <strong style="color:${C.blue}; font-size:18px; vertical-align: middle;">Vol Aller</strong>
                                     </td></tr>
                                     <tr><td style="padding: 20px; font-size: 15px; background-color:${C.white}; border-radius: 0 0 8px 8px;">
-                                        <div><img src="${ICONS.calendar}" width="16" height="16" alt="Calendar" style="vertical-align: middle; margin-right: 8px;"><strong style="color:${C.textLight}; vertical-align: middle;">Date&nbsp;:</strong> ${formatDateFR(data.departure_date_aller)}</div>
-                                        <div style="margin-top:15px;"><img src="${ICONS.clock}" width="16" height="16" alt="Clock" style="vertical-align: middle; margin-right: 8px;"><strong style="color:${C.textLight}; vertical-align: middle;">Heure&nbsp;:</strong> ${formatTime(data.departure_time_aller)}</div>
+                                        <div>📅<strong style="color:${C.textLight}; vertical-align: middle;">&nbsp;Date&nbsp;:</strong> ${formatDateFR(data.departure_date_aller)}</div>
+                                        <div style="margin-top:15px;">🕒<strong style="color:${C.textLight}; vertical-align: middle;">&nbsp;Heure&nbsp;:</strong> ${formatTime(data.departure_time_aller)}</div>
                                         ${flightAllerDetails}
                                         <div style="margin-top:20px; text-align:center;">
                                             <span style="${airportTagStyle}">${data.departure_airport_aller || 'N/A'}</span> &rarr; <span style="${airportTagStyle}">${data.arrival_airport_aller || 'N/A'}</span>
@@ -324,14 +324,14 @@
                                     </td></tr>
                                 </table>
                             </td>
-                            <td width="50%" style="padding-left: 10px; vertical-align:top;">
+                            <td class="stack-column-flight" style="padding-left: 10px; vertical-align:top;">
                                  <table width="100%" border="0" cellpadding="0" cellspacing="0" style="border:1px solid ${C.border}; border-radius: 8px; ">
                                     <tr><td align="center" style="padding: 15px; border-bottom: 1px solid ${C.border}; background-color:${C.blueLight}; border-radius: 8px 8px 0 0;">
                                         <strong style="color:${C.blue}; font-size:18px; vertical-align: middle;">Vol Retour</strong>
                                     </td></tr>
                                     <tr><td style="padding: 20px; font-size: 15px; background-color:${C.white}; border-radius: 0 0 8px 8px;">
-                                        <div><img src="${ICONS.calendar}" width="16" height="16" alt="Calendar" style="vertical-align: middle; margin-right: 8px;"><strong style="color:${C.textLight}; vertical-align: middle;">Date&nbsp;:</strong> ${formatDateFR(data.departure_date_retour)}</div>
-                                        <div style="margin-top:15px;"><img src="${ICONS.clock}" width="16" height="16" alt="Clock" style="vertical-align: middle; margin-right: 8px;"><strong style="color:${C.textLight}; vertical-align: middle;">Heure&nbsp;:</strong> ${formatTime(data.departure_time_retour)}</div>
+                                        <div>📅<strong style="color:${C.textLight}; vertical-align: middle;">&nbsp;Date&nbsp;:</strong> ${formatDateFR(data.departure_date_retour)}</div>
+                                        <div style="margin-top:15px;">🕒<strong style="color:${C.textLight}; vertical-align: middle;">&nbsp;Heure&nbsp;:</strong> ${formatTime(data.departure_time_retour)}</div>
                                         ${flightRetourDetails}
                                         <div style="margin-top:20px; text-align:center;">
                                             <span style="${airportTagStyle}">${data.departure_airport_retour || 'N/A'}</span> &rarr; <span style="${airportTagStyle}">${data.arrival_airport_retour || 'N/A'}</span>
@@ -345,14 +345,46 @@
                     flightDetails += `<p style="${S.p} font-style:italic; font-weight:bold; color:${C.textLight}; border-left:3px solid ${C.border}; padding-left:15px; margin-top:20px;">${data.flight_notes.replace(/\n/g, '<br>')}</p>`;
                 }
                 flightDetails += `<p style="${S.p}"><strong style="${S.strong}">Prix total approximatif des vols&nbsp;:</strong> ${data.flight_price || 'N/A'} CAD</p>
-                                  <p style="${S.p} font-size:14px; color:${C.textLight};">${T.flight_price_info}</p>
-                                  <p style="${S.p} font-size:14px; color:${C.textLight};">${T.flight_important_label} ${T.flight_important_text}</p>`;
+                                  <p style="${S.p} font-size:14px; color:${C.textLight}; text-align:left;">${T.flight_price_info}</p>
+                                  <p style="${S.p} font-size:14px; color:${C.textLight}; text-align:left;">${T.flight_important_label} ${T.flight_important_text}</p>`;
                 flightSection = createBanner(T.banner_travel_fees, 'sub') + `<tr><td style="padding: 20px 30px 30px 30px;">${flightDetails}</td></tr>`;
             }
 
             let closingSection = `<p style="${S.p}">${T.closing1}</p><p style="${S.p}">${T.closing2}</p><p style="${S.p}">${T.closing3}</p>`;
+            
+            const responsiveCSS = `
+                <style>
+                    @media screen and (max-width: 600px) {
+                        .responsive-table .mobile-hide {
+                            display: none !important;
+                        }
+                        .responsive-table .mobile-show {
+                            display: inline-block !important;
+                            font-family: Arial, sans-serif;
+                            font-size: 13px;
+                            margin-bottom: 10px;
+                        }
+                        .responsive-table .stack-column, .responsive-table .stack-column-full {
+                            display: block !important;
+                            width: 100% !important;
+                            box-sizing: border-box !important;
+                            text-align: left !important;
+                        }
+                         .responsive-table .stack-column {
+                            padding: 15px !important;
+                         }
+                        .responsive-flights .stack-column-flight {
+                            display: block !important;
+                            width: 100% !important;
+                            box-sizing: border-box !important;
+                            padding-left: 0 !important;
+                            padding-right: 0 !important;
+                        }
+                    }
+                </style>
+            `;
 
-            return `<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><title>${T.banner1}</title></head><body style="margin:0; padding:0; background-color:${C.background};"><table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color:${C.background};"><tr><td align="center"><table width="680" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width: 680px; max-width: 100%; margin: 20px auto; background-color: ${C.white};">
+            return `<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${T.banner1}</title>${responsiveCSS}</head><body style="margin:0; padding:0; background-color:${C.background};"><table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color:${C.background};"><tr><td align="center"><table width="680" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width: 680px; max-width: 100%; margin: 20px auto; background-color: ${C.white};">
                 ${createBanner(T.banner1, 'main')}
                 <tr><td style="padding: 20px 30px 30px 30px;">${introSection}</td></tr>
                 ${createBanner(T.banner_disney_stay, 'sub')}
