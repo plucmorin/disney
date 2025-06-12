@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Générateur d'e-mail Disney (Version Pro)</title>
+    <title>Générateur d'e-mail Disney (Version Finale)</title>
     <style>
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; margin: 20px; background-color: #f4f4f4; color: #333; line-height: 1.6; }
         .container { background-color: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-width: 900px; margin: auto;}
@@ -35,16 +35,16 @@
         <form id="disneyForm">
             <div class="form-section">
                 <h2>Informations Générales</h2>
-                <label for="client_name">Nom de la personne cliente :</label>
+                <label for="client_name">Nom de la personne cliente&nbsp;:</label>
                 <input type="text" id="client_name" name="client_name" placeholder="Entrez le nom du client" required>
-                <label for="adults">Nombre d'adultes :</label>
+                <label for="adults">Nombre d'adultes&nbsp;:</label>
                 <input type="number" id="adults" name="adults" min="1" value="2" required>
-                <label for="children">Nombre d'enfants (0 si aucun) :</label>
+                <label for="children">Nombre d'enfants (0 si aucun)&nbsp;:</label>
                 <input type="number" id="children" name="children" min="0" value="0" required>
             </div>
             <div class="form-section">
                 <h2>Hébergement et Billets</h2>
-                <label for="booking_type">Type de réservation :</label>
+                <label for="booking_type">Type de réservation&nbsp;:</label>
                 <select id="booking_type" name="booking_type">
                     <option value="hotel_tickets">Hôtel + Billets</option>
                     <option value="tickets_only">Billets seulement</option>
@@ -56,41 +56,41 @@
             </div>
             <div class="form-section">
                 <h2>Vols</h2>
-                <label><input type="checkbox" id="include_flights" name="include_flights"> Inclure les vols ?</label>
+                <label><input type="checkbox" id="include_flights" name="include_flights"> Inclure les vols&nbsp;?</label>
                 <div id="flight_details" class="hidden">
-                    <label for="departure_date_aller">Date de départ (Aller) :</label>
+                    <label for="departure_date_aller">Date de départ (Aller)&nbsp;:</label>
                     <input type="date" id="departure_date_aller" name="departure_date_aller">
-                    <label for="departure_time_aller">Heure de départ (Aller) :</label>
+                    <label for="departure_time_aller">Heure de départ (Aller)&nbsp;:</label>
                     <input type="time" id="departure_time_aller" name="departure_time_aller">
-                    <label for="departure_airport_aller">Aéroport de départ (Aller) :</label>
+                    <label for="departure_airport_aller">Aéroport de départ (Aller)&nbsp;:</label>
                     <input type="text" id="departure_airport_aller" name="departure_airport_aller" placeholder="Ex: YUL - Montréal">
-                    <label for="arrival_airport_aller">Aéroport d'arrivée (Aller) :</label>
+                    <label for="arrival_airport_aller">Aéroport d'arrivée (Aller)&nbsp;:</label>
                     <input type="text" id="arrival_airport_aller" name="arrival_airport_aller" placeholder="Ex: MCO - Orlando" value="MCO - Orlando">
-                    <label for="departure_date_retour">Date de départ (Retour) :</label>
+                    <label for="departure_date_retour">Date de départ (Retour)&nbsp;:</label>
                     <input type="date" id="departure_date_retour" name="departure_date_retour">
-                    <label for="departure_time_retour">Heure de départ (Retour) :</label>
+                    <label for="departure_time_retour">Heure de départ (Retour)&nbsp;:</label>
                     <input type="time" id="departure_time_retour" name="departure_time_retour">
-                    <label for="departure_airport_retour">Aéroport de départ (Retour) :</label>
+                    <label for="departure_airport_retour">Aéroport de départ (Retour)&nbsp;:</label>
                     <input type="text" id="departure_airport_retour" name="departure_airport_retour" placeholder="Ex: MCO - Orlando" value="MCO - Orlando">
-                    <label for="arrival_airport_retour">Aéroport d'arrivée (Retour) :</label>
+                    <label for="arrival_airport_retour">Aéroport d'arrivée (Retour)&nbsp;:</label>
                     <input type="text" id="arrival_airport_retour" name="arrival_airport_retour" placeholder="Ex: YUL - Montréal">
-                    <label for="flight_price">Prix total approximatif des vols (CAD) :</label>
+                    <label for="flight_price">Prix total approximatif des vols (CAD)&nbsp;:</label>
                     <input type="number" id="flight_price" name="flight_price" step="0.01">
-                    <label for="flight_notes">Notes sur les vols :</label>
+                    <label for="flight_notes">Notes sur les vols&nbsp;:</label>
                     <textarea id="flight_notes" name="flight_notes" placeholder="Ajoutez ici des détails importants (ex: compagnie, escale, type de bagages inclus...)"></textarea>
                 </div>
             </div>
             <div class="form-section">
                 <h2>Promotion</h2>
-                <label for="promotion_type">Type de promotion :</label>
+                <label for="promotion_type">Type de promotion&nbsp;:</label>
                 <select id="promotion_type" name="promotion_type">
                     <option value="aucune">Aucune promotion pour l'instant</option>
                     <option value="specifique">Promotion spécifique</option>
                 </select>
                 <div id="promotion_details" class="hidden">
-                    <label for="promotion_name">Nom de la promotion :</label>
+                    <label for="promotion_name">Nom de la promotion&nbsp;:</label>
                     <input type="text" id="promotion_name" name="promotion_name" placeholder="Nom de la promotion (ex: Rabais estival)">
-                    <label for="promotion_end_date">Date de fin de la promotion (si applicable) :</label>
+                    <label for="promotion_end_date">Date de fin de la promotion (si applicable)&nbsp;:</label>
                     <input type="date" id="promotion_end_date" name="promotion_end_date">
                 </div>
             </div>
@@ -155,56 +155,68 @@
                 white: '#FFFFFF',
                 blueLight: '#e6f2fa',
                 orangeLight: '#fff4e6',
+                green: '#28a745',
             };
 
             const S = {
-                fontFamily: `Arial, Helvetica, sans-serif`,
-                p: `font-family: ${this.fontFamily}; font-size: 16px; line-height: 1.6; color: ${C.textDark}; margin: 1em 0;`,
+                fontStack: `Arial, Helvetica, sans-serif`,
+                p: `font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 1.6; color: ${C.textDark}; margin: 1em 0;`,
                 strong: `font-weight: bold;`,
                 italic: `font-style: italic;`,
-                ul: `margin: 1em 0 1em 20px; padding: 0; list-style-type: none;`,
-                li: `margin-bottom: 0.5em;`,
             };
             
-            // BANNER FACTORY
-            function createBanner(text, main = true) {
-                const style = main
-                    ? `background-color: ${C.blue}; padding: 15px 30px; border-top: 4px solid ${C.orange};`
-                    : `background-color: ${C.blue}; padding: 10px 30px;`;
-                const fontSize = main ? '24px' : '20px';
-                return `
-                    <tr>
-                        <td style="${style}">
-                            <h1 style="font-family: ${S.fontFamily}; font-size: ${fontSize}; color: ${C.white}; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center;">${text}</h1>
-                        </td>
-                    </tr>`;
+            function createBanner(text, type = 'main') {
+                let style, titleStyle;
+                switch (type) {
+                    case 'closing':
+                        style = `background-color: ${C.orange}; padding: 12px 30px;`;
+                        titleStyle = `font-family: Georgia, serif; font-size: 22px; color: ${C.white}; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center; letter-spacing: 1px;`;
+                        break;
+                    case 'sub':
+                        style = `background-color: ${C.blue}; padding: 10px 30px;`;
+                        titleStyle = `font-family: ${S.fontStack}; font-size: 20px; color: ${C.white}; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center;`;
+                        break;
+                    case 'main':
+                    default:
+                        style = `background-color: ${C.blue}; padding: 20px 30px;`;
+                        titleStyle = `font-family: Georgia, serif; font-size: 28px; color: ${C.white}; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center; letter-spacing: 1.5px;`;
+                        break;
+                }
+
+                return `<tr>
+                          <td style="${style}">
+                            <div style="border-top: 1px solid rgba(255,255,255,0.3); border-bottom: 1px solid rgba(255,255,255,0.3); padding: 5px 0;">
+                              <h1 style="${titleStyle}">${text}</h1>
+                            </div>
+                          </td>
+                        </tr>`;
             }
 
-            // TEXTS FROM YOUR ORIGINAL SCRIPT
+            // TEXTS FROM YOUR ORIGINAL SCRIPT, with non-breaking spaces
             const T = {
-                banner1: "VOTRE SÉJOUR AU WALT DISNEY WORLD RESORT EN FLORIDE",
+                banner1: "Votre Séjour au Walt Disney World Resort",
                 greeting: `Bonjour <strong style="${S.strong}">${data.client_name || 'estimé(e) voyageur(se)'}</strong>,`,
                 intro1: `Je vous écris au nom de Voyages en Route, où nous avons le plaisir d’accompagner les familles et voyageurs dans la planification de leurs séjours. Je m'appelle <strong style="${S.strong}">Pierre-Luc Morin</strong> et je serais votre conseiller en voyages spécialisé en destinations <strong style="${S.strong}">Disney et Universal</strong>.`,
                 intro2: `Merci de nous avoir confié votre projet de voyage. J’ai pris soin de préparer une proposition basée sur les critères que vous avez partagés dans votre demande. Cette soumission est <strong style="${S.strong}">ajustable</strong>, et je serai heureux d’explorer avec vous différentes options afin de vous créer une expérience <strong style="${S.strong}">propre à vous et inoubliable</strong>.`,
-                banner_disney_stay: "SÉJOUR DISNEY",
-                disney_advantages_intro: `Séjourner dans un hôtel Disney, c’est profiter d’un univers immersif du matin au soir, mais aussi de <strong style="${S.strong}">nombreux avantages exclusifs</strong>, tels que :`,
+                banner_disney_stay: "Forfaits Hôtel & Billets",
+                disney_advantages_intro: `Séjourner dans un hôtel Disney, c’est profiter d’un univers immersif du matin au soir, mais aussi de <strong style="${S.strong}">nombreux avantages exclusifs</strong>&nbsp;:</p>`,
                 disney_advantages_list_items: [
-                    `<strong style="${S.strong}">l’Early Theme Park Entry</strong>, pour accéder aux parcs avant l’ouverture officielle ;`,
-                    `le <strong style="${S.strong}">transport gratuit</strong> vers tous les parcs et sites Disney (excluant les transferts aéroports) ;`,
-                    `l’<strong style="${S.strong}">accès simplifié</strong> aux réservations avec l’application Disney Experience ;`,
-                    `et un <strong style="${S.strong}">service client exceptionnel</strong>, signé Disney, à chaque étape de votre séjour.`
+                    `<strong style="${S.strong}">L’Early Theme Park Entry</strong>, pour accéder aux parcs avant l’ouverture officielle&nbsp;;`,
+                    `Le <strong style="${S.strong}">transport gratuit</strong> vers tous les parcs et sites Disney (excluant les transferts aéroports)&nbsp;;`,
+                    `L’<strong style="${S.strong}">accès simplifié</strong> aux réservations avec l’application Disney Experience&nbsp;;`,
+                    `Et un <strong style="${S.strong}">service client exceptionnel</strong>, signé Disney, à chaque étape de votre séjour.`
                 ],
                 disney_price_disclaimer: "Veuillez noter que tous les prix pour l'hébergement et les billets Disney sont indiqués en dollars américains (USD) et sont sujets à disponibilité.",
                 tickets_only_price_disclaimer: "Veuillez noter que tous les prix des billets Disney sont indiqués en dollars américains (USD) et sont sujets à disponibilité.",
-                banner_travel_fees: "FRAIS DE DÉPLACEMENT",
-                flight_intro: "Pour compléter votre voyage vers la magie, voici les détails concernant le transport aérien que nous avons exploré :",
+                banner_travel_fees: "Transport Aérien",
+                flight_intro: "Pour compléter votre voyage vers la magie, voici les détails concernant le transport aérien que nous avons exploré&nbsp;:",
                 flight_price_info: `<em style="${S.italic}">Les prix sont à titre indicatif et peuvent changer à tout moment.</em>`,
-                flight_important_label: `<strong style="${S.strong}">IMPORTANT :</strong>`,
+                flight_important_label: `<strong style="${S.strong}">IMPORTANT&nbsp;:</strong>`,
                 flight_important_text: `Les tarifs aériens sont dynamiques et peuvent changer jusqu'à la réservation. Des frais de service de <strong style="${S.strong}">50$ CAD par personne</strong> s'appliquent pour la réservation des vols via nos services. En me confiant vos vols, je m'occupe de tout désagrément potentiel. Si vous optez pour une réservation personnelle, ces frais ne s'appliquent pas, mais le support en cas de problème avec les vols ne sera pas inclus pour cette portion.`,
-                banner_magic_continues: "LA MAGIE CONTINUE",
+                banner_magic_continues: "La Magie Continue...",
                 closing1: `Prenez le temps de rêver à ces options et de considérer ce qui ferait de ce voyage une expérience <strong style="${S.strong}">véritablement inoubliable</strong>. Je suis à votre <strong style="${S.strong}">entière disposition</strong> pour répondre à toutes vos questions, affiner chaque détail ou procéder à la réservation de cette <em style="${S.italic}">escapade féérique</em>.`,
                 closing2: `N'hésitez pas à me joindre par courriel (en répondant simplement à celui-ci) ou par téléphone au <strong style="${S.strong}">819-347-9103</strong>.`,
-                closing3: `Merci encore pour votre confiance. J'ai sincèrement hâte de transformer ce <strong style="${S.strong}">rêve Disney</strong> en une <strong style="${S.strong}">magnifique réalité pour vous !</strong>`
+                closing3: `Merci encore pour votre confiance. J'ai sincèrement hâte de transformer ce <strong style="${S.strong}">rêve Disney</strong> en une <strong style="${S.strong}">magnifique réalité pour vous&nbsp;!</strong>`
             };
             
             let introSection = `<p style="${S.p}">${T.greeting}</p><p style="${S.p}">${T.intro1}</p><p style="${S.p}">${T.intro2}</p>`;
@@ -214,44 +226,48 @@
             if (data.booking_type === 'hotel_tickets' && selectedHotels.length > 0) {
                  if (selectedHotels.length === 1) {
                     const hotel = selectedHotels[0];
-                    hotelSection += `<p style="${S.p}">Pour votre séjour au Walt Disney World Resort en Floride, j’ai préparé une option qui répond pleinement à vos besoins. J’ai sélectionné comme l’hébergement <strong style="${S.strong}">${hotel.name}</strong>.</p>
-                                     <p style="${S.p}">${hotel.description}</p>
-                                     <p style="${S.p}">Tous les détails (dates, prix, inclusions et conditions) se trouvent dans le document PDF ci-joint.</p>`;
+                    hotelSection += `<p style="${S.p}">Pour votre séjour, j’ai sélectionné l’option suivante&nbsp;:</p>
+                                     <div style="padding: 20px; background-color: ${C.blueLight}; border-radius: 8px;">
+                                        <strong style="font-family:${S.fontStack}; font-size:20px; color:${C.blue};">${hotel.name}</strong>
+                                        <p style="font-family:${S.fontStack}; font-size:15px; line-height:1.5; color:${C.textLight}; margin:10px 0 0 0;">${hotel.description}</p>
+                                     </div>`;
                 } else {
-                    hotelSection += `<p style="${S.p}">Pour votre séjour au Walt Disney World Resort en Floride, plusieurs options d’hébergement sont possibles selon vos besoins. Les propositions se trouvent dans les documents PDF ci-joints, avec tous les détails.</p>`;
-                    let hotelTable = `<table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-top:20px; border-collapse: collapse;">
+                    hotelSection += `<p style="${S.p}">Voici plusieurs options d’hébergement pour votre séjour. Chaque proposition ci-dessous correspond à un forfait détaillé dans un document PDF distinct.</p>`;
+                    let hotelTable = `<table width="100%" border="0" cellpadding="0" cellspacing="10" style="margin-top:20px; border-collapse: separate; background-color: ${C.border}; border-radius: 8px;">
                                         <thead>
                                             <tr>
-                                                <th style="padding:12px; font-family:${S.fontFamily}; font-size:14px; color:${C.blue}; background-color:${C.blueLight}; text-align:left; border-bottom: 2px solid ${C.border};">HÔTEL</th>
-                                                <th style="padding:12px; font-family:${S.fontFamily}; font-size:14px; color:${C.blue}; background-color:${C.blueLight}; text-align:left; border-bottom: 2px solid ${C.border};">LES PLUS</th>
-                                                <th style="padding:12px; font-family:${S.fontFamily}; font-size:14px; color:${C.blue}; background-color:${C.blueLight}; text-align:right; border-bottom: 2px solid ${C.border};">PRIX (USD)</th>
+                                                <th width="45%" style="padding:12px; font-family:${S.fontStack}; font-size:14px; color:${C.blue}; background-color:${C.blueLight}; text-align:left;">OPTION</th>
+                                                <th width="35%" style="padding:12px; font-family:${S.fontStack}; font-size:14px; color:${C.blue}; background-color:${C.blueLight}; text-align:left;">POINTS FORTS</th>
+                                                <th width="20%" style="padding:12px; font-family:${S.fontStack}; font-size:14px; color:${C.blue}; background-color:${C.blueLight}; text-align:right;">FORFAIT (USD)</th>
                                             </tr>
                                         </thead>
                                         <tbody>`;
                     selectedHotels.forEach(hotel => {
                         let prosList = '';
                         if (hotel.pros) {
-                            prosList = `<ul style="${S.ul}">` + hotel.pros.split('\n').map(p => p.trim() ? `<li style="${S.li}"><span style="color:${C.orange}; font-weight:bold; margin-right:5px;">&#10004;</span>${p}</li>` : '').join('') + `</ul>`;
+                            prosList = `<ul style="margin:0; padding:0; list-style-type:none;">` + hotel.pros.split('\n').map(p => p.trim() ? `<li style="margin-bottom:8px;"><span style="color:${C.green}; font-size:18px; vertical-align:middle; margin-right:8px;">&#10004;</span><span style="vertical-align:middle;">${p}</span></li>` : '').join('') + `</ul>`;
                         }
 
                         hotelTable += `<tr>
-                            <td style="padding:15px 12px; border-bottom: 1px solid ${C.border}; vertical-align:top;">
-                                <strong style="font-family:${S.fontFamily}; font-size:18px; color:${C.blue};">${hotel.name}</strong>
-                                <p style="font-family:${S.fontFamily}; font-size:14px; line-height:1.5; color:${C.textLight}; margin:5px 0 0 0;">${hotel.description}</p>
+                            <td style="padding:20px; background-color:${C.white}; vertical-align:top;">
+                                <strong style="font-family:${S.fontStack}; font-size:18px; color:${C.blue};">${hotel.name}</strong>
+                                <p style="font-family:${S.fontStack}; font-size:14px; line-height:1.5; color:${C.textLight}; margin:8px 0 0 0;">${hotel.description}</p>
                             </td>
-                            <td style="padding:15px 12px; border-bottom: 1px solid ${C.border}; vertical-align:top;">${prosList}</td>
-                            <td style="padding:15px 12px; border-bottom: 1px solid ${C.border}; vertical-align:top; text-align:right; font-family:${S.fontFamily}; font-size:18px; font-weight:bold; color:${C.textDark};">${hotel.price || 'Voir PDF'}</td>
+                            <td style="padding:20px; background-color:${C.white}; vertical-align:top;">${prosList}</td>
+                            <td style="padding:20px; background-color:${C.white}; vertical-align:top; text-align:right; font-family:${S.fontStack}; font-size:18px; font-weight:bold; color:${C.textDark};">${hotel.price || 'Voir PDF'}</td>
                         </tr>`;
                     });
                     hotelTable += `</tbody></table>`;
                     hotelSection += hotelTable;
                 }
                 
-                let advantagesList = T.disney_advantages_list_items.map(item => `<li style="${S.li}"><span style="color:${C.orange}; font-weight:bold; margin-right:5px;">&#10004;</span>${item}</li>`).join('');
-                hotelSection += `<p style="${S.p} margin-top:30px;">${T.disney_advantages_intro}</p><ul style="${S.ul}">${advantagesList}</ul>`;
+                hotelSection += `<p style="${S.p} margin-top:20px;">Chaque proposition de forfait inclut l'hébergement à l'hôtel ainsi que les billets d'entrée pour les parcs Disney. Tous les autres détails, inclusions et conditions se trouvent dans le ou les documents PDF correspondants.</p>`
+
+                let advantagesList = T.disney_advantages_list_items.map(item => `<li style="margin-bottom:8px;"><span style="color:${C.green}; font-size:18px; vertical-align:middle; margin-right:8px;">&#10004;</span><span style="vertical-align:middle;">${item}</span></li>`).join('');
+                hotelSection += `<p style="${S.p} margin-top:30px;">${T.disney_advantages_intro}<ul style="margin:1em 0; padding:0; list-style-type:none;">${advantagesList}</ul>`;
 
             } else if (data.booking_type === 'tickets_only') {
-                hotelSection = `<p style="${S.p}">Pour votre séjour au Walt Disney World Resort en Floride, j’ai préparé pour vous un document ci-joint indiquant le prix ainsi que les conditions applicables aux billets de parc.</p>`;
+                hotelSection = `<p style="${S.p}">J’ai préparé pour vous un document ci-joint indiquant le prix ainsi que les conditions applicables aux billets de parc.</p>`;
             }
 
             let promoText = "";
@@ -259,70 +275,49 @@
                 promoText = `Pour garantir votre place au cœur de la magie, un dépôt de seulement <strong style="${S.strong}">200 USD</strong> est requis. Soyez assuré que je veillerai personnellement à appliquer toute nouvelle promotion applicable d'ici votre départ pour optimiser la valeur de votre voyage. Ce dépôt est <strong style="${S.strong}">entièrement remboursable jusqu'à 30 jours avant votre arrivée</strong>, vous offrant une <strong style="${S.strong}">flexibilité totale</strong> pour planifier en toute sérénité.`;
             } else {
                 let promoEndDateInfo = data.promotion_end_date ? ` (prend fin le <strong style="${S.strong}">${formatDateFR(data.promotion_end_date)}</strong>)` : "";
-                let promoNameInfo = data.promotion_name ? ` : <strong style="${S.strong}">${data.promotion_name}</strong>` : "";
-                promoText = `Une promotion est applicable pour votre séjour${promoNameInfo}${promoEndDateInfo}. L’offre est cependant <em style="${S.italic}">limitée</em>. Pour garantir votre place au cœur de la magie, un dépôt de seulement <strong style="${S.strong}">200 USD</strong> est requis. Soyez assuré que je veillerai personnellement à appliquer toute nouvelle promotion applicable d'ici votre départ pour optimiser la valeur de votre voyage. Ce dépôt est <strong style="${S.strong}">entièrement remboursable jusqu'à 30 jours avant votre arrivée</strong>, vous offrant une <strong style="${S.strong}">flexibilité totale</strong> pour planifier en toute sérénité.`;
+                let promoNameInfo = data.promotion_name ? `&nbsp;: <strong style="${S.strong}">${data.promotion_name}</strong>` : "";
+                promoText = `Une promotion est applicable pour votre séjour${promoNameInfo}${promoEndDateInfo}. L’offre est cependant <em style="${S.italic}">limitée</em>. Pour garantir votre place au cœur de la magie, un dépôt de seulement <strong style="${S.strong}">200 USD</strong> est requis. Ce dépôt est <strong style="${S.strong}">entièrement remboursable jusqu'à 30 jours avant votre arrivée</strong>, vous offrant une <strong style="${S.strong}">flexibilité totale</strong> pour planifier en toute sérénité.`;
             }
             
-            let promotionSection = `
-                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-top:20px;">
-                    <tr>
-                        <td style="padding: 20px 25px; background-color: ${C.orangeLight}; border-left: 5px solid ${C.orange};">
-                            <h2 style="font-family:${S.fontFamily}; font-size:18px; color:${C.orange}; margin:0 0 10px 0; font-weight:bold;">PROMOTIONS ET DÉPÔT REQUIS</h2>
-                            <p style="${S.p} margin:0;">${promoText}</p>
-                        </td>
-                    </tr>
-                </table>`;
+            let promotionSection = `<table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-top:20px;"><tr><td style="padding: 20px 25px; background-color: ${C.orangeLight}; border-left: 5px solid ${C.orange};"><h2 style="font-family:${S.fontStack}; font-size:18px; color:${C.orange}; margin:0 0 10px 0; font-weight:bold;">PROMOTIONS ET DÉPÔT REQUIS</h2><p style="${S.p} margin:0;">${promoText}</p></td></tr></table>`;
+            let priceDisclaimer = (data.booking_type === 'hotel_tickets' && selectedHotels.length > 0) ? T.disney_price_disclaimer : T.tickets_only_price_disclaimer;
 
-            let priceDisclaimer = '';
-            if (data.booking_type === 'hotel_tickets' && selectedHotels.length > 0) {
-                priceDisclaimer = `<p style="${S.p} font-size:14px; color:${C.textLight}; text-align:center; ${S.italic}">${T.disney_price_disclaimer}</p>`;
-            } else if (data.booking_type === 'tickets_only') {
-                priceDisclaimer = `<p style="${S.p} font-size:14px; color:${C.textLight}; text-align:center; ${S.italic}">${T.tickets_only_price_disclaimer}</p>`;
-            }
-            
             let flightSection = '';
             if (data.include_flights) {
                 let flightDetails = `<p style="${S.p}">${T.flight_intro}</p>
-                                     <p style="${S.p}"><strong style="${S.strong}">Aller :</strong> ${formatDateFR(data.departure_date_aller)} à ${formatTime(data.departure_time_aller)}<br>De : ${data.departure_airport_aller || 'N/A'} &nbsp;|&nbsp; Vers : ${data.arrival_airport_aller || 'N/A'}</p>
-                                     <p style="${S.p}"><strong style="${S.strong}">Retour :</strong> ${formatDateFR(data.departure_date_retour)} à ${formatTime(data.departure_time_retour)}<br>De : ${data.departure_airport_retour || 'N/A'} &nbsp;|&nbsp; Vers : ${data.arrival_airport_retour || 'N/A'}</p>`;
+                    <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin:20px 0;">
+                        <tr>
+                            <td style="padding:15px; background-color:${C.blueLight}; border-bottom:2px solid ${C.white}; vertical-align:top; width:100px;"><strong style="color:${C.blue};">Aller&nbsp;:</strong></td>
+                            <td style="padding:15px; background-color:${C.blueLight}; border-bottom:2px solid ${C.white}; vertical-align:top;">${formatDateFR(data.departure_date_aller)} à ${formatTime(data.departure_time_aller)}<br><span style="color:${C.textLight};">${data.departure_airport_aller || 'N/A'} vers ${data.arrival_airport_aller || 'N/A'}</span></td>
+                        </tr>
+                        <tr>
+                            <td style="padding:15px; background-color:${C.blueLight}; vertical-align:top;"><strong style="color:${C.blue};">Retour&nbsp;:</strong></td>
+                            <td style="padding:15px; background-color:${C.blueLight}; vertical-align:top;">${formatDateFR(data.departure_date_retour)} à ${formatTime(data.departure_time_retour)}<br><span style="color:${C.textLight};">${data.departure_airport_retour || 'N/A'} vers ${data.arrival_airport_retour || 'N/A'}</span></td>
+                        </tr>
+                    </table>`;
                 if (data.flight_notes) {
                     flightDetails += `<p style="${S.p} font-style:italic; color:${C.textLight}; border-left:3px solid ${C.border}; padding-left:15px;">${data.flight_notes.replace(/\n/g, '<br>')}</p>`;
                 }
-                flightDetails += `<p style="${S.p}"><strong style="${S.strong}">Prix total approximatif des vols :</strong> ${data.flight_price || 'N/A'} CAD</p>
+                flightDetails += `<p style="${S.p}"><strong style="${S.strong}">Prix total approximatif des vols&nbsp;:</strong> ${data.flight_price || 'N/A'} CAD</p>
                                   <p style="${S.p} font-size:14px; color:${C.textLight};">${T.flight_price_info}</p>
                                   <p style="${S.p} font-size:14px; color:${C.textLight};">${T.flight_important_label} ${T.flight_important_text}</p>`;
-                flightSection = createBanner(T.banner_travel_fees, false) + `<tr><td style="padding: 20px 30px 30px 30px;">${flightDetails}</td></tr>`;
+                flightSection = createBanner(T.banner_travel_fees, 'sub') + `<tr><td style="padding: 20px 30px 30px 30px;">${flightDetails}</td></tr>`;
             }
 
             let closingSection = `<p style="${S.p}">${T.closing1}</p><p style="${S.p}">${T.closing2}</p><p style="${S.p}">${T.closing3}</p>`;
 
-            // FINAL ASSEMBLY
-            return `
-                <!DOCTYPE html>
-                <html lang="fr">
-                <head><meta charset="UTF-8"><title>${T.banner1}</title></head>
-                <body style="margin:0; padding:0; background-color:${C.background};">
-                    <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color:${C.background};">
-                        <tr>
-                            <td align="center">
-                                <table width="600" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width: 600px; margin: 20px auto; background-color: ${C.white};">
-                                    ${createBanner(T.banner1, true)}
-                                    <tr><td style="padding: 20px 30px 30px 30px;">${introSection}</td></tr>
-                                    ${createBanner(T.banner_disney_stay, false)}
-                                    <tr><td style="padding: 20px 30px 10px 30px;">${hotelSection}</td></tr>
-                                    <tr><td style="padding: 10px 30px 30px 30px;">${promotionSection}</td></tr>
-                                    <tr><td style="padding: 0 30px 30px 30px;">${priceDisclaimer}</td></tr>
-                                    ${flightSection}
-                                    ${createBanner(T.banner_magic_continues, false)}
-                                    <tr><td style="padding: 20px 30px 30px 30px;">${closingSection}</td></tr>
-                                </table>
-                            </td>
-                        </tr>
-                    </table>
-                </body>
-                </html>`;
+            return `<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><title>${T.banner1}</title></head><body style="margin:0; padding:0; background-color:${C.background};"><table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color:${C.background};"><tr><td align="center"><table width="640" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width: 640px; margin: 20px auto; background-color: ${C.white};">
+                ${createBanner(T.banner1, 'main')}
+                <tr><td style="padding: 20px 30px 30px 30px;">${introSection}</td></tr>
+                ${createBanner(T.banner_disney_stay, 'sub')}
+                <tr><td style="padding: 20px 30px 10px 30px;">${hotelSection}</td></tr>
+                <tr><td style="padding: 10px 30px 30px 30px;">${promotionSection}</td></tr>
+                <tr><td style="padding: 0 30px 30px 30px;"><p style="${S.p} font-size:14px; color:${C.textLight}; text-align:center; ${S.italic}">${priceDisclaimer}</p></td></tr>
+                ${flightSection}
+                ${createBanner(T.banner_magic_continues, 'closing')}
+                <tr><td style="padding: 20px 30px 30px 30px;">${closingSection}</td></tr>
+            </table></td></tr></table></body></html>`;
         }
-
 
         // --- Le reste du script JS pour le formulaire reste identique ---
         document.addEventListener('DOMContentLoaded', function() {
@@ -345,9 +340,9 @@
                         <option value="" disabled selected>Sélectionnez un hôtel</option>
                         ${DISNEY_HOTELS.sort((a,b) => a.name.localeCompare(b.name)).map(hotel => `<option value="${hotel.name}">${hotel.name}</option>`).join('')}
                     </select>
-                    <label for="hotel_price_${hotelCounter}">Prix (USD) :</label>
+                    <label for="hotel_price_${hotelCounter}">Prix du Forfait (USD)&nbsp;:</label>
                     <input type="number" name="hotel_price" id="hotel_price_${hotelCounter}" placeholder="Ex: 4500.50" step="0.01">
-                    <label for="hotel_pros_${hotelCounter}">Les plus de cet hôtel (un par ligne) :</label>
+                    <label for="hotel_pros_${hotelCounter}">Points Forts (un par ligne)&nbsp;:</label>
                     <textarea name="hotel_pros" id="hotel_pros_${hotelCounter}" placeholder="Ex: Accès au Skyliner\nPiscine exceptionnelle"></textarea>
                 `;
                 groupDiv.innerHTML = content;
