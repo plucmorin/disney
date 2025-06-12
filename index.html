@@ -6,7 +6,7 @@
     <title>Générateur d'e-mail Disney (Logo Option A)</title>
     <style>
         body { font-family: sans-serif; margin: 20px; background-color: #f4f4f4; color: #333; line-height: 1.6; }
-        .container { background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); max-width: 900px; margin: auto;}
+        .container { background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); max-width: 900px; margin: auto; width: 100%;}
         h1 { text-align: center; margin-bottom: 30px; color: #007bff;}
         h2 { margin-top: 25px; color: #007bff; border-bottom: 1px solid #eee; padding-bottom: 5px;}
         label { display: block; margin-top: 15px; font-weight: bold; }
@@ -24,7 +24,7 @@
         .form-section { border: 1px solid #eee; padding: 15px; margin-bottom: 20px; border-radius: 5px; background-color: #fdfdfd; }
         .hidden { display: none; }
         #emailOutputContainer { margin-top: 30px; }
-        #emailOutput { padding: 20px; border: 1px solid #ccc; background-color: #f0f0f0; border-radius: 5px; min-height: 200px; }
+        #emailOutput { padding: 20px; border: 1px solid #ccc; background-color: #f0f0f0; border-radius: 5px; min-height: 200px; overflow-x: auto; word-wrap: break-word; white-space: pre-wrap; }
         .hotel-selection { display: flex; align-items: center; margin-bottom: 10px; }
         .hotel-selection select { flex-grow: 1; }
     </style>
@@ -77,6 +77,8 @@
                     <input type="text" id="arrival_airport_retour" name="arrival_airport_retour" placeholder="Ex: YUL - Montréal">
                     <label for="flight_price">Prix total approximatif des vols (CAD) :</label>
                     <input type="number" id="flight_price" name="flight_price" step="0.01">
+                    <label for="flight_note">Note concernant les vols :</label>
+                    <textarea id="flight_note" name="flight_note" rows="2" placeholder="Informations additionnelles"></textarea>
                 </div>
             </div>
             <div class="form-section">
@@ -241,19 +243,18 @@
                         emailParts.push(`<div style="${PARAGRAPH_STYLE} margin-top:15px;"><strong style="${BOLD_STYLE} text-transform: uppercase;">${hotel.name}</strong><br>${hotel.description}</div>`);
                     }
                 } else { 
-                    emailParts.push(`<p style="${PARAGRAPH_STYLE}">Pour votre séjour au Walt Disney World Resort en Floride, plusieurs options d’hébergement sont possibles selon vos besoins. Les options possibles sont :</p>`);
-                    let hotelListHtml = `<ul style="${LIST_STYLE}">`;
-                    selectedHotels.forEach(hotelName => { hotelListHtml += `<li style="${LIST_ITEM_STYLE}">${hotelName}</li>`; });
-                    hotelListHtml += "</ul>";
-                    emailParts.push(hotelListHtml);
+                    emailParts.push(`<p style="${PARAGRAPH_STYLE}">Pour votre séjour au Walt Disney World Resort en Floride, plusieurs options d’hébergement sont possibles selon vos besoins. Voici un tableau comparatif :</p>`);
                     emailParts.push(`<p style="${PARAGRAPH_STYLE}">Les propositions incluent l’hébergement ainsi que les billets pour les parcs Disney.</p>`);
                     emailParts.push(`<p style="${PARAGRAPH_STYLE}">Tous les détails (dates, prix, inclusions et conditions) se trouvent dans les documents PDF ci-joints.</p>`);
+                    let tableHtml = '<table style="border-collapse:collapse;width:100%;margin-top:15px;">';
+                    tableHtml += '<tr><th style="padding:8px;border:1px solid #ccc;">Option</th><th style="padding:8px;border:1px solid #ccc;">Explication</th><th style="padding:8px;border:1px solid #ccc;">Prix (USD)</th><th style="padding:8px;border:1px solid #ccc;">Avantages</th></tr>';
                     selectedHotels.forEach((hotelName, index) => {
                         const hotel = getHotelByName(hotelName);
-                        if (hotel) {
-                             emailParts.push(`<div style="${PARAGRAPH_STYLE} margin-top:15px;"><strong style="${BOLD_STYLE}">OPTION ${index + 1} – ${hotel.name.toUpperCase()}</strong><br>${hotel.description}</div>`);
-                        }
+                        const desc = hotel ? hotel.description : '';
+                        tableHtml += `<tr><td style="padding:8px;border:1px solid #ccc;"><strong>OPTION ${index + 1}</strong><br>${hotelName}</td><td style="padding:8px;border:1px solid #ccc;">${desc}</td><td style="padding:8px;border:1px solid #ccc;">---</td><td style="padding:8px;border:1px solid #ccc;">${desc}</td></tr>`;
                     });
+                    tableHtml += '</table>';
+                    emailParts.push(tableHtml);
                 }
                 emailParts.push(`<p style="${PARAGRAPH_STYLE} margin-top:15px;">${T.disney_advantages_intro}</p>`);
                 let advantagesListHtml = `<ul style="${LIST_STYLE}">`;
@@ -296,6 +297,9 @@
                 if (numChildren > 0) { passengerSummary += `, ${childText}`; }
                 flightDetailsHtml += `<p style="${PARAGRAPH_STYLE}"><strong style="${BOLD_STYLE}">Nombre de passagers :</strong> ${totalPassengers} (${passengerSummary})</p>`;
                 flightDetailsHtml += `<p style="${PARAGRAPH_STYLE}"><strong style="${BOLD_STYLE}">Prix total approximatif des vols :</strong> ${data.flight_price || 'N/A'} CAD</p>`;
+                if (data.flight_note) {
+                    flightDetailsHtml += `<p style="${PARAGRAPH_STYLE}">${data.flight_note}</p>`;
+                }
                 flightDetailsHtml += "</div>";
                 emailParts.push(flightDetailsHtml);
                 emailParts.push(`<p style="${PARAGRAPH_STYLE}">${T.flight_price_info}</p>`);
