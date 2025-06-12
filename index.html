@@ -27,6 +27,7 @@
         .hidden { display: none; }
         #emailOutputContainer { margin-top: 30px; }
         #emailOutput { padding: 20px; border: 1px solid #ccc; background-color: #f0f2f5; border-radius: 8px; min-height: 200px; overflow-x: auto;}
+        .flight-inputs { border: 1px solid #ddd; border-radius: 8px; padding: 10px 15px 15px 15px; margin-top:10px; }
     </style>
 </head>
 <body>
@@ -58,22 +59,36 @@
                 <h2>Vols</h2>
                 <label><input type="checkbox" id="include_flights" name="include_flights"> Inclure les vols&nbsp;?</label>
                 <div id="flight_details" class="hidden">
-                    <label for="departure_date_aller">Date de départ (Aller)&nbsp;:</label>
-                    <input type="date" id="departure_date_aller" name="departure_date_aller">
-                    <label for="departure_time_aller">Heure de départ (Aller)&nbsp;:</label>
-                    <input type="time" id="departure_time_aller" name="departure_time_aller">
-                    <label for="departure_airport_aller">Aéroport de départ (Aller)&nbsp;:</label>
-                    <input type="text" id="departure_airport_aller" name="departure_airport_aller" placeholder="Ex: YUL - Montréal">
-                    <label for="arrival_airport_aller">Aéroport d'arrivée (Aller)&nbsp;:</label>
-                    <input type="text" id="arrival_airport_aller" name="arrival_airport_aller" placeholder="Ex: MCO - Orlando" value="MCO - Orlando">
-                    <label for="departure_date_retour">Date de départ (Retour)&nbsp;:</label>
-                    <input type="date" id="departure_date_retour" name="departure_date_retour">
-                    <label for="departure_time_retour">Heure de départ (Retour)&nbsp;:</label>
-                    <input type="time" id="departure_time_retour" name="departure_time_retour">
-                    <label for="departure_airport_retour">Aéroport de départ (Retour)&nbsp;:</label>
-                    <input type="text" id="departure_airport_retour" name="departure_airport_retour" placeholder="Ex: MCO - Orlando" value="MCO - Orlando">
-                    <label for="arrival_airport_retour">Aéroport d'arrivée (Retour)&nbsp;:</label>
-                    <input type="text" id="arrival_airport_retour" name="arrival_airport_retour" placeholder="Ex: YUL - Montréal">
+                    <div class="flight-inputs">
+                        <h3>Vol Aller</h3>
+                        <label for="departure_date_aller">Date de départ (Aller)&nbsp;:</label>
+                        <input type="date" id="departure_date_aller" name="departure_date_aller">
+                        <label for="departure_time_aller">Heure de départ (Aller)&nbsp;:</label>
+                        <input type="time" id="departure_time_aller" name="departure_time_aller">
+                        <label for="departure_airport_aller">Aéroport de départ (Aller)&nbsp;:</label>
+                        <input type="text" id="departure_airport_aller" name="departure_airport_aller" placeholder="Ex: YUL - Montréal">
+                        <label for="arrival_airport_aller">Aéroport d'arrivée (Aller)&nbsp;:</label>
+                        <input type="text" id="arrival_airport_aller" name="arrival_airport_aller" placeholder="Ex: MCO - Orlando" value="MCO - Orlando">
+                        <label for="airline_aller">Compagnie Aérienne (Aller)&nbsp;:</label>
+                        <input type="text" id="airline_aller" name="airline_aller" placeholder="Ex: Air Canada">
+                        <label for="flight_number_aller">Numéro de vol (Aller)&nbsp;:</label>
+                        <input type="text" id="flight_number_aller" name="flight_number_aller" placeholder="Ex: AC1676">
+                    </div>
+                     <div class="flight-inputs">
+                        <h3>Vol Retour</h3>
+                        <label for="departure_date_retour">Date de départ (Retour)&nbsp;:</label>
+                        <input type="date" id="departure_date_retour" name="departure_date_retour">
+                        <label for="departure_time_retour">Heure de départ (Retour)&nbsp;:</label>
+                        <input type="time" id="departure_time_retour" name="departure_time_retour">
+                        <label for="departure_airport_retour">Aéroport de départ (Retour)&nbsp;:</label>
+                        <input type="text" id="departure_airport_retour" name="departure_airport_retour" placeholder="Ex: MCO - Orlando" value="MCO - Orlando">
+                        <label for="arrival_airport_retour">Aéroport d'arrivée (Retour)&nbsp;:</label>
+                        <input type="text" id="arrival_airport_retour" name="arrival_airport_retour" placeholder="Ex: YUL - Montréal">
+                        <label for="airline_retour">Compagnie Aérienne (Retour)&nbsp;:</label>
+                        <input type="text" id="airline_retour" name="airline_retour" placeholder="Ex: Air Canada">
+                        <label for="flight_number_retour">Numéro de vol (Retour)&nbsp;:</label>
+                        <input type="text" id="flight_number_retour" name="flight_number_retour" placeholder="Ex: AC1677">
+                    </div>
                     <label for="flight_price">Prix total approximatif des vols (CAD)&nbsp;:</label>
                     <input type="number" id="flight_price" name="flight_price" step="0.01">
                     <label for="flight_notes">Notes sur les vols&nbsp;:</label>
@@ -156,7 +171,7 @@
                 orange: '#FF7F50',
                 textDark: '#222222',
                 textLight: '#555555',
-                border: '#E0E0E0',
+                border: '#EAEAEA',
                 background: '#f0f2f5',
                 white: '#FFFFFF',
                 col1: '#f8fafd',
@@ -164,13 +179,13 @@
                 col3: '#f8fafd',
                 blueLight: '#e6f2fa',
                 orangeLight: '#fff4e6',
-                green: '#28a745',
-                level: {
-                    value: '#4CAF50',
-                    moderate: '#2196F3',
-                    deluxe: '#673AB7',
-                    deluxe_villa: '#9C27B0'
-                }
+                level: { value: '#4CAF50', moderate: '#2196F3', deluxe: '#673AB7', deluxe_villa: '#9C27B0' }
+            };
+
+            const ICONS = {
+                calendar: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAS5JREFUOE/tlL1Kw1AUhU/PRAYXEVwll46Cg4ODgy5dOgjiP9BBSFAXcaGgoChdUJcugq4uBRFnBxfBQRKnUn4dGgqJB815lXvPuf8/F4J/rOEFn+AHHOKYdvyP7w8Y+FE0vwI/4gM+YArX8BPNMQ+n8B4P8Bjv8DP2AnwP14hEnMMPbEYn+B3v8BwP8QlXYgnxCQ7xGBvxCV9wBW9gwTkc51jic5zC50zASRzCDdyhT3wF2zASz/AebsHZTAR+wQc8wBpcwwPsxTYswjEcwgN8wA28x5o8xqJcws5Mgk/wL7/jfvyP7+MhnsPyTaAb3sV3PIcmPMT32I/z9A08wR+cB1/BDhzD41zCDTzFKbzHKv7Enwg+YJgC+gAAAABJRU5ErkJggg==',
+                clock: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAYpJREFUOE/tlT9oFEEQxX/XUREMLGy0sLARBCwsNLAQSAQbC4sVC4GBgIWFhbCwjSBYWFikYCFYBYshCCKFBIlDMTKz+7Kzvdld4YcFu92Z+c2b92Z2A/5xDS/gBR7hEd7jFO7hN94PGF40fwMv4wVeYhJz8Agv4U4c4w0eBiAm8RmX8BffYhgz8Bgv400s4gLu4SMe4CMOw2c8xpOYwwG8h4e4S3v+Bn7EwV/A/nyEB3gU3zGAk1iHAbzlIbxK83IUP+NnPNIePMy/8BRPYU9d9hJfxqu4gTdxED+xFi9iCtfwA88jA1iL2/gWG/EOnmMTDuJb7EW13IVVbMUbeIkpPAWv4g9GIEHeI+1+B1r8B324A/4CmfBDOC5/AAVeIXHeBu/YhX+4gHeZAo/YCPe4wO8xTJ+xtrYhV14G/8TR7EVl/A5bmIl3sZqPMdKLIe7eB17MR8P4QW+xpocw3o8x9rchD/xDg/iI65iNf5iJS7iLD7GZvzEa9xEDw8hM24WAG8hK+7jE/yJvTiPd3gJk1iE5TiNfbiA9TiE7yM7g4j9A1eGWeAX8uE/AAAAAElFTkSuQmCC',
+                airline: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAATZJREFUOE/tlb1SwkAUhp/sDVi0aQtCK1hYWIo9goW9P6CCpY1YWFhYVlpaWdgJq2APgoWNkIgFwRrM3bCzcB+5uDnkA99y7uN8z7n/nwsx/WMaV/AWP+IJRjHHRvwPzwcY6V+wfgMv8Ao/YRJv8BLv4Vsc4wweBiBC4iuu4w+WYQyv4Am+xjN+woU8xE5cxnN8wT2sYQzfYD++5QMe4D7ewnsswWc8w+c8wVscYg3e4AMe4wPewWc8xhp8hyN4D/9gD47hUv7EBvzFHqyFc/gC65gL++A7PMYmHMX9eBHb8AjX8AV/YB4OsBP38D0r8A5PMIkHeBfb0Qz78CneYQke4Q+eYS0u4Sfsxaq5C+tYhi94E9/jC9zCbRjD46zD3dhmJe5jM7biEw7iM3biFfzHIl7GDs4Q+I7HuIXHeIeTeIp7uIUjDAcI/sM/cI/3eIH3eYUnGMW/8hYFw2V+sEwAAAAASUVORK5CYII='
             };
 
             const S = {
@@ -183,24 +198,10 @@
             function createBanner(text, type = 'main') {
                 let style, titleStyle, wrapperStyle;
                 switch (type) {
-                    case 'closing':
-                        style = `background-color: ${C.orange}; padding: 12px 30px;`;
-                        titleStyle = `font-family: Georgia, serif; font-size: 24px; color: ${C.white}; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center; letter-spacing: 1px;`;
-                        wrapperStyle = `padding: 5px 0;`
-                        break;
-                    case 'sub':
-                        style = `background-color: ${C.blue}; padding: 10px 30px;`;
-                        titleStyle = `font-family: ${S.fontStack}; font-size: 20px; color: ${C.white}; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center;`;
-                        wrapperStyle = `padding: 0;`
-                        break;
-                    case 'main':
-                    default:
-                        style = `background: linear-gradient(to right, ${C.blue}, ${C.blueDark}); padding: 25px 30px;`;
-                        titleStyle = `font-family: Georgia, serif; font-size: 32px; color: ${C.white}; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center; letter-spacing: 1.5px; line-height:1.2;`;
-                        wrapperStyle = `border-top: 1px solid rgba(255,255,255,0.3); border-bottom: 1px solid rgba(255,255,255,0.3); padding: 10px 0;`
-                        break;
+                    case 'closing': style = `background-color: ${C.orange}; padding: 12px 30px;`; titleStyle = `font-family: Georgia, serif; font-size: 24px; color: ${C.white}; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center; letter-spacing: 1px;`; wrapperStyle = `padding: 5px 0;`; break;
+                    case 'sub': style = `background-color: ${C.blue}; padding: 10px 30px;`; titleStyle = `font-family: ${S.fontStack}; font-size: 20px; color: ${C.white}; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center;`; wrapperStyle = `padding: 0;`; break;
+                    case 'main': default: style = `background: linear-gradient(to right, ${C.blue}, ${C.blueDark}); padding: 25px 30px;`; titleStyle = `font-family: Georgia, serif; font-size: 32px; color: ${C.white}; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center; letter-spacing: 1.5px; line-height:1.2;`; wrapperStyle = `border-top: 1px solid rgba(255,255,255,0.3); border-bottom: 1px solid rgba(255,255,255,0.3); padding: 10px 0;`; break;
                 }
-
                 return `<tr><td style="${style}"><div style="${wrapperStyle}"><h1 style="${titleStyle}">${text}</h1></div></td></tr>`;
             }
 
@@ -237,13 +238,13 @@
             if (data.booking_type === 'hotel_tickets' && selectedHotels.length > 0) {
                  if (selectedHotels.length === 1) {
                     const hotel = selectedHotels[0];
-                     const levelColor = C.level[hotel.level.toLowerCase().replace(/ /g, '_')] || C.textLight;
+                    const levelColor = C.level[hotel.level.toLowerCase().replace(/ /g, '_')] || C.textLight;
                     hotelSection += `<p style="${S.p}">Pour votre séjour, j’ai sélectionné l’option suivante&nbsp;:</p>
                                      <div style="border: 1px solid ${C.border}; border-radius: 8px;">
                                         <div style="background-color:${C.blue}; color:${C.white}; padding:15px 20px; border-radius: 8px 8px 0 0;">
                                             <strong style="font-family:${S.fontStack}; font-size:20px;">${hotel.name}</strong>
                                         </div>
-                                         <div style="padding:20px; background-color:${C.white};">
+                                         <div style="padding:20px; background-color:${C.white}; border-radius: 0 0 8px 8px;">
                                             <span style="background-color:${levelColor}; color:${C.white}; padding: 4px 10px; border-radius: 15px; font-size: 12px; font-weight: bold;">${hotel.level}</span>
                                             <p style="font-family:${S.fontStack}; font-size:15px; line-height:1.5; color:${C.textLight}; margin:15px 0 0 0;">${hotel.description}</p>
                                          </div>
@@ -253,9 +254,8 @@
                     let hotelTable = `<table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-top:20px; border-collapse: collapse;">
                                         <thead>
                                             <tr>
-                                                <th width="45%" style="padding:12px 20px; font-family:${S.fontStack}; font-size:14px; color:${C.blue}; background-color:${C.blueLight}; text-align:left; border-bottom: 3px solid ${C.white};">OPTION</th>
-                                                <th width="35%" style="padding:12px 20px; font-family:${S.fontStack}; font-size:14px; color:${C.blue}; background-color:${C.blueLight}; text-align:left; border-bottom: 3px solid ${C.white};">POINTS FORTS</th>
-                                                <th width="20%" style="padding:12px 20px; font-family:${S.fontStack}; font-size:14px; color:${C.blue}; background-color:${C.blueLight}; text-align:right; border-bottom: 3px solid ${C.white};">FORFAIT (USD)</th>
+                                                <th colspan="2" style="padding:12px 20px; font-family:${S.fontStack}; font-size:14px; color:${C.blue}; background-color:${C.blueLight}; text-align:left; border-bottom: 3px solid ${C.white};">OPTION</th>
+                                                <th style="padding:12px 20px; font-family:${S.fontStack}; font-size:14px; color:${C.blue}; background-color:${C.blueLight}; text-align:right; border-bottom: 3px solid ${C.white};">FORFAIT (USD)</th>
                                             </tr>
                                         </thead>
                                         <tbody>`;
@@ -266,19 +266,23 @@
                            prosList = `<ul style="margin:0; padding:0; list-style-type:none;">` + hotel.pros.split('\n').map(p => p.trim() ? `<li style="margin-bottom:8px;"><span style="color:${C.blue}; font-size:18px; vertical-align:middle; margin-right:8px; font-weight:bold;">&#10004;</span><span style="vertical-align:middle;">${p}</span></li>` : '').join('') + `</ul>`;
                         }
 
-                        hotelTable += `<tr style="border-bottom: 10px solid ${C.background};">
-                            <td style="padding:0; background-color:${C.col1}; vertical-align:top;">
-                                <div style="background-color:${C.blue}; color:${C.white}; padding:15px 20px;">
-                                    <strong style="font-family:${S.fontStack}; font-size:18px;">${hotel.name}</strong>
-                                </div>
-                                <div style="padding:20px;">
-                                    <span style="background-color:${levelColor}; color:${C.white}; padding: 4px 10px; border-radius: 15px; font-size: 12px; font-weight: bold;">${hotel.level}</span>
-                                    <p style="font-family:${S.fontStack}; font-size:14px; line-height:1.5; color:${C.textLight}; margin:15px 0 0 0;">${hotel.description}</p>
-                                </div>
-                            </td>
-                            <td style="padding:20px; background-color:${C.col2}; vertical-align:top;">${prosList}</td>
-                            <td style="padding:20px; background-color:${C.col3}; vertical-align:top; text-align:right; font-family:${S.fontStack}; font-size:18px; font-weight:bold; color:${C.textDark};">${hotel.price || 'Voir PDF'}</td>
-                        </tr>`;
+                        hotelTable += `
+                            <tr style="background-color:${C.col1};">
+                                <td colspan="3" style="padding:0;">
+                                    <div style="background-color:${C.blue}; color:${C.white}; padding:15px 20px;">
+                                        <strong style="font-family:${S.fontStack}; font-size:18px;">${hotel.name}</strong>
+                                    </div>
+                                    <div style="padding:20px;">
+                                        <span style="background-color:${levelColor}; color:${C.white}; padding: 4px 10px; border-radius: 15px; font-size: 12px; font-weight: bold;">${hotel.level}</span>
+                                        <p style="font-family:${S.fontStack}; font-size:14px; line-height:1.5; color:${C.textLight}; margin:15px 0 0 0;">${hotel.description}</p>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr style="border-bottom: 10px solid ${C.background};">
+                                <td width="50%" style="padding:20px; background-color:${C.col2}; vertical-align:top;">${prosList}</td>
+                                <td width="25%" style="background-color:${C.col2}; vertical-align:top;"></td>
+                                <td width="25%" style="padding:20px; background-color:${C.col3}; vertical-align:middle; text-align:right; font-family:${S.fontStack}; font-size:18px; font-weight:bold; color:${C.textDark};">${hotel.price || 'Voir PDF'}</td>
+                            </tr>`;
                     });
                     hotelTable += `</tbody></table>`;
                     hotelSection += hotelTable;
@@ -306,28 +310,42 @@
 
             let flightSection = '';
             if (data.include_flights) {
-                 const airportTagStyle = `background-color: ${C.blue}; color: ${C.white}; padding: 3px 8px; border-radius: 4px; font-size: 14px; font-weight: bold; text-decoration: none;`;
+                 const airportTagStyle = `background-color: ${C.blue}; color: ${C.white}; padding: 3px 8px; border-radius: 4px; font-size: 14px; font-weight: bold; text-decoration: none; display:inline-block;`;
+                 const flightInfoLine = (icon, label, value) => {
+                     if (!value) return '';
+                     return `<br><br><img src="${icon}" width="16" height="16" alt="Icon" style="vertical-align: middle; margin-right: 8px;"><strong style="color:${C.textLight}; vertical-align: middle;">${label}&nbsp;:</strong> ${value}`;
+                 }
+
+                 let flightAllerDetails = flightInfoLine(ICONS.airline, 'Compagnie', `${data.airline_aller || ''} ${data.flight_number_aller || ''}`);
+                 let flightRetourDetails = flightInfoLine(ICONS.airline, 'Compagnie', `${data.airline_retour || ''} ${data.flight_number_retour || ''}`);
+
                  let flightDetails = `<p style="${S.p}">${T.flight_intro}</p>
                     <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin:20px 0;">
                         <tr>
-                            <td width="50%" style="padding-right: 10px;">
+                            <td width="50%" style="padding-right: 10px; vertical-align:top;">
                                 <table width="100%" border="0" cellpadding="0" cellspacing="0" style="border:1px solid ${C.border}; border-radius: 8px; ">
                                     <tr><td align="center" style="padding: 15px; border-bottom: 1px solid ${C.border}; background-color:${C.blueLight}; border-radius: 8px 8px 0 0;">
                                         <strong style="color:${C.blue}; font-size:18px; vertical-align: middle;">Vol Aller</strong>
                                     </td></tr>
                                     <tr><td style="padding: 20px; font-size: 15px; background-color:${C.white}; border-radius: 0 0 8px 8px;">
-                                        <strong style="color:${C.textLight};">Date&nbsp;:</strong> ${formatDateFR(data.departure_date_aller)} à ${formatTime(data.departure_time_aller)}<br><br>
+                                        <img src="${ICONS.calendar}" width="16" height="16" alt="Calendar" style="vertical-align: middle; margin-right: 8px;"><strong style="color:${C.textLight}; vertical-align: middle;">Date&nbsp;:</strong> ${formatDateFR(data.departure_date_aller)}<br><br>
+                                        <img src="${ICONS.clock}" width="16" height="16" alt="Clock" style="vertical-align: middle; margin-right: 8px;"><strong style="color:${C.textLight}; vertical-align: middle;">Heure&nbsp;:</strong> ${formatTime(data.departure_time_aller)}
+                                        ${flightAllerDetails}
+                                        <br><br>
                                         <span style="${airportTagStyle}">${data.departure_airport_aller || 'N/A'}</span> &rarr; <span style="${airportTagStyle}">${data.arrival_airport_aller || 'N/A'}</span>
                                     </td></tr>
                                 </table>
                             </td>
-                            <td width="50%" style="padding-left: 10px;">
+                            <td width="50%" style="padding-left: 10px; vertical-align:top;">
                                  <table width="100%" border="0" cellpadding="0" cellspacing="0" style="border:1px solid ${C.border}; border-radius: 8px; ">
                                     <tr><td align="center" style="padding: 15px; border-bottom: 1px solid ${C.border}; background-color:${C.blueLight}; border-radius: 8px 8px 0 0;">
                                         <strong style="color:${C.blue}; font-size:18px; vertical-align: middle;">Vol Retour</strong>
                                     </td></tr>
                                     <tr><td style="padding: 20px; font-size: 15px; background-color:${C.white}; border-radius: 0 0 8px 8px;">
-                                        <strong style="color:${C.textLight};">Date&nbsp;:</strong> ${formatDateFR(data.departure_date_retour)} à ${formatTime(data.departure_time_retour)}<br><br>
+                                        <img src="${ICONS.calendar}" width="16" height="16" alt="Calendar" style="vertical-align: middle; margin-right: 8px;"><strong style="color:${C.textLight}; vertical-align: middle;">Date&nbsp;:</strong> ${formatDateFR(data.departure_date_retour)}<br><br>
+                                        <img src="${ICONS.clock}" width="16" height="16" alt="Clock" style="vertical-align: middle; margin-right: 8px;"><strong style="color:${C.textLight}; vertical-align: middle;">Heure&nbsp;:</strong> ${formatTime(data.departure_time_retour)}
+                                        ${flightRetourDetails}
+                                        <br><br>
                                         <span style="${airportTagStyle}">${data.departure_airport_retour || 'N/A'}</span> &rarr; <span style="${airportTagStyle}">${data.arrival_airport_retour || 'N/A'}</span>
                                     </td></tr>
                                 </table>
@@ -418,6 +436,8 @@
                 event.preventDefault();
                 const formData = new FormData(form);
                 const data = {};
+                
+                // Get all form data
                 for (let [key, value] of formData.entries()) {
                     if (!key.startsWith('hotel_')) {
                         data[key] = value;
@@ -425,6 +445,7 @@
                 }
                 data.include_flights = formData.has('include_flights');
                 
+                // Get hotel data
                 data.hotels = [];
                 const hotelGroups = hotelSelectionsDiv.querySelectorAll('.hotel-option-group');
                 hotelGroups.forEach(group => {
