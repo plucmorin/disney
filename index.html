@@ -186,7 +186,7 @@
                     <img src="https://www.voyagesenroute.com/wp-content/uploads/2024/10/Logo_Fond_Blanc_2.svg" alt="Logo agence" style="max-height:80px;">
                 </td>
                 <td style="width:50%;text-align:center;padding:10px;">
-                    <img src="https://i.ibb.co/GQVYyJn2/Disney-Organisateur-de-vacances-autorise-Disney-Ear-Marked-argent-1-1-e1722367433886.png" alt="Earmarked" style="max-height:80px;">   
+                    <img src="https://i.ibb.co/GQVYyJn2/Disney-Organisateur-de-vacances-autorise-Disney-Ear-Marked-argent-1-1-e1722367433886.png" alt="Earmarked" style="max-height:80px;">    
                 </td>
                  </tr>
                 </table>`,
@@ -216,72 +216,72 @@
 
             const logosEmail = T.logosEmail;
             
-            let travelersInfo = `<p style="${S.p} font-weight:bold;">Groupe : ${data.adults || '0'} adulte(s) et ${data.children || '0'} enfant(s)</p>`;
+            let travelersInfo = `<p style="${S.p} font-weight:bold;">Groupe : ${data.adults || '0'} adulte(s) et ${data.children || '0'} enfant(s)</p>`;
             let introSection = `<p style="${S.p}">${T.greeting}</p><p style="${S.p}">${T.intro1}</p><p style="${S.p}">${T.intro2}</p>${travelersInfo}`;
             let hotelSection = '';
             const selectedHotels = data.hotels || [];
 
             if (data.booking_type === 'hotel_tickets' && selectedHotels.length > 0) {
-if (selectedHotels.length === 1) {
-                    const hotel = selectedHotels[0];
-                    const levelColor = C.level[hotel.level.toLowerCase().replace(/ /g, '_')] || C.textLight;
-                    
-                    let prosList = `<span style="background-color:${levelColor}; color:${C.white}; padding: 5px 12px; margin: 0 8px 8px 0; border-radius: 15px; font-size: 14px; font-weight: bold; display:inline-block;">${hotel.level}</span>`;
-                    hotel.pointsForts.forEach((p, i) => {
-                        const tagColor = C.tags[i % C.tags.length];
-                        prosList += `<span style="display:inline-block; background-color:${tagColor}; color:${C.white}; padding: 5px 12px; margin: 0 8px 8px 0; border-radius: 15px; font-size: 14px; font-weight: bold;">${p}</span>`;
-                    });
+				if (selectedHotels.length === 1) {
+					const hotel = selectedHotels[0];
+					const levelColor = C.level[hotel.level.toLowerCase().replace(/ /g, '_')] || C.textLight;
+					
+					let prosList = `<span style="background-color:${levelColor}; color:${C.white}; padding: 5px 12px; margin: 0 8px 8px 0; border-radius: 15px; font-size: 14px; font-weight: bold; display:inline-block;">${hotel.level}</span>`;
+					hotel.pointsForts.forEach((p, i) => {
+						const tagColor = C.tags[i % C.tags.length];
+						prosList += `<span style="display:inline-block; background-color:${tagColor}; color:${C.white}; padding: 5px 12px; margin: 0 8px 8px 0; border-radius: 15px; font-size: 14px; font-weight: bold;">${p}</span>`;
+					});
 
-                    let hotelCard = `
-                        <div class="hotel-card" style="margin-top: 25px; border: 1px solid ${C.border}; border-radius: 8px;">
-                            <div style="background-color:${C.blue}; color:${C.white}; padding:15px 20px; border-radius: 8px 8px 0 0;">
-                                <strong style="font-family:${S.fontStack}; font-size:20px;">${hotel.name}</strong>
-                            </div>
-                            <div style="background-color:${C.white}; padding: 20px;">
-                                <p style="font-family:${S.fontStack}; font-size:15px; line-height:1.5; color:${C.textLight}; margin:0 0 15px 0; text-align:justify;">${hotel.description}</p>
-                                <div style="padding:10px 0;">${prosList}</div>
-                            </div>
-                            <div style="background-color:${C.blueLight}; padding: 15px 20px; text-align:center; border-radius: 0 0 8px 8px; border-top: 1px solid ${C.border};">
-                                <span style="font-size:14px; color:${C.textLight}; font-weight:bold; text-transform:uppercase;">PRIX DU FORFAIT</span><br>
-                                <strong style="font-size:28px; color:${C.textDark}; line-height:1.2;">${hotel.price ? hotel.price + '&nbsp;USD' : 'Voir PDF'}</strong>
-                            </div>
-                        </div>
-                    `;
-                    hotelSection += `<p style="${S.p}">Pour votre séjour, voici l'option que j'ai sélectionnée pour vous :</p>${logosEmail}${hotelCard}`;
-                } else {
-                    hotelSection += `<p style="${S.p}">Voici plusieurs options d’hébergement pour votre séjour. Chaque proposition ci-dessous correspond à un forfait détaillé dans un document PDF distinct.</p>${logosEmail}`;
-                    let hotelCards = '';
-                    selectedHotels.forEach(hotel => {
-                        const levelColor = C.level[hotel.level.toLowerCase().replace(/ /g, '_')] || C.textLight;
-                        
-                        let prosList = `<span style="background-color:${levelColor}; color:${C.white}; padding: 5px 12px; margin: 0 8px 8px 0; border-radius: 15px; font-size: 14px; font-weight: bold; display:inline-block;">${hotel.level}</span>`;
-                        hotel.pointsForts.forEach((p, i) => {
-                            const tagColor = C.tags[i % C.tags.length];
-                            prosList += `<span style="display:inline-block; background-color:${tagColor}; color:${C.white}; padding: 5px 12px; margin: 0 8px 8px 0; border-radius: 15px; font-size: 14px; font-weight: bold;">${p}</span>`;
-                        });
+					let hotelCard = `
+						<div class="hotel-card" style="margin-top: 25px; border: 1px solid ${C.border}; border-radius: 8px;">
+							<div style="background-color:${C.blue}; color:${C.white}; padding:15px 20px; border-radius: 8px 8px 0 0;">
+								<strong style="font-family:${S.fontStack}; font-size:20px;">${hotel.name}</strong>
+							</div>
+							<div style="background-color:${C.white}; padding: 20px;">
+								<p style="font-family:${S.fontStack}; font-size:15px; line-height:1.5; color:${C.textLight}; margin:0 0 15px 0; text-align:justify;">${hotel.description}</p>
+								<div style="padding:10px 0;">${prosList}</div>
+							</div>
+							<div style="background-color:${C.blueLight}; padding: 15px 20px; text-align:center; border-radius: 0 0 8px 8px; border-top: 1px solid ${C.border};">
+								<span style="font-size:14px; color:${C.textLight}; font-weight:bold; text-transform:uppercase;">PRIX DU FORFAIT</span><br>
+								<strong style="font-size:28px; color:${C.textDark}; line-height:1.2;">${hotel.price ? hotel.price + '&nbsp;USD' : 'Voir PDF'}</strong>
+							</div>
+						</div>
+					`;
+					hotelSection += `<p style="${S.p}">Pour votre séjour, voici l'option que j'ai sélectionnée pour vous :</p>${logosEmail}${hotelCard}`;
+				} else {
+					hotelSection += `<p style="${S.p}">Voici plusieurs options d’hébergement pour votre séjour. Chaque proposition ci-dessous correspond à un forfait détaillé dans un document PDF distinct.</p>${logosEmail}`;
+					let hotelCards = '';
+					selectedHotels.forEach(hotel => {
+						const levelColor = C.level[hotel.level.toLowerCase().replace(/ /g, '_')] || C.textLight;
+						
+						let prosList = `<span style="background-color:${levelColor}; color:${C.white}; padding: 5px 12px; margin: 0 8px 8px 0; border-radius: 15px; font-size: 14px; font-weight: bold; display:inline-block;">${hotel.level}</span>`;
+						hotel.pointsForts.forEach((p, i) => {
+							const tagColor = C.tags[i % C.tags.length];
+							prosList += `<span style="display:inline-block; background-color:${tagColor}; color:${C.white}; padding: 5px 12px; margin: 0 8px 8px 0; border-radius: 15px; font-size: 14px; font-weight: bold;">${p}</span>`;
+						});
 
-                        hotelCards += `
-                            <div class="hotel-card" style="margin-top: 25px; border: 1px solid ${C.border}; border-radius: 8px;">
-                                <div style="background-color:${C.blue}; color:${C.white}; padding:15px 20px; border-radius: 8px 8px 0 0;">
-                                    <strong style="font-family:${S.fontStack}; font-size:20px;">${hotel.name}</strong>
-                                </div>
-                                <div style="background-color:${C.white}; padding: 20px;">
-                                    <p style="font-family:${S.fontStack}; font-size:15px; line-height:1.5; color:${C.textLight}; margin:0 0 15px 0; text-align:justify;">${hotel.description}</p>
-                                    <div style="padding:10px 0;">${prosList}</div>
-                                </div>
-                                <div style="background-color:${C.blueLight}; padding: 15px 20px; text-align:center; border-radius: 0 0 8px 8px; border-top: 1px solid ${C.border};">
-                                    <span style="font-size:14px; color:${C.textLight}; font-weight:bold; text-transform:uppercase;">PRIX DU FORFAIT</span><br>
-                                    <strong style="font-size:28px; color:${C.textDark}; line-height:1.2;">${hotel.price ? hotel.price + '&nbsp;USD' : 'Voir PDF'}</strong>
-                                </div>
-                            </div>
-                        `;
-                    });
-                    hotelSection += hotelCards;
-                }
-                
-                hotelSection += `<p style="${S.p} margin-top:20px;">Chaque proposition de forfait inclut l'hébergement à l'hôtel ainsi que les billets d'entrée pour les parcs Disney. Tous les autres détails, inclusions et conditions se trouvent dans le ou les documents PDF correspondants.</p>`
-                let advantagesList = T.disney_advantages_list_items.map(item => `<li style="margin-bottom:8px;"><span style="color:${C.blue}; font-size:18px; vertical-align:middle; margin-right:8px; font-weight:bold;">&#10004;</span><span style="vertical-align:middle;">${item}</span></li>`).join('');
-                hotelSection += `<p style="${S.p} margin-top:30px; text-align:left;">${T.disney_advantages_intro}<ul style="margin:1em 0; padding:0; list-style-type:none; text-align:left;">${advantagesList}</ul>`;
+						hotelCards += `
+							<div class="hotel-card" style="margin-top: 25px; border: 1px solid ${C.border}; border-radius: 8px;">
+								<div style="background-color:${C.blue}; color:${C.white}; padding:15px 20px; border-radius: 8px 8px 0 0;">
+									<strong style="font-family:${S.fontStack}; font-size:20px;">${hotel.name}</strong>
+								</div>
+								<div style="background-color:${C.white}; padding: 20px;">
+									<p style="font-family:${S.fontStack}; font-size:15px; line-height:1.5; color:${C.textLight}; margin:0 0 15px 0; text-align:justify;">${hotel.description}</p>
+									<div style="padding:10px 0;">${prosList}</div>
+								</div>
+								<div style="background-color:${C.blueLight}; padding: 15px 20px; text-align:center; border-radius: 0 0 8px 8px; border-top: 1px solid ${C.border};">
+									<span style="font-size:14px; color:${C.textLight}; font-weight:bold; text-transform:uppercase;">PRIX DU FORFAIT</span><br>
+									<strong style="font-size:28px; color:${C.textDark}; line-height:1.2;">${hotel.price ? hotel.price + '&nbsp;USD' : 'Voir PDF'}</strong>
+								</div>
+							</div>
+						`;
+					});
+					hotelSection += hotelCards;
+				}
+				
+				hotelSection += `<p style="${S.p} margin-top:20px;">Chaque proposition de forfait inclut l'hébergement à l'hôtel ainsi que les billets d'entrée pour les parcs Disney. Tous les autres détails, inclusions et conditions se trouvent dans le ou les documents PDF correspondants.</p>`
+				let advantagesList = T.disney_advantages_list_items.map(item => `<li style="margin-bottom:8px;"><span style="color:${C.blue}; font-size:18px; vertical-align:middle; margin-right:8px; font-weight:bold;">&#10004;</span><span style="vertical-align:middle;">${item}</span></li>`).join('');
+				hotelSection += `<p style="${S.p} margin-top:30px; text-align:left;">${T.disney_advantages_intro}<ul style="margin:1em 0; padding:0; list-style-type:none; text-align:left;">${advantagesList}</ul>`;
 
             } else if (data.booking_type === 'tickets_only') {
                 hotelSection = `<p style="${S.p}">J’ai préparé pour vous un document ci-joint indiquant le prix ainsi que les conditions applicables aux billets de parc.</p>`;
@@ -299,7 +299,6 @@ if (selectedHotels.length === 1) {
             let promotionSection = createCalloutBox("PROMOTIONS ET DÉPÔT REQUIS", promoText, "orange");
             let priceDisclaimer = (data.booking_type === 'hotel_tickets' && selectedHotels.length > 0) ? T.disney_price_disclaimer : T.tickets_only_price_disclaimer;
 
-// REMPLACEZ PAR CE BLOC ENTIER
             let flightSection = '';
             if (data.include_flights) {
                 if (data.too_early_for_flights) {
@@ -417,7 +416,6 @@ if (selectedHotels.length === 1) {
             </table></td></tr></table></body></html>`;
         }
 
-        // --- Le reste du script JS pour le formulaire reste identique ---
         // Initialisation du formulaire une fois la page chargée
         document.addEventListener('DOMContentLoaded', function() {
             const hotelSelectionsDiv = document.getElementById('hotel_selections');
@@ -547,12 +545,6 @@ if (selectedHotels.length === 1) {
                     toggleFlightExplanation();
                 }
             });
-
-            hotelSelectionsDiv.appendChild(createHotelSelector());
-            updateAddHotelButtonState();
-            flightSelectionsDiv.appendChild(createFlightOption());
-            updateAddFlightButtonState();
-            toggleFlightExplanation();
             
             const form = document.getElementById('disneyForm');
             const generateButton = document.getElementById('generateEmailButton');
@@ -568,12 +560,10 @@ if (selectedHotels.length === 1) {
                         data[key] = value;
                     }
                 }
-                data.include_flights = formData.has('include_flights');
-                // --- LIGNE À AJOUTER ---
+                data.include_flights = formData.has('include_flights');
                 data.too_early_for_flights = formData.has('too_early_for_flights');
-                // --- FIN DE LA LIGNE À AJOUTER ---
-                
-                data.hotels = [];
+                
+                data.hotels = [];
                 const hotelGroups = hotelSelectionsDiv.querySelectorAll('.hotel-option-group');
                 hotelGroups.forEach(group => {
                     const name = group.querySelector('select[name="hotel_name"]').value;
@@ -633,32 +623,33 @@ if (selectedHotels.length === 1) {
                 });
             });
             
-           // RECHERCHEZ CE BLOC ET AJOUTEZ LES LIGNES MARQUÉES
             const includeFlightsCheckbox = document.getElementById('include_flights');
             const flightDetailsDiv = document.getElementById('flight_details');
-            // --- LIGNES À AJOUTER ---
             const tooEarlyForFlightsCheckbox = document.getElementById('too_early_for_flights');
             const flightOptionsContainer = document.getElementById('flight_options_container');
+            
+            // --- FIX: Added the missing declarations ---
+            const flightSelectionsDiv = document.getElementById('flight_selections');
+            const addFlightButton = document.getElementById('add_flight_button');
+            const flightExplanationContainer = document.getElementById('flight_explanation_container');
+            // -------------------------------------------
+            
             const flightExplanationInput = document.getElementById('flight_explanation');
-            // --- FIN DES LIGNES À AJOUTER ---
             const bookingTypeSelect = document.getElementById('booking_type');
             const hotelOptionsContainer = document.getElementById('hotel_options_container');
             const promotionTypeSelect = document.getElementById('promotion_type');
             const promotionDetailsDiv = document.getElementById('promotion_details');
-            
+            
             function toggleFlightDetails() {
                 flightDetailsDiv.classList.toggle('hidden', !includeFlightsCheckbox.checked);
                 toggleFlightInputs();
             }
-            // ...
 
-            // --- FONCTION À AJOUTER ---
             function toggleFlightInputs() {
                 if (includeFlightsCheckbox.checked) {
                     flightOptionsContainer.classList.toggle('hidden', tooEarlyForFlightsCheckbox.checked);
                 }
             }
-            // --- FIN DE LA FONCTION À AJOUTER ---
 
             function toggleHotelOptions() {
                 const isHotelBooking = bookingTypeSelect.value === 'hotel_tickets';
@@ -683,17 +674,19 @@ if (selectedHotels.length === 1) {
                 toggleFlightDetails();
                 toggleFlightInputs();
             });
-            // --- LIGNE À AJOUTER ---
+
             tooEarlyForFlightsCheckbox.addEventListener('change', toggleFlightInputs);
-            // --- FIN DE LA LIGNE À AJOUTER ---
             bookingTypeSelect.addEventListener('change', toggleHotelOptions);
             promotionTypeSelect.addEventListener('change', togglePromotionDetails);
-            // ...
-            
-            toggleFlightDetails();
-            // --- LIGNE À AJOUTER ---
+            
+            // Initial setup calls
+            hotelSelectionsDiv.appendChild(createHotelSelector());
+            updateAddHotelButtonState();
+            flightSelectionsDiv.appendChild(createFlightOption());
+            updateAddFlightButtonState();
+            toggleFlightExplanation();
+            toggleFlightDetails();
             toggleFlightInputs();
-            // --- FIN DE LA LIGNE À AJOUTER ---
             toggleHotelOptions();
             togglePromotionDetails();
         });
