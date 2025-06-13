@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="color-scheme" content="light"><meta name="supported-color-schemes" content="light">
     <title>Générateur d'e-mail Disney (Version Finale)</title>
     <style>
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; margin: 20px; background-color: #f4f4f4; color: #333; line-height: 1.6; }
@@ -346,7 +346,7 @@ if (selectedHotels.length === 1) {
             
             const hotelBannerText = data.booking_type === 'tickets_only' ? "Billets de Parc Disney" : "Forfaits Hôtel & Billets Disney";
 
-            return `<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${T.banner1}</title></head><body style="margin:0; padding:0; background-color:${C.background};"><table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color:${C.background};"><tr><td align="center"><table width="680" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width: 680px; max-width: 100%; margin: 20px auto; background-color: ${C.white};">
+            return `<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="color-scheme" content="light"><meta name="supported-color-schemes" content="light"><title>${T.banner1}</title></head><body style="margin:0; padding:0; background-color:${C.background};"><table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color:${C.background};"><tr><td align="center"><table width="680" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width: 680px; max-width: 100%; margin: 20px auto; background-color: ${C.white};">
                 <tr><td style="padding:20px 30px 10px 30px; background-color:${C.blueLight};"><table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation"><tr><td align="center" style="width:50%;"><img src="${LOGOS.earmarked}" alt="Logo Earmarked" style="max-width:150px; height:auto; display:block; margin:0 auto;"></td><td align="center" style="width:50%;"><img src="${LOGOS.agency}" alt="Logo agence" style="max-width:150px; height:auto; display:block; margin:0 auto;"></td></tr></table></td></tr>
                 ${createBanner(T.banner1, 'main')}
                 <tr><td style="padding: 20px 30px 30px 30px;">${introSection}</td></tr>
