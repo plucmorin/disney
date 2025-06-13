@@ -309,7 +309,26 @@ if (selectedHotels.length === 1) {
             let priceDisclaimer = (data.booking_type === 'hotel_tickets' && selectedHotels.length > 0) ? T.disney_price_disclaimer : T.tickets_only_price_disclaimer;
 
             let flightSection = '';
+            let flightBlock = '';
             if (data.include_flights) {
+                const hasFlightInfo = [
+                    data.departure_date_aller,
+                    data.departure_time_aller,
+                    data.departure_airport_aller,
+                    data.arrival_airport_aller,
+                    data.airline_aller,
+                    data.flight_number_aller,
+                    data.departure_date_retour,
+                    data.departure_time_retour,
+                    data.departure_airport_retour,
+                    data.arrival_airport_retour,
+                    data.airline_retour,
+                    data.flight_number_retour,
+                    data.flight_price,
+                    data.flight_notes
+                ].some(v => v && v.trim() !== '');
+
+                if (hasFlightInfo) {
                  const arrow = `<span style="color:${C.orange}; font-weight:bold; font-size:24px; line-height:1;">&nbsp;&rarr;&nbsp;</span>`;
 
                  let flightDetails = `<p style="${S.p}">${T.flight_intro}</p>
@@ -370,6 +389,8 @@ if (selectedHotels.length === 1) {
                 flightDetails += `<p style="${S.p} font-size:14px; color:${C.textLight}; text-align:left; margin-top:20px;">${T.flight_price_info}</p>`;
                                   
                 flightSection = `<tr><td style="padding: 20px 30px 30px 30px;">${flightDetails}</td></tr>`;
+                flightBlock = `${createBanner(T.banner_travel_fees, 'sub')}${flightSection}`;
+                }
             }
 
             let closingSection = `<p style="${S.p}">${T.closing1}</p><p style="${S.p}">${T.closing2}</p><p style="${S.p}">${T.closing3}</p>`;
@@ -383,8 +404,7 @@ if (selectedHotels.length === 1) {
                 <tr><td style="padding: 20px 30px 10px 30px;">${hotelSection}</td></tr>
                 <tr><td style="padding: 10px 30px 30px 30px;">${promotionSection}</td></tr>
                 <tr><td style="padding: 0 30px 30px 30px;"><p style="${S.p} font-size:14px; color:${C.textLight}; text-align:center; ${S.italic}">${priceDisclaimer}</p></td></tr>
-                ${createBanner(T.banner_travel_fees, 'sub')}
-                ${flightSection}
+                ${flightBlock}
                 ${createBanner(T.banner_magic_continues, 'closing')}
                 <tr><td style="padding: 20px 30px 30px 30px;">${closingSection}</td></tr>
             </table></td></tr></table></body></html>`;
