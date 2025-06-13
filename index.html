@@ -373,8 +373,10 @@ if (selectedHotels.length === 1) {
                 <tr><td style="padding: 20px 30px 10px 30px;">${hotelSection}</td></tr>
                 <tr><td style="padding: 10px 30px 30px 30px;">${promotionSection}</td></tr>
                 <tr><td style="padding: 0 30px 30px 30px;"><p style="${S.p} font-size:14px; color:${C.textLight}; text-align:center; ${S.italic}">${priceDisclaimer}</p></td></tr>
+               ${data.include_flights ? `
                 ${createBanner(T.banner_travel_fees, 'sub')}
                 ${flightSection}
+              ` : ''}
                 ${createBanner(T.banner_magic_continues, 'closing')}
                 <tr><td style="padding: 20px 30px 30px 30px;">${closingSection}</td></tr>
             </table></td></tr></table></body></html>`;
