@@ -549,7 +549,18 @@ if (selectedHotels.length === 1) {
             // --- FIN DE LA FONCTION À AJOUTER ---
 
             function toggleHotelOptions() {
-                hotelOptionsContainer.classList.toggle('hidden', bookingTypeSelect.value !== 'hotel_tickets');
+                const isHotelBooking = bookingTypeSelect.value === 'hotel_tickets';
+                hotelOptionsContainer.classList.toggle('hidden', !isHotelBooking);
+
+                const hotelNameSelects = hotelOptionsContainer.querySelectorAll('select[name="hotel_name"]');
+                hotelNameSelects.forEach(select => {
+                    if (isHotelBooking) {
+                        select.setAttribute('required', '');
+                    } else {
+                        select.removeAttribute('required');
+                        select.value = '';
+                    }
+                });
             }
 
             function togglePromotionDetails() {
