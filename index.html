@@ -58,43 +58,48 @@
             <div class="form-section">
                 <h2>Vols</h2>
                 <label><input type="checkbox" id="include_flights" name="include_flights"> Inclure les vols&nbsp;?</label>
-                <div id="flight_details" class="hidden">
-                    <div class="flight-inputs">
-                        <h3>Vol Aller</h3>
-                        <label for="departure_date_aller">Date de départ (Aller)&nbsp;:</label>
-                        <input type="date" id="departure_date_aller" name="departure_date_aller">
-                        <label for="departure_time_aller">Heure de départ (Aller)&nbsp;:</label>
-                        <input type="time" id="departure_time_aller" name="departure_time_aller">
-                        <label for="departure_airport_aller">Aéroport de départ (Aller)&nbsp;:</label>
-                        <input type="text" id="departure_airport_aller" name="departure_airport_aller" placeholder="Ex: YUL - Montréal">
-                        <label for="arrival_airport_aller">Aéroport d'arrivée (Aller)&nbsp;:</label>
-                        <input type="text" id="arrival_airport_aller" name="arrival_airport_aller" placeholder="Ex: MCO - Orlando" value="MCO - Orlando">
-                        <label for="airline_aller">Compagnie Aérienne (Aller)&nbsp;:</label>
-                        <input type="text" id="airline_aller" name="airline_aller" placeholder="Ex: Air Canada">
-                        <label for="flight_number_aller">Numéro de vol (Aller)&nbsp;:</label>
-                        <input type="text" id="flight_number_aller" name="flight_number_aller" placeholder="Ex: AC1676">
+<div id="flight_details" class="hidden">
+                                        <label style="margin-top: 5px; font-weight: normal; background-color: #f0f2f5; padding: 10px; border-radius: 6px; display: inline-block;">
+                        <input type="checkbox" id="too_early_for_flights" name="too_early_for_flights"> Il est trop tôt pour réserver les vols.
+                    </label>
+                    
+                                        <div id="flight_inputs_wrapper">
+                        <div class="flight-inputs">
+                            <h3>Vol Aller</h3>
+                            <label for="departure_date_aller">Date de départ (Aller)&nbsp;:</label>
+                            <input type="date" id="departure_date_aller" name="departure_date_aller">
+                            <label for="departure_time_aller">Heure de départ (Aller)&nbsp;:</label>
+                            <input type="time" id="departure_time_aller" name="departure_time_aller">
+                            <label for="departure_airport_aller">Aéroport de départ (Aller)&nbsp;:</label>
+                            <input type="text" id="departure_airport_aller" name="departure_airport_aller" placeholder="Ex: YUL - Montréal">
+                            <label for="arrival_airport_aller">Aéroport d'arrivée (Aller)&nbsp;:</label>
+                            <input type="text" id="arrival_airport_aller" name="arrival_airport_aller" placeholder="Ex: MCO - Orlando" value="MCO - Orlando">
+                            <label for="airline_aller">Compagnie Aérienne (Aller)&nbsp;:</label>
+                            <input type="text" id="airline_aller" name="airline_aller" placeholder="Ex: Air Canada">
+                            <label for="flight_number_aller">Numéro de vol (Aller)&nbsp;:</label>
+                            <input type="text" id="flight_number_aller" name="flight_number_aller" placeholder="Ex: AC1676">
+                        </div>
+                        <div class="flight-inputs">
+                            <h3>Vol Retour</h3>
+                            <label for="departure_date_retour">Date de départ (Retour)&nbsp;:</label>
+                            <input type="date" id="departure_date_retour" name="departure_date_retour">
+                            <label for="departure_time_retour">Heure de départ (Retour)&nbsp;:</label>
+                            <input type="time" id="departure_time_retour" name="departure_time_retour">
+                            <label for="departure_airport_retour">Aéroport de départ (Retour)&nbsp;:</label>
+                            <input type="text" id="departure_airport_retour" name="departure_airport_retour" placeholder="Ex: MCO - Orlando" value="MCO - Orlando">
+                            <label for="arrival_airport_retour">Aéroport d'arrivée (Retour)&nbsp;:</label>
+                            <input type="text" id="arrival_airport_retour" name="arrival_airport_retour" placeholder="Ex: YUL - Montréal">
+                            <label for="airline_retour">Compagnie Aérienne (Retour)&nbsp;:</label>
+                            <input type="text" id="airline_retour" name="airline_retour" placeholder="Ex: Air Canada">
+                            <label for="flight_number_retour">Numéro de vol (Retour)&nbsp;:</label>
+                            <input type="text" id="flight_number_retour" name="flight_number_retour" placeholder="Ex: AC1677">
+                        </div>
+                        <label for="flight_price">Prix total approximatif des vols (CAD)&nbsp;:</label>
+                        <input type="number" id="flight_price" name="flight_price" step="0.01">
+                        <label for="flight_notes">Notes sur les vols&nbsp;:</label>
+                        <textarea id="flight_notes" name="flight_notes" placeholder="Ajoutez ici des détails importants (ex: compagnie, escale, type de bagages inclus...)"></textarea>
+                    </div>                 
                     </div>
-                     <div class="flight-inputs">
-                        <h3>Vol Retour</h3>
-                        <label for="departure_date_retour">Date de départ (Retour)&nbsp;:</label>
-                        <input type="date" id="departure_date_retour" name="departure_date_retour">
-                        <label for="departure_time_retour">Heure de départ (Retour)&nbsp;:</label>
-                        <input type="time" id="departure_time_retour" name="departure_time_retour">
-                        <label for="departure_airport_retour">Aéroport de départ (Retour)&nbsp;:</label>
-                        <input type="text" id="departure_airport_retour" name="departure_airport_retour" placeholder="Ex: MCO - Orlando" value="MCO - Orlando">
-                        <label for="arrival_airport_retour">Aéroport d'arrivée (Retour)&nbsp;:</label>
-                        <input type="text" id="arrival_airport_retour" name="arrival_airport_retour" placeholder="Ex: YUL - Montréal">
-                        <label for="airline_retour">Compagnie Aérienne (Retour)&nbsp;:</label>
-                        <input type="text" id="airline_retour" name="airline_retour" placeholder="Ex: Air Canada">
-                        <label for="flight_number_retour">Numéro de vol (Retour)&nbsp;:</label>
-                        <input type="text" id="flight_number_retour" name="flight_number_retour" placeholder="Ex: AC1677">
-                    </div>
-                    <label for="flight_price">Prix total approximatif des vols (CAD)&nbsp;:</label>
-                    <input type="number" id="flight_price" name="flight_price" step="0.01">
-                    <label for="flight_notes">Notes sur les vols&nbsp;:</label>
-                    <textarea id="flight_notes" name="flight_notes" placeholder="Ajoutez ici des détails importants (ex: compagnie, escale, type de bagages inclus...)"></textarea>
-                </div>
-            </div>
             <div class="form-section">
                 <h2>Promotion</h2>
                 <label for="promotion_type">Type de promotion&nbsp;:</label>
@@ -298,70 +303,77 @@ if (selectedHotels.length === 1) {
             let promotionSection = createCalloutBox("PROMOTIONS ET DÉPÔT REQUIS", promoText, "orange");
             let priceDisclaimer = (data.booking_type === 'hotel_tickets' && selectedHotels.length > 0) ? T.disney_price_disclaimer : T.tickets_only_price_disclaimer;
 
-            let flightSection = '';
-            if (data.include_flights) {
-                 const arrow = `<span style="color:${C.orange}; font-weight:bold; font-size:24px; line-height:1;">&nbsp;&rarr;&nbsp;</span>`;
+// REMPLACEZ PAR CE BLOC ENTIER
+            let flightSection = '';
+            if (data.include_flights) {
+                if (data.too_early_for_flights) {
+                    // Si la case "trop tôt" est cochée, on affiche ce message
+                    const tooEarlyMessage = `<p style="${S.p}">Concernant les vols, il est encore trop tôt pour obtenir les horaires et les tarifs précis, car les compagnies aériennes ne les ont pas encore publiés pour cette période. Je garde un œil attentif sur les annonces et je reviendrai vers vous avec les meilleures options dès qu'elles seront disponibles.</p>`;
+                    flightSection = `<tr><td style="padding: 20px 30px 30px 30px;">${tooEarlyMessage}</td></tr>`;
+                } else {
+                    // Sinon, on affiche les détails de vol comme avant
+                    const arrow = `<span style="color:${C.orange}; font-weight:bold; font-size:24px; line-height:1;">&nbsp;&rarr;&nbsp;</span>`;
 
-                 let flightDetails = `<p style="${S.p}">${T.flight_intro}</p>
-                    <div style="border: 1px solid ${C.border}; border-radius: 8px; margin-top:20px;">
-                        <div style="padding:20px; border-bottom:1px dashed ${C.border};">
-                            <h3 style="margin:0 0 20px 0; font-size:18px; color:${C.blue};">✈️ Vol aller</h3>
-                             <table width="100%" border="0" cellpadding="0" cellspacing="0">
-                                <tr>
-                                    <td class="flight-column" style="width:45%; text-align:center; vertical-align:top;">
-                                        <div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Départ</div>
-                                        <div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${data.departure_airport_aller || 'N/A'}</div>
-                                        <table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto; text-align:left;">
-                                            <tr><td style="padding-bottom:10px;">📅&nbsp;${formatDateFR(data.departure_date_aller)}</td></tr>
-                                            <tr><td>🕒&nbsp;${formatTime(data.departure_time_aller)}</td></tr>
-                                        </table>
-                                    </td>
-                                    <td class="flight-arrow" style="width:10%; text-align:center; vertical-align:center;">${arrow}</td>
-                                    <td class="flight-column" style="width:45%; text-align:center; vertical-align:top;">
-                                        <div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Arrivée</div>
-                                        <div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${data.arrival_airport_aller || 'N/A'}</div>
-                                        <div style="font-size:14px; color:${C.textLight}">${data.airline_aller || ''} ${data.flight_number_aller || ''}</div>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div style="padding:20px;">
-                            <h3 style="margin:0 0 20px 0; font-size:18px; color:${C.blue};">✈️ Vol retour</h3>
-                             <table width="100%" border="0" cellpadding="0" cellspacing="0">
-                                <tr>
-                                    <td class="flight-column" style="width:45%; text-align:center; vertical-align:top;">
-                                        <div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Départ</div>
-                                        <div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${data.departure_airport_retour || 'N/A'}</div>
-                                         <table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto; text-align:left;">
-                                            <tr><td style="padding-bottom:10px;">📅&nbsp;${formatDateFR(data.departure_date_retour)}</td></tr>
-                                            <tr><td>🕒&nbsp;${formatTime(data.departure_time_retour)}</td></tr>
-                                        </table>
-                                    </td>
-                                    <td class="flight-arrow" style="width:10%; text-align:center; vertical-align:center;">${arrow}</td>
-                                    <td class="flight-column" style="width:45%; text-align:center; vertical-align:top;">
-                                        <div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Arrivée</div>
-                                        <div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${data.arrival_airport_retour || 'N/A'}</div>
-                                        <div style="font-size:14px; color:${C.textLight}">${data.airline_retour || ''} ${data.flight_number_retour || ''}</div>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div style="background-color:${C.blueLight}; padding: 15px 20px; text-align:center; border-radius: 0 0 8px 8px; border-top: 1px solid ${C.border};">
-                            <span style="font-size:14px; color:${C.textLight}; font-weight:bold; text-transform:uppercase;">PRIX APPROXIMATIF DES VOLS</span><br>
-                            <strong style="font-size:28px; color:${C.textDark}; line-height:1.2;">${data.flight_price ? data.flight_price + '&nbsp;CAD' : 'N/A'}</strong>
-                        </div>
-                    </div>`;
+                    let flightDetails = `<p style="${S.p}">${T.flight_intro}</p>
+                     <div style="border: 1px solid ${C.border}; border-radius: 8px; margin-top:20px;">
+                         <div style="padding:20px; border-bottom:1px dashed ${C.border};">
+                             <h3 style="margin:0 0 20px 0; font-size:18px; color:${C.blue};">✈️ Vol aller</h3>
+                              <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                 <tr>
+                                     <td class="flight-column" style="width:45%; text-align:center; vertical-align:top;">
+                                         <div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Départ</div>
+                                         <div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${data.departure_airport_aller || 'N/A'}</div>
+                                         <table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto; text-align:left;">
+                                             <tr><td style="padding-bottom:10px;">📅&nbsp;${formatDateFR(data.departure_date_aller)}</td></tr>
+                                             <tr><td>🕒&nbsp;${formatTime(data.departure_time_aller)}</td></tr>
+                                         </table>
+                                     </td>
+                                     <td class="flight-arrow" style="width:10%; text-align:center; vertical-align:center;">${arrow}</td>
+                                     <td class="flight-column" style="width:45%; text-align:center; vertical-align:top;">
+                                         <div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Arrivée</div>
+                                         <div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${data.arrival_airport_aller || 'N/A'}</div>
+                                         <div style="font-size:14px; color:${C.textLight}">${data.airline_aller || ''} ${data.flight_number_aller || ''}</div>
+                                     </td>
+                                 </tr>
+                             </table>
+                         </div>
+                         <div style="padding:20px;">
+                             <h3 style="margin:0 0 20px 0; font-size:18px; color:${C.blue};">✈️ Vol retour</h3>
+                              <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                 <tr>
+                                     <td class="flight-column" style="width:45%; text-align:center; vertical-align:top;">
+                                         <div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Départ</div>
+                                         <div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${data.departure_airport_retour || 'N/A'}</div>
+                                          <table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto; text-align:left;">
+                                             <tr><td style="padding-bottom:10px;">📅&nbsp;${formatDateFR(data.departure_date_retour)}</td></tr>
+                                             <tr><td>🕒&nbsp;${formatTime(data.departure_time_retour)}</td></tr>
+                                         </table>
+                                     </td>
+                                     <td class="flight-arrow" style="width:10%; text-align:center; vertical-align:center;">${arrow}</td>
+                                     <td class="flight-column" style="width:45%; text-align:center; vertical-align:top;">
+                                         <div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Arrivée</div>
+                                         <div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${data.arrival_airport_retour || 'N/A'}</div>
+                                         <div style="font-size:14px; color:${C.textLight}">${data.airline_retour || ''} ${data.flight_number_retour || ''}</div>
+                                     </td>
+                                 </tr>
+                             </table>
+                         </div>
+                         <div style="background-color:${C.blueLight}; padding: 15px 20px; text-align:center; border-radius: 0 0 8px 8px; border-top: 1px solid ${C.border};">
+                             <span style="font-size:14px; color:${C.textLight}; font-weight:bold; text-transform:uppercase;">PRIX APPROXIMATIF DES VOLS</span><br>
+                             <strong style="font-size:28px; color:${C.textDark}; line-height:1.2;">${data.flight_price ? data.flight_price + '&nbsp;CAD' : 'N/A'}</strong>
+                         </div>
+                     </div>`;
 
-                if (data.flight_notes) {
-                    flightDetails += `<p style="${S.p} font-style:italic; font-weight:bold; color:${C.textLight}; border-left:3px solid ${C.border}; padding-left:15px; margin-top:20px;">${data.flight_notes.replace(/\n/g, '<br>')}</p>`;
-                }
-                
-                flightDetails += createCalloutBox(T.flight_important_label, T.flight_important_text, "orange");
-                flightDetails += `<p style="${S.p} font-size:14px; color:${C.textLight}; text-align:left; margin-top:20px;">${T.flight_price_info}</p>`;
-                                  
-                flightSection = `<tr><td style="padding: 20px 30px 30px 30px;">${flightDetails}</td></tr>`;
-            }
-
+                    if (data.flight_notes) {
+                        flightDetails += `<p style="${S.p} font-style:italic; font-weight:bold; color:${C.textLight}; border-left:3px solid ${C.border}; padding-left:15px; margin-top:20px;">${data.flight_notes.replace(/\n/g, '<br>')}</p>`;
+                    }
+                    
+                    flightDetails += createCalloutBox(T.flight_important_label, T.flight_important_text, "orange");
+                    flightDetails += `<p style="${S.p} font-size:14px; color:${C.textLight}; text-align:left; margin-top:20px;">${T.flight_price_info}</p>`;
+                                  
+                    flightSection = `<tr><td style="padding: 20px 30px 30px 30px;">${flightDetails}</td></tr>`;
+                }
+            }
             let closingSection = `<p style="${S.p}">${T.closing1}</p><p style="${S.p}">${T.closing2}</p><p style="${S.p}">${T.closing3}</p>`;
             
             const hotelBannerText = data.booking_type === 'tickets_only' ? "Billets de Parc Disney" : "Forfaits Hôtel & Billets Disney";
@@ -445,9 +457,12 @@ if (selectedHotels.length === 1) {
                         data[key] = value;
                     }
                 }
-                data.include_flights = formData.has('include_flights');
-                
-                data.hotels = [];
+                data.include_flights = formData.has('include_flights');
+                // --- LIGNE À AJOUTER ---
+                data.too_early_for_flights = formData.has('too_early_for_flights');
+                // --- FIN DE LA LIGNE À AJOUTER ---
+                
+                data.hotels = [];
                 const hotelGroups = hotelSelectionsDiv.querySelectorAll('.hotel-option-group');
                 hotelGroups.forEach(group => {
                     const name = group.querySelector('select[name="hotel_name"]').value;
@@ -479,24 +494,40 @@ if (selectedHotels.length === 1) {
                 });
             });
             
-            const includeFlightsCheckbox = document.getElementById('include_flights');
-            const flightDetailsDiv = document.getElementById('flight_details');
-            const bookingTypeSelect = document.getElementById('booking_type');
-            const hotelOptionsContainer = document.getElementById('hotel_options_container');
-            const promotionTypeSelect = document.getElementById('promotion_type');
-            const promotionDetailsDiv = document.getElementById('promotion_details');
-            
-            function toggleFlightDetails() { flightDetailsDiv.classList.toggle('hidden', !includeFlightsCheckbox.checked); }
-            function toggleHotelOptions() { hotelOptionsContainer.classList.toggle('hidden', bookingTypeSelect.value !== 'hotel_tickets'); }
-            function togglePromotionDetails() { promotionDetailsDiv.classList.toggle('hidden', promotionTypeSelect.value !== 'specifique'); }
+           // RECHERCHEZ CE BLOC ET AJOUTEZ LES LIGNES MARQUÉES
+            const includeFlightsCheckbox = document.getElementById('include_flights');
+            const flightDetailsDiv = document.getElementById('flight_details');
+            // --- LIGNES À AJOUTER ---
+            const tooEarlyForFlightsCheckbox = document.getElementById('too_early_for_flights');
+            const flightInputsWrapper = document.getElementById('flight_inputs_wrapper');
+            // --- FIN DES LIGNES À AJOUTER ---
+            const bookingTypeSelect = document.getElementById('booking_type');
+            // ...
+            
+            function toggleFlightDetails() { flightDetailsDiv.classList.toggle('hidden', !includeFlightsCheckbox.checked); }
+            // ...
 
-            includeFlightsCheckbox.addEventListener('change', toggleFlightDetails);
-            bookingTypeSelect.addEventListener('change', toggleHotelOptions);
-            promotionTypeSelect.addEventListener('change', togglePromotionDetails);
-            
-            toggleFlightDetails();
-            toggleHotelOptions();
-            togglePromotionDetails();
+            // --- FONCTION À AJOUTER ---
+            function toggleFlightInputs() {
+                if (includeFlightsCheckbox.checked) {
+                    flightInputsWrapper.classList.toggle('hidden', tooEarlyForFlightsCheckbox.checked);
+                }
+            }
+            // --- FIN DE LA FONCTION À AJOUTER ---
+
+            includeFlightsCheckbox.addEventListener('change', toggleFlightDetails);
+            // --- LIGNE À AJOUTER ---
+            tooEarlyForFlightsCheckbox.addEventListener('change', toggleFlightInputs);
+            // --- FIN DE LA LIGNE À AJOUTER ---
+            bookingTypeSelect.addEventListener('change', toggleHotelOptions);
+            // ...
+            
+            toggleFlightDetails();
+            // --- LIGNE À AJOUTER ---
+            toggleFlightInputs(); 
+            // --- FIN DE LA LIGNE À AJOUTER ---
+            toggleHotelOptions();
+            togglePromotionDetails();
         });
     </script>
 </body>
