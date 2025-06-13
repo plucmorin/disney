@@ -329,11 +329,11 @@ if (selectedHotels.length === 1) {
                                              <tr><td>🕒&nbsp;${formatTime(data.departure_time_aller)}</td></tr>
                                          </table>
                                      </td>
-                                     <td class="flight-arrow" style="width:10%; text-align:center; vertical-align:center;">${arrow}</td>
+                                     <td class="flight-arrow" style="width:10%; text-align:center; vertical-align:middle;">${arrow}</td>
                                      <td class="flight-column" style="width:45%; text-align:center; vertical-align:top;">
                                          <div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Arrivée</div>
                                          <div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${data.arrival_airport_aller || 'N/A'}</div>
-                                         <div style="font-size:14px; color:${C.textLight}">${data.airline_aller || ''} ${data.flight_number_aller || ''}</div>
+                                         <div style="font-size:14px; color:${C.textLight}; margin-top:10px;">${data.airline_aller || ''} ${data.flight_number_aller || ''}</div>
                                      </td>
                                  </tr>
                              </table>
@@ -350,18 +350,18 @@ if (selectedHotels.length === 1) {
                                              <tr><td>🕒&nbsp;${formatTime(data.departure_time_retour)}</td></tr>
                                          </table>
                                      </td>
-                                     <td class="flight-arrow" style="width:10%; text-align:center; vertical-align:center;">${arrow}</td>
+                                     <td class="flight-arrow" style="width:10%; text-align:center; vertical-align:middle;">${arrow}</td>
                                      <td class="flight-column" style="width:45%; text-align:center; vertical-align:top;">
                                          <div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Arrivée</div>
                                          <div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${data.arrival_airport_retour || 'N/A'}</div>
-                                         <div style="font-size:14px; color:${C.textLight}">${data.airline_retour || ''} ${data.flight_number_retour || ''}</div>
+                                         <div style="font-size:14px; color:${C.textLight}; margin-top:10px;">${data.airline_retour || ''} ${data.flight_number_retour || ''}</div>
                                      </td>
                                  </tr>
                              </table>
                          </div>
                          <div style="background-color:${C.blueLight}; padding: 15px 20px; text-align:center; border-radius: 0 0 8px 8px; border-top: 1px solid ${C.border};">
-                             <span style="font-size:14px; color:${C.textLight}; font-weight:bold; text-transform:uppercase;">PRIX APPROXIMATIF DES VOLS</span><br>
-                             <strong style="font-size:28px; color:${C.textDark}; line-height:1.2;">${data.flight_price ? data.flight_price + '&nbsp;CAD' : 'N/A'}</strong>
+                             <span style="font-family:${S.fontStack}; font-size:14px; color:${C.textLight}; font-weight:bold; text-transform:uppercase;">PRIX APPROXIMATIF DES VOLS</span><br>
+                             <strong style="font-family:${S.fontStack}; font-size:28px; color:${C.textDark}; line-height:1.2;">${data.flight_price ? data.flight_price + '&nbsp;CAD' : 'N/A'}</strong>
                          </div>
                      </div>`;
 
