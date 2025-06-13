@@ -121,7 +121,7 @@
                     <input type="date" id="promotion_end_date" name="promotion_end_date">
                 </div>
             </div>
-            <button type="submit">Générer l'e-mail</button>
+            <button type="button" id="generateEmailButton">Générer l'e-mail</button>
         </form>
 
         <div id="emailOutputContainer">
@@ -473,9 +473,10 @@ if (selectedHotels.length === 1) {
             updateAddHotelButtonState();
             
             const form = document.getElementById('disneyForm');
+            const generateButton = document.getElementById('generateEmailButton');
             const emailOutputDiv = document.getElementById('emailOutput');
-            
-            form.addEventListener('submit', function(event) {
+
+            function handleGenerateEmail(event) {
                 event.preventDefault();
                 const formData = new FormData(form);
                 const data = {};
@@ -509,7 +510,10 @@ if (selectedHotels.length === 1) {
                 
                 const emailHtmlContent = generateEmailHTML(data);
                 emailOutputDiv.innerHTML = emailHtmlContent;
-            });
+            }
+
+            form.addEventListener('submit', handleGenerateEmail);
+            generateButton.addEventListener('click', handleGenerateEmail);
 
             const copyHtmlButton = document.getElementById('copyHtmlButton');
             copyHtmlButton.addEventListener('click', function() {
