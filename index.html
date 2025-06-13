@@ -166,8 +166,8 @@
                 white: '#FFFFFF',
                 blueLight: '#e6f2fa',
                 orangeLight: '#fff4e6',
-                level: { value: '#4CAF50', moderate: '#2196F3', deluxe: '#673AB7', deluxe_villa: '#9C27B0' },
-                tags: ['#0078C1', '#673AB7', '#28a745', '#fd7e14', '#FF7F50']
+                level: { value: '#28a745', moderate: '#2196F3', deluxe: '#6f42c1', deluxe_villa: '#9C27B0' },
+                tags: ['#0078C1', '#5A67D8', '#d9480f', '#0ca678']
             };
 
             const S = {
@@ -240,7 +240,7 @@
                     selectedHotels.forEach(hotel => {
                         const levelColor = C.level[hotel.level.toLowerCase().replace(/ /g, '_')] || C.textLight;
                         
-                        let prosList = '';
+                        let prosList = `<span style="background-color:${levelColor}; color:${C.white}; padding: 5px 12px; margin: 0 8px 8px 0; border-radius: 15px; font-size: 14px; font-weight: bold; display:inline-block;">${hotel.level}</span>`;
                         hotel.pointsForts.forEach((p, i) => {
                             const tagColor = C.tags[i % C.tags.length];
                             prosList += `<span style="display:inline-block; background-color:${tagColor}; color:${C.white}; padding: 5px 12px; margin: 0 8px 8px 0; border-radius: 15px; font-size: 14px; font-weight: bold;">${p}</span>`;
@@ -252,11 +252,8 @@
                                     <strong style="font-family:${S.fontStack}; font-size:20px;">${hotel.name}</strong>
                                 </div>
                                 <div style="background-color:${C.white}; padding: 20px;">
-                                    <span style="background-color:${levelColor}; color:${C.white}; padding: 4px 10px; border-radius: 15px; font-size: 12px; font-weight: bold;">${hotel.level}</span>
-                                    <p style="font-family:${S.fontStack}; font-size:15px; line-height:1.5; color:${C.textLight}; margin:15px 0 0 0; text-align:justify;">${hotel.description}</p>
-                                    <hr style="border:none; border-top:1px solid ${C.border}; margin: 20px 0;">
-                                    <h3 style="font-family:${S.fontStack}; font-size:16px; color:${C.blue}; margin:0 0 15px 0;">POINTS FORTS&nbsp;:</h3>
-                                    <div>${prosList}</div>
+                                    <p style="font-family:${S.fontStack}; font-size:15px; line-height:1.5; color:${C.textLight}; margin:0 0 15px 0; text-align:justify;">${hotel.description}</p>
+                                    <div style="padding:10px 0;">${prosList}</div>
                                 </div>
                                 <div style="background-color:${C.blueLight}; padding: 15px 20px; text-align:center; border-radius: 0 0 8px 8px; border-top: 1px solid ${C.border};">
                                     <span style="font-size:14px; color:${C.textLight}; font-weight:bold; text-transform:uppercase;">PRIX DU FORFAIT</span><br>
@@ -278,7 +275,7 @@
 
             let promoText = "";
             if (data.promotion_type === 'aucune') {
-                promoText = `Pour garantir votre place, un dépôt de seulement <strong style="${S.strong}">200 USD</strong> est requis. Les promotions Disney deviennent souvent disponibles et sont parfois complétement réservées à l'intérieur de quelques heures. Il est donc important de réserver d'avance pour que je sois en mesure de les obtenir pour vous de manière rapide et systématique, afin que vous ayez toujours le meilleur rapport qualité-prix. Le reste de la balance de paiement est aussi à effectuer 30 jours avant le check-in.`;
+                promoText = `Pour garantir votre place, un dépôt de seulement <strong style="${S.strong}">200 USD</strong> est requis. Les promotions Disney deviennent souvent disponibles et sont parfois complètement réservées à l'intérieur de quelques heures. Il est donc important de réserver d'avance pour que je sois en mesure de les obtenir pour vous de manière rapide et systématique, afin que vous ayez toujours le meilleur rapport qualité-prix. Le reste de la balance de paiement est aussi à effectuer 30 jours avant le check-in.`;
             } else {
                 let promoEndDateInfo = data.promotion_end_date ? ` (prend fin le <strong style="${S.strong}">${formatDateFR(data.promotion_end_date)}</strong>)` : "";
                 let promoNameInfo = data.promotion_name ? `&nbsp;: <strong style="${S.strong}">${data.promotion_name}</strong>` : "";
@@ -290,13 +287,6 @@
 
             let flightSection = '';
             if (data.include_flights) {
-                 const flightInfoLine = (icon, label, value) => {
-                     if (!value || value.trim() === '') return '';
-                     return `<div style="margin-top:15px;font-size:14px;">${icon}<strong style="color:${C.textLight}; vertical-align: middle;">&nbsp;${label}&nbsp;:</strong> ${value}</div>`;
-                 }
-
-                 let flightAllerDetails = flightInfoLine('ℹ️', 'Compagnie', `${data.airline_aller || ''} ${data.flight_number_aller || ''}`);
-                 let flightRetourDetails = flightInfoLine('ℹ️', 'Compagnie', `${data.airline_retour || ''} ${data.flight_number_retour || ''}`);
                  const arrow = `<span style="color:${C.orange}; font-weight:bold; font-size:24px; line-height:1;">&nbsp;&rarr;&nbsp;</span>`;
 
                  let flightDetails = `<p style="${S.p}">${T.flight_intro}</p>
@@ -343,10 +333,10 @@
                                 </tr>
                             </table>
                         </div>
-                    </div>
-                    <div style="background-color:${C.blueLight}; padding: 15px 20px; text-align:center; border-radius: 8px; margin-top:20px; border: 1px solid ${C.border};">
-                        <span style="font-size:14px; color:${C.textLight}; font-weight:bold; text-transform:uppercase;">PRIX APPROXIMATIF DES VOLS</span><br>
-                        <strong style="font-size:28px; color:${C.textDark}; line-height:1.2;">${data.flight_price ? data.flight_price + '&nbsp;CAD' : 'N/A'}</strong>
+                        <div style="background-color:${C.blueLight}; padding: 15px 20px; text-align:center; border-radius: 0 0 8px 8px; border-top: 1px solid ${C.border};">
+                            <span style="font-size:14px; color:${C.textLight}; font-weight:bold; text-transform:uppercase;">PRIX APPROXIMATIF DES VOLS</span><br>
+                            <strong style="font-size:28px; color:${C.textDark}; line-height:1.2;">${data.flight_price ? data.flight_price + '&nbsp;CAD' : 'N/A'}</strong>
+                        </div>
                     </div>`;
 
                 if (data.flight_notes) {
@@ -377,6 +367,7 @@
             </table></td></tr></table></body></html>`;
         }
 
+        // --- Le reste du script JS pour le formulaire reste identique ---
         document.addEventListener('DOMContentLoaded', function() {
             const hotelSelectionsDiv = document.getElementById('hotel_selections');
             const addHotelButton = document.getElementById('add_hotel_button');
