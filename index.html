@@ -507,14 +507,16 @@ if (selectedHotels.length === 1) {
             });
             
            // RECHERCHEZ CE BLOC ET AJOUTEZ LES LIGNES MARQUÉES
-            const includeFlightsCheckbox = document.getElementById('include_flights');
-            const flightDetailsDiv = document.getElementById('flight_details');
+            const includeFlightsCheckbox = document.getElementById('include_flights');
+            const flightDetailsDiv = document.getElementById('flight_details');
             // --- LIGNES À AJOUTER ---
             const tooEarlyForFlightsCheckbox = document.getElementById('too_early_for_flights');
             const flightInputsWrapper = document.getElementById('flight_inputs_wrapper');
             // --- FIN DES LIGNES À AJOUTER ---
-            const bookingTypeSelect = document.getElementById('booking_type');
-            // ...
+            const bookingTypeSelect = document.getElementById('booking_type');
+            const hotelOptionsContainer = document.getElementById('hotel_options_container');
+            const promotionTypeSelect = document.getElementById('promotion_type');
+            const promotionDetailsDiv = document.getElementById('promotion_details');
             
             function toggleFlightDetails() {
                 flightDetailsDiv.classList.toggle('hidden', !includeFlightsCheckbox.checked);
@@ -530,6 +532,14 @@ if (selectedHotels.length === 1) {
             }
             // --- FIN DE LA FONCTION À AJOUTER ---
 
+            function toggleHotelOptions() {
+                hotelOptionsContainer.classList.toggle('hidden', bookingTypeSelect.value !== 'hotel_tickets');
+            }
+
+            function togglePromotionDetails() {
+                promotionDetailsDiv.classList.toggle('hidden', promotionTypeSelect.value !== 'specifique');
+            }
+
             includeFlightsCheckbox.addEventListener('change', function() {
                 toggleFlightDetails();
                 toggleFlightInputs();
@@ -537,8 +547,9 @@ if (selectedHotels.length === 1) {
             // --- LIGNE À AJOUTER ---
             tooEarlyForFlightsCheckbox.addEventListener('change', toggleFlightInputs);
             // --- FIN DE LA LIGNE À AJOUTER ---
-            bookingTypeSelect.addEventListener('change', toggleHotelOptions);
-            // ...
+            bookingTypeSelect.addEventListener('change', toggleHotelOptions);
+            promotionTypeSelect.addEventListener('change', togglePromotionDetails);
+            // ...
             
             toggleFlightDetails();
             // --- LIGNE À AJOUTER ---
