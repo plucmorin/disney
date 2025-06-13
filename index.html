@@ -15,15 +15,15 @@
         }
         textarea { resize: vertical; min-height: 80px; }
         input[type="checkbox"] { margin-right: 8px; vertical-align: middle; width: auto; }
-        button, .remove-button {
+        button, .remove-hotel-button {
             background-color: #007bff; color: white; padding: 12px 20px;
             border: none; border-radius: 6px; cursor: pointer; margin-top: 20px; font-size: 1.05em; font-weight: 500;
         }
         button:hover { background-color: #0056b3; }
-        .remove-button { background-color: #dc3545; padding: 5px 10px; font-size: 0.9em; margin-left: 10px; margin-top: 0;}
+        .remove-hotel-button { background-color: #dc3545; padding: 5px 10px; font-size: 0.9em; margin-left: 10px; margin-top: 0;}
         .form-section { border: 1px solid #e9ecef; padding: 20px; margin-bottom: 25px; border-radius: 8px; background-color: #fdfdfd; }
-        .option-group { border: 1px solid #e0e0e0; padding: 15px; margin-top: 15px; border-radius: 8px; background-color: #fafafa; }
-        .option-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .hotel-option-group { border: 1px solid #e0e0e0; padding: 15px; margin-top: 15px; border-radius: 8px; background-color: #fafafa; }
+        .hotel-option-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
         .hidden { display: none; }
         #emailOutputContainer { margin-top: 30px; }
         #emailOutput { padding: 20px; border: 1px solid #ccc; background-color: #f0f2f5; border-radius: 8px; min-height: 200px; overflow-x: auto;}
@@ -59,24 +59,40 @@
                 <h2>Vols</h2>
                 <label><input type="checkbox" id="include_flights" name="include_flights"> Inclure les vols&nbsp;?</label>
                 <div id="flight_details" class="hidden">
-                    <label><input type="checkbox" id="flights_too_early" name="flights_too_early"> Afficher le message "Trop tôt pour réserver les vols"</label>
-                    
-                    <div id="flight_options_wrapper">
-                        <hr>
-                        <label for="flight_intro_message" style="font-size: 1.1em; color: #005a9c;">Message d'introduction pour les vols (s'affiche si plus d'une option)&nbsp;:</label>
-                        <textarea id="flight_intro_message" name="flight_intro_message" placeholder="Ex: Voici deux options, une plus directe et une autre plus économique..."></textarea>
-                        
-                        <div id="flight_selections">
-                            </div>
-                        <button type="button" id="add_flight_button" style="background-color: #28a745;">Ajouter une option de vol</button>
-                        <hr>
-
-                        <label for="flight_price" style="font-size: 1.1em; color: #005a9c;">Prix total approximatif des vols (CAD)&nbsp;:</label>
-                        <input type="number" id="flight_price" name="flight_price" step="0.01">
-                        
-                        <label for="flight_notes" style="font-size: 1.1em; color: #005a9c;">Notes générales sur les vols&nbsp;:</label>
-                        <textarea id="flight_notes" name="flight_notes" placeholder="Ex: Les deux options incluent un bagage enregistré par personne..."></textarea>
+                    <div class="flight-inputs">
+                        <h3>Vol Aller</h3>
+                        <label for="departure_date_aller">Date de départ (Aller)&nbsp;:</label>
+                        <input type="date" id="departure_date_aller" name="departure_date_aller">
+                        <label for="departure_time_aller">Heure de départ (Aller)&nbsp;:</label>
+                        <input type="time" id="departure_time_aller" name="departure_time_aller">
+                        <label for="departure_airport_aller">Aéroport de départ (Aller)&nbsp;:</label>
+                        <input type="text" id="departure_airport_aller" name="departure_airport_aller" placeholder="Ex: YUL - Montréal">
+                        <label for="arrival_airport_aller">Aéroport d'arrivée (Aller)&nbsp;:</label>
+                        <input type="text" id="arrival_airport_aller" name="arrival_airport_aller" placeholder="Ex: MCO - Orlando" value="MCO - Orlando">
+                        <label for="airline_aller">Compagnie Aérienne (Aller)&nbsp;:</label>
+                        <input type="text" id="airline_aller" name="airline_aller" placeholder="Ex: Air Canada">
+                        <label for="flight_number_aller">Numéro de vol (Aller)&nbsp;:</label>
+                        <input type="text" id="flight_number_aller" name="flight_number_aller" placeholder="Ex: AC1676">
                     </div>
+                     <div class="flight-inputs">
+                        <h3>Vol Retour</h3>
+                        <label for="departure_date_retour">Date de départ (Retour)&nbsp;:</label>
+                        <input type="date" id="departure_date_retour" name="departure_date_retour">
+                        <label for="departure_time_retour">Heure de départ (Retour)&nbsp;:</label>
+                        <input type="time" id="departure_time_retour" name="departure_time_retour">
+                        <label for="departure_airport_retour">Aéroport de départ (Retour)&nbsp;:</label>
+                        <input type="text" id="departure_airport_retour" name="departure_airport_retour" placeholder="Ex: MCO - Orlando" value="MCO - Orlando">
+                        <label for="arrival_airport_retour">Aéroport d'arrivée (Retour)&nbsp;:</label>
+                        <input type="text" id="arrival_airport_retour" name="arrival_airport_retour" placeholder="Ex: YUL - Montréal">
+                        <label for="airline_retour">Compagnie Aérienne (Retour)&nbsp;:</label>
+                        <input type="text" id="airline_retour" name="airline_retour" placeholder="Ex: Air Canada">
+                        <label for="flight_number_retour">Numéro de vol (Retour)&nbsp;:</label>
+                        <input type="text" id="flight_number_retour" name="flight_number_retour" placeholder="Ex: AC1677">
+                    </div>
+                    <label for="flight_price">Prix total approximatif des vols (CAD)&nbsp;:</label>
+                    <input type="number" id="flight_price" name="flight_price" step="0.01">
+                    <label for="flight_notes">Notes sur les vols&nbsp;:</label>
+                    <textarea id="flight_notes" name="flight_notes" placeholder="Ajoutez ici des détails importants (ex: compagnie, escale, type de bagages inclus...)"></textarea>
                 </div>
             </div>
             <div class="form-section">
@@ -112,30 +128,20 @@
             { name: "BoardWalk Villas", description: "Revivez le charme d'une promenade côtière du début du XXe siècle. Ces villas offrent un accès direct à l'animation effervescente du BoardWalk, avec ses restaurants, boutiques et spectacles de rue.", level: "Deluxe Villa", pointsForts: ["Distance de marche de EPCOT et Hollywood Studios", "Vie nocturne et restaurants sur le BoardWalk", "Piscine Luna Park sur le thème du cirque", "Service de bateau-taxi (Friendship)"] },
             { name: "Beach Club Villas", description: "Profitez de l'ambiance décontractée d'une villa de la Nouvelle-Angleterre. Le point d'orgue est Stormalong Bay, un incroyable complexe aquatique de 3 acres avec fond de sable et rivière tranquille.", level: "Deluxe Villa", pointsForts: ["Accès à la meilleure piscine de Disney World", "À quelques pas de l'entrée d'EPCOT", "Atmosphère balnéaire relaxante", "Restaurant populaire Beaches & Cream"] },
             { name: "Riviera Resort", description: "Inspiré par l'élégance de la Riviera européenne, cet hôtel sophistiqué allie le glamour européen à la magie de Disney. Ses studios et villas offrent des vues magnifiques et une décoration raffinée.", level: "Deluxe Villa", pointsForts: ["Station principale du Disney Skyliner", "Restaurant sur le toit avec personnages (Topolino's)", "Design européen élégant et artistique", "Piscines magnifiques et jeux d'eau"] },
-            { name: "Wilderness Lodge - Copper Creek Villas", description: "Inspirées par l'héritage ferroviaire du Nord-Ouest Pacifique, ces villas et cabines au bord de l'eau offrent une touche de luxe moderne dans un cadre rustique et sauvage.", level: "Deluxe Villa", pointsForts: ["Cabines privées luxueuses au bord du lac", "Piscine thématique avec geyser", "Ambiance à la fois rustique et moderne", "Accès par bateau-taxi à Magic Kingdom"] },
-            { name: "Wilderness Lodge - Boulder Ridge Villas", description: "Adjacent au lodge principal, ce bâtiment évoque le charme des gîtes des parcs nationaux de l'Ouest américain. Une ambiance chaleureuse et rustique, parfaite pour une retraite paisible.", level: "Deluxe Villa", pointsForts: ["Atmosphère calme et plus intime", "Thème des parcs nationaux américains", "Accès facile aux commodités du lodge", "Feu de camp et activités extérieures"] },
-            { name: "Animal Kingdom Lodge - Jambo House Villas", description: "Vivez une expérience immersive dans le bâtiment principal d'Animal Kingdom Lodge. Le lobby grandiose et les vues directes sur la savane depuis certaines villas sont inoubliables.", level: "Deluxe Villa", pointsForts: ["Vues imprenables sur la savane animalière", "Lobby spectaculaire et collection d'art africain", "Accès aux restaurants primés (Jiko, Boma)", "Piscine Uzima avec vue sur les animaux"] },
+            { name: "Wilderness Lodge - Copper Creek", description: "Inspirées par l'héritage ferroviaire du Nord-Ouest Pacifique, ces villas et cabines au bord de l'eau offrent une touche de luxe moderne dans un cadre rustique et sauvage.", level: "Deluxe Villa", pointsForts: ["Cabines privées luxueuses au bord du lac", "Piscine thématique avec geyser", "Ambiance à la fois rustique et moderne", "Accès par bateau-taxi à Magic Kingdom"] },
+            { name: "Wilderness Lodge - Boulder Ridge", description: "Adjacent au lodge principal, ce bâtiment évoque le charme des gîtes des parcs nationaux de l'Ouest américain. Une ambiance chaleureuse et rustique, parfaite pour une retraite paisible.", level: "Deluxe Villa", pointsForts: ["Atmosphère calme et plus intime", "Thème des parcs nationaux américains", "Accès facile aux commodités du lodge", "Feu de camp et activités extérieures"] },
+            { name: "Animal Kingdom Lodge - Jambo House", description: "Vivez une expérience immersive dans le bâtiment principal d'Animal Kingdom Lodge. Le lobby grandiose et les vues directes sur la savane depuis certaines chambres sont inoubliables.", level: "Deluxe Villa", pointsForts: ["Vues imprenables sur la savane animalière", "Lobby spectaculaire et collection d'art africain", "Restaurants primés (Jiko, Boma)", "Piscine Uzima avec vue sur les animaux"] },
             { name: "Animal Kingdom Lodge - Kidani Village", description: "Ce bâtiment dédié aux villas offre une ambiance plus calme et des vues étendues sur la savane. Idéal pour les familles qui souhaitent plus d'espace et une cuisine complète.", level: "Deluxe Villa", pointsForts: ["Excellent pour l'observation des animaux", "Piscine Samawati avec glissades et jeux d'eau", "Restaurant Sanaa avec vue sur la savane", "Villas spacieuses avec cuisines complètes"] },
-            { name: "Saratoga Springs Resort & Spa", description: "Inspiré par la ville thermale historique de Saratoga Springs, ce complexe de style victorien propose des villas, un spa complet, et un accès facile à Disney Springs par bateau ou à pied.", level: "Deluxe Villa", pointsForts: ["Distance de marche de Disney Springs", "Treehouse Villas uniques en leur genre", "Parcours de golf sur place (Lake Buena Vista)", "Ambiance de station thermale relaxante"] },
-            { name: "Old Key West Resort", description: "Évoquant l'ambiance décontractée de Key West, ce vaste complexe propose des villas parmi les plus spacieuses du site, de magnifiques fairways et une atmosphère de communauté insulaire.", level: "Deluxe Villa", pointsForts: ["Villas extrêmement spacieuses", "Ambiance décontractée et luxuriante", "Restaurant Olivia's Café (un classique)", "Transport par bateau vers Disney Springs"] },
-
+        
             // Deluxe Resorts
             { name: "Contemporary Resort", description: "Iconique et ultra-moderne, cet hôtel en forme de A est le seul où le monorail passe directement à l'intérieur. Il est si proche de Magic Kingdom que vous pouvez y aller à pied.", level: "Deluxe", pointsForts: ["Le plus proche de Magic Kingdom (à pied)", "Le monorail traverse le lobby de l'hôtel", "Restaurant sur le toit (California Grill)", "Design moderne et vues exceptionnelles"] },
-            { name: "Grand Floridian Resort & Spa", description: "L'hôtel le plus luxueux et emblématique de Disney. Son élégance victorienne, son service impeccable, son spa de renommée mondiale et sa proximité avec Magic Kingdom en font le summum du luxe.", level: "Deluxe", pointsForts: ["Service 5 étoiles et élégance victorienne", "Spa Senses de classe mondiale", "Restaurants gastronomiques (Victoria & Albert's)", "Sur la ligne du monorail vers Magic Kingdom"] },
-            { name: "Polynesian Village Resort", description: "Une escapade tropicale luxuriante qui vous transporte dans les îles du Pacifique Sud. Profitez de son ambiance exotique, de sa plage de sable blanc avec vue sur le château et de son accès direct au monorail.", level: "Deluxe", pointsForts: ["Ambiance des îles du Pacifique Sud", "Vue sur les feux d'artifice de Magic Kingdom", "Accès au monorail et aux bateaux-taxis", "Restaurant populaire 'Ohana"] },
-            { name: "Wilderness Lodge", description: "Inspiré des grands lodges des parcs nationaux américains, ce complexe majestueux est un chef-d'œuvre d'artisanat. Son lobby spectaculaire avec une cheminée de 82 pieds et son geyser en font une destination en soi.", level: "Deluxe", pointsForts: ["Lobby et architecture spectaculaires", "Ambiance immersive de parc national", "Transport par bateau vers Magic Kingdom", "Piscine avec geyser 'Fire Rock'"] },
-            { name: "Yacht Club Resort", description: "Plongez dans l'élégance nautique d'un club de yacht de la Nouvelle-Angleterre. Son atmosphère est plus formelle que son hôtel jumeau, le Beach Club, avec qui il partage l'exceptionnelle piscine Stormalong Bay.", level: "Deluxe", pointsForts: ["Partage l'accès à la piscine Stormalong Bay", "Restaurant signature (Yachtsman Steakhouse)", "Atmosphère nautique et raffinée", "Distance de marche d'EPCOT"] },
-            { name: "Beach Club Resort", description: "Avec son ambiance décontractée de station balnéaire de la Nouvelle-Angleterre, cet hôtel est un favori des familles. Son atout majeur est l'accès à Stormalong Bay, un mini parc aquatique avec fond de sable.", level: "Deluxe", pointsForts: ["Accès au complexe aquatique Stormalong Bay", "Le plus près de l'entrée d'EPCOT (à pied)", "Ambiance familiale et ensoleillée", "Glaces et repas au Beaches & Cream"] },
-            { name: "BoardWalk Inn", description: "Cet hôtel charmant vous transporte sur une promenade côtière des années 1920. Le soir, le 'Boardwalk' s'anime avec ses restaurants, ses artistes de rue et sa vie nocturne, le tout à quelques pas d'EPCOT.", level: "Deluxe", pointsForts: ["Accès à pied à EPCOT et Hollywood Studios", "Promenade animée avec restaurants et spectacles", "Piscine 'Luna Park' sur le thème du carnaval", "Élégance d'une époque révolue"] },
-            { name: "Animal Kingdom Lodge", description: "Évadez-vous dans un lodge africain authentique où l'aventure vous attend à votre fenêtre. Cet hôtel majestueux est entouré de savanes luxuriantes, offrant des vues sur plus de 30 espèces d'animaux.", level: "Deluxe", pointsForts: ["Vues spectaculaires sur la savane animalière", "Collection d'art africain de calibre mondial", "Restaurants thématiques exceptionnels (Jiko, Boma)", "Immersion culturelle unique"] },
             
             // Moderate Resorts
             { name: "Coronado Springs Resort", description: "Ce complexe tentaculaire allie une architecture coloniale espagnole à l'élégance moderne de la tour Gran Destino. Il offre des commodités de luxe à un prix de catégorie modérée.", level: "Moderate", pointsForts: ["Ambiance de luxe à prix modéré", "Options de restauration variées et excellentes", "Piscine 'The Lost City of Cibola' avec pyramide", "La tour Gran Destino offre des chambres modernes"] },
-            { name: "Caribbean Beach Resort", description: "Évadez-vous dans l'ambiance colorée et tropicale des Caraïbes. Ce resort tentaculaire est le hub central du Disney Skyliner, offrant un transport rapide et amusant vers deux parcs.", level: "Moderate", pointsForts: ["Hub principal du Disney Skyliner", "Piscine thématique 'Fuentes del Morro'", "Chambres sur le thème des pirates", "Ambiance de vacances tropicales"] },
-            { name: "Port Orleans - French Quarter", description: "Ce charmant hôtel évoque les rues pavées et les balcons en fer forgé du Vieux Carré de La Nouvelle-Orléans. Sa petite taille le rend intime et facile à parcourir, avec un seul arrêt d'autobus.", level: "Moderate", pointsForts: ["Hôtel le plus compact et intime", "Beignets Mickey frais et délicieux", "Ambiance jazz et romantique", "Service de bateau-taxi vers Disney Springs"] },
-            { name: "Port Orleans - Riverside", description: "Explorez les bayous rustiques de la Louisiane ou les manoirs élégants du Sud. Ce vaste complexe offre une grande variété de paysages et une atmosphère paisible au bord de la rivière.", level: "Moderate", pointsForts: ["Choix entre manoirs ou cabanes rustiques", "Chambres thématiques 'Royal Rooms'", "Atmosphère relaxante au bord de la rivière", "Activités comme la pêche et les calèches"] },
-            { name: "The Cabins at Fort Wilderness", description: "Offrant une véritable immersion dans la nature, ces cabines rustiques sont nichées dans une forêt de 750 acres. Chaque cabine peut loger jusqu’à six personnes et dispose d'une cuisine complète.", level: "Moderate", pointsForts: ["Cuisine complète et barbecue privé", "Immersion totale dans la nature", "Nombreuses activités récréatives", "Peut accueillir jusqu'à 6 personnes"] },
-            
+            { name: "Caribbean Beach Resort", description: "Évadez-vous dans l'ambiance colorée et tropicale des Caraïbes. Ce resort tentaculaire est le hub central du Disney Skyliner, offrant un transport rapide et amusant.", level: "Moderate", pointsForts: ["Hub principal du Disney Skyliner", "Piscine thématique 'Fuentes del Morro'", "Chambres sur le thème des pirates", "Ambiance de vacances tropicales"] },
+            { name: "Port Orleans - French Quarter", description: "Ce charmant hôtel évoque les rues pavées et les balcons en fer forgé du Vieux Carré de La Nouvelle-Orléans. Sa petite taille le rend intime et facile à parcourir.", level: "Moderate", pointsForts: ["Hôtel le plus compact et intime", "Beignets Mickey frais et délicieux", "Ambiance jazz et romantique", "Service de bateau-taxi vers Disney Springs"] },
+            { name: "Port Orleans - Riverside", description: "Explorez les bayous rustiques de la Louisiane ou les manoirs élégants du Sud. Ce vaste complexe offre une grande variété de paysages et une atmosphère paisible.", level: "Moderate", pointsForts: ["Choix entre manoirs ou cabanes rustiques", "Chambres thématiques 'Royal Rooms'", "Atmosphère relaxante au bord de la rivière", "Activités comme la pêche et les calèches"] },
+
             // Value Resorts
             { name: "Art of Animation Resort", description: "Plongez littéralement dans les mondes de Némo, Cars, Le Roi Lion et La Petite Sirène. Cet hôtel est célèbre pour ses suites familiales immersives et sa piscine 'Big Blue', la plus grande de Disney World.", level: "Value", pointsForts: ["Suites familiales thématiques (jusqu'à 6 pers.)", "La plus grande piscine de tout Disney World", "Station dédiée sur le Disney Skyliner", "Décors et personnages géants spectaculaires"] },
             { name: "Pop Century Resort", description: "Voyagez à travers les décennies marquantes du XXe siècle. Cet hôtel est l'un des favoris pour son excellent rapport qualité-prix et son accès direct et rapide au Disney Skyliner.", level: "Value", pointsForts: ["Accès direct au Disney Skyliner", "Excellent rapport qualité-prix", "Récemment rénové avec lits queen", "Ambiance nostalgique et amusante"] },
@@ -146,7 +152,7 @@
 
         function getHotelByName(name) { return DISNEY_HOTELS.find(hotel => hotel.name === name); }
         function formatDateFR(dateStr) { if (!dateStr) return ""; try { const date = new Date(dateStr + 'T00:00:00'); const options = { year: 'numeric', month: 'long', day: 'numeric' }; return date.toLocaleDateString('fr-FR', options); } catch (e) { return dateStr; } }
-        function formatTime(timeStr) { if (!timeStr) return ""; try { const [hours, minutes] = timeStr.split(':'); return `<span class="math-inline">\{String\(hours\)\.padStart\(2, '0'\)\}h</span>{String(minutes).padStart(2, '0')}`; } catch (e) { return timeStr; } }
+        function formatTime(timeStr) { if (!timeStr) return ""; try { const [hours, minutes] = timeStr.split(':'); return `${String(hours).padStart(2, '0')}h${String(minutes).padStart(2, '0')}`; } catch (e) { return timeStr; } }
 
         function generateEmailHTML(data) {
              const C = {
@@ -178,18 +184,18 @@
                     case 'sub': style = `background-color: ${C.blue}; padding: 10px 30px;`; titleStyle = `font-family: ${S.fontStack}; font-size: 20px; color: ${C.white}; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center;`; wrapperStyle = `padding: 0;`; break;
                     case 'main': default: style = `background: linear-gradient(to right, ${C.blue}, ${C.blueDark}); padding: 25px 30px;`; titleStyle = `font-family: Georgia, serif; font-size: 32px; color: ${C.white}; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center; letter-spacing: 1.5px; line-height:1.2;`; wrapperStyle = `border-top: 1px solid rgba(255,255,255,0.3); border-bottom: 1px solid rgba(255,255,255,0.3); padding: 10px 0;`; break;
                 }
-                return `<tr><td style="<span class="math-inline">\{style\}"\><div style\="</span>{wrapperStyle}"><h1 style="<span class="math-inline">\{titleStyle\}"\></span>{text}</h1></div></td></tr>`;
+                return `<tr><td style="${style}"><div style="${wrapperStyle}"><h1 style="${titleStyle}">${text}</h1></div></td></tr>`;
             }
             
             function createCalloutBox(title, text, color) {
-                return `<table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-top:20px;"><tr><td style="padding: 20px 25px; background-color: ${C[`${color}Light`]}; border-left: 5px solid <span class="math-inline">\{C\[color\]\}; border\-radius\: 0 8px 8px 0;"\><h2 style\="font\-family\:</span>{S.fontStack}; font-size:18px; color:<span class="math-inline">\{C\[color\]\}; margin\:0 0 10px 0; font\-weight\:bold;"\></span>{title}</h2><p style="font-family:<span class="math-inline">\{S\.fontStack\}; margin\:0; text\-align\:justify;"\></span>{text}</p></td></tr></table>`;
+                return `<table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-top:20px;"><tr><td style="padding: 20px 25px; background-color: ${C[`${color}Light`]}; border-left: 5px solid ${C[color]}; border-radius: 0 8px 8px 0;"><h2 style="font-family:${S.fontStack}; font-size:18px; color:${C[color]}; margin:0 0 10px 0; font-weight:bold;">${title}</h2><p style="font-family:${S.fontStack}; margin:0; text-align:justify;">${text}</p></td></tr></table>`;
             }
 
             const T = {
                 banner1: "Votre Aventure Magique Commence Ici",
-                greeting: `Bonjour <strong style="<span class="math-inline">\{S\.strong\}"\></span>{data.client_name || 'estimé(e) voyageur(se)'}</strong>,`,
+                greeting: `Bonjour <strong style="${S.strong}">${data.client_name || 'estimé(e) voyageur(se)'}</strong>,`,
                 intro1: `Je vous écris au nom de Voyages en Route, où nous avons le plaisir d’accompagner les familles et voyageurs dans la planification de leurs séjours. Je m'appelle Pierre-Luc Morin et je serais votre conseiller en voyages spécialisé en destinations <strong style="${S.strong}">Disney et Universal</strong>.`,
-                intro2: `Merci de nous avoir confié votre projet de voyage. J’ai pris soin de préparer une proposition basée sur les critères que vous avez partagés dans votre demande. Cette soumission est <strong style="<span class="math-inline">\{S\.strong\}"\>ajustable</strong\>, et je serai heureux d’explorer avec vous différentes options afin de vous créer une expérience <strong style\="</span>{S.strong}">propre à vous et inoubliable</strong>.`,
+                intro2: `Merci de nous avoir confié votre projet de voyage. J’ai pris soin de préparer une proposition basée sur les critères que vous avez partagés dans votre demande. Cette soumission est <strong style="${S.strong}">ajustable</strong>, et je serai heureux d’explorer avec vous différentes options afin de vous créer une expérience <strong style="${S.strong}">propre à vous et inoubliable</strong>.`,
                 disney_advantages_intro: `Séjourner dans un hôtel Disney, c’est profiter d’un univers immersif du matin au soir, mais aussi de <strong style="${S.strong}">nombreux avantages exclusifs</strong>&nbsp;:</p>`,
                 disney_advantages_list_items: [
                     `<strong style="${S.strong}">L’Early Theme Park Entry</strong>, pour accéder aux parcs avant l’ouverture officielle&nbsp;;`,
@@ -203,14 +209,14 @@
                 flight_intro: "Pour compléter votre voyage vers la magie, voici les détails concernant le transport aérien que nous avons exploré&nbsp;:",
                 flight_price_info: `<em style="${S.italic}">Les prix sont à titre indicatif et peuvent changer à tout moment.</em>`,
                 flight_important_label: `IMPORTANT`,
-                flight_important_text: `Les tarifs aériens sont dynamiques et peuvent changer jusqu'à la réservation. Des frais de service de <strong style="<span class="math-inline">\{S\.strong\}"\>50</span> CAD par personne</strong> s'appliquent pour la réservation des vols via nos services. En me confiant vos vols, je m'occupe de tout désagrément potentiel. Si vous optez pour une réservation personnelle, ces frais ne s'appliquent pas, mais le support en cas de problème avec les vols ne sera pas inclus pour cette portion.`,
+                flight_important_text: `Les tarifs aériens sont dynamiques et peuvent changer jusqu'à la réservation. Des frais de service de <strong style="${S.strong}">50$ CAD par personne</strong> s'appliquent pour la réservation des vols via nos services. En me confiant vos vols, je m'occupe de tout désagrément potentiel. Si vous optez pour une réservation personnelle, ces frais ne s'appliquent pas, mais le support en cas de problème avec les vols ne sera pas inclus pour cette portion.`,
                 banner_magic_continues: "La Magie Continue...",
-                closing1: `Prenez le temps de rêver à ces options et de considérer ce qui ferait de ce voyage une expérience <strong style="<span class="math-inline">\{S\.strong\}"\>véritablement inoubliable</strong\>\. Je suis à votre <strong style\="</span>{S.strong}">entière disposition</strong> pour répondre à toutes vos questions, affiner chaque détail ou procéder à la réservation de cette <em style="${S.italic}">aventure mémorable</em>.`,
+                closing1: `Prenez le temps de rêver à ces options et de considérer ce qui ferait de ce voyage une expérience <strong style="${S.strong}">véritablement inoubliable</strong>. Je suis à votre <strong style="${S.strong}">entière disposition</strong> pour répondre à toutes vos questions, affiner chaque détail ou procéder à la réservation de cette <em style="${S.italic}">aventure mémorable</em>.`,
                 closing2: `N'hésitez pas à me joindre par courriel (en répondant simplement à celui-ci) ou par téléphone au <strong style="${S.strong}">819-347-9103</strong>.`,
-                closing3: `Merci encore pour votre confiance. J'ai sincèrement hâte de transformer ce <strong style="<span class="math-inline">\{S\.strong\}"\>rêve Disney</strong\> en une <strong style\="</span>{S.strong}">magnifique réalité pour vous&nbsp;!</strong>`
+                closing3: `Merci encore pour votre confiance. J'ai sincèrement hâte de transformer ce <strong style="${S.strong}">rêve Disney</strong> en une <strong style="${S.strong}">magnifique réalité pour vous&nbsp;!</strong>`
             };
             
-            let introSection = `<p style="<span class="math-inline">\{S\.p\}"\></span>{T.greeting}</p><p style="<span class="math-inline">\{S\.p\}"\></span>{T.intro1}</p><p style="<span class="math-inline">\{S\.p\}"\></span>{T.intro2}</p>`;
+            let introSection = `<p style="${S.p}">${T.greeting}</p><p style="${S.p}">${T.intro1}</p><p style="${S.p}">${T.intro2}</p>`;
             let hotelSection = '';
             const selectedHotels = data.hotels || [];
 
@@ -219,13 +225,13 @@
                     const hotel = selectedHotels[0];
                     const levelColor = C.level[hotel.level.toLowerCase().replace(/ /g, '_')] || C.textLight;
                     hotelSection += `<p style="${S.p}">Pour votre séjour, j’ai sélectionné l’option suivante&nbsp;:</p>
-                                     <div style="border: 1px solid <span class="math-inline">\{C\.border\}; border\-radius\: 8px;"\>
-<div style\="background\-color\:</span>{C.blue}; color:<span class="math-inline">\{C\.white\}; padding\:15px 20px; border\-radius\: 8px 8px 0 0;"\>
-<strong style\="font\-family\:</span>{S.fontStack}; font-size:20px;"><span class="math-inline">\{hotel\.name\}</strong\>
-</div\>
-<div style\="padding\:20px; background\-color\:</span>{C.white}; border-radius: 0 0 8px 8px;">
-                                            <span style="background-color:<span class="math-inline">\{levelColor\}; color\:</span>{C.white}; padding: 4px 10px; border-radius: 15px; font-size: 12px; font-weight: bold;"><span class="math-inline">\{hotel\.level\}</span\>
-<p style\="font\-family\:</span>{S.fontStack}; font-size:15px; line-height:1.5; color:<span class="math-inline">\{C\.textLight\}; margin\:15px 0 0 0; text\-align\:justify;"\></span>{hotel.description}</p>
+                                     <div style="border: 1px solid ${C.border}; border-radius: 8px;">
+                                        <div style="background-color:${C.blue}; color:${C.white}; padding:15px 20px; border-radius: 8px 8px 0 0;">
+                                            <strong style="font-family:${S.fontStack}; font-size:20px;">${hotel.name}</strong>
+                                        </div>
+                                         <div style="padding:20px; background-color:${C.white}; border-radius: 0 0 8px 8px;">
+                                            <span style="background-color:${levelColor}; color:${C.white}; padding: 4px 10px; border-radius: 15px; font-size: 12px; font-weight: bold;">${hotel.level}</span>
+                                            <p style="font-family:${S.fontStack}; font-size:15px; line-height:1.5; color:${C.textLight}; margin:15px 0 0 0; text-align:justify;">${hotel.description}</p>
                                          </div>
                                      </div>`;
                 } else {
@@ -234,24 +240,24 @@
                     selectedHotels.forEach(hotel => {
                         const levelColor = C.level[hotel.level.toLowerCase().replace(/ /g, '_')] || C.textLight;
                         
-                        let prosList = `<span style="background-color:<span class="math-inline">\{levelColor\}; color\:</span>{C.white}; padding: 5px 12px; margin: 0 8px 8px 0; border-radius: 15px; font-size: 14px; font-weight: bold; display:inline-block;">${hotel.level}</span>`;
+                        let prosList = `<span style="background-color:${levelColor}; color:${C.white}; padding: 5px 12px; margin: 0 8px 8px 0; border-radius: 15px; font-size: 14px; font-weight: bold; display:inline-block;">${hotel.level}</span>`;
                         hotel.pointsForts.forEach((p, i) => {
                             const tagColor = C.tags[i % C.tags.length];
-                            prosList += `<span style="display:inline-block; background-color:<span class="math-inline">\{tagColor\}; color\:</span>{C.white}; padding: 5px 12px; margin: 0 8px 8px 0; border-radius: 15px; font-size: 14px; font-weight: bold;">${p}</span>`;
+                            prosList += `<span style="display:inline-block; background-color:${tagColor}; color:${C.white}; padding: 5px 12px; margin: 0 8px 8px 0; border-radius: 15px; font-size: 14px; font-weight: bold;">${p}</span>`;
                         });
 
                         hotelCards += `
-                            <div class="hotel-card" style="margin-top: 25px; border: 1px solid <span class="math-inline">\{C\.border\}; border\-radius\: 8px;"\>
-<div style\="background\-color\:</span>{C.blue}; color:<span class="math-inline">\{C\.white\}; padding\:15px 20px; border\-radius\: 8px 8px 0 0;"\>
-<strong style\="font\-family\:</span>{S.fontStack}; font-size:20px;"><span class="math-inline">\{hotel\.name\}</strong\>
-</div\>
-<div style\="background\-color\:</span>{C.white}; padding: 20px;">
-                                    <p style="font-family:<span class="math-inline">\{S\.fontStack\}; font\-size\:15px; line\-height\:1\.5; color\:</span>{C.textLight}; margin:0 0 15px 0; text-align:justify;"><span class="math-inline">\{hotel\.description\}</p\>
-<div style\="padding\:10px 0;"\></span>{prosList}</div>
+                            <div class="hotel-card" style="margin-top: 25px; border: 1px solid ${C.border}; border-radius: 8px;">
+                                <div style="background-color:${C.blue}; color:${C.white}; padding:15px 20px; border-radius: 8px 8px 0 0;">
+                                    <strong style="font-family:${S.fontStack}; font-size:20px;">${hotel.name}</strong>
                                 </div>
-                                <div style="background-color:${C.blueLight}; padding: 15px 20px; text-align:center; border-radius: 0 0 8px 8px; border-top: 1px solid <span class="math-inline">\{C\.border\};"\>
-<span style\="font\-size\:14px; color\:</span>{C.textLight}; font-weight:bold; text-transform:uppercase;">PRIX DU FORFAIT</span><br>
-                                    <strong style="font-size:28px; color:<span class="math-inline">\{C\.textDark\}; line\-height\:1\.2;"\></span>{hotel.price ? hotel.price + '&nbsp;USD' : 'Voir PDF'}</strong>
+                                <div style="background-color:${C.white}; padding: 20px;">
+                                    <p style="font-family:${S.fontStack}; font-size:15px; line-height:1.5; color:${C.textLight}; margin:0 0 15px 0; text-align:justify;">${hotel.description}</p>
+                                    <div style="padding:10px 0;">${prosList}</div>
+                                </div>
+                                <div style="background-color:${C.blueLight}; padding: 15px 20px; text-align:center; border-radius: 0 0 8px 8px; border-top: 1px solid ${C.border};">
+                                    <span style="font-size:14px; color:${C.textLight}; font-weight:bold; text-transform:uppercase;">PRIX DU FORFAIT</span><br>
+                                    <strong style="font-size:28px; color:${C.textDark}; line-height:1.2;">${hotel.price ? hotel.price + '&nbsp;USD' : 'Voir PDF'}</strong>
                                 </div>
                             </div>
                         `;
@@ -260,8 +266,8 @@
                 }
                 
                 hotelSection += `<p style="${S.p} margin-top:20px;">Chaque proposition de forfait inclut l'hébergement à l'hôtel ainsi que les billets d'entrée pour les parcs Disney. Tous les autres détails, inclusions et conditions se trouvent dans le ou les documents PDF correspondants.</p>`
-                let advantagesList = T.disney_advantages_list_items.map(item => `<li style="margin-bottom:8px;"><span style="color:<span class="math-inline">\{C\.blue\}; font\-size\:18px; vertical\-align\:middle; margin\-right\:8px; font\-weight\:bold;"\>&\#10004;</span\><span style\="vertical\-align\:middle;"\></span>{item}</span></li>`).join('');
-                hotelSection += `<p style="<span class="math-inline">\{S\.p\} margin\-top\:30px; text\-align\:left;"\></span>{T.disney_advantages_intro}<ul style="margin:1em 0; padding:0; list-style-type:none; text-align:left;">${advantagesList}</ul>`;
+                let advantagesList = T.disney_advantages_list_items.map(item => `<li style="margin-bottom:8px;"><span style="color:${C.blue}; font-size:18px; vertical-align:middle; margin-right:8px; font-weight:bold;">&#10004;</span><span style="vertical-align:middle;">${item}</span></li>`).join('');
+                hotelSection += `<p style="${S.p} margin-top:30px; text-align:left;">${T.disney_advantages_intro}<ul style="margin:1em 0; padding:0; list-style-type:none; text-align:left;">${advantagesList}</ul>`;
 
             } else if (data.booking_type === 'tickets_only') {
                 hotelSection = `<p style="${S.p}">J’ai préparé pour vous un document ci-joint indiquant le prix ainsi que les conditions applicables aux billets de parc.</p>`;
@@ -271,9 +277,9 @@
             if (data.promotion_type === 'aucune') {
                 promoText = `Pour garantir votre place, un dépôt de seulement <strong style="${S.strong}">200 USD</strong> est requis. Les promotions Disney deviennent souvent disponibles et sont parfois complètement réservées à l'intérieur de quelques heures. Il est donc important de réserver d'avance pour que je sois en mesure de les obtenir pour vous de manière rapide et systématique, afin que vous ayez toujours le meilleur rapport qualité-prix. Le reste de la balance de paiement est aussi à effectuer 30 jours avant le check-in.`;
             } else {
-                let promoEndDateInfo = data.promotion_end_date ? ` (prend fin le <strong style="<span class="math-inline">\{S\.strong\}"\></span>{formatDateFR(data.promotion_end_date)}</strong>)` : "";
-                let promoNameInfo = data.promotion_name ? `&nbsp;: <strong style="<span class="math-inline">\{S\.strong\}"\></span>{data.promotion_name}</strong>` : "";
-                promoText = `Une promotion est applicable pour votre séjour${promoNameInfo}<span class="math-inline">\{promoEndDateInfo\}\. L’offre est cependant <em style\="</span>{S.italic}">limitée</em>. Pour garantir votre place au cœur de la magie, un dépôt de seulement <strong style="<span class="math-inline">\{S\.strong\}"\>200 USD</strong\> est requis\. Ce dépôt est <strong style\="</span>{S.strong}">entièrement remboursable jusqu'à 30 jours avant votre arrivée</strong>, vous offrant une flexibilité totale. Le reste de la balance de paiement est aussi à effectuer 30 jours avant le check-in.`;
+                let promoEndDateInfo = data.promotion_end_date ? ` (prend fin le <strong style="${S.strong}">${formatDateFR(data.promotion_end_date)}</strong>)` : "";
+                let promoNameInfo = data.promotion_name ? `&nbsp;: <strong style="${S.strong}">${data.promotion_name}</strong>` : "";
+                promoText = `Une promotion est applicable pour votre séjour${promoNameInfo}${promoEndDateInfo}. L’offre est cependant <em style="${S.italic}">limitée</em>. Pour garantir votre place au cœur de la magie, un dépôt de seulement <strong style="${S.strong}">200 USD</strong> est requis. Ce dépôt est <strong style="${S.strong}">entièrement remboursable jusqu'à 30 jours avant votre arrivée</strong>, vous offrant une flexibilité totale. Le reste de la balance de paiement est aussi à effectuer 30 jours avant le check-in.`;
             }
             
             let promotionSection = createCalloutBox("PROMOTIONS ET DÉPÔT REQUIS", promoText, "orange");
@@ -281,100 +287,83 @@
 
             let flightSection = '';
             if (data.include_flights) {
-                 if (data.flights_too_early) {
-                    flightSection = `<tr><td style="padding: 20px 30px 30px 30px;"><p style="${S.p}">Pour les vols, il est actuellement trop tôt pour obtenir les horaires et tarifs optimaux. Les compagnies aériennes publient généralement leurs vols environ 11 mois à l'avance. Nous attendrons donc le moment opportun pour intégrer cet aspect à votre voyage afin de vous garantir les meilleures options.</p></td></tr>`;
-                 } else {
-                    const arrow = `<span style="color:${C.orange}; font-weight:bold; font-size:24px; line-height:1;">&nbsp;&rarr;&nbsp;</span>`;
-                    let flightDetails = '';
+                 const arrow = `<span style="color:${C.orange}; font-weight:bold; font-size:24px; line-height:1;">&nbsp;&rarr;&nbsp;</span>`;
 
-                    if(data.flightOptions.length > 1 && data.flight_intro_message) {
-                        flightDetails += `<p style="<span class="math-inline">\{S\.p\} font\-style\:italic;"\></span>{data.flight_intro_message.replace(/\n/g, '<br>')}</p>`;
-                    }
+                 let flightDetails = `<p style="${S.p}">${T.flight_intro}</p>
+                    <div style="border: 1px solid ${C.border}; border-radius: 8px; margin-top:20px;">
+                        <div style="padding:20px; border-bottom:1px dashed ${C.border};">
+                            <h3 style="margin:0 0 20px 0; font-size:18px; color:${C.blue};">✈️ Vol aller</h3>
+                             <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td class="flight-column" style="width:45%; text-align:center; vertical-align:top;">
+                                        <div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Départ</div>
+                                        <div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${data.departure_airport_aller || 'N/A'}</div>
+                                        <table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto; text-align:left;">
+                                            <tr><td style="padding-bottom:10px;">📅&nbsp;${formatDateFR(data.departure_date_aller)}</td></tr>
+                                            <tr><td>🕒&nbsp;${formatTime(data.departure_time_aller)}</td></tr>
+                                        </table>
+                                    </td>
+                                    <td class="flight-arrow" style="width:10%; text-align:center; vertical-align:center;">${arrow}</td>
+                                    <td class="flight-column" style="width:45%; text-align:center; vertical-align:top;">
+                                        <div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Arrivée</div>
+                                        <div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${data.arrival_airport_aller || 'N/A'}</div>
+                                        <div style="font-size:14px; color:${C.textLight}">${data.airline_aller || ''} ${data.flight_number_aller || ''}</div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div style="padding:20px;">
+                            <h3 style="margin:0 0 20px 0; font-size:18px; color:${C.blue};">✈️ Vol retour</h3>
+                             <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td class="flight-column" style="width:45%; text-align:center; vertical-align:top;">
+                                        <div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Départ</div>
+                                        <div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${data.departure_airport_retour || 'N/A'}</div>
+                                         <table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto; text-align:left;">
+                                            <tr><td style="padding-bottom:10px;">📅&nbsp;${formatDateFR(data.departure_date_retour)}</td></tr>
+                                            <tr><td>🕒&nbsp;${formatTime(data.departure_time_retour)}</td></tr>
+                                        </table>
+                                    </td>
+                                    <td class="flight-arrow" style="width:10%; text-align:center; vertical-align:center;">${arrow}</td>
+                                    <td class="flight-column" style="width:45%; text-align:center; vertical-align:top;">
+                                        <div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Arrivée</div>
+                                        <div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${data.arrival_airport_retour || 'N/A'}</div>
+                                        <div style="font-size:14px; color:${C.textLight}">${data.airline_retour || ''} ${data.flight_number_retour || ''}</div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div style="background-color:${C.blueLight}; padding: 15px 20px; text-align:center; border-radius: 0 0 8px 8px; border-top: 1px solid ${C.border};">
+                            <span style="font-size:14px; color:${C.textLight}; font-weight:bold; text-transform:uppercase;">PRIX APPROXIMATIF DES VOLS</span><br>
+                            <strong style="font-size:28px; color:${C.textDark}; line-height:1.2;">${data.flight_price ? data.flight_price + '&nbsp;CAD' : 'N/A'}</strong>
+                        </div>
+                    </div>`;
 
-                    data.flightOptions.forEach((option, index) => {
-                        flightDetails += `
-                            <div style="border: 1px solid ${C.border}; border-radius: 8px; margin-top:20px;">
-                                ${data.flightOptions.length > 1 ? `<h3 style="margin:0; padding:10px 20px; font-size:16px; color:${C.blue}; background-color:${C.blueLight}; border-bottom:1px solid ${C.border};">OPTION DE VOL ${index + 1}</h3>` : ''}
-                                <div style="padding:20px; border-bottom:1px dashed <span class="math-inline">\{C\.border\};"\>
-<h4 style\="margin\:0 0 20px 0; font\-size\:18px; color\:</span>{C.blue};">✈️ Vol aller</h4>
-                                    <table width="100%" border="0" cellpadding="0" cellspacing="0">
-                                        <tr>
-                                            <td class="flight-column" style="width:45%; text-align:center; vertical-align:top;">
-                                                <div style="font-size:16px; color:<span class="math-inline">\{C\.textLight\}; text\-transform\:uppercase; margin\-bottom\:10px;"\>Départ</div\>
-<div style\="font\-size\:20px; font\-weight\:bold; color\:</span>{C.blue}; margin-bottom:10px;"><span class="math-inline">\{option\.departure\_airport\_aller \|\| 'N/A'\}</div\>
-<table border\="0" cellpadding\="0" cellspacing\="0" style\="margin\:0 auto; text\-align\:left;"\>
-<tr\><td style\="padding\-bottom\:10px;"\>📅&nbsp;</span>{formatDateFR(option.departure_date_aller)}</td></tr>
-                                                    <tr><td>🕒&nbsp;<span class="math-inline">\{formatTime\(option\.departure\_time\_aller\)\}</td\></tr\>
-</table\>
-</td\>
-<td class\="flight\-arrow" style\="width\:10%; text\-align\:center; vertical\-align\:center;"\></span>{arrow}</td>
-                                            <td class="flight-column" style="width:45%; text-align:center; vertical-align:top;">
-                                                <div style="font-size:16px; color:<span class="math-inline">\{C\.textLight\}; text\-transform\:uppercase; margin\-bottom\:10px;"\>Arrivée</div\>
-<div style\="font\-size\:20px; font\-weight\:bold; color\:</span>{C.blue}; margin-bottom:10px;"><span class="math-inline">\{option\.arrival\_airport\_aller \|\| 'N/A'\}</div\>
-<div style\="font\-size\:14px; color\:</span>{C.textLight}">${option.airline_aller || ''} <span class="math-inline">\{option\.flight\_number\_aller \|\| ''\}</div\>
-</td\>
-</tr\>
-</table\>
-</div\>
-<div style\="padding\:20px;"\>
-<h4 style\="margin\:0 0 20px 0; font\-size\:18px; color\:</span>{C.blue};">✈️ Vol retour</h4>
-                                    <table width="100%" border="0" cellpadding="0" cellspacing="0">
-                                        <tr>
-                                            <td class="flight-column" style="width:45%; text-align:center; vertical-align:top;">
-                                                <div style="font-size:16px; color:<span class="math-inline">\{C\.textLight\}; text\-transform\:uppercase; margin\-bottom\:10px;"\>Départ</div\>
-<div style\="font\-size\:20px; font\-weight\:bold; color\:</span>{C.blue}; margin-bottom:10px;"><span class="math-inline">\{option\.departure\_airport\_retour \|\| 'N/A'\}</div\>
-<table border\="0" cellpadding\="0" cellspacing\="0" style\="margin\:0 auto; text\-align\:left;"\>
-<tr\><td style\="padding\-bottom\:10px;"\>📅&nbsp;</span>{formatDateFR(option.departure_date_retour)}</td></tr>
-                                                    <tr><td>🕒&nbsp;<span class="math-inline">\{formatTime\(option\.departure\_time\_retour\)\}</td\></tr\>
-</table\>
-</td\>
-<td class\="flight\-arrow" style\="width\:10%; text\-align\:center; vertical\-align\:center;"\></span>{arrow}</td>
-                                            <td class="flight-column" style="width:45%; text-align:center; vertical-align:top;">
-                                                <div style="font-size:16px; color:<span class="math-inline">\{C\.textLight\}; text\-transform\:uppercase; margin\-bottom\:10px;"\>Arrivée</div\>
-<div style\="font\-size\:20px; font\-weight\:bold; color\:</span>{C.blue}; margin-bottom:10px;"><span class="math-inline">\{option\.arrival\_airport\_retour \|\| 'N/A'\}</div\>
-<div style\="font\-size\:14px; color\:</span>{C.textLight}">${option.airline_retour || ''} ${option.flight_number_retour || ''}</div>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                        `;
-                    });
-
-                    if(data.flight_price) {
-                        flightDetails += `
-                        <div style="background-color:${C.blueLight}; padding: 15px 20px; text-align:center; border-radius: 8px; margin-top:20px; border: 1px solid <span class="math-inline">\{C\.border\};"\>
-<span style\="font\-size\:14px; color\:</span>{C.textLight}; font-weight:bold; text-transform:uppercase;">PRIX APPROXIMATIF TOTAL DES VOLS</span><br>
-                            <strong style="font-size:28px; color:<span class="math-inline">\{C\.textDark\}; line\-height\:1\.2;"\></span>{data.flight_price ? data.flight_price + '&nbsp;CAD' : 'N/A'}</strong>
-                        </div>`;
-                    }
-
-                    if (data.flight_notes) {
-                        flightDetails += `<p style="<span class="math-inline">\{S\.p\} font\-style\:italic; font\-weight\:bold; color\:</span>{C.textLight}; border-left:3px solid <span class="math-inline">\{C\.border\}; padding\-left\:15px; margin\-top\:20px;"\></span>{data.flight_notes.replace(/\n/g, '<br>')}</p>`;
-                    }
-                    
-                    flightDetails += createCalloutBox(T.flight_important_label, T.flight_important_text, "orange");
-                    flightDetails += `<p style="<span class="math-inline">\{S\.p\} font\-size\:14px; color\:</span>{C.textLight}; text-align:left; margin-top:20px;">${T.flight_price_info}</p>`;
-                                      
-                    flightSection = `<tr><td style="padding: 20px 30px 30px 30px;">${flightDetails}</td></tr>`;
-                 }
+                if (data.flight_notes) {
+                    flightDetails += `<p style="${S.p} font-style:italic; font-weight:bold; color:${C.textLight}; border-left:3px solid ${C.border}; padding-left:15px; margin-top:20px;">${data.flight_notes.replace(/\n/g, '<br>')}</p>`;
+                }
+                
+                flightDetails += createCalloutBox(T.flight_important_label, T.flight_important_text, "orange");
+                flightDetails += `<p style="${S.p} font-size:14px; color:${C.textLight}; text-align:left; margin-top:20px;">${T.flight_price_info}</p>`;
+                                  
+                flightSection = `<tr><td style="padding: 20px 30px 30px 30px;">${flightDetails}</td></tr>`;
             }
 
-            let closingSection = `<p style="<span class="math-inline">\{S\.p\}"\></span>{T.closing1}</p><p style="<span class="math-inline">\{S\.p\}"\></span>{T.closing2}</p><p style="<span class="math-inline">\{S\.p\}"\></span>{T.closing3}</p>`;
+            let closingSection = `<p style="${S.p}">${T.closing1}</p><p style="${S.p}">${T.closing2}</p><p style="${S.p}">${T.closing3}</p>`;
             
             const hotelBannerText = data.booking_type === 'tickets_only' ? "Billets de Parc Disney" : "Forfaits Hôtel & Billets Disney";
 
-            return `<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title><span class="math-inline">\{T\.banner1\}</title\></head\><body style\="margin\:0; padding\:0; background\-color\:</span>{C.background};"><table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color:${C.background};"><tr><td align="center"><table width="680" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width: 680px; max-width: 100%; margin: 20px auto; background-color: ${C.white};">
-                <span class="math-inline">\{createBanner\(T\.banner1, 'main'\)\}
-<tr\><td style\="padding\: 20px 30px 30px 30px;"\></span>{introSection}</td></tr>
-                <span class="math-inline">\{createBanner\(hotelBannerText, 'sub'\)\}
-<tr\><td style\="padding\: 20px 30px 10px 30px;"\></span>{hotelSection}</td></tr>
-                <tr><td style="padding: 10px 30px 30px 30px;"><span class="math-inline">\{promotionSection\}</td\></tr\>
-<tr\><td style\="padding\: 0 30px 30px 30px;"\><p style\="</span>{S.p} font-size:14px; color:${C.textLight}; text-align:center; <span class="math-inline">\{S\.italic\}"\></span>{priceDisclaimer}</p></td></tr>
+            return `<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${T.banner1}</title></head><body style="margin:0; padding:0; background-color:${C.background};"><table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color:${C.background};"><tr><td align="center"><table width="680" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width: 680px; max-width: 100%; margin: 20px auto; background-color: ${C.white};">
+                ${createBanner(T.banner1, 'main')}
+                <tr><td style="padding: 20px 30px 30px 30px;">${introSection}</td></tr>
+                ${createBanner(hotelBannerText, 'sub')}
+                <tr><td style="padding: 20px 30px 10px 30px;">${hotelSection}</td></tr>
+                <tr><td style="padding: 10px 30px 30px 30px;">${promotionSection}</td></tr>
+                <tr><td style="padding: 0 30px 30px 30px;"><p style="${S.p} font-size:14px; color:${C.textLight}; text-align:center; ${S.italic}">${priceDisclaimer}</p></td></tr>
                 ${createBanner(T.banner_travel_fees, 'sub')}
                 ${flightSection}
-                <span class="math-inline">\{createBanner\(T\.banner\_magic\_continues, 'closing'\)\}
-<tr\><td style\="padding\: 20px 30px 30px 30px;"\></span>{closingSection}</td></tr>
+                ${createBanner(T.banner_magic_continues, 'closing')}
+                <tr><td style="padding: 20px 30px 30px 30px;">${closingSection}</td></tr>
             </table></td></tr></table></body></html>`;
         }
 
@@ -387,37 +376,46 @@
             function createHotelSelector() {
                 hotelCounter++;
                 const groupDiv = document.createElement('div');
-                groupDiv.classList.add('option-group');
+                groupDiv.classList.add('hotel-option-group');
                 groupDiv.id = `hotel_group_${hotelCounter}`;
                 
                 let content = `
-                    <div class="option-header">
-                        <label>Option d'hôtel #${hotelCounter}</label>
-                        <button type="button" class="remove-button" title="Supprimer cet hôtel">Supprimer</button>
+                    <div class="hotel-option-header">
+                        <label>Option d'hôtel</label>
+                        <button type="button" class="remove-hotel-button" title="Supprimer cet hôtel">Supprimer</button>
                     </div>
-                    <select name="hotel_name[]" required>
+                    <select name="hotel_name" required>
                         <option value="" disabled selected>Sélectionnez un hôtel</option>
                         ${DISNEY_HOTELS.sort((a,b) => a.name.localeCompare(b.name)).map(hotel => `<option value="${hotel.name}">${hotel.name}</option>`).join('')}
                     </select>
-                    <label>Prix du Forfait (USD)&nbsp;:</label>
-                    <input type="number" name="hotel_price[]" placeholder="Ex: 4500.50" step="0.01">
+                    <label for="hotel_price_${hotelCounter}">Prix du Forfait (USD)&nbsp;:</label>
+                    <input type="number" name="hotel_price" id="hotel_price_${hotelCounter}" placeholder="Ex: 4500.50" step="0.01">
                 `;
                 groupDiv.innerHTML = content;
 
-                groupDiv.querySelector('.remove-button').addEventListener('click', function() {
+                groupDiv.querySelector('.remove-hotel-button').addEventListener('click', function() {
                     groupDiv.remove();
+                    updateAddHotelButtonState();
                 });
 
                 return groupDiv;
             }
 
+            function updateAddHotelButtonState() {
+                const currentHotelSelectors = hotelSelectionsDiv.querySelectorAll('.hotel-option-group').length;
+                addHotelButton.disabled = currentHotelSelectors >= 5;
+                addHotelButton.textContent = currentHotelSelectors >= 5 ? "Maximum 5 hôtels atteints" : "Ajouter une option d'hôtel";
+            }
+
             addHotelButton.addEventListener('click', function() {
-                if (hotelSelectionsDiv.querySelectorAll('.option-group').length < 5) {
+                if (hotelSelectionsDiv.querySelectorAll('.hotel-option-group').length < 5) {
                     hotelSelectionsDiv.appendChild(createHotelSelector());
+                    updateAddHotelButtonState();
                 }
             });
 
             hotelSelectionsDiv.appendChild(createHotelSelector());
+            updateAddHotelButtonState();
             
             const form = document.getElementById('disneyForm');
             const emailOutputDiv = document.getElementById('emailOutput');
@@ -427,28 +425,26 @@
                 const formData = new FormData(form);
                 const data = {};
                 
-                // Get all form data
                 for (let [key, value] of formData.entries()) {
-                    if (!key.endsWith('[]')) {
+                    if (!key.startsWith('hotel_')) {
                         data[key] = value;
                     }
                 }
                 data.include_flights = formData.has('include_flights');
-                data.flights_too_early = formData.has('flights_too_early');
                 
-                // Get hotel data
                 data.hotels = [];
-                const hotelNames = formData.getAll('hotel_name[]');
-                const hotelPrices = formData.getAll('hotel_price[]');
-                hotelNames.forEach((name, i) => {
-                     if(name) {
+                const hotelGroups = hotelSelectionsDiv.querySelectorAll('.hotel-option-group');
+                hotelGroups.forEach(group => {
+                    const name = group.querySelector('select[name="hotel_name"]').value;
+                    const price = group.querySelector('input[name="hotel_price"]').value;
+                    if(name) {
                         const hotelData = getHotelByName(name);
                         data.hotels.push({
                             name: name,
                             description: hotelData.description,
                             level: hotelData.level,
                             pointsForts: hotelData.pointsForts,
-                            price: hotelPrices[i]
+                            price: price
                         });
                     }
                 });
@@ -474,24 +470,18 @@
             const hotelOptionsContainer = document.getElementById('hotel_options_container');
             const promotionTypeSelect = document.getElementById('promotion_type');
             const promotionDetailsDiv = document.getElementById('promotion_details');
-            const flightsTooEarlyCheckbox = document.getElementById('flights_too_early');
-            const flightOptionsWrapper = document.getElementById('flight_options_wrapper');
             
             function toggleFlightDetails() { flightDetailsDiv.classList.toggle('hidden', !includeFlightsCheckbox.checked); }
             function toggleHotelOptions() { hotelOptionsContainer.classList.toggle('hidden', bookingTypeSelect.value !== 'hotel_tickets'); }
             function togglePromotionDetails() { promotionDetailsDiv.classList.toggle('hidden', promotionTypeSelect.value !== 'specifique'); }
-            function toggleFlightOptions() { flightOptionsWrapper.classList.toggle('hidden', flightsTooEarlyCheckbox.checked); }
-
 
             includeFlightsCheckbox.addEventListener('change', toggleFlightDetails);
             bookingTypeSelect.addEventListener('change', toggleHotelOptions);
             promotionTypeSelect.addEventListener('change', togglePromotionDetails);
-            flightsTooEarlyCheckbox.addEventListener('change', toggleFlightOptions);
             
             toggleFlightDetails();
             toggleHotelOptions();
             togglePromotionDetails();
-            toggleFlightOptions();
         });
     </script>
 </body>
