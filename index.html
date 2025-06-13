@@ -166,7 +166,8 @@
                 white: '#FFFFFF',
                 blueLight: '#e6f2fa',
                 orangeLight: '#fff4e6',
-                level: { value: '#4CAF50', moderate: '#2196F3', deluxe: '#673AB7', deluxe_villa: '#9C27B0' }
+                level: { value: '#4CAF50', moderate: '#2196F3', deluxe: '#673AB7', deluxe_villa: '#9C27B0' },
+                tags: ['#0078C1', '#673AB7', '#28a745', '#fd7e14', '#FF7F50']
             };
 
             const S = {
@@ -187,7 +188,7 @@
             }
             
             function createCalloutBox(title, text, color) {
-                return `<table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-top:20px;"><tr><td style="padding: 20px 25px; background-color: ${color}Light; border-left: 5px solid ${color}; border-radius: 0 8px 8px 0;"><h2 style="font-family:${S.fontStack}; font-size:18px; color:${color}; margin:0 0 10px 0; font-weight:bold;">${title}</h2><p style="margin:0; text-align:justify;">${text}</p></td></tr></table>`.replace(`${color}Light`, C[`${color}Light`]);
+                return `<table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-top:20px;"><tr><td style="padding: 20px 25px; background-color: ${C[`${color}Light`]}; border-left: 5px solid ${C[color]}; border-radius: 0 8px 8px 0;"><h2 style="font-family:${S.fontStack}; font-size:18px; color:${C[color]}; margin:0 0 10px 0; font-weight:bold;">${title}</h2><p style="font-family:${S.fontStack}; margin:0; text-align:justify;">${text}</p></td></tr></table>`;
             }
 
             const T = {
@@ -195,7 +196,6 @@
                 greeting: `Bonjour <strong style="${S.strong}">${data.client_name || 'estimé(e) voyageur(se)'}</strong>,`,
                 intro1: `Je vous écris au nom de Voyages en Route, où nous avons le plaisir d’accompagner les familles et voyageurs dans la planification de leurs séjours. Je m'appelle Pierre-Luc Morin et je serais votre conseiller en voyages spécialisé en destinations <strong style="${S.strong}">Disney et Universal</strong>.`,
                 intro2: `Merci de nous avoir confié votre projet de voyage. J’ai pris soin de préparer une proposition basée sur les critères que vous avez partagés dans votre demande. Cette soumission est <strong style="${S.strong}">ajustable</strong>, et je serai heureux d’explorer avec vous différentes options afin de vous créer une expérience <strong style="${S.strong}">propre à vous et inoubliable</strong>.`,
-                banner_disney_stay: "Vos Options d'Hébergement",
                 disney_advantages_intro: `Séjourner dans un hôtel Disney, c’est profiter d’un univers immersif du matin au soir, mais aussi de <strong style="${S.strong}">nombreux avantages exclusifs</strong>&nbsp;:</p>`,
                 disney_advantages_list_items: [
                     `<strong style="${S.strong}">L’Early Theme Park Entry</strong>, pour accéder aux parcs avant l’ouverture officielle&nbsp;;`,
@@ -240,14 +240,11 @@
                     selectedHotels.forEach(hotel => {
                         const levelColor = C.level[hotel.level.toLowerCase().replace(/ /g, '_')] || C.textLight;
                         
-                        let prosList = `<table class="pros-table" width="100%" border="0" cellpadding="0" cellspacing="0"><tr>`;
+                        let prosList = '';
                         hotel.pointsForts.forEach((p, i) => {
-                            prosList += `<td class="pros-column" width="50%" style="padding-right:10px; padding-bottom:10px; vertical-align:top;"><span style="color:${C.blue}; font-size:16px; vertical-align:middle; margin-right:8px; font-weight:bold;">&#10004;</span><span style="vertical-align:middle; font-size:15px;">${p}</span></td>`;
-                            if ((i + 1) % 2 === 0) {
-                                prosList += '</tr><tr>';
-                            }
+                            const tagColor = C.tags[i % C.tags.length];
+                            prosList += `<span style="display:inline-block; background-color:${tagColor}; color:${C.white}; padding: 5px 12px; margin: 0 8px 8px 0; border-radius: 15px; font-size: 14px; font-weight: bold;">${p}</span>`;
                         });
-                        prosList += '</tr></table>';
 
                         hotelCards += `
                             <div class="hotel-card" style="margin-top: 25px; border: 1px solid ${C.border}; border-radius: 8px;">
@@ -259,7 +256,7 @@
                                     <p style="font-family:${S.fontStack}; font-size:15px; line-height:1.5; color:${C.textLight}; margin:15px 0 0 0; text-align:justify;">${hotel.description}</p>
                                     <hr style="border:none; border-top:1px solid ${C.border}; margin: 20px 0;">
                                     <h3 style="font-family:${S.fontStack}; font-size:16px; color:${C.blue}; margin:0 0 15px 0;">POINTS FORTS&nbsp;:</h3>
-                                    ${prosList}
+                                    <div>${prosList}</div>
                                 </div>
                                 <div style="background-color:${C.blueLight}; padding: 15px 20px; text-align:center; border-radius: 0 0 8px 8px; border-top: 1px solid ${C.border};">
                                     <span style="font-size:14px; color:${C.textLight}; font-weight:bold; text-transform:uppercase;">PRIX DU FORFAIT</span><br>
@@ -305,19 +302,19 @@
                  let flightDetails = `<p style="${S.p}">${T.flight_intro}</p>
                     <div style="border: 1px solid ${C.border}; border-radius: 8px; margin-top:20px;">
                         <div style="padding:20px; border-bottom:1px dashed ${C.border};">
-                            <h3 style="margin:0 0 15px 0; font-size:18px; color:${C.blue};">✈️ Vol aller</h3>
+                            <h3 style="margin:0 0 20px 0; font-size:18px; color:${C.blue};">✈️ Vol aller</h3>
                              <table width="100%" border="0" cellpadding="0" cellspacing="0">
                                 <tr>
-                                    <td width="45%" style="text-align:center; vertical-align:top;">
+                                    <td class="flight-column" style="width:45%; text-align:center; vertical-align:top;">
                                         <div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Départ</div>
                                         <div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${data.departure_airport_aller || 'N/A'}</div>
-                                        <table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto;">
+                                        <table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto; text-align:left;">
                                             <tr><td style="padding-bottom:10px;">📅&nbsp;${formatDateFR(data.departure_date_aller)}</td></tr>
                                             <tr><td>🕒&nbsp;${formatTime(data.departure_time_aller)}</td></tr>
                                         </table>
                                     </td>
-                                    <td width="10%" style="text-align:center; vertical-align:center;">${arrow}</td>
-                                    <td width="45%" style="text-align:center; vertical-align:top;">
+                                    <td class="flight-arrow" style="width:10%; text-align:center; vertical-align:center;">${arrow}</td>
+                                    <td class="flight-column" style="width:45%; text-align:center; vertical-align:top;">
                                         <div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Arrivée</div>
                                         <div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${data.arrival_airport_aller || 'N/A'}</div>
                                         <div style="font-size:14px; color:${C.textLight}">${data.airline_aller || ''} ${data.flight_number_aller || ''}</div>
@@ -326,19 +323,19 @@
                             </table>
                         </div>
                         <div style="padding:20px;">
-                            <h3 style="margin:0 0 15px 0; font-size:18px; color:${C.blue};">✈️ Vol retour</h3>
+                            <h3 style="margin:0 0 20px 0; font-size:18px; color:${C.blue};">✈️ Vol retour</h3>
                              <table width="100%" border="0" cellpadding="0" cellspacing="0">
                                 <tr>
-                                    <td width="45%" style="text-align:center; vertical-align:top;">
+                                    <td class="flight-column" style="width:45%; text-align:center; vertical-align:top;">
                                         <div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Départ</div>
                                         <div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${data.departure_airport_retour || 'N/A'}</div>
-                                         <table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto;">
+                                         <table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto; text-align:left;">
                                             <tr><td style="padding-bottom:10px;">📅&nbsp;${formatDateFR(data.departure_date_retour)}</td></tr>
                                             <tr><td>🕒&nbsp;${formatTime(data.departure_time_retour)}</td></tr>
                                         </table>
                                     </td>
-                                    <td width="10%" style="text-align:center; vertical-align:center;">${arrow}</td>
-                                    <td width="45%" style="text-align:center; vertical-align:top;">
+                                    <td class="flight-arrow" style="width:10%; text-align:center; vertical-align:center;">${arrow}</td>
+                                    <td class="flight-column" style="width:45%; text-align:center; vertical-align:top;">
                                         <div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Arrivée</div>
                                         <div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${data.arrival_airport_retour || 'N/A'}</div>
                                         <div style="font-size:14px; color:${C.textLight}">${data.airline_retour || ''} ${data.flight_number_retour || ''}</div>
@@ -346,25 +343,30 @@
                                 </tr>
                             </table>
                         </div>
+                    </div>
+                    <div style="background-color:${C.blueLight}; padding: 15px 20px; text-align:center; border-radius: 8px; margin-top:20px; border: 1px solid ${C.border};">
+                        <span style="font-size:14px; color:${C.textLight}; font-weight:bold; text-transform:uppercase;">PRIX APPROXIMATIF DES VOLS</span><br>
+                        <strong style="font-size:28px; color:${C.textDark}; line-height:1.2;">${data.flight_price ? data.flight_price + '&nbsp;CAD' : 'N/A'}</strong>
                     </div>`;
+
                 if (data.flight_notes) {
                     flightDetails += `<p style="${S.p} font-style:italic; font-weight:bold; color:${C.textLight}; border-left:3px solid ${C.border}; padding-left:15px; margin-top:20px;">${data.flight_notes.replace(/\n/g, '<br>')}</p>`;
                 }
                 
                 flightDetails += createCalloutBox(T.flight_important_label, T.flight_important_text, "orange");
-
-                flightDetails += `<p style="${S.p} margin-top:20px;"><strong style="${S.strong}">Prix total approximatif des vols&nbsp;:</strong> ${data.flight_price || 'N/A'} CAD</p>
-                                  <p style="${S.p} font-size:14px; color:${C.textLight}; text-align:left;">${T.flight_price_info}</p>`;
+                flightDetails += `<p style="${S.p} font-size:14px; color:${C.textLight}; text-align:left; margin-top:20px;">${T.flight_price_info}</p>`;
                                   
                 flightSection = `<tr><td style="padding: 20px 30px 30px 30px;">${flightDetails}</td></tr>`;
             }
 
             let closingSection = `<p style="${S.p}">${T.closing1}</p><p style="${S.p}">${T.closing2}</p><p style="${S.p}">${T.closing3}</p>`;
             
+            const hotelBannerText = data.booking_type === 'tickets_only' ? "Billets de Parc Disney" : "Forfaits Hôtel & Billets Disney";
+
             return `<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${T.banner1}</title></head><body style="margin:0; padding:0; background-color:${C.background};"><table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color:${C.background};"><tr><td align="center"><table width="680" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width: 680px; max-width: 100%; margin: 20px auto; background-color: ${C.white};">
                 ${createBanner(T.banner1, 'main')}
                 <tr><td style="padding: 20px 30px 30px 30px;">${introSection}</td></tr>
-                ${createBanner(T.banner_disney_stay, 'sub')}
+                ${createBanner(hotelBannerText, 'sub')}
                 <tr><td style="padding: 20px 30px 10px 30px;">${hotelSection}</td></tr>
                 <tr><td style="padding: 10px 30px 30px 30px;">${promotionSection}</td></tr>
                 <tr><td style="padding: 0 30px 30px 30px;"><p style="${S.p} font-size:14px; color:${C.textLight}; text-align:center; ${S.italic}">${priceDisclaimer}</p></td></tr>
@@ -375,7 +377,6 @@
             </table></td></tr></table></body></html>`;
         }
 
-        // --- Le reste du script JS pour le formulaire reste identique ---
         document.addEventListener('DOMContentLoaded', function() {
             const hotelSelectionsDiv = document.getElementById('hotel_selections');
             const addHotelButton = document.getElementById('add_hotel_button');
@@ -422,7 +423,6 @@
                 }
             });
 
-            // Start with one hotel selector
             hotelSelectionsDiv.appendChild(createHotelSelector());
             updateAddHotelButtonState();
             
@@ -434,7 +434,6 @@
                 const formData = new FormData(form);
                 const data = {};
                 
-                // Get all form data
                 for (let [key, value] of formData.entries()) {
                     if (!key.startsWith('hotel_')) {
                         data[key] = value;
@@ -442,7 +441,6 @@
                 }
                 data.include_flights = formData.has('include_flights');
                 
-                // Get hotel data
                 data.hotels = [];
                 const hotelGroups = hotelSelectionsDiv.querySelectorAll('.hotel-option-group');
                 hotelGroups.forEach(group => {
