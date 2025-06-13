@@ -305,76 +305,87 @@ if (selectedHotels.length === 1) {
             let priceDisclaimer = (data.booking_type === 'hotel_tickets' && selectedHotels.length > 0) ? T.disney_price_disclaimer : T.tickets_only_price_disclaimer;
 
 // REMPLACEZ PAR CE BLOC ENTIER
-            let flightSection = '';
-            if (data.include_flights) {
-                if (data.too_early_for_flights) {
-                    // Si la case "trop tôt" est cochée, on affiche ce message
-                    const tooEarlyMessage = `<p style="${S.p}">Concernant les vols, il est encore trop tôt pour obtenir les horaires et les tarifs précis, car les compagnies aériennes ne les ont pas encore publiés pour cette période. Je garde un œil attentif sur les annonces et je reviendrai vers vous avec les meilleures options dès qu'elles seront disponibles.</p>`;
-                    flightSection = `<tr><td style="padding: 20px 30px 30px 30px;">${tooEarlyMessage}</td></tr>`;
-                } else {
-                    // Sinon, on affiche les détails de vol comme avant
-                    const arrow = `<span style="color:${C.orange}; font-weight:bold; font-size:24px; line-height:1;">&nbsp;&rarr;&nbsp;</span>`;
+            let flightSection = '';
+            if (data.include_flights) {
+                if (data.too_early_for_flights) {
+                    const tooEarlyMessage = `<p style="${S.p}">Concernant les vols, il est encore trop tôt pour obtenir les horaires et les tarifs précis, car les compagnies aériennes ne les ont pas encore publiés pour cette période. Je garde un œil attentif sur les annonces et je reviendrai vers vous avec les meilleures options dès qu'elles seront disponibles.</p>`;
+                    flightSection = `<tr><td style="padding: 20px 30px 30px 30px;">${tooEarlyMessage}</td></tr>`;
+                } else {
+                    const arrow = `<span style="color:${C.orange}; font-weight:bold; font-size:24px; line-height:1;">&nbsp;&rarr;&nbsp;</span>`;
 
-                    let flightDetails = `<p style="${S.p}">${T.flight_intro}</p>
-                     <div style="border: 1px solid ${C.border}; border-radius: 8px; margin-top:20px;">
-                         <div style="padding:20px; border-bottom:1px dashed ${C.border};">
-                             <h3 style="margin:0 0 20px 0; font-size:18px; color:${C.blue};">✈️ Vol aller</h3>
-                              <table width="100%" border="0" cellpadding="0" cellspacing="0">
-                                 <tr>
-                                     <td class="flight-column" style="width:45%; text-align:center; vertical-align:top;">
-                                         <div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Départ</div>
-                                         <div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${data.departure_airport_aller || 'N/A'}</div>
-                                         <table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto; text-align:left;">
-                                             <tr><td style="padding-bottom:10px;">📅&nbsp;${formatDateFR(data.departure_date_aller)}</td></tr>
-                                             <tr><td>🕒&nbsp;${formatTime(data.departure_time_aller)}</td></tr>
-                                         </table>
-                                     </td>
-                                     <td class="flight-arrow" style="width:10%; text-align:center; vertical-align:middle;">${arrow}</td>
-                                     <td class="flight-column" style="width:45%; text-align:center; vertical-align:top;">
-                                         <div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Arrivée</div>
-                                         <div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${data.arrival_airport_aller || 'N/A'}</div>
-                                         <div style="font-size:14px; color:${C.textLight}; margin-top:10px;">${data.airline_aller || ''} ${data.flight_number_aller || ''}</div>
-                                     </td>
-                                 </tr>
-                             </table>
-                         </div>
-                         <div style="padding:20px;">
-                             <h3 style="margin:0 0 20px 0; font-size:18px; color:${C.blue};">✈️ Vol retour</h3>
-                              <table width="100%" border="0" cellpadding="0" cellspacing="0">
-                                 <tr>
-                                     <td class="flight-column" style="width:45%; text-align:center; vertical-align:top;">
-                                         <div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Départ</div>
-                                         <div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${data.departure_airport_retour || 'N/A'}</div>
-                                          <table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto; text-align:left;">
-                                             <tr><td style="padding-bottom:10px;">📅&nbsp;${formatDateFR(data.departure_date_retour)}</td></tr>
-                                             <tr><td>🕒&nbsp;${formatTime(data.departure_time_retour)}</td></tr>
-                                         </table>
-                                     </td>
-                                     <td class="flight-arrow" style="width:10%; text-align:center; vertical-align:middle;">${arrow}</td>
-                                     <td class="flight-column" style="width:45%; text-align:center; vertical-align:top;">
-                                         <div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Arrivée</div>
-                                         <div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${data.arrival_airport_retour || 'N/A'}</div>
-                                         <div style="font-size:14px; color:${C.textLight}; margin-top:10px;">${data.airline_retour || ''} ${data.flight_number_retour || ''}</div>
-                                     </td>
-                                 </tr>
-                             </table>
-                         </div>
-                         <div style="background-color:${C.blueLight}; padding: 15px 20px; text-align:center; border-radius: 0 0 8px 8px; border-top: 1px solid ${C.border};">
-                             <span style="font-family:${S.fontStack}; font-size:14px; color:${C.textLight}; font-weight:bold; text-transform:uppercase;">PRIX APPROXIMATIF DES VOLS</span><br>
-                             <strong style="font-family:${S.fontStack}; font-size:28px; color:${C.textDark}; line-height:1.2;">${data.flight_price ? data.flight_price + '&nbsp;CAD' : 'N/A'}</strong>
-                         </div>
-                     </div>`;
+                    // Consistent font style for the entire flight details container
+                    const flightDetailsContainerStyle = `font-family: ${S.fontStack}; border: 1px solid ${C.border}; border-radius: 8px; margin-top:20px;`;
+                    const flightColumnStyle = `width:45%; text-align:center; vertical-align:top; font-family: ${S.fontStack};`;
+                    const flightInfoStyle = `font-size:15px; color:${C.textDark}; line-height:1.6;`;
+                    const flightHeaderStyle = `font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;`;
+                    const airportStyle = `font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;`;
 
-                    if (data.flight_notes) {
-                        flightDetails += `<p style="${S.p} font-style:italic; font-weight:bold; color:${C.textLight}; border-left:3px solid ${C.border}; padding-left:15px; margin-top:20px;">${data.flight_notes.replace(/\n/g, '<br>')}</p>`;
-                    }
-                    
-                    flightDetails += createCalloutBox(T.flight_important_label, T.flight_important_text, "orange");
-                    flightDetails += `<p style="${S.p} font-size:14px; color:${C.textLight}; text-align:left; margin-top:20px;">${T.flight_price_info}</p>`;
-                                  
-                    flightSection = `<tr><td style="padding: 20px 30px 30px 30px;">${flightDetails}</td></tr>`;
-                }
-            }
+                    let flightDetails = `<p style="${S.p}">${T.flight_intro}</p>
+                       <div style="${flightDetailsContainerStyle}">
+                           <div style="padding:20px; border-bottom:1px dashed ${C.border};">
+                               <h3 style="margin:0 0 20px 0; font-size:18px; color:${C.blue}; font-family: ${S.fontStack};">✈️ Vol aller</h3>
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="${flightColumnStyle}">
+                                            <div style="${flightHeaderStyle}">Départ</div>
+                                            <div style="${airportStyle}">${data.departure_airport_aller || 'N/A'}</div>
+                                            <div style="${flightInfoStyle}">
+                                                📅&nbsp;${formatDateFR(data.departure_date_aller)}<br>
+                                                🕒&nbsp;${formatTime(data.departure_time_aller)}
+                                            </div>
+                                        </td>
+                                        <td style="width:10%; text-align:center; vertical-align:middle;">${arrow}</td>
+                                        <td style="${flightColumnStyle}">
+                                            <div style="${flightHeaderStyle}">Arrivée</div>
+                                            <div style="${airportStyle}">${data.arrival_airport_aller || 'N/A'}</div>
+                                            <div style="${flightInfoStyle}">
+                                                ${data.airline_aller || 'Compagnie non spécifiée'}<br>
+                                                ${data.flight_number_aller || 'Vol non spécifié'}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                           </div>
+                           <div style="padding:20px;">
+                               <h3 style="margin:0 0 20px 0; font-size:18px; color:${C.blue}; font-family: ${S.fontStack};">✈️ Vol retour</h3>
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="${flightColumnStyle}">
+                                            <div style="${flightHeaderStyle}">Départ</div>
+                                            <div style="${airportStyle}">${data.departure_airport_retour || 'N/A'}</div>
+                                            <div style="${flightInfoStyle}">
+                                                📅&nbsp;${formatDateFR(data.departure_date_retour)}<br>
+                                                🕒&nbsp;${formatTime(data.departure_time_retour)}
+                                            </div>
+                                        </td>
+                                        <td style="width:10%; text-align:center; vertical-align:middle;">${arrow}</td>
+                                        <td style="${flightColumnStyle}">
+                                            <div style="${flightHeaderStyle}">Arrivée</div>
+                                            <div style="${airportStyle}">${data.arrival_airport_retour || 'N/A'}</div>
+                                            <div style="${flightInfoStyle}">
+                                                ${data.airline_retour || 'Compagnie non spécifiée'}<br>
+                                                ${data.flight_number_retour || 'Vol non spécifié'}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                           </div>
+                           <div style="background-color:${C.blueLight}; padding: 20px; text-align:center; border-radius: 0 0 8px 8px; border-top: 1px solid ${C.border};">
+                               <div style="font-family:${S.fontStack}; font-size:16px; color:${C.textDark}; font-weight:bold; text-transform:uppercase; margin-bottom: 5px;">PRIX APPROXIMATIF DES VOLS</div>
+                               <strong style="font-family:${S.fontStack}; font-size:28px; color:${C.textDark}; line-height:1.2;">${data.flight_price ? data.flight_price + '&nbsp;CAD' : 'N/A'}</strong>
+                           </div>
+                       </div>`;
+
+                    if (data.flight_notes) {
+                        flightDetails += `<p style="${S.p} font-style:italic; font-weight:bold; color:${C.textLight}; border-left:3px solid ${C.border}; padding-left:15px; margin-top:20px;">${data.flight_notes.replace(/\n/g, '<br>')}</p>`;
+                    }
+                    
+                    flightDetails += createCalloutBox(T.flight_important_label, T.flight_important_text, "orange");
+                    flightDetails += `<p style="${S.p} font-size:14px; color:${C.textLight}; text-align:left; margin-top:20px;">${T.flight_price_info}</p>`;
+                                        
+                    flightSection = `<tr><td style="padding: 20px 30px 30px 30px;">${flightDetails}</td></tr>`;
+                }
+            }
             let closingSection = `<p style="${S.p}">${T.closing1}</p><p style="${S.p}">${T.closing2}</p><p style="${S.p}">${T.closing3}</p>`;
             
             const hotelBannerText = data.booking_type === 'tickets_only' ? "Billets de Parc Disney" : "Forfaits Hôtel & Billets Disney";
