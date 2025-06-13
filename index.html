@@ -229,6 +229,16 @@
             };
             
             let introSection = `<p style="${S.p}">${T.greeting}</p><p style="${S.p}">${T.intro1}</p><p style="${S.p}">${T.intro2}</p>`;
+            const logosEmail = `<table width="100%" cellpadding="0" cellspacing="0" style="background-color:#eceff1;margin:20px 0;border-radius:8px;">
+                                    <tr>
+                                        <td style="width:50%;text-align:center;padding:10px;">
+                                            <img src="https://www.voyagesenroute.com/wp-content/uploads/2024/12/logo-argent-300x151.webp" alt="Logo agence" style="max-height:80px;">
+                                        </td>
+                                        <td style="width:50%;text-align:center;padding:10px;">
+                                            <img src="https://www.voyagesenroute.com/wp-content/uploads/2024/10/Logo_Fond_Blanc_2.svg" alt="Earmarked" style="max-height:80px;">
+                                        </td>
+                                    </tr>
+                                </table>`;
             let hotelSection = '';
             const selectedHotels = data.hotels || [];
 
@@ -258,9 +268,9 @@ if (selectedHotels.length === 1) {
                             </div>
                         </div>
                     `;
-                    hotelSection += `<p style="${S.p}">Pour votre séjour, voici l'option que j'ai sélectionnée pour vous :</p>${hotelCard}`;
+                    hotelSection += `<p style="${S.p}">Pour votre séjour, voici l'option que j'ai sélectionnée pour vous :</p>${logosEmail}${hotelCard}`;
                 } else {
-                    hotelSection += `<p style="${S.p}">Voici plusieurs options d’hébergement pour votre séjour. Chaque proposition ci-dessous correspond à un forfait détaillé dans un document PDF distinct.</p>`;
+                    hotelSection += `<p style="${S.p}">Voici plusieurs options d’hébergement pour votre séjour. Chaque proposition ci-dessous correspond à un forfait détaillé dans un document PDF distinct.</p>${logosEmail}`;
                     let hotelCards = '';
                     selectedHotels.forEach(hotel => {
                         const levelColor = C.level[hotel.level.toLowerCase().replace(/ /g, '_')] || C.textLight;
