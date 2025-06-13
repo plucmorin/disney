@@ -35,8 +35,8 @@
 <body>
     <div class="container">
         <div class="header-logos">
-            <img src="https://i.ibb.co/GQVYyJn2/Disney-Organisateur-de-vacances-autorise-Disney-Ear-Marked-argent-1-1-e1722367433886.png" alt="Earmarked">
             <img src="https://www.voyagesenroute.com/wp-content/uploads/2024/10/Logo_Fond_Blanc_2.svg" alt="Logo agence">
+            <img src="https://i.ibb.co/GQVYyJn2/Disney-Organisateur-de-vacances-autorise-Disney-Ear-Marked-argent-1-1-e1722367433886.png" alt="Earmarked">
         </div>
         <h1>Générateur d'e-mail Disney</h1>
         <form id="disneyForm">
@@ -205,6 +205,16 @@
 
             const T = {
                 banner1: "Votre Aventure Magique Commence Ici",
+                        const logosEmail = `<table width="100%" cellpadding="0" cellspacing="0" style="background-color:#eceff1;margin:20px 0;border-radius:8px;">
+                                    <tr>
+                                        <td style="width:50%;text-align:center;padding:10px;">
+                                             <img src="https://www.voyagesenroute.com/wp-content/uploads/2024/10/Logo_Fond_Blanc_2.svg" alt="Logo agence" style="max-height:80px;">
+                                        </td>
+                                        <td style="width:50%;text-align:center;padding:10px;">
+                                        <img src="https://i.ibb.co/GQVYyJn2/Disney-Organisateur-de-vacances-autorise-Disney-Ear-Marked-argent-1-1-e1722367433886.png" alt="Earmarked" style="max-height:80px;">   
+                                        </td>
+                                    </tr>
+                                </table>`;
                 greeting: `Bonjour <strong style="${S.strong}">${data.client_name || 'estimé(e) voyageur(se)'}</strong>,`,
                 intro1: `Je vous écris au nom de Voyages en Route, où nous avons le plaisir d’accompagner les familles et voyageurs dans la planification de leurs séjours. Je m'appelle Pierre-Luc Morin et je serais votre conseiller en voyages spécialisé en destinations <strong style="${S.strong}">Disney et Universal</strong>.`,
                 intro2: `Merci de nous avoir confié votre projet de voyage. J’ai pris soin de préparer une proposition basée sur les critères que vous avez partagés dans votre demande. Cette soumission est <strong style="${S.strong}">ajustable</strong>, et je serai heureux d’explorer avec vous différentes options afin de vous créer une expérience <strong style="${S.strong}">propre à vous et inoubliable</strong>.`,
@@ -229,16 +239,6 @@
             };
             
             let introSection = `<p style="${S.p}">${T.greeting}</p><p style="${S.p}">${T.intro1}</p><p style="${S.p}">${T.intro2}</p>`;
-            const logosEmail = `<table width="100%" cellpadding="0" cellspacing="0" style="background-color:#eceff1;margin:20px 0;border-radius:8px;">
-                                    <tr>
-                                        <td style="width:50%;text-align:center;padding:10px;">
-                                            <img src="https://i.ibb.co/GQVYyJn2/Disney-Organisateur-de-vacances-autorise-Disney-Ear-Marked-argent-1-1-e1722367433886.png" alt="Earmarked" style="max-height:80px;">
-                                        </td>
-                                        <td style="width:50%;text-align:center;padding:10px;">
-                                            <img src="https://www.voyagesenroute.com/wp-content/uploads/2024/10/Logo_Fond_Blanc_2.svg" alt="Logo agence" style="max-height:80px;">
-                                        </td>
-                                    </tr>
-                                </table>`;
             let hotelSection = '';
             const selectedHotels = data.hotels || [];
 
