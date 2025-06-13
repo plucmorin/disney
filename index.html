@@ -185,6 +185,10 @@
                 }
                 return `<tr><td style="${style}"><div style="${wrapperStyle}"><h1 style="${titleStyle}">${text}</h1></div></td></tr>`;
             }
+            
+            function createCalloutBox(title, text, color) {
+                return `<table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-top:20px;"><tr><td style="padding: 20px 25px; background-color: ${color}Light; border-left: 5px solid ${color}; border-radius: 0 8px 8px 0;"><h2 style="font-family:${S.fontStack}; font-size:18px; color:${color}; margin:0 0 10px 0; font-weight:bold;">${title}</h2><p style="margin:0; text-align:justify;">${text}</p></td></tr></table>`.replace(`${color}Light`, C[`${color}Light`]);
+            }
 
             const T = {
                 banner1: "Votre Aventure Magique Commence Ici",
@@ -204,7 +208,7 @@
                 banner_travel_fees: "Itinéraire de Vol",
                 flight_intro: "Pour compléter votre voyage vers la magie, voici les détails concernant le transport aérien que nous avons exploré&nbsp;:",
                 flight_price_info: `<em style="${S.italic}">Les prix sont à titre indicatif et peuvent changer à tout moment.</em>`,
-                flight_important_label: `<strong style="${S.strong}">IMPORTANT&nbsp;:</strong>`,
+                flight_important_label: `IMPORTANT`,
                 flight_important_text: `Les tarifs aériens sont dynamiques et peuvent changer jusqu'à la réservation. Des frais de service de <strong style="${S.strong}">50$ CAD par personne</strong> s'appliquent pour la réservation des vols via nos services. En me confiant vos vols, je m'occupe de tout désagrément potentiel. Si vous optez pour une réservation personnelle, ces frais ne s'appliquent pas, mais le support en cas de problème avec les vols ne sera pas inclus pour cette portion.`,
                 banner_magic_continues: "La Magie Continue...",
                 closing1: `Prenez le temps de rêver à ces options et de considérer ce qui ferait de ce voyage une expérience <strong style="${S.strong}">véritablement inoubliable</strong>. Je suis à votre <strong style="${S.strong}">entière disposition</strong> pour répondre à toutes vos questions, affiner chaque détail ou procéder à la réservation de cette <em style="${S.italic}">aventure mémorable</em>.`,
@@ -218,7 +222,6 @@
 
             if (data.booking_type === 'hotel_tickets' && selectedHotels.length > 0) {
                  if (selectedHotels.length === 1) {
-                    // Logic for single hotel remains the same
                     const hotel = selectedHotels[0];
                     const levelColor = C.level[hotel.level.toLowerCase().replace(/ /g, '_')] || C.textLight;
                     hotelSection += `<p style="${S.p}">Pour votre séjour, j’ai sélectionné l’option suivante&nbsp;:</p>
@@ -278,14 +281,14 @@
 
             let promoText = "";
             if (data.promotion_type === 'aucune') {
-                promoText = `Pour garantir votre place au cœur de la magie, un dépôt de seulement <strong style="${S.strong}">200 USD</strong> est requis. Soyez assuré que je veillerai personnellement à appliquer toute nouvelle promotion applicable d'ici votre départ pour optimiser la valeur de votre voyage. Ce dépôt est <strong style="${S.strong}">entièrement remboursable jusqu'à 30 jours avant votre arrivée</strong>, vous offrant une <strong style="${S.strong}">flexibilité totale</strong> pour planifier en toute sérénité.`;
+                promoText = `Pour garantir votre place, un dépôt de seulement <strong style="${S.strong}">200 USD</strong> est requis. Les promotions Disney deviennent souvent disponibles et sont parfois complétement réservées à l'intérieur de quelques heures. Il est donc important de réserver d'avance pour que je sois en mesure de les obtenir pour vous de manière rapide et systématique, afin que vous ayez toujours le meilleur rapport qualité-prix. Le reste de la balance de paiement est aussi à effectuer 30 jours avant le check-in.`;
             } else {
                 let promoEndDateInfo = data.promotion_end_date ? ` (prend fin le <strong style="${S.strong}">${formatDateFR(data.promotion_end_date)}</strong>)` : "";
                 let promoNameInfo = data.promotion_name ? `&nbsp;: <strong style="${S.strong}">${data.promotion_name}</strong>` : "";
-                promoText = `Une promotion est applicable pour votre séjour${promoNameInfo}${promoEndDateInfo}. L’offre est cependant <em style="${S.italic}">limitée</em>. Pour garantir votre place au cœur de la magie, un dépôt de seulement <strong style="${S.strong}">200 USD</strong> est requis. Ce dépôt est <strong style="${S.strong}">entièrement remboursable jusqu'à 30 jours avant votre arrivée</strong>, vous offrant une <strong style="${S.strong}">flexibilité totale</strong> pour planifier en toute sérénité.`;
+                promoText = `Une promotion est applicable pour votre séjour${promoNameInfo}${promoEndDateInfo}. L’offre est cependant <em style="${S.italic}">limitée</em>. Pour garantir votre place au cœur de la magie, un dépôt de seulement <strong style="${S.strong}">200 USD</strong> est requis. Ce dépôt est <strong style="${S.strong}">entièrement remboursable jusqu'à 30 jours avant votre arrivée</strong>, vous offrant une flexibilité totale. Le reste de la balance de paiement est aussi à effectuer 30 jours avant le check-in.`;
             }
             
-            let promotionSection = `<table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-top:20px;"><tr><td style="padding: 20px 25px; background-color: ${C.orangeLight}; border-left: 5px solid ${C.orange}; border-radius: 0 8px 8px 0;"><h2 style="font-family:${S.fontStack}; font-size:18px; color:${C.orange}; margin:0 0 10px 0; font-weight:bold;">PROMOTIONS ET DÉPÔT REQUIS</h2><p style="${S.p} margin:0;">${promoText}</p></td></tr></table>`;
+            let promotionSection = createCalloutBox("PROMOTIONS ET DÉPÔT REQUIS", promoText, "orange");
             let priceDisclaimer = (data.booking_type === 'hotel_tickets' && selectedHotels.length > 0) ? T.disney_price_disclaimer : T.tickets_only_price_disclaimer;
 
             let flightSection = '';
@@ -308,8 +311,10 @@
                                     <td width="45%" style="text-align:center; vertical-align:top;">
                                         <div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Départ</div>
                                         <div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${data.departure_airport_aller || 'N/A'}</div>
-                                        <div>📅&nbsp;${formatDateFR(data.departure_date_aller)}</div>
-                                        <div>🕒&nbsp;${formatTime(data.departure_time_aller)}</div>
+                                        <table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto;">
+                                            <tr><td style="padding-bottom:10px;">📅&nbsp;${formatDateFR(data.departure_date_aller)}</td></tr>
+                                            <tr><td>🕒&nbsp;${formatTime(data.departure_time_aller)}</td></tr>
+                                        </table>
                                     </td>
                                     <td width="10%" style="text-align:center; vertical-align:center;">${arrow}</td>
                                     <td width="45%" style="text-align:center; vertical-align:top;">
@@ -327,8 +332,10 @@
                                     <td width="45%" style="text-align:center; vertical-align:top;">
                                         <div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Départ</div>
                                         <div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${data.departure_airport_retour || 'N/A'}</div>
-                                        <div>📅&nbsp;${formatDateFR(data.departure_date_retour)}</div>
-                                        <div>🕒&nbsp;${formatTime(data.departure_time_retour)}</div>
+                                         <table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto;">
+                                            <tr><td style="padding-bottom:10px;">📅&nbsp;${formatDateFR(data.departure_date_retour)}</td></tr>
+                                            <tr><td>🕒&nbsp;${formatTime(data.departure_time_retour)}</td></tr>
+                                        </table>
                                     </td>
                                     <td width="10%" style="text-align:center; vertical-align:center;">${arrow}</td>
                                     <td width="45%" style="text-align:center; vertical-align:top;">
@@ -343,27 +350,18 @@
                 if (data.flight_notes) {
                     flightDetails += `<p style="${S.p} font-style:italic; font-weight:bold; color:${C.textLight}; border-left:3px solid ${C.border}; padding-left:15px; margin-top:20px;">${data.flight_notes.replace(/\n/g, '<br>')}</p>`;
                 }
-                flightDetails += `<p style="${S.p}"><strong style="${S.strong}">Prix total approximatif des vols&nbsp;:</strong> ${data.flight_price || 'N/A'} CAD</p>
-                                  <p style="${S.p} font-size:14px; color:${C.textLight}; text-align:left;">${T.flight_price_info}</p>
-                                  <p style="${S.p} font-size:14px; color:${C.textLight}; text-align:left;">${T.flight_important_label} ${T.flight_important_text}</p>`;
+                
+                flightDetails += createCalloutBox(T.flight_important_label, T.flight_important_text, "orange");
+
+                flightDetails += `<p style="${S.p} margin-top:20px;"><strong style="${S.strong}">Prix total approximatif des vols&nbsp;:</strong> ${data.flight_price || 'N/A'} CAD</p>
+                                  <p style="${S.p} font-size:14px; color:${C.textLight}; text-align:left;">${T.flight_price_info}</p>`;
+                                  
                 flightSection = `<tr><td style="padding: 20px 30px 30px 30px;">${flightDetails}</td></tr>`;
             }
 
             let closingSection = `<p style="${S.p}">${T.closing1}</p><p style="${S.p}">${T.closing2}</p><p style="${S.p}">${T.closing3}</p>`;
             
-            const responsiveCSS = `
-                <style>
-                    @media screen and (max-width: 600px) {
-                        .pros-table .pros-column {
-                            display: block !important;
-                            width: 100% !important;
-                            padding-right: 0 !important;
-                        }
-                    }
-                </style>
-            `;
-
-            return `<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${T.banner1}</title>${responsiveCSS}</head><body style="margin:0; padding:0; background-color:${C.background};"><table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color:${C.background};"><tr><td align="center"><table width="680" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width: 680px; max-width: 100%; margin: 20px auto; background-color: ${C.white};">
+            return `<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${T.banner1}</title></head><body style="margin:0; padding:0; background-color:${C.background};"><table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color:${C.background};"><tr><td align="center"><table width="680" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width: 680px; max-width: 100%; margin: 20px auto; background-color: ${C.white};">
                 ${createBanner(T.banner1, 'main')}
                 <tr><td style="padding: 20px 30px 30px 30px;">${introSection}</td></tr>
                 ${createBanner(T.banner_disney_stay, 'sub')}
