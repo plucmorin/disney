@@ -505,7 +505,10 @@ if (selectedHotels.length === 1) {
             const bookingTypeSelect = document.getElementById('booking_type');
             // ...
             
-            function toggleFlightDetails() { flightDetailsDiv.classList.toggle('hidden', !includeFlightsCheckbox.checked); }
+            function toggleFlightDetails() {
+                flightDetailsDiv.classList.toggle('hidden', !includeFlightsCheckbox.checked);
+                toggleFlightInputs();
+            }
             // ...
 
             // --- FONCTION À AJOUTER ---
@@ -516,7 +519,10 @@ if (selectedHotels.length === 1) {
             }
             // --- FIN DE LA FONCTION À AJOUTER ---
 
-            includeFlightsCheckbox.addEventListener('change', toggleFlightDetails);
+            includeFlightsCheckbox.addEventListener('change', function() {
+                toggleFlightDetails();
+                toggleFlightInputs();
+            });
             // --- LIGNE À AJOUTER ---
             tooEarlyForFlightsCheckbox.addEventListener('change', toggleFlightInputs);
             // --- FIN DE LA LIGNE À AJOUTER ---
