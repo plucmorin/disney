@@ -213,6 +213,8 @@
                 closing2: `N'hésitez pas à me joindre par courriel (en répondant simplement à celui-ci) ou par téléphone au <strong style="${S.strong}">819-347-9103</strong>.`,
                 closing3: `Merci encore pour votre confiance. J'ai sincèrement hâte de transformer ce <strong style="${S.strong}">rêve Disney</strong> en une <strong style="${S.strong}">magnifique réalité pour vous&nbsp;!</strong>`
             };
+
+            const logosEmail = T.logosEmail;
             
             let travelersInfo = `<p style="${S.p} font-weight:bold;">Groupe : ${data.adults || '0'} adulte(s) et ${data.children || '0'} enfant(s)</p>`;
             let introSection = `<p style="${S.p}">${T.greeting}</p><p style="${S.p}">${T.intro1}</p><p style="${S.p}">${T.intro2}</p>${travelersInfo}`;
@@ -417,6 +419,7 @@ if (selectedHotels.length === 1) {
 
         // --- Le reste du script JS pour le formulaire reste identique ---
         // Initialisation du formulaire une fois la page chargée
+        document.addEventListener('DOMContentLoaded', function() {
             const hotelSelectionsDiv = document.getElementById('hotel_selections');
             const addHotelButton = document.getElementById('add_hotel_button');
             let hotelCounter = 0;
@@ -696,6 +699,7 @@ if (selectedHotels.length === 1) {
             // --- FIN DE LA LIGNE À AJOUTER ---
             toggleHotelOptions();
             togglePromotionDetails();
+        });
 
     </script>
 </body>
