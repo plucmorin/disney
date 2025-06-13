@@ -221,19 +221,32 @@
             const selectedHotels = data.hotels || [];
 
             if (data.booking_type === 'hotel_tickets' && selectedHotels.length > 0) {
-                 if (selectedHotels.length === 1) {
+if (selectedHotels.length === 1) {
                     const hotel = selectedHotels[0];
                     const levelColor = C.level[hotel.level.toLowerCase().replace(/ /g, '_')] || C.textLight;
-                    hotelSection += `<p style="${S.p}">Pour votre séjour, j’ai sélectionné l’option suivante&nbsp;:</p>
-                                     <div style="border: 1px solid ${C.border}; border-radius: 8px;">
-                                        <div style="background-color:${C.blue}; color:${C.white}; padding:15px 20px; border-radius: 8px 8px 0 0;">
-                                            <strong style="font-family:${S.fontStack}; font-size:20px;">${hotel.name}</strong>
-                                        </div>
-                                         <div style="padding:20px; background-color:${C.white}; border-radius: 0 0 8px 8px;">
-                                            <span style="background-color:${levelColor}; color:${C.white}; padding: 4px 10px; border-radius: 15px; font-size: 12px; font-weight: bold;">${hotel.level}</span>
-                                            <p style="font-family:${S.fontStack}; font-size:15px; line-height:1.5; color:${C.textLight}; margin:15px 0 0 0; text-align:justify;">${hotel.description}</p>
-                                         </div>
-                                     </div>`;
+                    
+                    let prosList = `<span style="background-color:${levelColor}; color:${C.white}; padding: 5px 12px; margin: 0 8px 8px 0; border-radius: 15px; font-size: 14px; font-weight: bold; display:inline-block;">${hotel.level}</span>`;
+                    hotel.pointsForts.forEach((p, i) => {
+                        const tagColor = C.tags[i % C.tags.length];
+                        prosList += `<span style="display:inline-block; background-color:${tagColor}; color:${C.white}; padding: 5px 12px; margin: 0 8px 8px 0; border-radius: 15px; font-size: 14px; font-weight: bold;">${p}</span>`;
+                    });
+
+                    let hotelCard = `
+                        <div class="hotel-card" style="margin-top: 25px; border: 1px solid ${C.border}; border-radius: 8px;">
+                            <div style="background-color:${C.blue}; color:${C.white}; padding:15px 20px; border-radius: 8px 8px 0 0;">
+                                <strong style="font-family:${S.fontStack}; font-size:20px;">${hotel.name}</strong>
+                            </div>
+                            <div style="background-color:${C.white}; padding: 20px;">
+                                <p style="font-family:${S.fontStack}; font-size:15px; line-height:1.5; color:${C.textLight}; margin:0 0 15px 0; text-align:justify;">${hotel.description}</p>
+                                <div style="padding:10px 0;">${prosList}</div>
+                            </div>
+                            <div style="background-color:${C.blueLight}; padding: 15px 20px; text-align:center; border-radius: 0 0 8px 8px; border-top: 1px solid ${C.border};">
+                                <span style="font-size:14px; color:${C.textLight}; font-weight:bold; text-transform:uppercase;">PRIX DU FORFAIT</span><br>
+                                <strong style="font-size:28px; color:${C.textDark}; line-height:1.2;">${hotel.price ? hotel.price + '&nbsp;USD' : 'Voir PDF'}</strong>
+                            </div>
+                        </div>
+                    `;
+                    hotelSection += `<p style="${S.p}">Pour votre séjour, voici l'option que j'ai sélectionnée pour vous :</p>${hotelCard}`;
                 } else {
                     hotelSection += `<p style="${S.p}">Voici plusieurs options d’hébergement pour votre séjour. Chaque proposition ci-dessous correspond à un forfait détaillé dans un document PDF distinct.</p>`;
                     let hotelCards = '';
