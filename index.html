@@ -69,6 +69,8 @@
                         <input type="text" id="departure_airport_aller" name="departure_airport_aller" placeholder="Ex: YUL - Montréal">
                         <label for="arrival_airport_aller">Aéroport d'arrivée (Aller)&nbsp;:</label>
                         <input type="text" id="arrival_airport_aller" name="arrival_airport_aller" placeholder="Ex: MCO - Orlando" value="MCO - Orlando">
+                        <label for="arrival_time_aller">Heure d'arrivée (Aller)&nbsp;:</label>
+                        <input type="time" id="arrival_time_aller" name="arrival_time_aller">
                         <label for="airline_aller">Compagnie Aérienne (Aller)&nbsp;:</label>
                         <input type="text" id="airline_aller" name="airline_aller" placeholder="Ex: Air Canada">
                         <label for="flight_number_aller">Numéro de vol (Aller)&nbsp;:</label>
@@ -84,6 +86,8 @@
                         <input type="text" id="departure_airport_retour" name="departure_airport_retour" placeholder="Ex: MCO - Orlando" value="MCO - Orlando">
                         <label for="arrival_airport_retour">Aéroport d'arrivée (Retour)&nbsp;:</label>
                         <input type="text" id="arrival_airport_retour" name="arrival_airport_retour" placeholder="Ex: YUL - Montréal">
+                        <label for="arrival_time_retour">Heure d'arrivée (Retour)&nbsp;:</label>
+                        <input type="time" id="arrival_time_retour" name="arrival_time_retour">
                         <label for="airline_retour">Compagnie Aérienne (Retour)&nbsp;:</label>
                         <input type="text" id="airline_retour" name="airline_retour" placeholder="Ex: Air Canada">
                         <label for="flight_number_retour">Numéro de vol (Retour)&nbsp;:</label>
@@ -316,12 +320,14 @@ if (selectedHotels.length === 1) {
                     data.departure_time_aller,
                     data.departure_airport_aller,
                     data.arrival_airport_aller,
+                    data.arrival_time_aller,
                     data.airline_aller,
                     data.flight_number_aller,
                     data.departure_date_retour,
                     data.departure_time_retour,
                     data.departure_airport_retour,
                     data.arrival_airport_retour,
+                    data.arrival_time_retour,
                     data.airline_retour,
                     data.flight_number_retour,
                     data.flight_price,
@@ -345,11 +351,18 @@ if (selectedHotels.length === 1) {
                                             <tr><td>🕒&nbsp;${formatTime(data.departure_time_aller)}</td></tr>
                                         </table>
                                     </td>
-                                    <td class="flight-arrow" style="width:10%; text-align:center; vertical-align:center;">${arrow}</td>
+                                    <td class="flight-arrow" style="width:10%; text-align:center; vertical-align:top;">
+                                        ${arrow}<br>
+                                        <div style="font-size:14px; color:${C.textLight}; line-height:1.3;">
+                                            ${data.flight_number_aller || ''}<br>${data.airline_aller || ''}
+                                        </div>
+                                    </td>
                                     <td class="flight-column" style="width:45%; text-align:center; vertical-align:top;">
                                         <div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Arrivée</div>
                                         <div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${data.arrival_airport_aller || 'N/A'}</div>
-                                        <div style="font-size:14px; color:${C.textLight}">${data.airline_aller || ''} ${data.flight_number_aller || ''}</div>
+                                        <table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto; text-align:left;">
+                                            <tr><td>🕒&nbsp;${formatTime(data.arrival_time_aller)}</td></tr>
+                                        </table>
                                     </td>
                                 </tr>
                             </table>
@@ -366,11 +379,18 @@ if (selectedHotels.length === 1) {
                                             <tr><td>🕒&nbsp;${formatTime(data.departure_time_retour)}</td></tr>
                                         </table>
                                     </td>
-                                    <td class="flight-arrow" style="width:10%; text-align:center; vertical-align:center;">${arrow}</td>
+                                    <td class="flight-arrow" style="width:10%; text-align:center; vertical-align:top;">
+                                        ${arrow}<br>
+                                        <div style="font-size:14px; color:${C.textLight}; line-height:1.3;">
+                                            ${data.flight_number_retour || ''}<br>${data.airline_retour || ''}
+                                        </div>
+                                    </td>
                                     <td class="flight-column" style="width:45%; text-align:center; vertical-align:top;">
                                         <div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Arrivée</div>
                                         <div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${data.arrival_airport_retour || 'N/A'}</div>
-                                        <div style="font-size:14px; color:${C.textLight}">${data.airline_retour || ''} ${data.flight_number_retour || ''}</div>
+                                        <table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto; text-align:left;">
+                                            <tr><td>🕒&nbsp;${formatTime(data.arrival_time_retour)}</td></tr>
+                                        </table>
                                     </td>
                                 </tr>
                             </table>
