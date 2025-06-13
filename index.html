@@ -417,6 +417,7 @@ if (selectedHotels.length === 1) {
 
         // --- Le reste du script JS pour le formulaire reste identique ---
         // Initialisation du formulaire une fois la page chargée
+        document.addEventListener('DOMContentLoaded', function() {
             const hotelSelectionsDiv = document.getElementById('hotel_selections');
             const addHotelButton = document.getElementById('add_hotel_button');
             let hotelCounter = 0;
@@ -696,6 +697,7 @@ if (selectedHotels.length === 1) {
             // --- FIN DE LA LIGNE À AJOUTER ---
             toggleHotelOptions();
             togglePromotionDetails();
+        });
 
     </script>
 </body>
