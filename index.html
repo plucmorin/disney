@@ -218,6 +218,7 @@
 
             if (data.booking_type === 'hotel_tickets' && selectedHotels.length > 0) {
                  if (selectedHotels.length === 1) {
+                    // Logic for single hotel remains the same
                     const hotel = selectedHotels[0];
                     const levelColor = C.level[hotel.level.toLowerCase().replace(/ /g, '_')] || C.textLight;
                     hotelSection += `<p style="${S.p}">Pour votre séjour, j’ai sélectionné l’option suivante&nbsp;:</p>
@@ -236,29 +237,29 @@
                     selectedHotels.forEach(hotel => {
                         const levelColor = C.level[hotel.level.toLowerCase().replace(/ /g, '_')] || C.textLight;
                         
-                        let prosList = `<table width="100%" border="0" cellpadding="0" cellspacing="0"><tr>`;
+                        let prosList = `<table class="pros-table" width="100%" border="0" cellpadding="0" cellspacing="0"><tr>`;
                         hotel.pointsForts.forEach((p, i) => {
-                            prosList += `<td width="50%" style="padding-right:10px; padding-bottom:10px; vertical-align:top;"><span style="color:${C.blue}; font-size:18px; vertical-align:middle; margin-right:8px; font-weight:bold;">&#10004;</span><span style="vertical-align:middle;">${p}</span></td>`;
-                            if ((i + 1) % 2 === 0) { // New row every 2 items
+                            prosList += `<td class="pros-column" width="50%" style="padding-right:10px; padding-bottom:10px; vertical-align:top;"><span style="color:${C.blue}; font-size:16px; vertical-align:middle; margin-right:8px; font-weight:bold;">&#10004;</span><span style="vertical-align:middle; font-size:15px;">${p}</span></td>`;
+                            if ((i + 1) % 2 === 0) {
                                 prosList += '</tr><tr>';
                             }
                         });
                         prosList += '</tr></table>';
 
                         hotelCards += `
-                            <div class="hotel-card" style="margin-bottom: 20px; border: 1px solid ${C.border}; border-radius: 8px;">
-                                <div class="hotel-header" style="background-color:${C.blue}; color:${C.white}; padding:15px 20px; border-radius: 8px 8px 0 0;">
+                            <div class="hotel-card" style="margin-top: 25px; border: 1px solid ${C.border}; border-radius: 8px;">
+                                <div style="background-color:${C.blue}; color:${C.white}; padding:15px 20px; border-radius: 8px 8px 0 0;">
                                     <strong style="font-family:${S.fontStack}; font-size:20px;">${hotel.name}</strong>
                                 </div>
-                                <div class="hotel-body" style="background-color:${C.white}; padding: 20px;">
+                                <div style="background-color:${C.white}; padding: 20px;">
                                     <span style="background-color:${levelColor}; color:${C.white}; padding: 4px 10px; border-radius: 15px; font-size: 12px; font-weight: bold;">${hotel.level}</span>
                                     <p style="font-family:${S.fontStack}; font-size:15px; line-height:1.5; color:${C.textLight}; margin:15px 0 0 0; text-align:justify;">${hotel.description}</p>
                                     <hr style="border:none; border-top:1px solid ${C.border}; margin: 20px 0;">
                                     <h3 style="font-family:${S.fontStack}; font-size:16px; color:${C.blue}; margin:0 0 15px 0;">POINTS FORTS&nbsp;:</h3>
                                     ${prosList}
                                 </div>
-                                <div class="hotel-footer" style="background-color:${C.orangeLight}; padding: 15px 20px; text-align:center; border-radius: 0 0 8px 8px;">
-                                    <span style="font-size:14px; color:${C.textLight}; font-weight:bold; text-transform:uppercase;">Forfait à partir de</span><br>
+                                <div style="background-color:${C.blueLight}; padding: 15px 20px; text-align:center; border-radius: 0 0 8px 8px; border-top: 1px solid ${C.border};">
+                                    <span style="font-size:14px; color:${C.textLight}; font-weight:bold; text-transform:uppercase;">PRIX DU FORFAIT</span><br>
                                     <strong style="font-size:28px; color:${C.textDark}; line-height:1.2;">${hotel.price ? hotel.price + '&nbsp;USD' : 'Voir PDF'}</strong>
                                 </div>
                             </div>
@@ -289,7 +290,6 @@
 
             let flightSection = '';
             if (data.include_flights) {
-                 const airportTagStyle = `background-color: ${C.blue}; color: ${C.white}; padding: 3px 8px; border-radius: 4px; font-size: 14px; font-weight: bold; text-decoration: none; display:inline-block;`;
                  const flightInfoLine = (icon, label, value) => {
                      if (!value || value.trim() === '') return '';
                      return `<div style="margin-top:15px;font-size:14px;">${icon}<strong style="color:${C.textLight}; vertical-align: middle;">&nbsp;${label}&nbsp;:</strong> ${value}</div>`;
@@ -301,9 +301,9 @@
 
                  let flightDetails = `<p style="${S.p}">${T.flight_intro}</p>
                     <div style="border: 1px solid ${C.border}; border-radius: 8px; margin-top:20px;">
-                        <h2 style="margin:0; padding:15px 20px; font-size:18px; color:${C.blue}; background-color:${C.blueLight}; border-bottom:1px solid ${C.border}; border-radius:8px 8px 0 0;">ITINÉRAIRE DE VOL</h2>
-                        <div style="padding:20px;">
-                            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <div style="padding:20px; border-bottom:1px dashed ${C.border};">
+                            <h3 style="margin:0 0 15px 0; font-size:18px; color:${C.blue};">✈️ Vol aller</h3>
+                             <table width="100%" border="0" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td width="45%" style="text-align:center; vertical-align:top;">
                                         <div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Départ</div>
@@ -319,8 +319,10 @@
                                     </td>
                                 </tr>
                             </table>
-                            <hr style="border:none; border-top:1px dashed ${C.border}; margin: 20px 0;">
-                            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                        </div>
+                        <div style="padding:20px;">
+                            <h3 style="margin:0 0 15px 0; font-size:18px; color:${C.blue};">✈️ Vol retour</h3>
+                             <table width="100%" border="0" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td width="45%" style="text-align:center; vertical-align:top;">
                                         <div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Départ</div>
@@ -349,7 +351,19 @@
 
             let closingSection = `<p style="${S.p}">${T.closing1}</p><p style="${S.p}">${T.closing2}</p><p style="${S.p}">${T.closing3}</p>`;
             
-            return `<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${T.banner1}</title></head><body style="margin:0; padding:0; background-color:${C.background};"><table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color:${C.background};"><tr><td align="center"><table width="680" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width: 680px; max-width: 100%; margin: 20px auto; background-color: ${C.white};">
+            const responsiveCSS = `
+                <style>
+                    @media screen and (max-width: 600px) {
+                        .pros-table .pros-column {
+                            display: block !important;
+                            width: 100% !important;
+                            padding-right: 0 !important;
+                        }
+                    }
+                </style>
+            `;
+
+            return `<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${T.banner1}</title>${responsiveCSS}</head><body style="margin:0; padding:0; background-color:${C.background};"><table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color:${C.background};"><tr><td align="center"><table width="680" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width: 680px; max-width: 100%; margin: 20px auto; background-color: ${C.white};">
                 ${createBanner(T.banner1, 'main')}
                 <tr><td style="padding: 20px 30px 30px 30px;">${introSection}</td></tr>
                 ${createBanner(T.banner_disney_stay, 'sub')}
