@@ -589,6 +589,234 @@ function generateEmailHTML(data) {
         </tr>
         </table>
         <![endif]-->
+                // --- Le reste du script JS pour le formulaire reste identique ---
+        document.addEventListener('DOMContentLoaded', function() {
+            const hotelSelectionsDiv = document.getElementById('hotel_selections');
+            const addHotelButton = document.getElementById('add_hotel_button');
+            let hotelCounter = 0;
+
+            function createHotelSelector() {
+                hotelCounter++;
+                const groupDiv = document.createElement('div');
+                groupDiv.classList.add('hotel-option-group');
+                groupDiv.id = `hotel_group_${hotelCounter}`;
+                
+                let content = `
+                    <div class="hotel-option-header">
+                        <label>Option d'hôtel</label>
+                        <button type="button" class="remove-hotel-button" title="Supprimer cet hôtel">Supprimer</button>
+                    </div>
+                    <select name="hotel_name" required>
+                        <option value="" disabled selected>Sélectionnez un hôtel</option>
+                        ${DISNEY_HOTELS.sort((a,b) => a.name.localeCompare(b.name)).map(hotel => `<option value="${hotel.name}">${hotel.name}</option>`).join('')}
+                    </select>
+                    <label for="hotel_price_${hotelCounter}">Prix du Forfait (USD)&nbsp;:</label>
+                    <input type="number" name="hotel_price" id="hotel_price_${hotelCounter}" placeholder="Ex: 4500.50" step="0.01">
+                `;
+                groupDiv.innerHTML = content;
+
+                groupDiv.querySelector('.remove-hotel-button').addEventListener('click', function() {
+                    groupDiv.remove();
+                    updateAddHotelButtonState();
+                });
+
+                return groupDiv;
+            }
+
+            function updateAddHotelButtonState() {
+                const currentHotelSelectors = hotelSelectionsDiv.querySelectorAll('.hotel-option-group').length;
+                addHotelButton.disabled = currentHotelSelectors >= 5;
+                addHotelButton.textContent = currentHotelSelectors >= 5 ? "Maximum 5 hôtels atteints" : "Ajouter une option d'hôtel";
+            }
+
+            addHotelButton.addEventListener('click', function() {
+                if (hotelSelectionsDiv.querySelectorAll('.hotel-option-group').length < 5) {
+                    hotelSelectionsDiv.appendChild(createHotelSelector());
+                    updateAddHotelButtonState();
+                }
+            });
+
+            hotelSelectionsDiv.appendChild(createHotelSelector());
+            updateAddHotelButtonState();
+
+            const flightGroupsDiv = document.getElementById('flight_option_groups');
+            const flightOptionCountSelect = document.getElementById('flight_option_count');
+            const multipleFlightReasonDiv = document.getElementById('multiple_flight_reason');
+            const flightTooEarlyCheckbox = document.getElementById('flight_too_early');
+            const flightOptionsSection = document.getElementById('flight_options_section');
+            let flightGroups = [];
+
+            function createFlightGroup(index) {
+                const wrapper = document.createElement('div');
+                wrapper.classList.add('flight-option-group');
+                wrapper.innerHTML = `
+                    <h3>Option ${index}</h3>
+                    <div class="flight-inputs">
+                        <h3>Vol Aller</h3>
+                        <label for="departure_date_aller_${index}">Date de départ (Aller)&nbsp;:</label>
+                        <input type="date" id="departure_date_aller_${index}" name="departure_date_aller_${index}">
+                        <label for="departure_time_aller_${index}">Heure de départ (Aller)&nbsp;:</label>
+                        <input type="time" id="departure_time_aller_${index}" name="departure_time_aller_${index}">
+                        <label for="departure_airport_aller_${index}">Aéroport de départ (Aller)&nbsp;:</label>
+                        <input type="text" id="departure_airport_aller_${index}" name="departure_airport_aller_${index}" placeholder="Ex: YUL - Montréal">
+                        <label for="arrival_airport_aller_${index}">Aéroport d'arrivée (Aller)&nbsp;:</label>
+                        <input type="text" id="arrival_airport_aller_${index}" name="arrival_airport_aller_${index}" placeholder="Ex: MCO - Orlando" value="MCO - Orlando">
+                        <label for="arrival_date_aller_${index}">Date d'arrivée (Aller)&nbsp;:</label>
+                        <input type="date" id="arrival_date_aller_${index}" name="arrival_date_aller_${index}">
+                        <label for="arrival_time_aller_${index}">Heure d'arrivée (Aller)&nbsp;:</label>
+                        <input type="time" id="arrival_time_aller_${index}" name="arrival_time_aller_${index}">
+                        <label for="airline_aller_${index}">Compagnie Aérienne (Aller)&nbsp;:</label>
+                        <input type="text" id="airline_aller_${index}" name="airline_aller_${index}" placeholder="Ex: Air Canada">
+                        <label for="flight_number_aller_${index}">Numéro de vol (Aller)&nbsp;:</label>
+                        <input type="text" id="flight_number_aller_${index}" name="flight_number_aller_${index}" placeholder="Ex: AC1676">
+                    </div>
+                    <div class="flight-inputs">
+                        <h3>Vol Retour</h3>
+                        <label for="departure_date_retour_${index}">Date de départ (Retour)&nbsp;:</label>
+                        <input type="date" id="departure_date_retour_${index}" name="departure_date_retour_${index}">
+                        <label for="departure_time_retour_${index}">Heure de départ (Retour)&nbsp;:</label>
+                        <input type="time" id="departure_time_retour_${index}" name="departure_time_retour_${index}">
+                        <label for="departure_airport_retour_${index}">Aéroport de départ (Retour)&nbsp;:</label>
+                        <input type="text" id="departure_airport_retour_${index}" name="departure_airport_retour_${index}" placeholder="Ex: MCO - Orlando" value="MCO - Orlando">
+                        <label for="arrival_airport_retour_${index}">Aéroport d'arrivée (Retour)&nbsp;:</label>
+                        <input type="text" id="arrival_airport_retour_${index}" name="arrival_airport_retour_${index}" placeholder="Ex: YUL - Montréal">
+                        <label for="arrival_date_retour_${index}">Date d'arrivée (Retour)&nbsp;:</label>
+                        <input type="date" id="arrival_date_retour_${index}" name="arrival_date_retour_${index}">
+                        <label for="arrival_time_retour_${index}">Heure d'arrivée (Retour)&nbsp;:</label>
+                        <input type="time" id="arrival_time_retour_${index}" name="arrival_time_retour_${index}">
+                        <label for="airline_retour_${index}">Compagnie Aérienne (Retour)&nbsp;:</label>
+                        <input type="text" id="airline_retour_${index}" name="airline_retour_${index}" placeholder="Ex: Air Canada">
+                        <label for="flight_number_retour_${index}">Numéro de vol (Retour)&nbsp;:</label>
+                        <input type="text" id="flight_number_retour_${index}" name="flight_number_retour_${index}" placeholder="Ex: AC1677">
+                    </div>
+                    <label for="flight_price_${index}">Prix total approximatif des vols (CAD)&nbsp;:</label>
+                    <input type="number" id="flight_price_${index}" name="flight_price_${index}" step="0.01">
+                    <label for="flight_notes_${index}">Notes sur les vols&nbsp;:</label>
+                    <textarea id="flight_notes_${index}" name="flight_notes_${index}" placeholder="Ajoutez ici des détails importants (ex: compagnie, escale, type de bagages inclus...)"></textarea>
+                `;
+                return wrapper;
+            }
+
+            for (let i = 1; i <= 3; i++) {
+                const g = createFlightGroup(i);
+                flightGroupsDiv.appendChild(g);
+                flightGroups.push(g);
+            }
+
+            function updateFlightGroupVisibility() {
+                const count = parseInt(flightOptionCountSelect.value, 10);
+                flightGroups.forEach((g, idx) => {
+                    g.classList.toggle('hidden', idx >= count);
+                });
+                multipleFlightReasonDiv.classList.toggle('hidden', count <= 1);
+            }
+
+            function toggleFlightTooEarly() {
+                flightOptionsSection.classList.toggle('hidden', flightTooEarlyCheckbox.checked);
+            }
+
+            flightOptionCountSelect.addEventListener('change', updateFlightGroupVisibility);
+            flightTooEarlyCheckbox.addEventListener('change', toggleFlightTooEarly);
+            updateFlightGroupVisibility();
+            toggleFlightTooEarly();
+            
+            const form = document.getElementById('disneyForm');
+            const emailOutputDiv = document.getElementById('emailOutput');
+            
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const formData = new FormData(form);
+                const data = {};
+                
+                for (let [key, value] of formData.entries()) {
+                    if (!/^hotel_|^departure_|^arrival_|^airline_|^flight_/i.test(key)) {
+                        data[key] = value;
+                    }
+                }
+                data.include_flights = formData.has('include_flights');
+                
+                data.hotels = [];
+                const hotelGroups = hotelSelectionsDiv.querySelectorAll('.hotel-option-group');
+                hotelGroups.forEach(group => {
+                    const name = group.querySelector('select[name="hotel_name"]').value;
+                    const price = group.querySelector('input[name="hotel_price"]').value;
+                    if(name) {
+                        const hotelData = getHotelByName(name);
+                        data.hotels.push({
+                            name: name,
+                            description: hotelData.description,
+                            level: hotelData.level,
+                            pointsForts: hotelData.pointsForts,
+                            price: price
+                        });
+                    }
+                });
+
+                data.flight_too_early = formData.has('flight_too_early');
+                data.flight_option_count = parseInt(flightOptionCountSelect.value, 10);
+                data.flight_multiple_reason = formData.get('flight_multiple_reason');
+                data.flights = [];
+                for (let i = 1; i <= data.flight_option_count; i++) {
+                    data.flights.push({
+                        departure_date_aller: formData.get(`departure_date_aller_${i}`),
+                        departure_time_aller: formData.get(`departure_time_aller_${i}`),
+                        departure_airport_aller: formData.get(`departure_airport_aller_${i}`),
+                        arrival_airport_aller: formData.get(`arrival_airport_aller_${i}`),
+                        arrival_date_aller: formData.get(`arrival_date_aller_${i}`),
+                        arrival_time_aller: formData.get(`arrival_time_aller_${i}`),
+                        airline_aller: formData.get(`airline_aller_${i}`),
+                        flight_number_aller: formData.get(`flight_number_aller_${i}`),
+                        departure_date_retour: formData.get(`departure_date_retour_${i}`),
+                        departure_time_retour: formData.get(`departure_time_retour_${i}`),
+                        departure_airport_retour: formData.get(`departure_airport_retour_${i}`),
+                        arrival_airport_retour: formData.get(`arrival_airport_retour_${i}`),
+                        arrival_date_retour: formData.get(`arrival_date_retour_${i}`),
+                        arrival_time_retour: formData.get(`arrival_time_retour_${i}`),
+                        airline_retour: formData.get(`airline_retour_${i}`),
+                        flight_number_retour: formData.get(`flight_number_retour_${i}`),
+                        flight_price: formData.get(`flight_price_${i}`),
+                        flight_notes: formData.get(`flight_notes_${i}`)
+                    });
+                }
+                
+                const emailHtmlContent = generateEmailHTML(data);
+                emailOutputDiv.innerHTML = emailHtmlContent;
+            });
+
+            const copyHtmlButton = document.getElementById('copyHtmlButton');
+            copyHtmlButton.addEventListener('click', function() {
+                const emailContent = emailOutputDiv.innerHTML;
+                 navigator.clipboard.writeText(emailContent).then(function() {
+                    alert('Contenu HTML de l\'e-mail copié dans le presse-papiers !');
+                }, function(err) {
+                    alert('Erreur lors de la copie. Veuillez essayer manuellement.');
+                    console.error('Could not copy text: ', err);
+                });
+            });
+            
+            const includeFlightsCheckbox = document.getElementById('include_flights');
+            const flightDetailsDiv = document.getElementById('flight_details');
+            const bookingTypeSelect = document.getElementById('booking_type');
+            const hotelOptionsContainer = document.getElementById('hotel_options_container');
+            const promotionTypeSelect = document.getElementById('promotion_type');
+            const promotionDetailsDiv = document.getElementById('promotion_details');
+            
+            function toggleFlightDetails() {
+                flightDetailsDiv.classList.toggle('hidden', !includeFlightsCheckbox.checked);
+                updateFlightGroupVisibility();
+                toggleFlightTooEarly();
+            }
+            function toggleHotelOptions() { hotelOptionsContainer.classList.toggle('hidden', bookingTypeSelect.value !== 'hotel_tickets'); }
+            function togglePromotionDetails() { promotionDetailsDiv.classList.toggle('hidden', promotionTypeSelect.value !== 'specifique'); }
+
+            includeFlightsCheckbox.addEventListener('change', toggleFlightDetails);
+            bookingTypeSelect.addEventListener('change', toggleHotelOptions);
+            promotionTypeSelect.addEventListener('change', togglePromotionDetails);
+            
+            toggleFlightDetails();
+            toggleHotelOptions();
+            togglePromotionDetails();
+        });
     </div>
 </body>
 </html>
