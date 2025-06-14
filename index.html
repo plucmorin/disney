@@ -308,7 +308,7 @@ if (selectedHotels.length === 1) {
                 hotelSection += `<p style="${S.p} margin-top:30px; text-align:left;">${T.disney_advantages_intro}<ul style="margin:1em 0; padding:0; list-style-type:none; text-align:left;">${advantagesList}</ul>`;
 
             } else if (data.booking_type === 'tickets_only') {
-                hotelSection = `<p style="${S.p}">Les billets de parc sont <strong style="${S.strong}">non remboursables</strong> et le paiement complet est exigé lors de la réservation. Consultez le document PDF joint pour tous les détails.</p>`;
+                hotelSection = '';
             }
 
             let promoText = "";
@@ -321,11 +321,12 @@ if (selectedHotels.length === 1) {
             }
             let promotionSection = '';
             if (data.booking_type === 'tickets_only') {
-                promotionSection = createCalloutBox("INFORMATIONS SUR LES BILLETS", `Les billets de parc sont <strong style="${S.strong}">non remboursables</strong> et doivent être payés en totalité lors de la réservation. Consultez le PDF joint pour l'ensemble des détails.`, "orange");
+                promotionSection = createCalloutBox("INFORMATIONS SUR LES BILLETS", T.tickets_only_price_disclaimer, "orange");
             } else {
                 promotionSection = createCalloutBox("PROMOTIONS ET DÉPÔT REQUIS", promoText, "orange");
             }
-            let priceDisclaimer = (data.booking_type === 'hotel_tickets' && selectedHotels.length > 0) ? T.disney_price_disclaimer : T.tickets_only_price_disclaimer;
+            let priceDisclaimer = (data.booking_type === 'hotel_tickets' && selectedHotels.length > 0) ? T.disney_price_disclaimer : '';
+            let disclaimerBlock = priceDisclaimer ? `<tr><td class="mobile-padding" style="padding: 0 30px 30px 30px;"><p style="${S.p} font-size:14px; color:${C.textLight}; text-align:center; ${S.italic}">${priceDisclaimer}</p></td></tr>` : '';
 
             let flightSection = '';
             let flightBlock = '';
@@ -503,7 +504,7 @@ ${createBanner(T.banner1, 'main')}
                 ${createBanner(hotelBannerText, 'sub')}
                 <tr><td class="mobile-padding" style="padding: 20px 30px 10px 30px;">${hotelSection}</td></tr>
                 <tr><td class="mobile-padding" style="padding: 10px 30px 30px 30px;">${promotionSection}</td></tr>
-                <tr><td class="mobile-padding" style="padding: 0 30px 30px 30px;"><p style="${S.p} font-size:14px; color:${C.textLight}; text-align:center; ${S.italic}">${priceDisclaimer}</p></td></tr>
+                ${disclaimerBlock}
                 ${flightBlock}
                 ${createBanner(T.banner_magic_continues, 'closing')}
                 <tr><td class="mobile-padding" style="padding: 20px 30px 30px 30px;">${closingSection}</td></tr>
