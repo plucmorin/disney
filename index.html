@@ -174,17 +174,29 @@ const LOGOS = {
 };
             
             function createBanner(text, type = 'main') {
-                let style, titleStyle, wrapperStyle;
+                let bgColor, fontSize, padding;
                 switch (type) {
-                    case 'closing': style = `background-color: ${C.orange}; padding: 12px 30px;`; titleStyle = `font-family: Georgia, serif; font-size: 24px; color: ${C.white}; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center; letter-spacing: 1px;`; wrapperStyle = `padding: 5px 0;`; break;
-                    case 'sub': style = `background-color: ${C.blue}; padding: 10px 30px;`; titleStyle = `font-family: ${S.fontStack}; font-size: 20px; color: ${C.white}; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center;`; wrapperStyle = `padding: 0;`; break;
-                    case 'main': default: style = `background: linear-gradient(to right, ${C.blue}, ${C.blueDark}); padding: 25px 30px;`; titleStyle = `font-family: Georgia, serif; font-size: 32px; color: ${C.white}; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center; letter-spacing: 1.5px; line-height:1.2;`; wrapperStyle = `border-top: 1px solid rgba(255,255,255,0.3); border-bottom: 1px solid rgba(255,255,255,0.3); padding: 10px 0;`; break;
+                    case 'closing': 
+                        bgColor = C.orange; 
+                        fontSize = '24px'; 
+                        padding = '12px';
+                        break;
+                    case 'sub': 
+                        bgColor = C.blue; 
+                        fontSize = '20px'; 
+                        padding = '10px';
+                        break;
+                    case 'main': default: 
+                        bgColor = C.blue; 
+                        fontSize = '32px'; 
+                        padding = '25px';
+                        break;
                 }
-                return `<tr><td style="${style}"><div style="${wrapperStyle}"><h1 style="${titleStyle}">${text}</h1></div></td></tr>`;
+                return `<tr><td bgcolor="${bgColor}" style="background-color: ${bgColor}; padding: ${padding} 30px; color: ${C.white}; font-family: Georgia, serif; font-size: ${fontSize}; font-weight: bold; text-transform: uppercase; text-align: center; margin: 0;" align="center"><h1 style="font-family: Georgia, serif; font-size: ${fontSize}; color: ${C.white}; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center; line-height: 1.2;">${text}</h1></td></tr>`;
             }
             
             function createCalloutBox(title, text, color) {
-                return `<table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-top:20px;"><tr><td style="padding: 20px 25px; background-color: ${C[`${color}Light`]}; border-left: 5px solid ${C[color]}; border-radius: 0 8px 8px 0;"><h2 style="font-family:${S.fontStack}; font-size:18px; color:${C[color]}; margin:0 0 10px 0; font-weight:bold;">${title}</h2><p style="font-family:${S.fontStack}; margin:0; text-align:justify;">${text}</p></td></tr></table>`;
+                return `<table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-top:20px;"><tr><td bgcolor="${C[`${color}Light`]}" style="padding: 20px 25px; background-color: ${C[`${color}Light`]}; border-left: 5px solid ${C[color]};"><h2 style="font-family:${S.fontStack}; font-size:18px; color:${C[color]}; margin:0 0 10px 0; font-weight:bold;">${title}</h2><p style="font-family:${S.fontStack}; margin:0; text-align:justify; color: ${C.textDark};">${text}</p></td></tr></table>`;
             }
 
             const T = {
@@ -222,26 +234,33 @@ if (selectedHotels.length === 1) {
                     const hotel = selectedHotels[0];
                     const levelColor = C.level[hotel.level.toLowerCase().replace(/ /g, '_')] || C.textLight;
                     
-                    let prosList = `<span style="background-color:${levelColor}; color:${C.white}; padding: 5px 12px; margin: 0 8px 8px 0; border-radius: 15px; font-size: 14px; font-weight: bold; display:inline-block;">${hotel.level}</span>`;
+                    let prosList = `<table border="0" cellpadding="2" cellspacing="2"><tr><td bgcolor="${levelColor}" style="background-color:${levelColor}; color:${C.white}; padding: 5px 12px; font-size: 14px; font-weight: bold;">${hotel.level}</td>`;
                     hotel.pointsForts.forEach((p, i) => {
                         const tagColor = C.tags[i % C.tags.length];
-                        prosList += `<span style="display:inline-block; background-color:${tagColor}; color:${C.white}; padding: 5px 12px; margin: 0 8px 8px 0; border-radius: 15px; font-size: 14px; font-weight: bold;">${p}</span>`;
+                        prosList += `<td bgcolor="${tagColor}" style="background-color:${tagColor}; color:${C.white}; padding: 5px 12px; font-size: 14px; font-weight: bold;">${p}</td>`;
                     });
+                    prosList += `</tr></table>`;
 
                     let hotelCard = `
-                        <div class="hotel-card" style="margin-top: 25px; border: 1px solid ${C.border}; border-radius: 8px;">
-                            <div style="background-color:${C.blue}; color:${C.white}; padding:15px 20px; border-radius: 8px 8px 0 0;">
-                                <strong style="font-family:${S.fontStack}; font-size:20px;">${hotel.name}</strong>
-                            </div>
-                            <div style="background-color:${C.white}; padding: 20px;">
-                                <p style="font-family:${S.fontStack}; font-size:15px; line-height:1.5; color:${C.textLight}; margin:0 0 15px 0; text-align:justify;">${hotel.description}</p>
-                                <div style="padding:10px 0;">${prosList}</div>
-                            </div>
-                            <div style="background-color:${C.blueLight}; padding: 15px 20px; text-align:center; border-radius: 0 0 8px 8px; border-top: 1px solid ${C.border};">
-                                <span style="font-size:14px; color:${C.textLight}; font-weight:bold; text-transform:uppercase;">PRIX DU FORFAIT</span><br>
-                                <strong style="font-size:28px; color:${C.textDark}; line-height:1.2;">${hotel.price ? hotel.price + '&nbsp;USD' : 'Voir PDF'}</strong>
-                            </div>
-                        </div>
+                        <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-top: 25px; border: 1px solid ${C.border};">
+                            <tr>
+                                <td bgcolor="${C.blue}" style="background-color:${C.blue}; color:${C.white}; padding:15px 20px;">
+                                    <strong style="font-family:${S.fontStack}; font-size:20px; color:${C.white};">${hotel.name}</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td bgcolor="${C.white}" style="background-color:${C.white}; padding: 20px;">
+                                    <p style="font-family:${S.fontStack}; font-size:15px; line-height:1.5; color:${C.textLight}; margin:0 0 15px 0; text-align:justify;">${hotel.description}</p>
+                                    <table border="0" cellpadding="0" cellspacing="0" style="padding:10px 0;">${prosList}</table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td bgcolor="${C.blueLight}" style="background-color:${C.blueLight}; padding: 15px 20px; text-align:center; border-top: 1px solid ${C.border};" align="center">
+                                    <span style="font-size:14px; color:${C.textLight}; font-weight:bold; text-transform:uppercase;">PRIX DU FORFAIT</span><br>
+                                    <strong style="font-size:28px; color:${C.textDark}; line-height:1.2;">${hotel.price ? hotel.price + '&nbsp;USD' : 'Voir PDF'}</strong>
+                                </td>
+                            </tr>
+                        </table>
                     `;
                     hotelSection += `<p style="${S.p}">Pour votre séjour, voici l'option que j'ai sélectionnée pour vous :</p>${hotelCard}`;
                 } else {
@@ -250,26 +269,33 @@ if (selectedHotels.length === 1) {
                     selectedHotels.forEach(hotel => {
                         const levelColor = C.level[hotel.level.toLowerCase().replace(/ /g, '_')] || C.textLight;
                         
-                        let prosList = `<span style="background-color:${levelColor}; color:${C.white}; padding: 5px 12px; margin: 0 8px 8px 0; border-radius: 15px; font-size: 14px; font-weight: bold; display:inline-block;">${hotel.level}</span>`;
+                        let prosList = `<table border="0" cellpadding="2" cellspacing="2"><tr><td bgcolor="${levelColor}" style="background-color:${levelColor}; color:${C.white}; padding: 5px 12px; font-size: 14px; font-weight: bold;">${hotel.level}</td>`;
                         hotel.pointsForts.forEach((p, i) => {
                             const tagColor = C.tags[i % C.tags.length];
-                            prosList += `<span style="display:inline-block; background-color:${tagColor}; color:${C.white}; padding: 5px 12px; margin: 0 8px 8px 0; border-radius: 15px; font-size: 14px; font-weight: bold;">${p}</span>`;
+                            prosList += `<td bgcolor="${tagColor}" style="background-color:${tagColor}; color:${C.white}; padding: 5px 12px; font-size: 14px; font-weight: bold;">${p}</td>`;
                         });
+                        prosList += `</tr></table>`;
 
                         hotelCards += `
-                            <div class="hotel-card" style="margin-top: 25px; border: 1px solid ${C.border}; border-radius: 8px;">
-                                <div style="background-color:${C.blue}; color:${C.white}; padding:15px 20px; border-radius: 8px 8px 0 0;">
-                                    <strong style="font-family:${S.fontStack}; font-size:20px;">${hotel.name}</strong>
-                                </div>
-                                <div style="background-color:${C.white}; padding: 20px;">
-                                    <p style="font-family:${S.fontStack}; font-size:15px; line-height:1.5; color:${C.textLight}; margin:0 0 15px 0; text-align:justify;">${hotel.description}</p>
-                                    <div style="padding:10px 0;">${prosList}</div>
-                                </div>
-                                <div style="background-color:${C.blueLight}; padding: 15px 20px; text-align:center; border-radius: 0 0 8px 8px; border-top: 1px solid ${C.border};">
-                                    <span style="font-size:14px; color:${C.textLight}; font-weight:bold; text-transform:uppercase;">PRIX DU FORFAIT</span><br>
-                                    <strong style="font-size:28px; color:${C.textDark}; line-height:1.2;">${hotel.price ? hotel.price + '&nbsp;USD' : 'Voir PDF'}</strong>
-                                </div>
-                            </div>
+                            <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-top: 25px; border: 1px solid ${C.border};">
+                                <tr>
+                                    <td bgcolor="${C.blue}" style="background-color:${C.blue}; color:${C.white}; padding:15px 20px;">
+                                        <strong style="font-family:${S.fontStack}; font-size:20px; color:${C.white};">${hotel.name}</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td bgcolor="${C.white}" style="background-color:${C.white}; padding: 20px;">
+                                        <p style="font-family:${S.fontStack}; font-size:15px; line-height:1.5; color:${C.textLight}; margin:0 0 15px 0; text-align:justify;">${hotel.description}</p>
+                                        <table border="0" cellpadding="0" cellspacing="0" style="padding:10px 0;">${prosList}</table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td bgcolor="${C.blueLight}" style="background-color:${C.blueLight}; padding: 15px 20px; text-align:center; border-top: 1px solid ${C.border};" align="center">
+                                        <span style="font-size:14px; color:${C.textLight}; font-weight:bold; text-transform:uppercase;">PRIX DU FORFAIT</span><br>
+                                        <strong style="font-size:28px; color:${C.textDark}; line-height:1.2;">${hotel.price ? hotel.price + '&nbsp;USD' : 'Voir PDF'}</strong>
+                                    </td>
+                                </tr>
+                            </table>
                         `;
                     });
                     hotelSection += hotelCards;
@@ -320,24 +346,94 @@ if (selectedHotels.length === 1) {
                         }
 
                         (data.flights || []).forEach((f, idx) => {
-                            flightDetails += `<div style="border: 1px solid #e0e0e0; padding: 15px; margin-top: 15px; border-radius: 8px; background-color: #fafafa;">`;
+                            flightDetails += `<table width="100%" border="0" cellpadding="0" cellspacing="0" style="border: 1px solid #e0e0e0; margin-top: 15px;" bgcolor="#fafafa">`;
                             if ((data.flights || []).length > 1) {
-                                flightDetails += `<strong>Option ${idx + 1}</strong>`;
+                                flightDetails += `<tr><td bgcolor="#fafafa" style="background-color: #fafafa; padding: 15px; font-weight: bold; color: ${C.textDark};"><strong>Option ${idx + 1}</strong></td></tr>`;
                             }
-                            flightDetails += ` <div style="border: 1px solid #ddd; border-radius: 8px; padding: 10px 15px 15px 15px; margin-top:10px;"><h3>Vol aller</h3><table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td class="flight-column" style="width:45%; text-align:center; vertical-align:top;"><div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Départ</div><div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${f.departure_airport_aller || 'N/A'}</div><table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto; text-align:left;"><tr><td style="padding-bottom:10px;">📅&nbsp;${formatDateFR(f.departure_date_aller)}</td></tr><tr><td>🕒&nbsp;${formatTime(f.departure_time_aller)}</td></tr></table></td><td class="flight-arrow" style="width:10%; text-align:center; vertical-align:top;">${arrow}</td><td class="flight-column" style="width:45%; text-align:center; vertical-align:top;"><div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Arrivée</div><div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${f.arrival_airport_aller || 'N/A'}</div><table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto; text-align:left;"><tr><td style="padding-bottom:10px;">📅&nbsp;${formatDateFR(f.arrival_date_aller)}</td></tr><tr><td>🕒&nbsp;${formatTime(f.arrival_time_aller)}</td></tr></table></td></tr><tr><td colspan="3" style="padding-top:10px; text-align:center;"><div style="font-size:14px; color:${C.textLight}; line-height:1.3;">${f.airline_aller || ''}<br>${f.flight_number_aller || ''}</div></td></tr></table></div>`;
-                            flightDetails += `<div style="border: 1px solid #ddd; border-radius: 8px; padding: 10px 15px 15px 15px; margin-top:10px;"><h3>Vol retour</h3><table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td class="flight-column" style="width:45%; text-align:center; vertical-align:top;"><div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Départ</div><div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${f.departure_airport_retour || 'N/A'}</div><table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto; text-align:left;"><tr><td style="padding-bottom:10px;">📅&nbsp;${formatDateFR(f.departure_date_retour)}</td></tr><tr><td>🕒&nbsp;${formatTime(f.departure_time_retour)}</td></tr></table></td><td class="flight-arrow" style="width:10%; text-align:center; vertical-align:top;">${arrow}</td><td class="flight-column" style="width:45%; text-align:center; vertical-align:top;"><div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Arrivée</div><div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${f.arrival_airport_retour || 'N/A'}</div><table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto; text-align:left;"><tr><td style="padding-bottom:10px;">📅&nbsp;${formatDateFR(f.arrival_date_retour)}</td></tr><tr><td>🕒&nbsp;${formatTime(f.arrival_time_retour)}</td></tr></table></td></tr><tr><td colspan="3" style="padding-top:10px; text-align:center;"><div style="font-size:14px; color:${C.textLight}; line-height:1.3;">${f.airline_retour || ''}<br>${f.flight_number_retour || ''}</div></td></tr></table></div>`;
-                            flightDetails += `<div style="background-color:${C.blueLight}; padding: 15px 20px; text-align:center; border-radius: 0 0 8px 8px; border-top: 1px solid ${C.border};"><span style="font-size:14px; color:${C.textLight}; font-weight:bold; text-transform:uppercase;">PRIX APPROXIMATIF DES VOLS</span><br><strong style="font-size:28px; color:${C.textDark}; line-height:1.2;">${f.flight_price ? f.flight_price + '&nbsp;CAD' : 'N/A'}</strong></div>`;
+                            
+                            // Vol aller section
+                            flightDetails += `<tr><td bgcolor="#fafafa" style="background-color: #fafafa; padding: 15px;">
+                                <table width="100%" border="1" cellpadding="0" cellspacing="0" style="border: 1px solid #ddd;" bgcolor="#ffffff">
+                                    <tr><td bgcolor="#ffffff" style="background-color: #ffffff; padding: 10px 15px; color: ${C.textDark};"><h3 style="margin: 0; color: ${C.textDark};">Vol aller</h3></td></tr>
+                                    <tr><td bgcolor="#ffffff" style="background-color: #ffffff; padding: 15px;">
+                                        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td style="width:45%; text-align:center; vertical-align:top;" align="center">
+                                                    <div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Départ</div>
+                                                    <div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${f.departure_airport_aller || 'N/A'}</div>
+                                                    <table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto; text-align:left;">
+                                                        <tr><td style="padding-bottom:10px;">📅&nbsp;${formatDateFR(f.departure_date_aller)}</td></tr>
+                                                        <tr><td>🕒&nbsp;${formatTime(f.departure_time_aller)}</td></tr>
+                                                    </table>
+                                                </td>
+                                                <td style="width:10%; text-align:center; vertical-align:top;" align="center">${arrow}</td>
+                                                <td style="width:45%; text-align:center; vertical-align:top;" align="center">
+                                                    <div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Arrivée</div>
+                                                    <div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${f.arrival_airport_aller || 'N/A'}</div>
+                                                    <table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto; text-align:left;">
+                                                        <tr><td style="padding-bottom:10px;">📅&nbsp;${formatDateFR(f.arrival_date_aller)}</td></tr>
+                                                        <tr><td>🕒&nbsp;${formatTime(f.arrival_time_aller)}</td></tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr><td colspan="3" style="padding-top:10px; text-align:center;" align="center">
+                                                <div style="font-size:14px; color:${C.textLight}; line-height:1.3;">${f.airline_aller || ''}<br>${f.flight_number_aller || ''}</div>
+                                            </td></tr>
+                                        </table>
+                                    </td></tr>
+                                </table>
+                            </td></tr>`;
+                            
+                            // Vol retour section
+                            flightDetails += `<tr><td bgcolor="#fafafa" style="background-color: #fafafa; padding: 15px;">
+                                <table width="100%" border="1" cellpadding="0" cellspacing="0" style="border: 1px solid #ddd;" bgcolor="#ffffff">
+                                    <tr><td bgcolor="#ffffff" style="background-color: #ffffff; padding: 10px 15px; color: ${C.textDark};"><h3 style="margin: 0; color: ${C.textDark};">Vol retour</h3></td></tr>
+                                    <tr><td bgcolor="#ffffff" style="background-color: #ffffff; padding: 15px;">
+                                        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td style="width:45%; text-align:center; vertical-align:top;" align="center">
+                                                    <div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Départ</div>
+                                                    <div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${f.departure_airport_retour || 'N/A'}</div>
+                                                    <table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto; text-align:left;">
+                                                        <tr><td style="padding-bottom:10px;">📅&nbsp;${formatDateFR(f.departure_date_retour)}</td></tr>
+                                                        <tr><td>🕒&nbsp;${formatTime(f.departure_time_retour)}</td></tr>
+                                                    </table>
+                                                </td>
+                                                <td style="width:10%; text-align:center; vertical-align:top;" align="center">${arrow}</td>
+                                                <td style="width:45%; text-align:center; vertical-align:top;" align="center">
+                                                    <div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Arrivée</div>
+                                                    <div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${f.arrival_airport_retour || 'N/A'}</div>
+                                                    <table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto; text-align:left;">
+                                                        <tr><td style="padding-bottom:10px;">📅&nbsp;${formatDateFR(f.arrival_date_retour)}</td></tr>
+                                                        <tr><td>🕒&nbsp;${formatTime(f.arrival_time_retour)}</td></tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr><td colspan="3" style="padding-top:10px; text-align:center;" align="center">
+                                                <div style="font-size:14px; color:${C.textLight}; line-height:1.3;">${f.airline_retour || ''}<br>${f.flight_number_retour || ''}</div>
+                                            </td></tr>
+                                        </table>
+                                    </td></tr>
+                                </table>
+                            </td></tr>`;
+                            
+                            // Price section
+                            flightDetails += `<tr><td bgcolor="${C.blueLight}" style="background-color:${C.blueLight}; padding: 15px 20px; text-align:center; border-top: 1px solid ${C.border};" align="center">
+                                <span style="font-size:14px; color:${C.textLight}; font-weight:bold; text-transform:uppercase;">PRIX APPROXIMATIF DES VOLS</span><br>
+                                <strong style="font-size:28px; color:${C.textDark}; line-height:1.2;">${f.flight_price ? f.flight_price + '&nbsp;CAD' : 'N/A'}</strong>
+                            </td></tr>`;
+                            
                             if (f.flight_notes) {
-                                flightDetails += `<p style="${S.p} font-style:italic; font-weight:bold; color:${C.textLight}; border-left:3px solid ${C.border}; padding-left:15px; margin-top:20px;">${f.flight_notes.replace(/\n/g,'<br>')}</p>`;
+                                flightDetails += `<tr><td bgcolor="#fafafa" style="background-color: #fafafa; padding: 15px;"><p style="${S.p} font-style:italic; font-weight:bold; color:${C.textLight}; border-left:3px solid ${C.border}; padding-left:15px; margin-top:20px;">${f.flight_notes.replace(/\n/g,'<br>')}</p></td></tr>`;
                             }
-                            flightDetails += `</div>`;
+                            flightDetails += `</table>`;
                         });
 
                         flightDetails += createCalloutBox(T.flight_important_label, T.flight_important_text, 'orange');
                         flightDetails += `<p style="${S.p} font-size:14px; color:${C.textLight}; text-align:left; margin-top:20px;">${T.flight_price_info}</p>`;
                     }
 
-                    flightSection = `<tr><td style="padding: 20px 30px 30px 30px;">${flightDetails}</td></tr>`;
+                    flightSection = `<tr><td bgcolor="${C.white}" style="background-color: ${C.white}; padding: 20px 30px 30px 30px; color: ${C.textDark};">${flightDetails}</td></tr>`;
                     flightBlock = `${createBanner(T.banner_travel_fees, 'sub')}${flightSection}`;
                 }
             }
@@ -352,73 +448,50 @@ if (selectedHotels.length === 1) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="x-apple-disable-message-reformatting">
-  <meta name="color-scheme" content="light dark">
-  <meta name="supported-color-schemes" content="light dark">
   <title>${T.banner1}</title>
-  <style>
-    :root {
-      color-scheme: light dark;
-      supported-color-schemes: light dark;
-    }
-    .logo-background {
-      background-color: #001f3f !important;
-    }
-    .logo-container {
-      background-color: #e9f2f9;
-      padding: 20px 30px;
-      border-radius: 8px;
-      max-width: 420px;
-      margin: auto;
-    }
-    /* Force text and background colors in dark mode */
-    @media (prefers-color-scheme: dark) {
-      body, table, td, p, span, a, h1, h2, h3, h4 {
-        color: #ffffff !important;
-      }
-      body, table, td {
-        background-color: #001f3f !important;
-      }
-      .logo-background {
-        background-color: #001f3f !important;
-      }
-    }
-  </style>
   <!--[if mso]>
   <style type="text/css">
     body, table, td, p, span, a, h1, h2, h3, h4 {
-      background-color: #001f3f !important;
-      color: #ffffff !important;
+      background-color: ${C.background} !important;
+      color: ${C.white} !important;
     }
   </style>
   <![endif]-->
 </head>
-<body style="margin:0; padding:0; background-color:${C.background};" bgcolor="${C.background}" data-ogsb data-ogsc><table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color:${C.background};"><tr><td align="center"><table width="680" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width: 680px; max-width: 100%; margin: 20px auto; background-color: ${C.white};"
-<tr>
-  <td class="logo-background" align="center" style="padding:20px 0;">
-    <table class="logo-container" border="0" cellpadding="0" cellspacing="0" role="presentation">
-      <tr>
-        <td align="center" style="width:50%;">
-          <img src="${LOGOS.earmarked}" alt="Logo Earmarked" style="max-width:150px; height:auto; display:block; margin:0 auto;">
-        </td>
-        <td align="center" style="width:50%;">
-          <img src="${LOGOS.agency}" alt="Logo agence" style="max-width:150px; height:auto; display:block; margin:0 auto;">
-        </td>
-      </tr>
-    </table>
-  </td>
-</tr>
+<body style="margin:0; padding:0; background-color:${C.background}; color:${C.white}; font-family: Arial, Helvetica, sans-serif;" bgcolor="${C.background}">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color:${C.background};" bgcolor="${C.background}">
+    <tr><td align="center">
+      <table width="680" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width: 680px; max-width: 100%; margin: 20px auto; background-color: ${C.white};" bgcolor="${C.white}">
+        <tr>
+          <td bgcolor="${C.background}" style="background-color:${C.background}; padding:20px 0;" align="center">
+            <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color: #e9f2f9; padding: 20px 30px; max-width: 420px; margin: auto;" bgcolor="#e9f2f9">
+              <tr>
+                <td align="center" style="width:50%;">
+                  <img src="${LOGOS.earmarked}" alt="Logo Earmarked" style="max-width:150px; height:auto; display:block; margin:0 auto;">
+                </td>
+                <td align="center" style="width:50%;">
+                  <img src="${LOGOS.agency}" alt="Logo agence" style="max-width:150px; height:auto; display:block; margin:0 auto;">
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
 
-${createBanner(T.banner1, 'main')}
+        ${createBanner(T.banner1, 'main')}
 
-<tr><td style="padding: 20px 30px 30px 30px;">${introSection}</td></tr>
-                ${createBanner(hotelBannerText, 'sub')}
-                <tr><td style="padding: 20px 30px 10px 30px;">${hotelSection}</td></tr>
-                <tr><td style="padding: 10px 30px 30px 30px;">${promotionSection}</td></tr>
-                <tr><td style="padding: 0 30px 30px 30px;"><p style="${S.p} font-size:14px; color:${C.textLight}; text-align:center; ${S.italic}">${priceDisclaimer}</p></td></tr>
-                ${flightBlock}
-                ${createBanner(T.banner_magic_continues, 'closing')}
-                <tr><td style="padding: 20px 30px 30px 30px;">${closingSection}</td></tr>
-            </table></td></tr></table></body></html>`;
+        <tr><td bgcolor="${C.white}" style="background-color: ${C.white}; padding: 20px 30px 30px 30px; color: ${C.textDark};">${introSection}</td></tr>
+        ${createBanner(hotelBannerText, 'sub')}
+        <tr><td bgcolor="${C.white}" style="background-color: ${C.white}; padding: 20px 30px 10px 30px; color: ${C.textDark};">${hotelSection}</td></tr>
+        <tr><td bgcolor="${C.white}" style="background-color: ${C.white}; padding: 10px 30px 30px 30px; color: ${C.textDark};">${promotionSection}</td></tr>
+        <tr><td bgcolor="${C.white}" style="background-color: ${C.white}; padding: 0 30px 30px 30px; color: ${C.textDark};"><p style="${S.p} font-size:14px; color:${C.textLight}; text-align:center; ${S.italic}">${priceDisclaimer}</p></td></tr>
+        ${flightBlock}
+        ${createBanner(T.banner_magic_continues, 'closing')}
+        <tr><td bgcolor="${C.white}" style="background-color: ${C.white}; padding: 20px 30px 30px 30px; color: ${C.textDark};">${closingSection}</td></tr>
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>`;
         }
 
         // --- Le reste du script JS pour le formulaire reste identique ---
