@@ -154,6 +154,7 @@
                 textLight: '#555555',
                 border: '#EAEAEA',
                 background: '#001f3f',
+                backgroundLight: '#f4f4f4',
                 white: '#FFFFFF',
                 blueLight: '#e6f2fa',
                 orangeLight: '#fff4e6',
@@ -370,17 +371,45 @@ if (selectedHotels.length === 1) {
       max-width: 420px;
       margin: auto;
     }
+    .email-wrapper {
+      width: 680px;
+      max-width: 100%;
+      margin: 20px auto;
+      background-color: ${C.white};
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: ${C.backgroundLight};
+    }
+    @media only screen and (max-width: 600px) {
+      .two-col td {
+        display: block !important;
+        width: 100% !important;
+      }
+      .logo-container {
+        max-width: 100% !important;
+        padding: 15px !important;
+      }
+    }
     @media (prefers-color-scheme: dark) {
       .logo-background {
         background-color: #001f3f !important;
       }
+      body {
+        background-color: ${C.background} !important;
+      }
+      .email-wrapper {
+        background-color: #000000 !important;
+        color: ${C.white} !important;
+      }
     }
   </style>
 </head>
-<body style="margin:0; padding:0; background-color:${C.background};"><table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color:${C.background};"><tr><td align="center"><table width="680" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width: 680px; max-width: 100%; margin: 20px auto; background-color: ${C.white};"
+<body style="margin:0; padding:0; background-color:${C.backgroundLight};"><table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color:${C.backgroundLight};"><tr><td align="center"><table class="email-wrapper" width="680" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width: 680px; max-width: 100%; margin: 20px auto; background-color: ${C.white};"
 <tr>
   <td class="logo-background" align="center" style="padding:20px 0;">
-    <table class="logo-container" border="0" cellpadding="0" cellspacing="0" role="presentation">
+    <table class="logo-container two-col" border="0" cellpadding="0" cellspacing="0" role="presentation">
       <tr>
         <td align="center" style="width:50%;">
           <img src="${LOGOS.earmarked}" alt="Logo Earmarked" style="max-width:150px; height:auto; display:block; margin:0 auto;">
