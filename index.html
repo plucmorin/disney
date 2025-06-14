@@ -1,1291 +1,646 @@
 <!DOCTYPE html>
-
 <html lang="fr">
-
 <head>
-
-    <meta charset="UTF-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Générateur d'e-mail Disney (Version Finale)</title>
-
-    <style>
-
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; margin: 20px; background-color: #f4f4f4; color: #333; line-height: 1.6; }
-
-        .container { background-color: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-width: 900px; margin: auto;}
-
-        h1 { text-align: center; margin-bottom: 30px; color: #0078C1; font-weight: 700;}
-
-        h2 { margin-top: 25px; color: #0078C1; border-bottom: 2px solid #eee; padding-bottom: 8px;}
-
-        label { display: block; margin-top: 15px; font-weight: 600; color: #333; }
-
-        input[type="text"], input[type="number"], input[type="date"], input[type="time"], select, textarea {
-
-            width: 100%; padding: 12px; margin-top: 5px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 1em;
-
-        }
-
-        textarea { resize: vertical; min-height: 80px; }
-
-        input[type="checkbox"] { margin-right: 8px; vertical-align: middle; width: auto; }
-
-        button, .remove-hotel-button {
-
-            background-color: #007bff; color: white; padding: 12px 20px;
-
-            border: none; border-radius: 6px; cursor: pointer; margin-top: 20px; font-size: 1.05em; font-weight: 500;
-
-        }
-
-        button:hover { background-color: #0056b3; }
-
-        .remove-hotel-button { background-color: #dc3545; padding: 5px 10px; font-size: 0.9em; margin-left: 10px; margin-top: 0;}
-
-        .form-section { border: 1px solid #e9ecef; padding: 20px; margin-bottom: 25px; border-radius: 8px; background-color: #fdfdfd; }
-
-        .hotel-option-group { border: 1px solid #e0e0e0; padding: 15px; margin-top: 15px; border-radius: 8px; background-color: #fafafa; }
-
-        .hotel-option-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-
-        .hidden { display: none; }
-
-        #emailOutputContainer { margin-top: 30px; }
-
-        #emailOutput { padding: 20px; border: 1px solid #ccc; background-color: #f0f2f5; border-radius: 8px; min-height: 200px; overflow-x: auto;}
-
-        .flight-inputs { border: 1px solid #ddd; border-radius: 8px; padding: 10px 15px 15px 15px; margin-top:10px; }
-
-        .flight-option-group { border: 1px solid #e0e0e0; padding: 15px; margin-top: 15px; border-radius: 8px; background-color: #fafafa; }
-
-    </style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur d'e-mail Disney (Version Finale)</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; margin: 20px; background-color: #f4f4f4; color: #333; line-height: 1.6; }
+        .container { background-color: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-width: 900px; margin: auto;}
+        h1 { text-align: center; margin-bottom: 30px; color: #0078C1; font-weight: 700;}
+        h2 { margin-top: 25px; color: #0078C1; border-bottom: 2px solid #eee; padding-bottom: 8px;}
+        label { display: block; margin-top: 15px; font-weight: 600; color: #333; }
+        input[type="text"], input[type="number"], input[type="date"], input[type="time"], select, textarea {
+            width: 100%; padding: 12px; margin-top: 5px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 1em;
+        }
+        textarea { resize: vertical; min-height: 80px; }
+        input[type="checkbox"] { margin-right: 8px; vertical-align: middle; width: auto; }
+        button, .remove-hotel-button {
+            background-color: #007bff; color: white; padding: 12px 20px;
+            border: none; border-radius: 6px; cursor: pointer; margin-top: 20px; font-size: 1.05em; font-weight: 500;
+        }
+        button:hover { background-color: #0056b3; }
+        .remove-hotel-button { background-color: #dc3545; padding: 5px 10px; font-size: 0.9em; margin-left: 10px; margin-top: 0;}
+        .form-section { border: 1px solid #e9ecef; padding: 20px; margin-bottom: 25px; border-radius: 8px; background-color: #fdfdfd; }
+        .hotel-option-group { border: 1px solid #e0e0e0; padding: 15px; margin-top: 15px; border-radius: 8px; background-color: #fafafa; }
+        .hotel-option-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .hidden { display: none; }
+        #emailOutputContainer { margin-top: 30px; }
+        #emailOutput { padding: 20px; border: 1px solid #ccc; background-color: #f0f2f5; border-radius: 8px; min-height: 200px; overflow-x: auto;}
+        .flight-inputs { border: 1px solid #ddd; border-radius: 8px; padding: 10px 15px 15px 15px; margin-top:10px; }
+        .flight-option-group { border: 1px solid #e0e0e0; padding: 15px; margin-top: 15px; border-radius: 8px; background-color: #fafafa; }
+    </style>
 </head>
-
 <body>
-
-    <div class="container">
-
-        <h1>Générateur d'e-mail Disney</h1>
-
-        <form id="disneyForm">
-
-            <div class="form-section">
-
-                <h2>Informations Générales</h2>
-
-                <label for="client_name">Nom de la personne cliente&nbsp;:</label>
-
-                <input type="text" id="client_name" name="client_name" placeholder="Entrez le nom du client" required>
-
-                <label for="adults">Nombre d'adultes&nbsp;:</label>
-
-                <input type="number" id="adults" name="adults" min="1" value="2" required>
-
-                <label for="children">Nombre d'enfants (0 si aucun)&nbsp;:</label>
-
-                <input type="number" id="children" name="children" min="0" value="0" required>
-
-            </div>
-
-            <div class="form-section">
-
-                <h2>Hébergement et Billets</h2>
-
-                <label for="booking_type">Type de réservation&nbsp;:</label>
-
-                <select id="booking_type" name="booking_type">
-
-                    <option value="hotel_tickets">Hôtel + Billets</option>
-
-                    <option value="tickets_only">Billets seulement</option>
-
-                </select>
-
-                <div id="hotel_options_container">
-
-                    <div id="hotel_selections"></div>
-
-                    <button type="button" id="add_hotel_button">Ajouter une option d'hôtel</button>
-
-                </div>
-
-            </div>
-
-            <div class="form-section">
-
-                <h2>Vols</h2>
-
-                <label><input type="checkbox" id="include_flights" name="include_flights"> Inclure les vols&nbsp;?</label>
-
-                <div id="flight_details" class="hidden">
-
-                    <label><input type="checkbox" id="flight_too_early" name="flight_too_early"> Il est trop tôt pour réserver les vols (nous surveillons les itinéraires)</label>
-
-                    <div id="flight_options_section">
-
-                        <label for="flight_option_count">Nombre d'options de vol&nbsp;:</label>
-
-                        <select id="flight_option_count" name="flight_option_count">
-
-                            <option value="1" selected>1</option>
-
-                            <option value="2">2</option>
-
-                            <option value="3">3</option>
-
-                        </select>
-
-                        <div id="flight_option_groups"></div>
-
-                        <div id="multiple_flight_reason" class="hidden">
-
-                            <label for="flight_multiple_reason">Pourquoi plusieurs options&nbsp;:</label>
-
-                            <textarea id="flight_multiple_reason" name="flight_multiple_reason" placeholder="Expliquez la raison des multiples choix"></textarea>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="form-section">
-
-                <h2>Promotion</h2>
-
-                <label for="promotion_type">Type de promotion&nbsp;:</label>
-
-                <select id="promotion_type" name="promotion_type">
-
-                    <option value="aucune">Aucune promotion pour l'instant</option>
-
-                    <option value="specifique">Promotion spécifique</option>
-
-                </select>
-
-                <div id="promotion_details" class="hidden">
-
-                    <label for="promotion_name">Nom de la promotion&nbsp;:</label>
-
-                    <input type="text" id="promotion_name" name="promotion_name" placeholder="Nom de la promotion (ex: Rabais estival)">
-
-                    <label for="promotion_end_date">Date de fin de la promotion (si applicable)&nbsp;:</label>
-
-                    <input type="date" id="promotion_end_date" name="promotion_end_date">
-
-                </div>
-
-            </div>
-
-            <button type="submit">Générer l'e-mail</button>
-
-        </form>
-
-
-
-        <div id="emailOutputContainer">
-
-            <h2>E-mail Généré (Prêt à copier)</h2>
-
-            <div id="emailOutput" contenteditable="true"></div>
-
-            <button type="button" id="copyHtmlButton">Copier le contenu de l'e-mail</button>
-
-        </div>
-
-    </div>
-
-
-
-    <script>
-
-        const DISNEY_HOTELS = [
-
-             // Deluxe Villas
-
-            { name: "Bay Lake Tower at Contemporary", description: "Ce croissant de lune moderne adjacent au Contemporary offre des villas luxueuses et une vue imprenable sur Magic Kingdom. Son sky-bridge le connecte directement à l'hôtel principal et au monorail.", level: "Deluxe Villa", pointsForts: ["Distance de marche de Magic Kingdom", "Accès à la ligne du monorail", "Vues spectaculaires sur les feux d'artifice", "Piscine privée avec glissade d'eau"] },
-
-            { name: "Villas at Grand Floridian", description: "Le summum du luxe et de l'élégance victorienne dans un format de villa spacieuse. Profitez du service impeccable et des restaurants primés du Grand Floridian, le tout sur la ligne du monorail.", level: "Deluxe Villa", pointsForts: ["Hébergement le plus luxueux de Disney", "Restaurants gastronomiques sur place", "Spa Senses de classe mondiale", "Accès direct au monorail"] },
-
-            { name: "Polynesian Villas & Bungalows", description: "Évadez-vous dans un paradis tropical avec ces villas et bungalows sur l'eau. L'ambiance des îles du Pacifique Sud, la vue sur le lagon et l'accès au monorail en font une escapade de rêve.", level: "Deluxe Villa", pointsForts: ["Bungalows uniques sur pilotis", "Ambiance tropicale immersive", "Situé sur la ligne du monorail", "Excellents restaurants thématiques ('Ohana)"] },
-
-            { name: "BoardWalk Villas", description: "Revivez le charme d'une promenade côtière du début du XXe siècle. Ces villas offrent un accès direct à l'animation effervescente du BoardWalk, avec ses restaurants, boutiques et spectacles de rue.", level: "Deluxe Villa", pointsForts: ["Distance de marche de EPCOT et Hollywood Studios", "Vie nocturne et restaurants sur le BoardWalk", "Piscine Luna Park sur le thème du cirque", "Service de bateau-taxi (Friendship)"] },
-
-            { name: "Beach Club Villas", description: "Profitez de l'ambiance décontractée d'une villa de la Nouvelle-Angleterre. Le point d'orgue est Stormalong Bay, un incroyable complexe aquatique de 3 acres avec fond de sable et rivière tranquille.", level: "Deluxe Villa", pointsForts: ["Accès à la meilleure piscine de Disney World", "À quelques pas de l'entrée d'EPCOT", "Atmosphère balnéaire relaxante", "Restaurant populaire Beaches & Cream"] },
-
-            { name: "Riviera Resort", description: "Inspiré par l'élégance de la Riviera européenne, cet hôtel sophistiqué allie le glamour européen à la magie de Disney. Ses studios et villas offrent des vues magnifiques et une décoration raffinée.", level: "Deluxe Villa", pointsForts: ["Station principale du Disney Skyliner", "Restaurant sur le toit avec personnages (Topolino's)", "Design européen élégant et artistique", "Piscines magnifiques et jeux d'eau"] },
-
-            { name: "Wilderness Lodge - Copper Creek Villas", description: "Inspirées par l'héritage ferroviaire du Nord-Ouest Pacifique, ces villas et cabines au bord de l'eau offrent une touche de luxe moderne dans un cadre rustique et sauvage.", level: "Deluxe Villa", pointsForts: ["Cabines privées luxueuses au bord du lac", "Piscine thématique avec geyser", "Ambiance à la fois rustique et moderne", "Accès par bateau-taxi à Magic Kingdom"] },
-
-            { name: "Wilderness Lodge - Boulder Ridge Villas", description: "Adjacent au lodge principal, ce bâtiment évoque le charme des gîtes des parcs nationaux de l'Ouest américain. Une ambiance chaleureuse et rustique, parfaite pour une retraite paisible.", level: "Deluxe Villa", pointsForts: ["Atmosphère calme et plus intime", "Thème des parcs nationaux américains", "Accès facile aux commodités du lodge", "Feu de camp et activités extérieures"] },
-
-            { name: "Animal Kingdom Lodge - Jambo House Villas", description: "Vivez une expérience immersive dans le bâtiment principal d'Animal Kingdom Lodge. Le lobby grandiose et les vues directes sur la savane depuis certaines villas sont inoubliables.", level: "Deluxe Villa", pointsForts: ["Vues imprenables sur la savane animalière", "Lobby spectaculaire et collection d'art africain", "Accès aux restaurants primés (Jiko, Boma)", "Piscine Uzima avec vue sur les animaux"] },
-
-            { name: "Animal Kingdom Lodge - Kidani Village", description: "Ce bâtiment dédié aux villas offre une ambiance plus calme et des vues étendues sur la savane. Idéal pour les familles qui souhaitent plus d'espace et une cuisine complète.", level: "Deluxe Villa", pointsForts: ["Excellent pour l'observation des animaux", "Piscine Samawati avec glissades et jeux d'eau", "Restaurant Sanaa avec vue sur la savane", "Villas spacieuses avec cuisines complètes"] },
-
-            { name: "Saratoga Springs Resort & Spa", description: "Inspiré par la ville thermale historique de Saratoga Springs, ce complexe de style victorien propose des villas, un spa complet, et un accès facile à Disney Springs par bateau ou à pied.", level: "Deluxe Villa", pointsForts: ["Distance de marche de Disney Springs", "Treehouse Villas uniques en leur genre", "Parcours de golf sur place (Lake Buena Vista)", "Ambiance de station thermale relaxante"] },
-
-            { name: "Old Key West Resort", description: "Évoquant l'ambiance décontractée de Key West, ce vaste complexe propose des villas parmi les plus spacieuses du site, de magnifiques fairways et une atmosphère de communauté insulaire.", level: "Deluxe Villa", pointsForts: ["Villas extrêmement spacieuses", "Ambiance décontractée et luxuriante", "Restaurant Olivia's Café (un classique)", "Transport par bateau vers Disney Springs"] },
-
-
-
-            // Deluxe Resorts
-
-            { name: "Contemporary Resort", description: "Iconique et ultra-moderne, cet hôtel en forme de A est le seul où le monorail passe directement à l'intérieur. Il est si proche de Magic Kingdom que vous pouvez y aller à pied.", level: "Deluxe", pointsForts: ["Le plus proche de Magic Kingdom (à pied)", "Le monorail traverse le lobby de l'hôtel", "Restaurant sur le toit (California Grill)", "Design moderne et vues exceptionnelles"] },
-
-            { name: "Grand Floridian Resort & Spa", description: "L'hôtel le plus luxueux et emblématique de Disney. Son élégance victorienne, son service impeccable, son spa de renommée mondiale et sa proximité avec Magic Kingdom en font le summum du luxe.", level: "Deluxe", pointsForts: ["Service 5 étoiles et élégance victorienne", "Spa Senses de classe mondiale", "Restaurants gastronomiques (Victoria & Albert's)", "Sur la ligne du monorail vers Magic Kingdom"] },
-
-            { name: "Polynesian Village Resort", description: "Une escapade tropicale luxuriante qui vous transporte dans les îles du Pacifique Sud. Profitez de son ambiance exotique, de sa plage de sable blanc avec vue sur le château et de son accès direct au monorail.", level: "Deluxe", pointsForts: ["Ambiance des îles du Pacifique Sud", "Vue sur les feux d'artifice de Magic Kingdom", "Accès au monorail et aux bateaux-taxis", "Restaurant populaire 'Ohana"] },
-
-            { name: "Wilderness Lodge", description: "Inspiré des grands lodges des parcs nationaux américains, ce complexe majestueux est un chef-d'œuvre d'artisanat. Son lobby spectaculaire avec une cheminée de 82 pieds et son geyser en font une destination en soi.", level: "Deluxe", pointsForts: ["Lobby et architecture spectaculaires", "Ambiance immersive de parc national", "Transport par bateau vers Magic Kingdom", "Piscine avec geyser 'Fire Rock'"] },
-
-            { name: "Yacht Club Resort", description: "Plongez dans l'élégance nautique d'un club de yacht de la Nouvelle-Angleterre. Son atmosphère est plus formelle que son hôtel jumeau, le Beach Club, avec qui il partage l'exceptionnelle piscine Stormalong Bay.", level: "Deluxe", pointsForts: ["Partage l'accès à la piscine Stormalong Bay", "Restaurant signature (Yachtsman Steakhouse)", "Atmosphère nautique et raffinée", "Distance de marche d'EPCOT"] },
-
-            { name: "Beach Club Resort", description: "Avec son ambiance décontractée de station balnéaire de la Nouvelle-Angleterre, cet hôtel est un favori des familles. Son atout majeur est l'accès à Stormalong Bay, un mini parc aquatique avec fond de sable.", level: "Deluxe", pointsForts: ["Accès au complexe aquatique Stormalong Bay", "Le plus près de l'entrée d'EPCOT (à pied)", "Ambiance familiale et ensoleillée", "Glaces et repas au Beaches & Cream"] },
-
-            { name: "BoardWalk Inn", description: "Cet hôtel charmant vous transporte sur une promenade côtière des années 1920. Le soir, le 'Boardwalk' s'anime avec ses restaurants, ses artistes de rue et sa vie nocturne, le tout à quelques pas d'EPCOT.", level: "Deluxe", pointsForts: ["Accès à pied à EPCOT et Hollywood Studios", "Promenade animée avec restaurants et spectacles", "Piscine 'Luna Park' sur le thème du carnaval", "Élégance d'une époque révolue"] },
-
-            { name: "Animal Kingdom Lodge", description: "Évadez-vous dans un lodge africain authentique où l'aventure vous attend à votre fenêtre. Cet hôtel majestueux est entouré de savanes luxuriantes, offrant des vues sur plus de 30 espèces d'animaux.", level: "Deluxe", pointsForts: ["Vues spectaculaires sur la savane animalière", "Collection d'art africain de calibre mondial", "Restaurants thématiques exceptionnels (Jiko, Boma)", "Immersion culturelle unique"] },
-
-            
-
-            // Moderate Resorts
-
-            { name: "Coronado Springs Resort", description: "Ce complexe tentaculaire allie une architecture coloniale espagnole à l'élégance moderne de la tour Gran Destino. Il offre des commodités de luxe à un prix de catégorie modérée.", level: "Moderate", pointsForts: ["Ambiance de luxe à prix modéré", "Options de restauration variées et excellentes", "Piscine 'The Lost City of Cibola' avec pyramide", "La tour Gran Destino offre des chambres modernes"] },
-
-            { name: "Caribbean Beach Resort", description: "Évadez-vous dans l'ambiance colorée et tropicale des Caraïbes. Ce resort tentaculaire est le hub central du Disney Skyliner, offrant un transport rapide et amusant vers deux parcs.", level: "Moderate", pointsForts: ["Hub principal du Disney Skyliner", "Piscine thématique 'Fuentes del Morro'", "Chambres sur le thème des pirates", "Ambiance de vacances tropicales"] },
-
-            { name: "Port Orleans - French Quarter", description: "Ce charmant hôtel évoque les rues pavées et les balcons en fer forgé du Vieux Carré de La Nouvelle-Orléans. Sa petite taille le rend intime et facile à parcourir, avec un seul arrêt d'autobus.", level: "Moderate", pointsForts: ["Hôtel le plus compact et intime", "Beignets Mickey frais et délicieux", "Ambiance jazz et romantique", "Service de bateau-taxi vers Disney Springs"] },
-
-            { name: "Port Orleans - Riverside", description: "Explorez les bayous rustiques de la Louisiane ou les manoirs élégants du Sud. Ce vaste complexe offre une grande variété de paysages et une atmosphère paisible au bord de la rivière.", level: "Moderate", pointsForts: ["Choix entre manoirs ou cabanes rustiques", "Chambres thématiques 'Royal Rooms'", "Atmosphère relaxante au bord de la rivière", "Activités comme la pêche et les calèches"] },
-
-            { name: "The Cabins at Fort Wilderness", description: "Offrant une véritable immersion dans la nature, ces cabines rustiques sont nichées dans une forêt de 750 acres. Chaque cabine peut loger jusqu’à six personnes et dispose d'une cuisine complète.", level: "Moderate", pointsForts: ["Cuisine complète et barbecue privé", "Immersion totale dans la nature", "Nombreuses activités récréatives", "Peut accueillir jusqu'à 6 personnes"] },
-
-            
-
-            // Value Resorts
-
-            { name: "Art of Animation Resort", description: "Plongez littéralement dans les mondes de Némo, Cars, Le Roi Lion et La Petite Sirène. Cet hôtel est célèbre pour ses suites familiales immersives et sa piscine 'Big Blue', la plus grande de Disney World.", level: "Value", pointsForts: ["Suites familiales thématiques (jusqu'à 6 pers.)", "La plus grande piscine de tout Disney World", "Station dédiée sur le Disney Skyliner", "Décors et personnages géants spectaculaires"] },
-
-            { name: "Pop Century Resort", description: "Voyagez à travers les décennies marquantes du XXe siècle. Cet hôtel est l'un des favoris pour son excellent rapport qualité-prix et son accès direct et rapide au Disney Skyliner.", level: "Value", pointsForts: ["Accès direct au Disney Skyliner", "Excellent rapport qualité-prix", "Récemment rénové avec lits queen", "Ambiance nostalgique et amusante"] },
-
-            { name: "All-Star Movies Resort", description: "Vibrez au rythme des classiques du cinéma Disney dans cet hôtel aux décors spectaculaires. Idéal pour les familles, chaque bâtiment est une célébration de films comme Fantasia ou Toy Story.", level: "Value", pointsForts: ["Thématisation immersive et icônes géantes", "L'une des options les plus abordables sur site", "Grande aire de restauration 'World Premiere'", "Piscine sur le thème de Fantasia"] },
-
-            { name: "All-Star Music Resort", description: "Célébrez tous les genres musicaux, du calypso au rock'n'roll. C'est le seul hôtel 'All-Star' à proposer des suites familiales, une option économique pour les grands groupes.", level: "Value", pointsForts: ["Propose des suites familiales abordables", "Piscine principale en forme de guitare", "Thème musical entraînant et amusant", "Excellent choix pour les fanfares scolaires"] },
-
-            { name: "All-Star Sports Resort", description: "Pour les amateurs de sport, cet hôtel est un terrain de jeu géant. Les icônes surdimensionnées de ballons de football, de battes de baseball et de planches de surf créent une atmosphère énergique.", level: "Value", pointsForts: ["Thème sportif et dynamique", "Parfait pour les groupes sportifs de jeunes", "Tarifs parmi les plus bas de Disney", "Aires de jeux sur le thème du sport"] }
-
-        ];
-
-
-
-        function getHotelByName(name) { return DISNEY_HOTELS.find(hotel => hotel.name === name); }
-
-        function formatDateFR(dateStr) { if (!dateStr) return ""; try { const date = new Date(dateStr + 'T00:00:00'); const options = { year: 'numeric', month: 'long', day: 'numeric' }; return date.toLocaleDateString('fr-FR', options); } catch (e) { return dateStr; } }
-
-        function formatTime(timeStr) { if (!timeStr) return ""; try { const [hours, minutes] = timeStr.split(':'); return `${String(hours).padStart(2, '0')}h${String(minutes).padStart(2, '0')}`; } catch (e) { return timeStr; } }
-
-
-
-        function generateEmailHTML(data) {
-
-             const C = {
-
-                blue: '#0078C1',
-
-                blueDark: '#005a9c',
-
-                orange: '#FF7F50',
-
-                textDark: '#222222',
-
-                textLight: '#555555',
-
-                border: '#EAEAEA',
-
-                background: '#001f3f',
-
-                white: '#FFFFFF',
-
-                blueLight: '#e6f2fa',
-
-                orangeLight: '#fff4e6',
-
-                level: { value: '#28a745', moderate: '#2196F3', deluxe: '#6f42c1', deluxe_villa: '#9C27B0' },
-
-                tags: ['#0078C1', '#5A67D8', '#d9480f', '#0ca678']
-
-            };
-
-
-
-            const S = {
-
-                fontStack: `Arial, Helvetica, sans-serif`,
-
-                p: `font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 1.6; color: ${C.textDark}; margin: 1em 0; text-align: justify;`,
-
-                strong: `font-weight: bold;`,
-
-                italic: `font-style: italic;`,
-
-            };
-
-
+    <div class="container">
+        <h1>Générateur d'e-mail Disney</h1>
+        <form id="disneyForm">
+            <div class="form-section">
+                <h2>Informations Générales</h2>
+                <label for="client_name">Nom de la personne cliente&nbsp;:</label>
+                <input type="text" id="client_name" name="client_name" placeholder="Entrez le nom du client" required>
+                <label for="adults">Nombre d'adultes&nbsp;:</label>
+                <input type="number" id="adults" name="adults" min="1" value="2" required>
+                <label for="children">Nombre d'enfants (0 si aucun)&nbsp;:</label>
+                <input type="number" id="children" name="children" min="0" value="0" required>
+            </div>
+            <div class="form-section">
+                <h2>Hébergement et Billets</h2>
+                <label for="booking_type">Type de réservation&nbsp;:</label>
+                <select id="booking_type" name="booking_type">
+                    <option value="hotel_tickets">Hôtel + Billets</option>
+                    <option value="tickets_only">Billets seulement</option>
+                </select>
+                <div id="hotel_options_container">
+                    <div id="hotel_selections"></div>
+                    <button type="button" id="add_hotel_button">Ajouter une option d'hôtel</button>
+                </div>
+            </div>
+            <div class="form-section">
+                <h2>Vols</h2>
+                <label><input type="checkbox" id="include_flights" name="include_flights"> Inclure les vols&nbsp;?</label>
+                <div id="flight_details" class="hidden">
+                    <label><input type="checkbox" id="flight_too_early" name="flight_too_early"> Il est trop tôt pour réserver les vols (nous surveillons les itinéraires)</label>
+                    <div id="flight_options_section">
+                        <label for="flight_option_count">Nombre d'options de vol&nbsp;:</label>
+                        <select id="flight_option_count" name="flight_option_count">
+                            <option value="1" selected>1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                        <div id="flight_option_groups"></div>
+                        <div id="multiple_flight_reason" class="hidden">
+                            <label for="flight_multiple_reason">Pourquoi plusieurs options&nbsp;:</label>
+                            <textarea id="flight_multiple_reason" name="flight_multiple_reason" placeholder="Expliquez la raison des multiples choix"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-section">
+                <h2>Promotion</h2>
+                <label for="promotion_type">Type de promotion&nbsp;:</label>
+                <select id="promotion_type" name="promotion_type">
+                    <option value="aucune">Aucune promotion pour l'instant</option>
+                    <option value="specifique">Promotion spécifique</option>
+                </select>
+                <div id="promotion_details" class="hidden">
+                    <label for="promotion_name">Nom de la promotion&nbsp;:</label>
+                    <input type="text" id="promotion_name" name="promotion_name" placeholder="Nom de la promotion (ex: Rabais estival)">
+                    <label for="promotion_end_date">Date de fin de la promotion (si applicable)&nbsp;:</label>
+                    <input type="date" id="promotion_end_date" name="promotion_end_date">
+                </div>
+            </div>
+            <button type="submit">Générer l'e-mail</button>
+        </form>
+
+        <div id="emailOutputContainer">
+            <h2>E-mail Généré (Prêt à copier)</h2>
+            <div id="emailOutput" contenteditable="true"></div>
+            <button type="button" id="copyHtmlButton">Copier le contenu de l'e-mail</button>
+        </div>
+    </div>
+
+    <script>
+        const DISNEY_HOTELS = [
+             // Deluxe Villas
+            { name: "Bay Lake Tower at Contemporary", description: "Ce croissant de lune moderne adjacent au Contemporary offre des villas luxueuses et une vue imprenable sur Magic Kingdom. Son sky-bridge le connecte directement à l'hôtel principal et au monorail.", level: "Deluxe Villa", pointsForts: ["Distance de marche de Magic Kingdom", "Accès à la ligne du monorail", "Vues spectaculaires sur les feux d'artifice", "Piscine privée avec glissade d'eau"] },
+            { name: "Villas at Grand Floridian", description: "Le summum du luxe et de l'élégance victorienne dans un format de villa spacieuse. Profitez du service impeccable et des restaurants primés du Grand Floridian, le tout sur la ligne du monorail.", level: "Deluxe Villa", pointsForts: ["Hébergement le plus luxueux de Disney", "Restaurants gastronomiques sur place", "Spa Senses de classe mondiale", "Accès direct au monorail"] },
+            { name: "Polynesian Villas & Bungalows", description: "Évadez-vous dans un paradis tropical avec ces villas et bungalows sur l'eau. L'ambiance des îles du Pacifique Sud, la vue sur le lagon et l'accès au monorail en font une escapade de rêve.", level: "Deluxe Villa", pointsForts: ["Bungalows uniques sur pilotis", "Ambiance tropicale immersive", "Situé sur la ligne du monorail", "Excellents restaurants thématiques ('Ohana)"] },
+            { name: "BoardWalk Villas", description: "Revivez le charme d'une promenade côtière du début du XXe siècle. Ces villas offrent un accès direct à l'animation effervescente du BoardWalk, avec ses restaurants, boutiques et spectacles de rue.", level: "Deluxe Villa", pointsForts: ["Distance de marche de EPCOT et Hollywood Studios", "Vie nocturne et restaurants sur le BoardWalk", "Piscine Luna Park sur le thème du cirque", "Service de bateau-taxi (Friendship)"] },
+            { name: "Beach Club Villas", description: "Profitez de l'ambiance décontractée d'une villa de la Nouvelle-Angleterre. Le point d'orgue est Stormalong Bay, un incroyable complexe aquatique de 3 acres avec fond de sable et rivière tranquille.", level: "Deluxe Villa", pointsForts: ["Accès à la meilleure piscine de Disney World", "À quelques pas de l'entrée d'EPCOT", "Atmosphère balnéaire relaxante", "Restaurant populaire Beaches & Cream"] },
+            { name: "Riviera Resort", description: "Inspiré par l'élégance de la Riviera européenne, cet hôtel sophistiqué allie le glamour européen à la magie de Disney. Ses studios et villas offrent des vues magnifiques et une décoration raffinée.", level: "Deluxe Villa", pointsForts: ["Station principale du Disney Skyliner", "Restaurant sur le toit avec personnages (Topolino's)", "Design européen élégant et artistique", "Piscines magnifiques et jeux d'eau"] },
+            { name: "Wilderness Lodge - Copper Creek Villas", description: "Inspirées par l'héritage ferroviaire du Nord-Ouest Pacifique, ces villas et cabines au bord de l'eau offrent une touche de luxe moderne dans un cadre rustique et sauvage.", level: "Deluxe Villa", pointsForts: ["Cabines privées luxueuses au bord du lac", "Piscine thématique avec geyser", "Ambiance à la fois rustique et moderne", "Accès par bateau-taxi à Magic Kingdom"] },
+            { name: "Wilderness Lodge - Boulder Ridge Villas", description: "Adjacent au lodge principal, ce bâtiment évoque le charme des gîtes des parcs nationaux de l'Ouest américain. Une ambiance chaleureuse et rustique, parfaite pour une retraite paisible.", level: "Deluxe Villa", pointsForts: ["Atmosphère calme et plus intime", "Thème des parcs nationaux américains", "Accès facile aux commodités du lodge", "Feu de camp et activités extérieures"] },
+            { name: "Animal Kingdom Lodge - Jambo House Villas", description: "Vivez une expérience immersive dans le bâtiment principal d'Animal Kingdom Lodge. Le lobby grandiose et les vues directes sur la savane depuis certaines villas sont inoubliables.", level: "Deluxe Villa", pointsForts: ["Vues imprenables sur la savane animalière", "Lobby spectaculaire et collection d'art africain", "Accès aux restaurants primés (Jiko, Boma)", "Piscine Uzima avec vue sur les animaux"] },
+            { name: "Animal Kingdom Lodge - Kidani Village", description: "Ce bâtiment dédié aux villas offre une ambiance plus calme et des vues étendues sur la savane. Idéal pour les familles qui souhaitent plus d'espace et une cuisine complète.", level: "Deluxe Villa", pointsForts: ["Excellent pour l'observation des animaux", "Piscine Samawati avec glissades et jeux d'eau", "Restaurant Sanaa avec vue sur la savane", "Villas spacieuses avec cuisines complètes"] },
+            { name: "Saratoga Springs Resort & Spa", description: "Inspiré par la ville thermale historique de Saratoga Springs, ce complexe de style victorien propose des villas, un spa complet, et un accès facile à Disney Springs par bateau ou à pied.", level: "Deluxe Villa", pointsForts: ["Distance de marche de Disney Springs", "Treehouse Villas uniques en leur genre", "Parcours de golf sur place (Lake Buena Vista)", "Ambiance de station thermale relaxante"] },
+            { name: "Old Key West Resort", description: "Évoquant l'ambiance décontractée de Key West, ce vaste complexe propose des villas parmi les plus spacieuses du site, de magnifiques fairways et une atmosphère de communauté insulaire.", level: "Deluxe Villa", pointsForts: ["Villas extrêmement spacieuses", "Ambiance décontractée et luxuriante", "Restaurant Olivia's Café (un classique)", "Transport par bateau vers Disney Springs"] },
+
+            // Deluxe Resorts
+            { name: "Contemporary Resort", description: "Iconique et ultra-moderne, cet hôtel en forme de A est le seul où le monorail passe directement à l'intérieur. Il est si proche de Magic Kingdom que vous pouvez y aller à pied.", level: "Deluxe", pointsForts: ["Le plus proche de Magic Kingdom (à pied)", "Le monorail traverse le lobby de l'hôtel", "Restaurant sur le toit (California Grill)", "Design moderne et vues exceptionnelles"] },
+            { name: "Grand Floridian Resort & Spa", description: "L'hôtel le plus luxueux et emblématique de Disney. Son élégance victorienne, son service impeccable, son spa de renommée mondiale et sa proximité avec Magic Kingdom en font le summum du luxe.", level: "Deluxe", pointsForts: ["Service 5 étoiles et élégance victorienne", "Spa Senses de classe mondiale", "Restaurants gastronomiques (Victoria & Albert's)", "Sur la ligne du monorail vers Magic Kingdom"] },
+            { name: "Polynesian Village Resort", description: "Une escapade tropicale luxuriante qui vous transporte dans les îles du Pacifique Sud. Profitez de son ambiance exotique, de sa plage de sable blanc avec vue sur le château et de son accès direct au monorail.", level: "Deluxe", pointsForts: ["Ambiance des îles du Pacifique Sud", "Vue sur les feux d'artifice de Magic Kingdom", "Accès au monorail et aux bateaux-taxis", "Restaurant populaire 'Ohana"] },
+            { name: "Wilderness Lodge", description: "Inspiré des grands lodges des parcs nationaux américains, ce complexe majestueux est un chef-d'œuvre d'artisanat. Son lobby spectaculaire avec une cheminée de 82 pieds et son geyser en font une destination en soi.", level: "Deluxe", pointsForts: ["Lobby et architecture spectaculaires", "Ambiance immersive de parc national", "Transport par bateau vers Magic Kingdom", "Piscine avec geyser 'Fire Rock'"] },
+            { name: "Yacht Club Resort", description: "Plongez dans l'élégance nautique d'un club de yacht de la Nouvelle-Angleterre. Son atmosphère est plus formelle que son hôtel jumeau, le Beach Club, avec qui il partage l'exceptionnelle piscine Stormalong Bay.", level: "Deluxe", pointsForts: ["Partage l'accès à la piscine Stormalong Bay", "Restaurant signature (Yachtsman Steakhouse)", "Atmosphère nautique et raffinée", "Distance de marche d'EPCOT"] },
+            { name: "Beach Club Resort", description: "Avec son ambiance décontractée de station balnéaire de la Nouvelle-Angleterre, cet hôtel est un favori des familles. Son atout majeur est l'accès à Stormalong Bay, un mini parc aquatique avec fond de sable.", level: "Deluxe", pointsForts: ["Accès au complexe aquatique Stormalong Bay", "Le plus près de l'entrée d'EPCOT (à pied)", "Ambiance familiale et ensoleillée", "Glaces et repas au Beaches & Cream"] },
+            { name: "BoardWalk Inn", description: "Cet hôtel charmant vous transporte sur une promenade côtière des années 1920. Le soir, le 'Boardwalk' s'anime avec ses restaurants, ses artistes de rue et sa vie nocturne, le tout à quelques pas d'EPCOT.", level: "Deluxe", pointsForts: ["Accès à pied à EPCOT et Hollywood Studios", "Promenade animée avec restaurants et spectacles", "Piscine 'Luna Park' sur le thème du carnaval", "Élégance d'une époque révolue"] },
+            { name: "Animal Kingdom Lodge", description: "Évadez-vous dans un lodge africain authentique où l'aventure vous attend à votre fenêtre. Cet hôtel majestueux est entouré de savanes luxuriantes, offrant des vues sur plus de 30 espèces d'animaux.", level: "Deluxe", pointsForts: ["Vues spectaculaires sur la savane animalière", "Collection d'art africain de calibre mondial", "Restaurants thématiques exceptionnels (Jiko, Boma)", "Immersion culturelle unique"] },
+            
+            // Moderate Resorts
+            { name: "Coronado Springs Resort", description: "Ce complexe tentaculaire allie une architecture coloniale espagnole à l'élégance moderne de la tour Gran Destino. Il offre des commodités de luxe à un prix de catégorie modérée.", level: "Moderate", pointsForts: ["Ambiance de luxe à prix modéré", "Options de restauration variées et excellentes", "Piscine 'The Lost City of Cibola' avec pyramide", "La tour Gran Destino offre des chambres modernes"] },
+            { name: "Caribbean Beach Resort", description: "Évadez-vous dans l'ambiance colorée et tropicale des Caraïbes. Ce resort tentaculaire est le hub central du Disney Skyliner, offrant un transport rapide et amusant vers deux parcs.", level: "Moderate", pointsForts: ["Hub principal du Disney Skyliner", "Piscine thématique 'Fuentes del Morro'", "Chambres sur le thème des pirates", "Ambiance de vacances tropicales"] },
+            { name: "Port Orleans - French Quarter", description: "Ce charmant hôtel évoque les rues pavées et les balcons en fer forgé du Vieux Carré de La Nouvelle-Orléans. Sa petite taille le rend intime et facile à parcourir, avec un seul arrêt d'autobus.", level: "Moderate", pointsForts: ["Hôtel le plus compact et intime", "Beignets Mickey frais et délicieux", "Ambiance jazz et romantique", "Service de bateau-taxi vers Disney Springs"] },
+            { name: "Port Orleans - Riverside", description: "Explorez les bayous rustiques de la Louisiane ou les manoirs élégants du Sud. Ce vaste complexe offre une grande variété de paysages et une atmosphère paisible au bord de la rivière.", level: "Moderate", pointsForts: ["Choix entre manoirs ou cabanes rustiques", "Chambres thématiques 'Royal Rooms'", "Atmosphère relaxante au bord de la rivière", "Activités comme la pêche et les calèches"] },
+            { name: "The Cabins at Fort Wilderness", description: "Offrant une véritable immersion dans la nature, ces cabines rustiques sont nichées dans une forêt de 750 acres. Chaque cabine peut loger jusqu’à six personnes et dispose d'une cuisine complète.", level: "Moderate", pointsForts: ["Cuisine complète et barbecue privé", "Immersion totale dans la nature", "Nombreuses activités récréatives", "Peut accueillir jusqu'à 6 personnes"] },
+            
+            // Value Resorts
+            { name: "Art of Animation Resort", description: "Plongez littéralement dans les mondes de Némo, Cars, Le Roi Lion et La Petite Sirène. Cet hôtel est célèbre pour ses suites familiales immersives et sa piscine 'Big Blue', la plus grande de Disney World.", level: "Value", pointsForts: ["Suites familiales thématiques (jusqu'à 6 pers.)", "La plus grande piscine de tout Disney World", "Station dédiée sur le Disney Skyliner", "Décors et personnages géants spectaculaires"] },
+            { name: "Pop Century Resort", description: "Voyagez à travers les décennies marquantes du XXe siècle. Cet hôtel est l'un des favoris pour son excellent rapport qualité-prix et son accès direct et rapide au Disney Skyliner.", level: "Value", pointsForts: ["Accès direct au Disney Skyliner", "Excellent rapport qualité-prix", "Récemment rénové avec lits queen", "Ambiance nostalgique et amusante"] },
+            { name: "All-Star Movies Resort", description: "Vibrez au rythme des classiques du cinéma Disney dans cet hôtel aux décors spectaculaires. Idéal pour les familles, chaque bâtiment est une célébration de films comme Fantasia ou Toy Story.", level: "Value", pointsForts: ["Thématisation immersive et icônes géantes", "L'une des options les plus abordables sur site", "Grande aire de restauration 'World Premiere'", "Piscine sur le thème de Fantasia"] },
+            { name: "All-Star Music Resort", description: "Célébrez tous les genres musicaux, du calypso au rock'n'roll. C'est le seul hôtel 'All-Star' à proposer des suites familiales, une option économique pour les grands groupes.", level: "Value", pointsForts: ["Propose des suites familiales abordables", "Piscine principale en forme de guitare", "Thème musical entraînant et amusant", "Excellent choix pour les fanfares scolaires"] },
+            { name: "All-Star Sports Resort", description: "Pour les amateurs de sport, cet hôtel est un terrain de jeu géant. Les icônes surdimensionnées de ballons de football, de battes de baseball et de planches de surf créent une atmosphère énergique.", level: "Value", pointsForts: ["Thème sportif et dynamique", "Parfait pour les groupes sportifs de jeunes", "Tarifs parmi les plus bas de Disney", "Aires de jeux sur le thème du sport"] }
+        ];
+
+        function getHotelByName(name) { return DISNEY_HOTELS.find(hotel => hotel.name === name); }
+        function formatDateFR(dateStr) { if (!dateStr) return ""; try { const date = new Date(dateStr + 'T00:00:00'); const options = { year: 'numeric', month: 'long', day: 'numeric' }; return date.toLocaleDateString('fr-FR', options); } catch (e) { return dateStr; } }
+        function formatTime(timeStr) { if (!timeStr) return ""; try { const [hours, minutes] = timeStr.split(':'); return `${String(hours).padStart(2, '0')}h${String(minutes).padStart(2, '0')}`; } catch (e) { return timeStr; } }
+
+        function generateEmailHTML(data) {
+             const C = {
+                blue: '#0078C1',
+                blueDark: '#005a9c',
+                orange: '#FF7F50',
+                textDark: '#222222',
+                textLight: '#555555',
+                border: '#EAEAEA',
+                background: '#001f3f',
+                white: '#FFFFFF',
+                blueLight: '#e6f2fa',
+                orangeLight: '#fff4e6',
+                level: { value: '#28a745', moderate: '#2196F3', deluxe: '#6f42c1', deluxe_villa: '#9C27B0' },
+                tags: ['#0078C1', '#5A67D8', '#d9480f', '#0ca678']
+            };
+
+            const S = {
+                fontStack: `Arial, Helvetica, sans-serif`,
+                p: `font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 1.6; color: ${C.textDark}; margin: 1em 0; text-align: justify;`,
+                strong: `font-weight: bold;`,
+                italic: `font-style: italic;`,
+            };
 
 const LOGOS = {
-
-    earmarked: "https://boisterous-rabanadas-5fcb72.netlify.app/Logo_Fond_Blanc_2.png",
-
-    agency: "https://boisterous-rabanadas-5fcb72.netlify.app/Disney-EarMarked.png"
-
+    earmarked: "https://boisterous-rabanadas-5fcb72.netlify.app/Logo_Fond_Blanc_2.png",
+    agency: "https://boisterous-rabanadas-5fcb72.netlify.app/Disney-EarMarked.png"
 };
+            
+            function createBanner(text, type = 'main') {
+                let style, titleStyle, wrapperStyle;
+                switch (type) {
+                    case 'closing': style = `background-color: ${C.orange}; padding: 12px 30px;`; titleStyle = `font-family: Georgia, serif; font-size: 24px; color: ${C.white}; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center; letter-spacing: 1px;`; wrapperStyle = `padding: 5px 0;`; break;
+                    case 'sub': style = `background-color: ${C.blue}; padding: 10px 30px;`; titleStyle = `font-family: ${S.fontStack}; font-size: 20px; color: ${C.white}; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center;`; wrapperStyle = `padding: 0;`; break;
+                    case 'main': default: style = `background: linear-gradient(to right, ${C.blue}, ${C.blueDark}); padding: 25px 30px;`; titleStyle = `font-family: Georgia, serif; font-size: 32px; color: ${C.white}; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center; letter-spacing: 1.5px; line-height:1.2;`; wrapperStyle = `border-top: 1px solid rgba(255,255,255,0.3); border-bottom: 1px solid rgba(255,255,255,0.3); padding: 10px 0;`; break;
+                }
+                return `<tr><td style="${style}"><div style="${wrapperStyle}"><h1 style="${titleStyle}">${text}</h1></div></td></tr>`;
+            }
+            
+            function createCalloutBox(title, text, color) {
+                return `<table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-top:20px;"><tr><td style="padding: 20px 25px; background-color: ${C[`${color}Light`]}; border-left: 5px solid ${C[color]}; border-radius: 0 8px 8px 0;"><h2 style="font-family:${S.fontStack}; font-size:18px; color:${C[color]}; margin:0 0 10px 0; font-weight:bold;">${title}</h2><p style="font-family:${S.fontStack}; margin:0; text-align:justify;">${text}</p></td></tr></table>`;
+            }
 
-            
+            const T = {
+                banner1: "Votre Aventure Magique Commence Ici",
+                greeting: `Bonjour <strong style="${S.strong}">${data.client_name || 'estimé(e) voyageur(se)'}</strong>,`,
+                intro1: `Je vous écris au nom de Voyages en Route, où nous avons le plaisir d’accompagner les familles et voyageurs dans la planification de leurs séjours. Je m'appelle Pierre-Luc Morin et je serais votre conseiller en voyages spécialisé en destinations <strong style="${S.strong}">Disney et Universal</strong>.`,
+                intro2: `Merci de nous avoir confié votre projet de voyage. J’ai pris soin de préparer une proposition basée sur les critères que vous avez partagés dans votre demande. Cette soumission est <strong style="${S.strong}">ajustable</strong>, et je serai heureux d’explorer avec vous différentes options afin de vous créer une expérience <strong style="${S.strong}">propre à vous et inoubliable</strong>.`,
+                disney_advantages_intro: `Séjourner dans un hôtel Disney, c’est profiter d’un univers immersif du matin au soir, mais aussi de <strong style="${S.strong}">nombreux avantages exclusifs</strong>&nbsp;:</p>`,
+                disney_advantages_list_items: [
+                    `<strong style="${S.strong}">L’Early Theme Park Entry</strong>, pour accéder aux parcs avant l’ouverture officielle&nbsp;;`,
+                    `Le <strong style="${S.strong}">transport gratuit</strong> vers tous les parcs et sites Disney (excluant les transferts aéroports)&nbsp;;`,
+                    `L’<strong style="${S.strong}">accès simplifié</strong> aux réservations avec l’application Disney Experience&nbsp;;`,
+                    `Et un <strong style="${S.strong}">service client exceptionnel</strong>, signé Disney, à chaque étape de votre séjour.`
+                ],
+                disney_price_disclaimer: "Veuillez noter que tous les prix pour l'hébergement et les billets Disney sont indiqués en dollars américains (USD) et sont sujets à disponibilité.",
+                tickets_only_price_disclaimer: "Veuillez noter que tous les prix des billets Disney sont indiqués en dollars américains (USD) et sont sujets à disponibilité.",
+                banner_travel_fees: "Itinéraire de Vol",
+                flight_intro: "Pour compléter votre voyage vers la magie, voici les détails concernant le transport aérien que nous avons exploré&nbsp;:",
+                flight_too_early: "Il est encore un peu tôt pour réserver les vols, car plusieurs compagnies aériennes n’ont pas encore publié leurs horaires. Cela dit, nous suivons la situation de près afin de vous proposer les meilleures options dès qu’elles seront disponibles. N’hésitez pas à me faire part de vos préférences en matière d’horaires ou de compagnies, pour que je puisse mieux cibler ce qui vous conviendrait le mieux.",
+                flight_price_info: `<em style="${S.italic}">Les prix sont à titre indicatif et peuvent changer à tout moment.</em>`,
+                flight_important_label: `IMPORTANT`,
+                flight_important_text: `Les tarifs aériens sont dynamiques et peuvent changer jusqu'à la réservation. Des frais de service de <strong style="${S.strong}">50$ CAD par personne</strong> s'appliquent pour la réservation des vols via nos services. En me confiant vos vols, je m'occupe de tout désagrément potentiel. Si vous optez pour une réservation personnelle, ces frais ne s'appliquent pas, mais le support en cas de problème avec les vols ne sera pas inclus pour cette portion.`,
+                banner_magic_continues: "La Magie Continue...",
+                closing1: `Prenez le temps de rêver à ces options et de considérer ce qui ferait de ce voyage une expérience <strong style="${S.strong}">véritablement inoubliable</strong>. Je suis à votre <strong style="${S.strong}">entière disposition</strong> pour répondre à toutes vos questions, affiner chaque détail ou procéder à la réservation de cette <em style="${S.italic}">aventure mémorable</em>.`,
+                closing2: `N'hésitez pas à me joindre par courriel (en répondant simplement à celui-ci) ou par téléphone au <strong style="${S.strong}">819-347-9103</strong>. <strong style="${S.strong}"><em style="${S.italic}">Merci de me faire savoir si le message a bien été reçu</em></strong>.`,
+                closing3: `Merci encore pour votre confiance. J'ai sincèrement hâte de transformer ce <strong style="${S.strong}">rêve Disney</strong> en une <strong style="${S.strong}">magnifique réalité pour vous&nbsp;!</strong>`
+            };
+            
+            let introSection = `<p style="${S.p}">${T.greeting}</p><p style="${S.p}">${T.intro1}</p><p style="${S.p}">${T.intro2}</p>`;
+            let hotelSection = '';
+            const selectedHotels = data.hotels || [];
 
-            function createBanner(text, type = 'main') {
-
-                let style, titleStyle, wrapperStyle;
-
-                switch (type) {
-
-                    case 'closing': style = `background-color: ${C.orange}; padding: 12px 30px;`; titleStyle = `font-family: Georgia, serif; font-size: 24px; color: ${C.white}; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center; letter-spacing: 1px;`; wrapperStyle = `padding: 5px 0;`; break;
-
-                    case 'sub': style = `background-color: ${C.blue}; padding: 10px 30px;`; titleStyle = `font-family: ${S.fontStack}; font-size: 20px; color: ${C.white}; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center;`; wrapperStyle = `padding: 0;`; break;
-
-                    case 'main': default: style = `background: linear-gradient(to right, ${C.blue}, ${C.blueDark}); padding: 25px 30px;`; titleStyle = `font-family: Georgia, serif; font-size: 32px; color: ${C.white}; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center; letter-spacing: 1.5px; line-height:1.2;`; wrapperStyle = `border-top: 1px solid rgba(255,255,255,0.3); border-bottom: 1px solid rgba(255,255,255,0.3); padding: 10px 0;`; break;
-
-                }
-
-                return `<tr><td style="${style}"><div style="${wrapperStyle}"><h1 style="${titleStyle}">${text}</h1></div></td></tr>`;
-
-            }
-
-            
-
-            function createCalloutBox(title, text, color) {
-
-                return `<table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-top:20px;"><tr><td style="padding: 20px 25px; background-color: ${C[`${color}Light`]}; border-left: 5px solid ${C[color]}; border-radius: 0 8px 8px 0;"><h2 style="font-family:${S.fontStack}; font-size:18px; color:${C[color]}; margin:0 0 10px 0; font-weight:bold;">${title}</h2><p style="font-family:${S.fontStack}; margin:0; text-align:justify;">${text}</p></td></tr></table>`;
-
-            }
-
-
-
-            const T = {
-
-                banner1: "Votre Aventure Magique Commence Ici",
-
-                greeting: `Bonjour <strong style="${S.strong}">${data.client_name || 'estimé(e) voyageur(se)'}</strong>,`,
-
-                intro1: `Je vous écris au nom de Voyages en Route, où nous avons le plaisir d’accompagner les familles et voyageurs dans la planification de leurs séjours. Je m'appelle Pierre-Luc Morin et je serais votre conseiller en voyages spécialisé en destinations <strong style="${S.strong}">Disney et Universal</strong>.`,
-
-                intro2: `Merci de nous avoir confié votre projet de voyage. J’ai pris soin de préparer une proposition basée sur les critères que vous avez partagés dans votre demande. Cette soumission est <strong style="${S.strong}">ajustable</strong>, et je serai heureux d’explorer avec vous différentes options afin de vous créer une expérience <strong style="${S.strong}">propre à vous et inoubliable</strong>.`,
-
-                disney_advantages_intro: `Séjourner dans un hôtel Disney, c’est profiter d’un univers immersif du matin au soir, mais aussi de <strong style="${S.strong}">nombreux avantages exclusifs</strong>&nbsp;:</p>`,
-
-                disney_advantages_list_items: [
-
-                    `<strong style="${S.strong}">L’Early Theme Park Entry</strong>, pour accéder aux parcs avant l’ouverture officielle&nbsp;;`,
-
-                    `Le <strong style="${S.strong}">transport gratuit</strong> vers tous les parcs et sites Disney (excluant les transferts aéroports)&nbsp;;`,
-
-                    `L’<strong style="${S.strong}">accès simplifié</strong> aux réservations avec l’application Disney Experience&nbsp;;`,
-
-                    `Et un <strong style="${S.strong}">service client exceptionnel</strong>, signé Disney, à chaque étape de votre séjour.`
-
-                ],
-
-                disney_price_disclaimer: "Veuillez noter que tous les prix pour l'hébergement et les billets Disney sont indiqués en dollars américains (USD) et sont sujets à disponibilité.",
-
-                tickets_only_price_disclaimer: "Veuillez noter que tous les prix des billets Disney sont indiqués en dollars américains (USD) et sont sujets à disponibilité.",
-
-                banner_travel_fees: "Itinéraire de Vol",
-
-                flight_intro: "Pour compléter votre voyage vers la magie, voici les détails concernant le transport aérien que nous avons exploré&nbsp;:",
-
-                flight_too_early: "Il est encore un peu tôt pour réserver les vols, car plusieurs compagnies aériennes n’ont pas encore publié leurs horaires. Cela dit, nous suivons la situation de près afin de vous proposer les meilleures options dès qu’elles seront disponibles. N’hésitez pas à me faire part de vos préférences en matière d’horaires ou de compagnies, pour que je puisse mieux cibler ce qui vous conviendrait le mieux.",
-
-                flight_price_info: `<em style="${S.italic}">Les prix sont à titre indicatif et peuvent changer à tout moment.</em>`,
-
-                flight_important_label: `IMPORTANT`,
-
-                flight_important_text: `Les tarifs aériens sont dynamiques et peuvent changer jusqu'à la réservation. Des frais de service de <strong style="${S.strong}">50$ CAD par personne</strong> s'appliquent pour la réservation des vols via nos services. En me confiant vos vols, je m'occupe de tout désagrément potentiel. Si vous optez pour une réservation personnelle, ces frais ne s'appliquent pas, mais le support en cas de problème avec les vols ne sera pas inclus pour cette portion.`,
-
-                banner_magic_continues: "La Magie Continue...",
-
-                closing1: `Prenez le temps de rêver à ces options et de considérer ce qui ferait de ce voyage une expérience <strong style="${S.strong}">véritablement inoubliable</strong>. Je suis à votre <strong style="${S.strong}">entière disposition</strong> pour répondre à toutes vos questions, affiner chaque détail ou procéder à la réservation de cette <em style="${S.italic}">aventure mémorable</em>.`,
-
-                closing2: `N'hésitez pas à me joindre par courriel (en répondant simplement à celui-ci) ou par téléphone au <strong style="${S.strong}">819-347-9103</strong>. <strong style="${S.strong}"><em style="${S.italic}">Merci de me faire savoir si le message a bien été reçu</em></strong>.`,
-
-                closing3: `Merci encore pour votre confiance. J'ai sincèrement hâte de transformer ce <strong style="${S.strong}">rêve Disney</strong> en une <strong style="${S.strong}">magnifique réalité pour vous&nbsp;!</strong>`
-
-            };
-
-            
-
-            let introSection = `<p style="${S.p}">${T.greeting}</p><p style="${S.p}">${T.intro1}</p><p style="${S.p}">${T.intro2}</p>`;
-
-            let hotelSection = '';
-
-            const selectedHotels = data.hotels || [];
-
-
-
-            if (data.booking_type === 'hotel_tickets' && selectedHotels.length > 0) {
-
+            if (data.booking_type === 'hotel_tickets' && selectedHotels.length > 0) {
 if (selectedHotels.length === 1) {
-
-                    const hotel = selectedHotels[0];
-
-                    const levelColor = C.level[hotel.level.toLowerCase().replace(/ /g, '_')] || C.textLight;
-
-                    
-
-                    let prosList = `<span style="background-color:${levelColor}; color:${C.white}; padding: 5px 12px; margin: 0 8px 8px 0; border-radius: 15px; font-size: 14px; font-weight: bold; display:inline-block;">${hotel.level}</span>`;
-
-                    hotel.pointsForts.forEach((p, i) => {
-
-                        const tagColor = C.tags[i % C.tags.length];
-
-                        prosList += `<span style="display:inline-block; background-color:${tagColor}; color:${C.white}; padding: 5px 12px; margin: 0 8px 8px 0; border-radius: 15px; font-size: 14px; font-weight: bold;">${p}</span>`;
-
-                    });
-
-
-
-                    let hotelCard = `
-
-                        <div class="hotel-card" style="margin-top: 25px; border: 1px solid ${C.border}; border-radius: 8px;">
-
-                            <div style="background-color:${C.blue}; color:${C.white}; padding:15px 20px; border-radius: 8px 8px 0 0;">
-
-                                <strong style="font-family:${S.fontStack}; font-size:20px;">${hotel.name}</strong>
-
-                            </div>
-
-                            <div style="background-color:${C.white}; padding: 20px;">
-
-                                <p style="font-family:${S.fontStack}; font-size:15px; line-height:1.5; color:${C.textLight}; margin:0 0 15px 0; text-align:justify;">${hotel.description}</p>
-
-                                <div style="padding:10px 0;">${prosList}</div>
-
-                            </div>
-
-                            <div style="background-color:${C.blueLight}; padding: 15px 20px; text-align:center; border-radius: 0 0 8px 8px; border-top: 1px solid ${C.border};">
-
-                                <span style="font-size:14px; color:${C.textLight}; font-weight:bold; text-transform:uppercase;">PRIX DU FORFAIT</span><br>
-
-                                <strong style="font-size:28px; color:${C.textDark}; line-height:1.2;">${hotel.price ? hotel.price + '&nbsp;USD' : 'Voir PDF'}</strong>
-
-                            </div>
-
-                        </div>
-
-                    `;
-
-                    hotelSection += `<p style="${S.p}">Pour votre séjour, voici l'option que j'ai sélectionnée pour vous :</p>${hotelCard}`;
-
-                } else {
-
-                    hotelSection += `<p style="${S.p}">Voici plusieurs options d’hébergement pour votre séjour. Chaque proposition ci-dessous correspond à un forfait détaillé dans un document PDF distinct.</p>`;
-
-                    let hotelCards = '';
-
-                    selectedHotels.forEach(hotel => {
-
-                        const levelColor = C.level[hotel.level.toLowerCase().replace(/ /g, '_')] || C.textLight;
-
-                        
-
-                        let prosList = `<span style="background-color:${levelColor}; color:${C.white}; padding: 5px 12px; margin: 0 8px 8px 0; border-radius: 15px; font-size: 14px; font-weight: bold; display:inline-block;">${hotel.level}</span>`;
-
-                        hotel.pointsForts.forEach((p, i) => {
-
-                            const tagColor = C.tags[i % C.tags.length];
-
-                            prosList += `<span style="display:inline-block; background-color:${tagColor}; color:${C.white}; padding: 5px 12px; margin: 0 8px 8px 0; border-radius: 15px; font-size: 14px; font-weight: bold;">${p}</span>`;
-
-                        });
-
-
-
-                        hotelCards += `
-
-                            <div class="hotel-card" style="margin-top: 25px; border: 1px solid ${C.border}; border-radius: 8px;">
-
-                                <div style="background-color:${C.blue}; color:${C.white}; padding:15px 20px; border-radius: 8px 8px 0 0;">
-
-                                    <strong style="font-family:${S.fontStack}; font-size:20px;">${hotel.name}</strong>
-
-                                </div>
-
-                                <div style="background-color:${C.white}; padding: 20px;">
-
-                                    <p style="font-family:${S.fontStack}; font-size:15px; line-height:1.5; color:${C.textLight}; margin:0 0 15px 0; text-align:justify;">${hotel.description}</p>
-
-                                    <div style="padding:10px 0;">${prosList}</div>
-
-                                </div>
-
-                                <div style="background-color:${C.blueLight}; padding: 15px 20px; text-align:center; border-radius: 0 0 8px 8px; border-top: 1px solid ${C.border};">
-
-                                    <span style="font-size:14px; color:${C.textLight}; font-weight:bold; text-transform:uppercase;">PRIX DU FORFAIT</span><br>
-
-                                    <strong style="font-size:28px; color:${C.textDark}; line-height:1.2;">${hotel.price ? hotel.price + '&nbsp;USD' : 'Voir PDF'}</strong>
-
-                                </div>
-
-                            </div>
-
-                        `;
-
-                    });
-
-                    hotelSection += hotelCards;
-
-                }
-
-                
-
-                hotelSection += `<p style="${S.p} margin-top:20px;">Chaque proposition de forfait inclut l'hébergement à l'hôtel ainsi que les billets d'entrée pour les parcs Disney. Tous les autres détails, inclusions et conditions se trouvent dans le ou les documents PDF correspondants.</p>`
-
-                let advantagesList = T.disney_advantages_list_items.map(item => `<li style="margin-bottom:8px;"><span style="color:${C.blue}; font-size:18px; vertical-align:middle; margin-right:8px; font-weight:bold;">&#10004;</span><span style="vertical-align:middle;">${item}</span></li>`).join('');
-
-                hotelSection += `<p style="${S.p} margin-top:30px; text-align:left;">${T.disney_advantages_intro}<ul style="margin:1em 0; padding:0; list-style-type:none; text-align:left;">${advantagesList}</ul>`;
-
-
-
-            } else if (data.booking_type === 'tickets_only') {
-
-                hotelSection = `<p style="${S.p}">J’ai préparé pour vous un document ci-joint indiquant le prix ainsi que les conditions applicables aux billets de parc.</p>`;
-
-            }
-
-
-
-            let promoText = "";
-
-            if (data.promotion_type === 'aucune') {
-
-                promoText = `Pour garantir votre place, un dépôt de seulement <strong style="${S.strong}">200 USD</strong> est requis. Les promotions Disney deviennent souvent disponibles et sont parfois complètement réservées à l'intérieur de quelques heures. Il est donc important de réserver d'avance pour que je sois en mesure de les obtenir pour vous de manière rapide et systématique, afin que vous ayez toujours le meilleur rapport qualité-prix. Le reste de la balance de paiement est aussi à effectuer 30 jours avant le check-in.`;
-
-            } else {
-
-                let promoEndDateInfo = data.promotion_end_date ? ` (prend fin le <strong style="${S.strong}">${formatDateFR(data.promotion_end_date)}</strong>)` : "";
-
-                let promoNameInfo = data.promotion_name ? `&nbsp;: <strong style="${S.strong}">${data.promotion_name}</strong>` : "";
-
-                promoText = `Une promotion est applicable pour votre séjour${promoNameInfo}${promoEndDateInfo}. L’offre est cependant <em style="${S.italic}">limitée</em>. Pour garantir votre place au cœur de la magie, un dépôt de seulement <strong style="${S.strong}">200 USD</strong> est requis. Ce dépôt est <strong style="${S.strong}">entièrement remboursable jusqu'à 30 jours avant votre arrivée</strong>, vous offrant une flexibilité totale. Le reste de la balance de paiement est aussi à effectuer 30 jours avant le check-in.`;
-
-            }
-
-            
-
-            let promotionSection = createCalloutBox("PROMOTIONS ET DÉPÔT REQUIS", promoText, "orange");
-
-            let priceDisclaimer = (data.booking_type === 'hotel_tickets' && selectedHotels.length > 0) ? T.disney_price_disclaimer : T.tickets_only_price_disclaimer;
-
-
-
-            let flightSection = '';
-
-            let flightBlock = '';
-
-            if (data.include_flights) {
-
-                const hasFlightInfo = [
-
-                    data.departure_date_aller,
-
-                    data.departure_time_aller,
-
-                    data.departure_airport_aller,
-
-                    data.arrival_airport_aller,
-
-                    data.flight_multiple_reason,
-
-                    ...(data.flights || []).flatMap(f => Object.values(f))
-
-                ].some(v => v && v.toString().trim() !== '');
-
-
-
-                if (hasFlightInfo) {
-
-                    const arrow = `<span style="color:${C.orange}; font-weight:bold; font-size:24px; line-height:1;">&nbsp;&rarr;&nbsp;</span>`;
-
-
-
-                    let flightDetails = '';
-
-                    if (data.flight_too_early) {
-
-                        flightDetails = `<p style="${S.p}">${T.flight_too_early}</p>`;
-
-                    } else {
-
-                        flightDetails = `<p style="${S.p}">${T.flight_intro}</p>`;
-
-                        if ((data.flights || []).length > 1 && data.flight_multiple_reason) {
-
-                            flightDetails += `<p style="${S.p} font-style:italic;">${data.flight_multiple_reason.replace(/\n/g,'<br>')}</p>`;
-
-                        }
-
-
-
-                        (data.flights || []).forEach((f, idx) => {
-
-                            flightDetails += `<div style="border: 1px solid #e0e0e0; padding: 15px; margin-top: 15px; border-radius: 8px; background-color: #fafafa;">`;
-
-                            if ((data.flights || []).length > 1) {
-
-                                flightDetails += `<strong>Option ${idx + 1}</strong>`;
-
-                            }
-
-                            flightDetails += ` <div style="border: 1px solid #ddd; border-radius: 8px; padding: 10px 15px 15px 15px; margin-top:10px;"><h3>Vol aller</h3><table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td class="flight-column" style="width:45%; text-align:center; vertical-align:top;"><div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Départ</div><div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${f.departure_airport_aller || 'N/A'}</div><table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto; text-align:left;"><tr><td style="padding-bottom:10px;">📅&nbsp;${formatDateFR(f.departure_date_aller)}</td></tr><tr><td>🕒&nbsp;${formatTime(f.departure_time_aller)}</td></tr></table></td><td class="flight-arrow" style="width:10%; text-align:center; vertical-align:top;">${arrow}</td><td class="flight-column" style="width:45%; text-align:center; vertical-align:top;"><div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Arrivée</div><div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${f.arrival_airport_aller || 'N/A'}</div><table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto; text-align:left;"><tr><td style="padding-bottom:10px;">📅&nbsp;${formatDateFR(f.arrival_date_aller)}</td></tr><tr><td>🕒&nbsp;${formatTime(f.arrival_time_aller)}</td></tr></table></td></tr><tr><td colspan="3" style="padding-top:10px; text-align:center;"><div style="font-size:14px; color:${C.textLight}; line-height:1.3;">${f.airline_aller || ''}<br>${f.flight_number_aller || ''}</div></td></tr></table></div>`;
-
-                            flightDetails += `<div style="border: 1px solid #ddd; border-radius: 8px; padding: 10px 15px 15px 15px; margin-top:10px;"><h3>Vol retour</h3><table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td class="flight-column" style="width:45%; text-align:center; vertical-align:top;"><div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Départ</div><div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${f.departure_airport_retour || 'N/A'}</div><table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto; text-align:left;"><tr><td style="padding-bottom:10px;">📅&nbsp;${formatDateFR(f.departure_date_retour)}</td></tr><tr><td>🕒&nbsp;${formatTime(f.departure_time_retour)}</td></tr></table></td><td class="flight-arrow" style="width:10%; text-align:center; vertical-align:top;">${arrow}</td><td class="flight-column" style="width:45%; text-align:center; vertical-align:top;"><div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Arrivée</div><div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${f.arrival_airport_retour || 'N/A'}</div><table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto; text-align:left;"><tr><td style="padding-bottom:10px;">📅&nbsp;${formatDateFR(f.arrival_date_retour)}</td></tr><tr><td>🕒&nbsp;${formatTime(f.arrival_time_retour)}</td></tr></table></td></tr><tr><td colspan="3" style="padding-top:10px; text-align:center;"><div style="font-size:14px; color:${C.textLight}; line-height:1.3;">${f.airline_retour || ''}<br>${f.flight_number_retour || ''}</div></td></tr></table></div>`;
-
-                            flightDetails += `<div style="background-color:${C.blueLight}; padding: 15px 20px; text-align:center; border-radius: 0 0 8px 8px; border-top: 1px solid ${C.border};"><span style="font-size:14px; color:${C.textLight}; font-weight:bold; text-transform:uppercase;">PRIX APPROXIMATIF DES VOLS</span><br><strong style="font-size:28px; color:${C.textDark}; line-height:1.2;">${f.flight_price ? f.flight_price + '&nbsp;CAD' : 'N/A'}</strong></div>`;
-
-                            if (f.flight_notes) {
-
-                                flightDetails += `<p style="${S.p} font-style:italic; font-weight:bold; color:${C.textLight}; border-left:3px solid ${C.border}; padding-left:15px; margin-top:20px;">${f.flight_notes.replace(/\n/g,'<br>')}</p>`;
-
-                            }
-
-                            flightDetails += `</div>`;
-
-                        });
-
-
-
-                        flightDetails += createCalloutBox(T.flight_important_label, T.flight_important_text, 'orange');
-
-                        flightDetails += `<p style="${S.p} font-size:14px; color:${C.textLight}; text-align:left; margin-top:20px;">${T.flight_price_info}</p>`;
-
-                    }
-
-
-
-                    flightSection = `<tr><td style="padding: 20px 30px 30px 30px;">${flightDetails}</td></tr>`;
-
-                    flightBlock = `${createBanner(T.banner_travel_fees, 'sub')}${flightSection}`;
-
-                }
-
-            }
-
-
-
-            let closingSection = `<p style="${S.p}">${T.closing1}</p><p style="${S.p}">${T.closing2}</p><p style="${S.p}">${T.closing3}</p>`;
-
-            
-
-            const hotelBannerText = data.booking_type === 'tickets_only' ? "Billets de Parc Disney" : "Forfaits Hôtel & Billets Disney";
-
-
-
-            return `<!DOCTYPE html>
-
+                    const hotel = selectedHotels[0];
+                    const levelColor = C.level[hotel.level.toLowerCase().replace(/ /g, '_')] || C.textLight;
+                    
+                    let prosList = `<span style="background-color:${levelColor}; color:${C.white}; padding: 5px 12px; margin: 0 8px 8px 0; border-radius: 15px; font-size: 14px; font-weight: bold; display:inline-block;">${hotel.level}</span>`;
+                    hotel.pointsForts.forEach((p, i) => {
+                        const tagColor = C.tags[i % C.tags.length];
+                        prosList += `<span style="display:inline-block; background-color:${tagColor}; color:${C.white}; padding: 5px 12px; margin: 0 8px 8px 0; border-radius: 15px; font-size: 14px; font-weight: bold;">${p}</span>`;
+                    });
+
+                    let hotelCard = `
+                        <div class="hotel-card" style="margin-top: 25px; border: 1px solid ${C.border}; border-radius: 8px;">
+                            <div style="background-color:${C.blue}; color:${C.white}; padding:15px 20px; border-radius: 8px 8px 0 0;">
+                                <strong style="font-family:${S.fontStack}; font-size:20px;">${hotel.name}</strong>
+                            </div>
+                            <div style="background-color:${C.white}; padding: 20px;">
+                                <p style="font-family:${S.fontStack}; font-size:15px; line-height:1.5; color:${C.textLight}; margin:0 0 15px 0; text-align:justify;">${hotel.description}</p>
+                                <div style="padding:10px 0;">${prosList}</div>
+                            </div>
+                            <div style="background-color:${C.blueLight}; padding: 15px 20px; text-align:center; border-radius: 0 0 8px 8px; border-top: 1px solid ${C.border};">
+                                <span style="font-size:14px; color:${C.textLight}; font-weight:bold; text-transform:uppercase;">PRIX DU FORFAIT</span><br>
+                                <strong style="font-size:28px; color:${C.textDark}; line-height:1.2;">${hotel.price ? hotel.price + '&nbsp;USD' : 'Voir PDF'}</strong>
+                            </div>
+                        </div>
+                    `;
+                    hotelSection += `<p style="${S.p}">Pour votre séjour, voici l'option que j'ai sélectionnée pour vous :</p>${hotelCard}`;
+                } else {
+                    hotelSection += `<p style="${S.p}">Voici plusieurs options d’hébergement pour votre séjour. Chaque proposition ci-dessous correspond à un forfait détaillé dans un document PDF distinct.</p>`;
+                    let hotelCards = '';
+                    selectedHotels.forEach(hotel => {
+                        const levelColor = C.level[hotel.level.toLowerCase().replace(/ /g, '_')] || C.textLight;
+                        
+                        let prosList = `<span style="background-color:${levelColor}; color:${C.white}; padding: 5px 12px; margin: 0 8px 8px 0; border-radius: 15px; font-size: 14px; font-weight: bold; display:inline-block;">${hotel.level}</span>`;
+                        hotel.pointsForts.forEach((p, i) => {
+                            const tagColor = C.tags[i % C.tags.length];
+                            prosList += `<span style="display:inline-block; background-color:${tagColor}; color:${C.white}; padding: 5px 12px; margin: 0 8px 8px 0; border-radius: 15px; font-size: 14px; font-weight: bold;">${p}</span>`;
+                        });
+
+                        hotelCards += `
+                            <div class="hotel-card" style="margin-top: 25px; border: 1px solid ${C.border}; border-radius: 8px;">
+                                <div style="background-color:${C.blue}; color:${C.white}; padding:15px 20px; border-radius: 8px 8px 0 0;">
+                                    <strong style="font-family:${S.fontStack}; font-size:20px;">${hotel.name}</strong>
+                                </div>
+                                <div style="background-color:${C.white}; padding: 20px;">
+                                    <p style="font-family:${S.fontStack}; font-size:15px; line-height:1.5; color:${C.textLight}; margin:0 0 15px 0; text-align:justify;">${hotel.description}</p>
+                                    <div style="padding:10px 0;">${prosList}</div>
+                                </div>
+                                <div style="background-color:${C.blueLight}; padding: 15px 20px; text-align:center; border-radius: 0 0 8px 8px; border-top: 1px solid ${C.border};">
+                                    <span style="font-size:14px; color:${C.textLight}; font-weight:bold; text-transform:uppercase;">PRIX DU FORFAIT</span><br>
+                                    <strong style="font-size:28px; color:${C.textDark}; line-height:1.2;">${hotel.price ? hotel.price + '&nbsp;USD' : 'Voir PDF'}</strong>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    hotelSection += hotelCards;
+                }
+                
+                hotelSection += `<p style="${S.p} margin-top:20px;">Chaque proposition de forfait inclut l'hébergement à l'hôtel ainsi que les billets d'entrée pour les parcs Disney. Tous les autres détails, inclusions et conditions se trouvent dans le ou les documents PDF correspondants.</p>`
+                let advantagesList = T.disney_advantages_list_items.map(item => `<li style="margin-bottom:8px;"><span style="color:${C.blue}; font-size:18px; vertical-align:middle; margin-right:8px; font-weight:bold;">&#10004;</span><span style="vertical-align:middle;">${item}</span></li>`).join('');
+                hotelSection += `<p style="${S.p} margin-top:30px; text-align:left;">${T.disney_advantages_intro}<ul style="margin:1em 0; padding:0; list-style-type:none; text-align:left;">${advantagesList}</ul>`;
+
+            } else if (data.booking_type === 'tickets_only') {
+                hotelSection = `<p style="${S.p}">J’ai préparé pour vous un document ci-joint indiquant le prix ainsi que les conditions applicables aux billets de parc.</p>`;
+            }
+
+            let promoText = "";
+            if (data.promotion_type === 'aucune') {
+                promoText = `Pour garantir votre place, un dépôt de seulement <strong style="${S.strong}">200 USD</strong> est requis. Les promotions Disney deviennent souvent disponibles et sont parfois complètement réservées à l'intérieur de quelques heures. Il est donc important de réserver d'avance pour que je sois en mesure de les obtenir pour vous de manière rapide et systématique, afin que vous ayez toujours le meilleur rapport qualité-prix. Le reste de la balance de paiement est aussi à effectuer 30 jours avant le check-in.`;
+            } else {
+                let promoEndDateInfo = data.promotion_end_date ? ` (prend fin le <strong style="${S.strong}">${formatDateFR(data.promotion_end_date)}</strong>)` : "";
+                let promoNameInfo = data.promotion_name ? `&nbsp;: <strong style="${S.strong}">${data.promotion_name}</strong>` : "";
+                promoText = `Une promotion est applicable pour votre séjour${promoNameInfo}${promoEndDateInfo}. L’offre est cependant <em style="${S.italic}">limitée</em>. Pour garantir votre place au cœur de la magie, un dépôt de seulement <strong style="${S.strong}">200 USD</strong> est requis. Ce dépôt est <strong style="${S.strong}">entièrement remboursable jusqu'à 30 jours avant votre arrivée</strong>, vous offrant une flexibilité totale. Le reste de la balance de paiement est aussi à effectuer 30 jours avant le check-in.`;
+            }
+            
+            let promotionSection = createCalloutBox("PROMOTIONS ET DÉPÔT REQUIS", promoText, "orange");
+            let priceDisclaimer = (data.booking_type === 'hotel_tickets' && selectedHotels.length > 0) ? T.disney_price_disclaimer : T.tickets_only_price_disclaimer;
+
+            let flightSection = '';
+            let flightBlock = '';
+            if (data.include_flights) {
+                const hasFlightInfo = [
+                    data.departure_date_aller,
+                    data.departure_time_aller,
+                    data.departure_airport_aller,
+                    data.arrival_airport_aller,
+                    data.flight_multiple_reason,
+                    ...(data.flights || []).flatMap(f => Object.values(f))
+                ].some(v => v && v.toString().trim() !== '');
+
+                if (hasFlightInfo) {
+                    const arrow = `<span style="color:${C.orange}; font-weight:bold; font-size:24px; line-height:1;">&nbsp;&rarr;&nbsp;</span>`;
+
+                    let flightDetails = '';
+                    if (data.flight_too_early) {
+                        flightDetails = `<p style="${S.p}">${T.flight_too_early}</p>`;
+                    } else {
+                        flightDetails = `<p style="${S.p}">${T.flight_intro}</p>`;
+                        if ((data.flights || []).length > 1 && data.flight_multiple_reason) {
+                            flightDetails += `<p style="${S.p} font-style:italic;">${data.flight_multiple_reason.replace(/\n/g,'<br>')}</p>`;
+                        }
+
+                        (data.flights || []).forEach((f, idx) => {
+                            flightDetails += `<div style="border: 1px solid #e0e0e0; padding: 15px; margin-top: 15px; border-radius: 8px; background-color: #fafafa;">`;
+                            if ((data.flights || []).length > 1) {
+                                flightDetails += `<strong>Option ${idx + 1}</strong>`;
+                            }
+                            flightDetails += ` <div style="border: 1px solid #ddd; border-radius: 8px; padding: 10px 15px 15px 15px; margin-top:10px;"><h3>Vol aller</h3><table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td class="flight-column" style="width:45%; text-align:center; vertical-align:top;"><div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Départ</div><div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${f.departure_airport_aller || 'N/A'}</div><table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto; text-align:left;"><tr><td style="padding-bottom:10px;">📅&nbsp;${formatDateFR(f.departure_date_aller)}</td></tr><tr><td>🕒&nbsp;${formatTime(f.departure_time_aller)}</td></tr></table></td><td class="flight-arrow" style="width:10%; text-align:center; vertical-align:top;">${arrow}</td><td class="flight-column" style="width:45%; text-align:center; vertical-align:top;"><div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Arrivée</div><div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${f.arrival_airport_aller || 'N/A'}</div><table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto; text-align:left;"><tr><td style="padding-bottom:10px;">📅&nbsp;${formatDateFR(f.arrival_date_aller)}</td></tr><tr><td>🕒&nbsp;${formatTime(f.arrival_time_aller)}</td></tr></table></td></tr><tr><td colspan="3" style="padding-top:10px; text-align:center;"><div style="font-size:14px; color:${C.textLight}; line-height:1.3;">${f.airline_aller || ''}<br>${f.flight_number_aller || ''}</div></td></tr></table></div>`;
+                            flightDetails += `<div style="border: 1px solid #ddd; border-radius: 8px; padding: 10px 15px 15px 15px; margin-top:10px;"><h3>Vol retour</h3><table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td class="flight-column" style="width:45%; text-align:center; vertical-align:top;"><div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Départ</div><div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${f.departure_airport_retour || 'N/A'}</div><table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto; text-align:left;"><tr><td style="padding-bottom:10px;">📅&nbsp;${formatDateFR(f.departure_date_retour)}</td></tr><tr><td>🕒&nbsp;${formatTime(f.departure_time_retour)}</td></tr></table></td><td class="flight-arrow" style="width:10%; text-align:center; vertical-align:top;">${arrow}</td><td class="flight-column" style="width:45%; text-align:center; vertical-align:top;"><div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Arrivée</div><div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${f.arrival_airport_retour || 'N/A'}</div><table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto; text-align:left;"><tr><td style="padding-bottom:10px;">📅&nbsp;${formatDateFR(f.arrival_date_retour)}</td></tr><tr><td>🕒&nbsp;${formatTime(f.arrival_time_retour)}</td></tr></table></td></tr><tr><td colspan="3" style="padding-top:10px; text-align:center;"><div style="font-size:14px; color:${C.textLight}; line-height:1.3;">${f.airline_retour || ''}<br>${f.flight_number_retour || ''}</div></td></tr></table></div>`;
+                            flightDetails += `<div style="background-color:${C.blueLight}; padding: 15px 20px; text-align:center; border-radius: 0 0 8px 8px; border-top: 1px solid ${C.border};"><span style="font-size:14px; color:${C.textLight}; font-weight:bold; text-transform:uppercase;">PRIX APPROXIMATIF DES VOLS</span><br><strong style="font-size:28px; color:${C.textDark}; line-height:1.2;">${f.flight_price ? f.flight_price + '&nbsp;CAD' : 'N/A'}</strong></div>`;
+                            if (f.flight_notes) {
+                                flightDetails += `<p style="${S.p} font-style:italic; font-weight:bold; color:${C.textLight}; border-left:3px solid ${C.border}; padding-left:15px; margin-top:20px;">${f.flight_notes.replace(/\n/g,'<br>')}</p>`;
+                            }
+                            flightDetails += `</div>`;
+                        });
+
+                        flightDetails += createCalloutBox(T.flight_important_label, T.flight_important_text, 'orange');
+                        flightDetails += `<p style="${S.p} font-size:14px; color:${C.textLight}; text-align:left; margin-top:20px;">${T.flight_price_info}</p>`;
+                    }
+
+                    flightSection = `<tr><td style="padding: 20px 30px 30px 30px;">${flightDetails}</td></tr>`;
+                    flightBlock = `${createBanner(T.banner_travel_fees, 'sub')}${flightSection}`;
+                }
+            }
+
+            let closingSection = `<p style="${S.p}">${T.closing1}</p><p style="${S.p}">${T.closing2}</p><p style="${S.p}">${T.closing3}</p>`;
+            
+            const hotelBannerText = data.booking_type === 'tickets_only' ? "Billets de Parc Disney" : "Forfaits Hôtel & Billets Disney";
+
+            return `<!DOCTYPE html>
 <html lang="fr" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
-
 <head>
-
-  <meta charset="UTF-8">
-
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-
-  <meta name="x-apple-disable-message-reformatting">
-
-  <meta name="color-scheme" content="light dark">
-
-  <meta name="supported-color-schemes" content="light dark">
-
-  <title>${T.banner1}</title>
-
-  <style>
-
-    :root {
-
-      color-scheme: light dark;
-
-      supported-color-schemes: light dark;
-
-    }
-
-    .logo-background {
-
-      background-color: #001f3f !important;
-
-    }
-
-    .logo-container {
-
-      background-color: #e9f2f9;
-
-      padding: 20px 30px;
-
-      border-radius: 8px;
-
-      max-width: 420px;
-
-      margin: auto;
-
-    }
-
-    /* Force text and background colors in dark mode */
-
-    @media (prefers-color-scheme: dark) {
-
-      body, table, td, p, span, a, h1, h2, h3, h4 {
-
-        color: #ffffff !important;
-
-      }
-
-      body, table, td {
-
-        background-color: #001f3f !important;
-
-      }
-
-      .logo-background {
-
-        background-color: #001f3f !important;
-
-      }
-
-    }
-
-  </style>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="x-apple-disable-message-reformatting">
+  <meta name="color-scheme" content="light dark">
+  <meta name="supported-color-schemes" content="light dark">
+  <title>${T.banner1}</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      supported-color-schemes: light dark;
+    }
+    .logo-background {
+      background-color: #001f3f !important;
+    }
+    .logo-container {
+      background-color: #e9f2f9;
+      padding: 20px 30px;
+      border-radius: 8px;
+      max-width: 420px;
+      margin: auto;
+    }
+    /* Force text and background colors in dark mode */
+    @media (prefers-color-scheme: dark) {
+      body, table, td, p, span, a, h1, h2, h3, h4 {
+        color: #ffffff !important;
+      }
+      body, table, td {
+        background-color: #001f3f !important;
+      }
+      .logo-background {
+        background-color: #001f3f !important;
+      }
+    }
+  </style>
 </head>
-
 <body style="margin:0; padding:0; background-color:${C.background};" bgcolor="${C.background}" data-ogsb data-ogsc><table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color:${C.background};"><tr><td align="center"><table width="680" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width: 680px; max-width: 100%; margin: 20px auto; background-color: ${C.white};"
-
 <tr>
-
-  <td class="logo-background" align="center" style="padding:20px 0; background-color:#001f3f;">
-
-    <table class="logo-container" border="0" cellpadding="0" cellspacing="0" role="presentation">
-
-      <tr>
-
-        <td align="center" style="width:50%;">
-
-          <img src="${LOGOS.earmarked}" alt="Logo Earmarked" style="max-width:150px; height:auto; display:block; margin:0 auto;">
-
-        </td>
-
-        <td align="center" style="width:50%;">
-
-          <img src="${LOGOS.agency}" alt="Logo agence" style="max-width:150px; height:auto; display:block; margin:0 auto;">
-
-        </td>
-
-      </tr>
-
-    </table>
-
-  </td>
-
+  <td class="logo-background" align="center" style="padding:20px 0; background-color:#001f3f;">
+    <table class="logo-container" border="0" cellpadding="0" cellspacing="0" role="presentation">
+      <tr>
+        <td align="center" style="width:50%;">
+          <img src="${LOGOS.earmarked}" alt="Logo Earmarked" style="max-width:150px; height:auto; display:block; margin:0 auto;">
+        </td>
+        <td align="center" style="width:50%;">
+          <img src="${LOGOS.agency}" alt="Logo agence" style="max-width:150px; height:auto; display:block; margin:0 auto;">
+        </td>
+      </tr>
+    </table>
+  </td>
 </tr>
-
-
 
 ${createBanner(T.banner1, 'main')}
 
-
-
 <tr><td style="padding: 20px 30px 30px 30px;">${introSection}</td></tr>
-
-                ${createBanner(hotelBannerText, 'sub')}
-
-                <tr><td style="padding: 20px 30px 10px 30px;">${hotelSection}</td></tr>
-
-                <tr><td style="padding: 10px 30px 30px 30px;">${promotionSection}</td></tr>
-
-                <tr><td style="padding: 0 30px 30px 30px;"><p style="${S.p} font-size:14px; color:${C.textLight}; text-align:center; ${S.italic}">${priceDisclaimer}</p></td></tr>
-
-                ${flightBlock}
-
-                ${createBanner(T.banner_magic_continues, 'closing')}
-
-                <tr><td style="padding: 20px 30px 30px 30px;">${closingSection}</td></tr>
-
-            </table></td></tr></table></body></html>`;
-
-        }
-
-
-
-        // --- Le reste du script JS pour le formulaire reste identique ---
-
-        document.addEventListener('DOMContentLoaded', function() {
-
-            const hotelSelectionsDiv = document.getElementById('hotel_selections');
-
-            const addHotelButton = document.getElementById('add_hotel_button');
-
-            let hotelCounter = 0;
-
-
-
-            function createHotelSelector() {
-
-                hotelCounter++;
-
-                const groupDiv = document.createElement('div');
-
-                groupDiv.classList.add('hotel-option-group');
-
-                groupDiv.id = `hotel_group_${hotelCounter}`;
-
-                
-
-                let content = `
-
-                    <div class="hotel-option-header">
-
-                        <label>Option d'hôtel</label>
-
-                        <button type="button" class="remove-hotel-button" title="Supprimer cet hôtel">Supprimer</button>
-
-                    </div>
-
-                    <select name="hotel_name" required>
-
-                        <option value="" disabled selected>Sélectionnez un hôtel</option>
-
-                        ${DISNEY_HOTELS.sort((a,b) => a.name.localeCompare(b.name)).map(hotel => `<option value="${hotel.name}">${hotel.name}</option>`).join('')}
-
-                    </select>
-
-                    <label for="hotel_price_${hotelCounter}">Prix du Forfait (USD)&nbsp;:</label>
-
-                    <input type="number" name="hotel_price" id="hotel_price_${hotelCounter}" placeholder="Ex: 4500.50" step="0.01">
-
-                `;
-
-                groupDiv.innerHTML = content;
-
-
-
-                groupDiv.querySelector('.remove-hotel-button').addEventListener('click', function() {
-
-                    groupDiv.remove();
-
-                    updateAddHotelButtonState();
-
-                });
-
-
-
-                return groupDiv;
-
-            }
-
-
-
-            function updateAddHotelButtonState() {
-
-                const currentHotelSelectors = hotelSelectionsDiv.querySelectorAll('.hotel-option-group').length;
-
-                addHotelButton.disabled = currentHotelSelectors >= 5;
-
-                addHotelButton.textContent = currentHotelSelectors >= 5 ? "Maximum 5 hôtels atteints" : "Ajouter une option d'hôtel";
-
-            }
-
-
-
-            addHotelButton.addEventListener('click', function() {
-
-                if (hotelSelectionsDiv.querySelectorAll('.hotel-option-group').length < 5) {
-
-                    hotelSelectionsDiv.appendChild(createHotelSelector());
-
-                    updateAddHotelButtonState();
-
-                }
-
-            });
-
-
-
-            hotelSelectionsDiv.appendChild(createHotelSelector());
-
-            updateAddHotelButtonState();
-
-
-
-            const flightGroupsDiv = document.getElementById('flight_option_groups');
-
-            const flightOptionCountSelect = document.getElementById('flight_option_count');
-
-            const multipleFlightReasonDiv = document.getElementById('multiple_flight_reason');
-
-            const flightTooEarlyCheckbox = document.getElementById('flight_too_early');
-
-            const flightOptionsSection = document.getElementById('flight_options_section');
-
-            let flightGroups = [];
-
-
-
-            function createFlightGroup(index) {
-
-                const wrapper = document.createElement('div');
-
-                wrapper.classList.add('flight-option-group');
-
-                wrapper.innerHTML = `
-
-                    <h3>Option ${index}</h3>
-
-                    <div class="flight-inputs">
-
-                        <h3>Vol Aller</h3>
-
-                        <label for="departure_date_aller_${index}">Date de départ (Aller)&nbsp;:</label>
-
-                        <input type="date" id="departure_date_aller_${index}" name="departure_date_aller_${index}">
-
-                        <label for="departure_time_aller_${index}">Heure de départ (Aller)&nbsp;:</label>
-
-                        <input type="time" id="departure_time_aller_${index}" name="departure_time_aller_${index}">
-
-                        <label for="departure_airport_aller_${index}">Aéroport de départ (Aller)&nbsp;:</label>
-
-                        <input type="text" id="departure_airport_aller_${index}" name="departure_airport_aller_${index}" placeholder="Ex: YUL - Montréal">
-
-                        <label for="arrival_airport_aller_${index}">Aéroport d'arrivée (Aller)&nbsp;:</label>
-
-                        <input type="text" id="arrival_airport_aller_${index}" name="arrival_airport_aller_${index}" placeholder="Ex: MCO - Orlando" value="MCO - Orlando">
-
-                        <label for="arrival_date_aller_${index}">Date d'arrivée (Aller)&nbsp;:</label>
-
-                        <input type="date" id="arrival_date_aller_${index}" name="arrival_date_aller_${index}">
-
-                        <label for="arrival_time_aller_${index}">Heure d'arrivée (Aller)&nbsp;:</label>
-
-                        <input type="time" id="arrival_time_aller_${index}" name="arrival_time_aller_${index}">
-
-                        <label for="airline_aller_${index}">Compagnie Aérienne (Aller)&nbsp;:</label>
-
-                        <input type="text" id="airline_aller_${index}" name="airline_aller_${index}" placeholder="Ex: Air Canada">
-
-                        <label for="flight_number_aller_${index}">Numéro de vol (Aller)&nbsp;:</label>
-
-                        <input type="text" id="flight_number_aller_${index}" name="flight_number_aller_${index}" placeholder="Ex: AC1676">
-
-                    </div>
-
-                    <div class="flight-inputs">
-
-                        <h3>Vol Retour</h3>
-
-                        <label for="departure_date_retour_${index}">Date de départ (Retour)&nbsp;:</label>
-
-                        <input type="date" id="departure_date_retour_${index}" name="departure_date_retour_${index}">
-
-                        <label for="departure_time_retour_${index}">Heure de départ (Retour)&nbsp;:</label>
-
-                        <input type="time" id="departure_time_retour_${index}" name="departure_time_retour_${index}">
-
-                        <label for="departure_airport_retour_${index}">Aéroport de départ (Retour)&nbsp;:</label>
-
-                        <input type="text" id="departure_airport_retour_${index}" name="departure_airport_retour_${index}" placeholder="Ex: MCO - Orlando" value="MCO - Orlando">
-
-                        <label for="arrival_airport_retour_${index}">Aéroport d'arrivée (Retour)&nbsp;:</label>
-
-                        <input type="text" id="arrival_airport_retour_${index}" name="arrival_airport_retour_${index}" placeholder="Ex: YUL - Montréal">
-
-                        <label for="arrival_date_retour_${index}">Date d'arrivée (Retour)&nbsp;:</label>
-
-                        <input type="date" id="arrival_date_retour_${index}" name="arrival_date_retour_${index}">
-
-                        <label for="arrival_time_retour_${index}">Heure d'arrivée (Retour)&nbsp;:</label>
-
-                        <input type="time" id="arrival_time_retour_${index}" name="arrival_time_retour_${index}">
-
-                        <label for="airline_retour_${index}">Compagnie Aérienne (Retour)&nbsp;:</label>
-
-                        <input type="text" id="airline_retour_${index}" name="airline_retour_${index}" placeholder="Ex: Air Canada">
-
-                        <label for="flight_number_retour_${index}">Numéro de vol (Retour)&nbsp;:</label>
-
-                        <input type="text" id="flight_number_retour_${index}" name="flight_number_retour_${index}" placeholder="Ex: AC1677">
-
-                    </div>
-
-                    <label for="flight_price_${index}">Prix total approximatif des vols (CAD)&nbsp;:</label>
-
-                    <input type="number" id="flight_price_${index}" name="flight_price_${index}" step="0.01">
-
-                    <label for="flight_notes_${index}">Notes sur les vols&nbsp;:</label>
-
-                    <textarea id="flight_notes_${index}" name="flight_notes_${index}" placeholder="Ajoutez ici des détails importants (ex: compagnie, escale, type de bagages inclus...)"></textarea>
-
-                `;
-
-                return wrapper;
-
-            }
-
-
-
-            for (let i = 1; i <= 3; i++) {
-
-                const g = createFlightGroup(i);
-
-                flightGroupsDiv.appendChild(g);
-
-                flightGroups.push(g);
-
-            }
-
-
-
-            function updateFlightGroupVisibility() {
-
-                const count = parseInt(flightOptionCountSelect.value, 10);
-
-                flightGroups.forEach((g, idx) => {
-
-                    g.classList.toggle('hidden', idx >= count);
-
-                });
-
-                multipleFlightReasonDiv.classList.toggle('hidden', count <= 1);
-
-            }
-
-
-
-            function toggleFlightTooEarly() {
-
-                flightOptionsSection.classList.toggle('hidden', flightTooEarlyCheckbox.checked);
-
-            }
-
-
-
-            flightOptionCountSelect.addEventListener('change', updateFlightGroupVisibility);
-
-            flightTooEarlyCheckbox.addEventListener('change', toggleFlightTooEarly);
-
-            updateFlightGroupVisibility();
-
-            toggleFlightTooEarly();
-
-            
-
-            const form = document.getElementById('disneyForm');
-
-            const emailOutputDiv = document.getElementById('emailOutput');
-
-            
-
-            form.addEventListener('submit', function(event) {
-
-                event.preventDefault();
-
-                const formData = new FormData(form);
-
-                const data = {};
-
-                
-
-                for (let [key, value] of formData.entries()) {
-
-                    if (!/^hotel_|^departure_|^arrival_|^airline_|^flight_/i.test(key)) {
-
-                        data[key] = value;
-
-                    }
-
-                }
-
-                data.include_flights = formData.has('include_flights');
-
-                
-
-                data.hotels = [];
-
-                const hotelGroups = hotelSelectionsDiv.querySelectorAll('.hotel-option-group');
-
-                hotelGroups.forEach(group => {
-
-                    const name = group.querySelector('select[name="hotel_name"]').value;
-
-                    const price = group.querySelector('input[name="hotel_price"]').value;
-
-                    if(name) {
-
-                        const hotelData = getHotelByName(name);
-
-                        data.hotels.push({
-
-                            name: name,
-
-                            description: hotelData.description,
-
-                            level: hotelData.level,
-
-                            pointsForts: hotelData.pointsForts,
-
-                            price: price
-
-                        });
-
-                    }
-
-                });
-
-
-
-                data.flight_too_early = formData.has('flight_too_early');
-
-                data.flight_option_count = parseInt(flightOptionCountSelect.value, 10);
-
-                data.flight_multiple_reason = formData.get('flight_multiple_reason');
-
-                data.flights = [];
-
-                for (let i = 1; i <= data.flight_option_count; i++) {
-
-                    data.flights.push({
-
-                        departure_date_aller: formData.get(`departure_date_aller_${i}`),
-
-                        departure_time_aller: formData.get(`departure_time_aller_${i}`),
-
-                        departure_airport_aller: formData.get(`departure_airport_aller_${i}`),
-
-                        arrival_airport_aller: formData.get(`arrival_airport_aller_${i}`),
-
-                        arrival_date_aller: formData.get(`arrival_date_aller_${i}`),
-
-                        arrival_time_aller: formData.get(`arrival_time_aller_${i}`),
-
-                        airline_aller: formData.get(`airline_aller_${i}`),
-
-                        flight_number_aller: formData.get(`flight_number_aller_${i}`),
-
-                        departure_date_retour: formData.get(`departure_date_retour_${i}`),
-
-                        departure_time_retour: formData.get(`departure_time_retour_${i}`),
-
-                        departure_airport_retour: formData.get(`departure_airport_retour_${i}`),
-
-                        arrival_airport_retour: formData.get(`arrival_airport_retour_${i}`),
-
-                        arrival_date_retour: formData.get(`arrival_date_retour_${i}`),
-
-                        arrival_time_retour: formData.get(`arrival_time_retour_${i}`),
-
-                        airline_retour: formData.get(`airline_retour_${i}`),
-
-                        flight_number_retour: formData.get(`flight_number_retour_${i}`),
-
-                        flight_price: formData.get(`flight_price_${i}`),
-
-                        flight_notes: formData.get(`flight_notes_${i}`)
-
-                    });
-
-                }
-
-                
-
-                const emailHtmlContent = generateEmailHTML(data);
-
-                emailOutputDiv.innerHTML = emailHtmlContent;
-
-            });
-
-
-
-            const copyHtmlButton = document.getElementById('copyHtmlButton');
-
-            copyHtmlButton.addEventListener('click', function() {
-
-                const emailContent = emailOutputDiv.innerHTML;
-
-                 navigator.clipboard.writeText(emailContent).then(function() {
-
-                    alert('Contenu HTML de l\'e-mail copié dans le presse-papiers !');
-
-                }, function(err) {
-
-                    alert('Erreur lors de la copie. Veuillez essayer manuellement.');
-
-                    console.error('Could not copy text: ', err);
-
-                });
-
-            });
-
-            
-
-            const includeFlightsCheckbox = document.getElementById('include_flights');
-
-            const flightDetailsDiv = document.getElementById('flight_details');
-
-            const bookingTypeSelect = document.getElementById('booking_type');
-
-            const hotelOptionsContainer = document.getElementById('hotel_options_container');
-
-            const promotionTypeSelect = document.getElementById('promotion_type');
-
-            const promotionDetailsDiv = document.getElementById('promotion_details');
-
-            
-
-            function toggleFlightDetails() {
-
-                flightDetailsDiv.classList.toggle('hidden', !includeFlightsCheckbox.checked);
-
-                updateFlightGroupVisibility();
-
-                toggleFlightTooEarly();
-
-            }
-
-            function toggleHotelOptions() { hotelOptionsContainer.classList.toggle('hidden', bookingTypeSelect.value !== 'hotel_tickets'); }
-
-            function togglePromotionDetails() { promotionDetailsDiv.classList.toggle('hidden', promotionTypeSelect.value !== 'specifique'); }
-
-
-
-            includeFlightsCheckbox.addEventListener('change', toggleFlightDetails);
-
-            bookingTypeSelect.addEventListener('change', toggleHotelOptions);
-
-            promotionTypeSelect.addEventListener('change', togglePromotionDetails);
-
-            
-
-            toggleFlightDetails();
-
-            toggleHotelOptions();
-
-            togglePromotionDetails();
-
-        });
-
-    </script>
-
+                ${createBanner(hotelBannerText, 'sub')}
+                <tr><td style="padding: 20px 30px 10px 30px;">${hotelSection}</td></tr>
+                <tr><td style="padding: 10px 30px 30px 30px;">${promotionSection}</td></tr>
+                <tr><td style="padding: 0 30px 30px 30px;"><p style="${S.p} font-size:14px; color:${C.textLight}; text-align:center; ${S.italic}">${priceDisclaimer}</p></td></tr>
+                ${flightBlock}
+                ${createBanner(T.banner_magic_continues, 'closing')}
+                <tr><td style="padding: 20px 30px 30px 30px;">${closingSection}</td></tr>
+            </table></td></tr></table></body></html>`;
+        }
+
+        // --- Le reste du script JS pour le formulaire reste identique ---
+        document.addEventListener('DOMContentLoaded', function() {
+            const hotelSelectionsDiv = document.getElementById('hotel_selections');
+            const addHotelButton = document.getElementById('add_hotel_button');
+            let hotelCounter = 0;
+
+            function createHotelSelector() {
+                hotelCounter++;
+                const groupDiv = document.createElement('div');
+                groupDiv.classList.add('hotel-option-group');
+                groupDiv.id = `hotel_group_${hotelCounter}`;
+                
+                let content = `
+                    <div class="hotel-option-header">
+                        <label>Option d'hôtel</label>
+                        <button type="button" class="remove-hotel-button" title="Supprimer cet hôtel">Supprimer</button>
+                    </div>
+                    <select name="hotel_name" required>
+                        <option value="" disabled selected>Sélectionnez un hôtel</option>
+                        ${DISNEY_HOTELS.sort((a,b) => a.name.localeCompare(b.name)).map(hotel => `<option value="${hotel.name}">${hotel.name}</option>`).join('')}
+                    </select>
+                    <label for="hotel_price_${hotelCounter}">Prix du Forfait (USD)&nbsp;:</label>
+                    <input type="number" name="hotel_price" id="hotel_price_${hotelCounter}" placeholder="Ex: 4500.50" step="0.01">
+                `;
+                groupDiv.innerHTML = content;
+
+                groupDiv.querySelector('.remove-hotel-button').addEventListener('click', function() {
+                    groupDiv.remove();
+                    updateAddHotelButtonState();
+                });
+
+                return groupDiv;
+            }
+
+            function updateAddHotelButtonState() {
+                const currentHotelSelectors = hotelSelectionsDiv.querySelectorAll('.hotel-option-group').length;
+                addHotelButton.disabled = currentHotelSelectors >= 5;
+                addHotelButton.textContent = currentHotelSelectors >= 5 ? "Maximum 5 hôtels atteints" : "Ajouter une option d'hôtel";
+            }
+
+            addHotelButton.addEventListener('click', function() {
+                if (hotelSelectionsDiv.querySelectorAll('.hotel-option-group').length < 5) {
+                    hotelSelectionsDiv.appendChild(createHotelSelector());
+                    updateAddHotelButtonState();
+                }
+            });
+
+            hotelSelectionsDiv.appendChild(createHotelSelector());
+            updateAddHotelButtonState();
+
+            const flightGroupsDiv = document.getElementById('flight_option_groups');
+            const flightOptionCountSelect = document.getElementById('flight_option_count');
+            const multipleFlightReasonDiv = document.getElementById('multiple_flight_reason');
+            const flightTooEarlyCheckbox = document.getElementById('flight_too_early');
+            const flightOptionsSection = document.getElementById('flight_options_section');
+            let flightGroups = [];
+
+            function createFlightGroup(index) {
+                const wrapper = document.createElement('div');
+                wrapper.classList.add('flight-option-group');
+                wrapper.innerHTML = `
+                    <h3>Option ${index}</h3>
+                    <div class="flight-inputs">
+                        <h3>Vol Aller</h3>
+                        <label for="departure_date_aller_${index}">Date de départ (Aller)&nbsp;:</label>
+                        <input type="date" id="departure_date_aller_${index}" name="departure_date_aller_${index}">
+                        <label for="departure_time_aller_${index}">Heure de départ (Aller)&nbsp;:</label>
+                        <input type="time" id="departure_time_aller_${index}" name="departure_time_aller_${index}">
+                        <label for="departure_airport_aller_${index}">Aéroport de départ (Aller)&nbsp;:</label>
+                        <input type="text" id="departure_airport_aller_${index}" name="departure_airport_aller_${index}" placeholder="Ex: YUL - Montréal">
+                        <label for="arrival_airport_aller_${index}">Aéroport d'arrivée (Aller)&nbsp;:</label>
+                        <input type="text" id="arrival_airport_aller_${index}" name="arrival_airport_aller_${index}" placeholder="Ex: MCO - Orlando" value="MCO - Orlando">
+                        <label for="arrival_date_aller_${index}">Date d'arrivée (Aller)&nbsp;:</label>
+                        <input type="date" id="arrival_date_aller_${index}" name="arrival_date_aller_${index}">
+                        <label for="arrival_time_aller_${index}">Heure d'arrivée (Aller)&nbsp;:</label>
+                        <input type="time" id="arrival_time_aller_${index}" name="arrival_time_aller_${index}">
+                        <label for="airline_aller_${index}">Compagnie Aérienne (Aller)&nbsp;:</label>
+                        <input type="text" id="airline_aller_${index}" name="airline_aller_${index}" placeholder="Ex: Air Canada">
+                        <label for="flight_number_aller_${index}">Numéro de vol (Aller)&nbsp;:</label>
+                        <input type="text" id="flight_number_aller_${index}" name="flight_number_aller_${index}" placeholder="Ex: AC1676">
+                    </div>
+                    <div class="flight-inputs">
+                        <h3>Vol Retour</h3>
+                        <label for="departure_date_retour_${index}">Date de départ (Retour)&nbsp;:</label>
+                        <input type="date" id="departure_date_retour_${index}" name="departure_date_retour_${index}">
+                        <label for="departure_time_retour_${index}">Heure de départ (Retour)&nbsp;:</label>
+                        <input type="time" id="departure_time_retour_${index}" name="departure_time_retour_${index}">
+                        <label for="departure_airport_retour_${index}">Aéroport de départ (Retour)&nbsp;:</label>
+                        <input type="text" id="departure_airport_retour_${index}" name="departure_airport_retour_${index}" placeholder="Ex: MCO - Orlando" value="MCO - Orlando">
+                        <label for="arrival_airport_retour_${index}">Aéroport d'arrivée (Retour)&nbsp;:</label>
+                        <input type="text" id="arrival_airport_retour_${index}" name="arrival_airport_retour_${index}" placeholder="Ex: YUL - Montréal">
+                        <label for="arrival_date_retour_${index}">Date d'arrivée (Retour)&nbsp;:</label>
+                        <input type="date" id="arrival_date_retour_${index}" name="arrival_date_retour_${index}">
+                        <label for="arrival_time_retour_${index}">Heure d'arrivée (Retour)&nbsp;:</label>
+                        <input type="time" id="arrival_time_retour_${index}" name="arrival_time_retour_${index}">
+                        <label for="airline_retour_${index}">Compagnie Aérienne (Retour)&nbsp;:</label>
+                        <input type="text" id="airline_retour_${index}" name="airline_retour_${index}" placeholder="Ex: Air Canada">
+                        <label for="flight_number_retour_${index}">Numéro de vol (Retour)&nbsp;:</label>
+                        <input type="text" id="flight_number_retour_${index}" name="flight_number_retour_${index}" placeholder="Ex: AC1677">
+                    </div>
+                    <label for="flight_price_${index}">Prix total approximatif des vols (CAD)&nbsp;:</label>
+                    <input type="number" id="flight_price_${index}" name="flight_price_${index}" step="0.01">
+                    <label for="flight_notes_${index}">Notes sur les vols&nbsp;:</label>
+                    <textarea id="flight_notes_${index}" name="flight_notes_${index}" placeholder="Ajoutez ici des détails importants (ex: compagnie, escale, type de bagages inclus...)"></textarea>
+                `;
+                return wrapper;
+            }
+
+            for (let i = 1; i <= 3; i++) {
+                const g = createFlightGroup(i);
+                flightGroupsDiv.appendChild(g);
+                flightGroups.push(g);
+            }
+
+            function updateFlightGroupVisibility() {
+                const count = parseInt(flightOptionCountSelect.value, 10);
+                flightGroups.forEach((g, idx) => {
+                    g.classList.toggle('hidden', idx >= count);
+                });
+                multipleFlightReasonDiv.classList.toggle('hidden', count <= 1);
+            }
+
+            function toggleFlightTooEarly() {
+                flightOptionsSection.classList.toggle('hidden', flightTooEarlyCheckbox.checked);
+            }
+
+            flightOptionCountSelect.addEventListener('change', updateFlightGroupVisibility);
+            flightTooEarlyCheckbox.addEventListener('change', toggleFlightTooEarly);
+            updateFlightGroupVisibility();
+            toggleFlightTooEarly();
+            
+            const form = document.getElementById('disneyForm');
+            const emailOutputDiv = document.getElementById('emailOutput');
+            
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const formData = new FormData(form);
+                const data = {};
+                
+                for (let [key, value] of formData.entries()) {
+                    if (!/^hotel_|^departure_|^arrival_|^airline_|^flight_/i.test(key)) {
+                        data[key] = value;
+                    }
+                }
+                data.include_flights = formData.has('include_flights');
+                
+                data.hotels = [];
+                const hotelGroups = hotelSelectionsDiv.querySelectorAll('.hotel-option-group');
+                hotelGroups.forEach(group => {
+                    const name = group.querySelector('select[name="hotel_name"]').value;
+                    const price = group.querySelector('input[name="hotel_price"]').value;
+                    if(name) {
+                        const hotelData = getHotelByName(name);
+                        data.hotels.push({
+                            name: name,
+                            description: hotelData.description,
+                            level: hotelData.level,
+                            pointsForts: hotelData.pointsForts,
+                            price: price
+                        });
+                    }
+                });
+
+                data.flight_too_early = formData.has('flight_too_early');
+                data.flight_option_count = parseInt(flightOptionCountSelect.value, 10);
+                data.flight_multiple_reason = formData.get('flight_multiple_reason');
+                data.flights = [];
+                for (let i = 1; i <= data.flight_option_count; i++) {
+                    data.flights.push({
+                        departure_date_aller: formData.get(`departure_date_aller_${i}`),
+                        departure_time_aller: formData.get(`departure_time_aller_${i}`),
+                        departure_airport_aller: formData.get(`departure_airport_aller_${i}`),
+                        arrival_airport_aller: formData.get(`arrival_airport_aller_${i}`),
+                        arrival_date_aller: formData.get(`arrival_date_aller_${i}`),
+                        arrival_time_aller: formData.get(`arrival_time_aller_${i}`),
+                        airline_aller: formData.get(`airline_aller_${i}`),
+                        flight_number_aller: formData.get(`flight_number_aller_${i}`),
+                        departure_date_retour: formData.get(`departure_date_retour_${i}`),
+                        departure_time_retour: formData.get(`departure_time_retour_${i}`),
+                        departure_airport_retour: formData.get(`departure_airport_retour_${i}`),
+                        arrival_airport_retour: formData.get(`arrival_airport_retour_${i}`),
+                        arrival_date_retour: formData.get(`arrival_date_retour_${i}`),
+                        arrival_time_retour: formData.get(`arrival_time_retour_${i}`),
+                        airline_retour: formData.get(`airline_retour_${i}`),
+                        flight_number_retour: formData.get(`flight_number_retour_${i}`),
+                        flight_price: formData.get(`flight_price_${i}`),
+                        flight_notes: formData.get(`flight_notes_${i}`)
+                    });
+                }
+                
+                const emailHtmlContent = generateEmailHTML(data);
+                emailOutputDiv.innerHTML = emailHtmlContent;
+            });
+
+            const copyHtmlButton = document.getElementById('copyHtmlButton');
+            copyHtmlButton.addEventListener('click', function() {
+                const emailContent = emailOutputDiv.innerHTML;
+                 navigator.clipboard.writeText(emailContent).then(function() {
+                    alert('Contenu HTML de l\'e-mail copié dans le presse-papiers !');
+                }, function(err) {
+                    alert('Erreur lors de la copie. Veuillez essayer manuellement.');
+                    console.error('Could not copy text: ', err);
+                });
+            });
+            
+            const includeFlightsCheckbox = document.getElementById('include_flights');
+            const flightDetailsDiv = document.getElementById('flight_details');
+            const bookingTypeSelect = document.getElementById('booking_type');
+            const hotelOptionsContainer = document.getElementById('hotel_options_container');
+            const promotionTypeSelect = document.getElementById('promotion_type');
+            const promotionDetailsDiv = document.getElementById('promotion_details');
+            
+            function toggleFlightDetails() {
+                flightDetailsDiv.classList.toggle('hidden', !includeFlightsCheckbox.checked);
+                updateFlightGroupVisibility();
+                toggleFlightTooEarly();
+            }
+            function toggleHotelOptions() { hotelOptionsContainer.classList.toggle('hidden', bookingTypeSelect.value !== 'hotel_tickets'); }
+            function togglePromotionDetails() { promotionDetailsDiv.classList.toggle('hidden', promotionTypeSelect.value !== 'specifique'); }
+
+            includeFlightsCheckbox.addEventListener('change', toggleFlightDetails);
+            bookingTypeSelect.addEventListener('change', toggleHotelOptions);
+            promotionTypeSelect.addEventListener('change', togglePromotionDetails);
+            
+            toggleFlightDetails();
+            toggleHotelOptions();
+            togglePromotionDetails();
+        });
+    </script>
 </body>
-
 </html>
