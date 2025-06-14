@@ -370,14 +370,29 @@ if (selectedHotels.length === 1) {
       max-width: 420px;
       margin: auto;
     }
+    /* Force text and background colors in dark mode */
     @media (prefers-color-scheme: dark) {
+      body, table, td, p, span, a, h1, h2, h3, h4 {
+        color: #ffffff !important;
+      }
+      body, table, td {
+        background-color: #001f3f !important;
+      }
       .logo-background {
         background-color: #001f3f !important;
       }
     }
   </style>
+  <!--[if mso]>
+  <style type="text/css">
+    body, table, td, p, span, a, h1, h2, h3, h4 {
+      background-color: #001f3f !important;
+      color: #ffffff !important;
+    }
+  </style>
+  <![endif]-->
 </head>
-<body style="margin:0; padding:0; background-color:${C.background};"><table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color:${C.background};"><tr><td align="center"><table width="680" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width: 680px; max-width: 100%; margin: 20px auto; background-color: ${C.white};"
+<body style="margin:0; padding:0; background-color:${C.background};" bgcolor="${C.background}" data-ogsb data-ogsc><table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color:${C.background};"><tr><td align="center"><table width="680" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width: 680px; max-width: 100%; margin: 20px auto; background-color: ${C.white};"
 <tr>
   <td class="logo-background" align="center" style="padding:20px 0;">
     <table class="logo-container" border="0" cellpadding="0" cellspacing="0" role="presentation">
