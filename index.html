@@ -308,7 +308,7 @@ if (selectedHotels.length === 1) {
                 hotelSection += `<p style="${S.p} margin-top:30px; text-align:left;">${T.disney_advantages_intro}<ul style="margin:1em 0; padding:0; list-style-type:none; text-align:left;">${advantagesList}</ul>`;
 
             } else if (data.booking_type === 'tickets_only') {
-                hotelSection = `<p style="${S.p}">J’ai préparé pour vous un document ci-joint indiquant le prix ainsi que les conditions applicables aux billets de parc. Ce paiement est unique et non remboursable.</p>`;
+                hotelSection = `<p style="${S.p}">J’ai préparé pour vous un document ci-joint indiquant le prix ainsi que les conditions applicables aux billets de parc.</p>`;
             }
 
             let promoText = "";
@@ -498,7 +498,7 @@ ${createBanner(T.banner1, 'main')}
 <tr><td class="mobile-padding" style="padding: 20px 30px 30px 30px;">${introSection}</td></tr>
                 ${createBanner(hotelBannerText, 'sub')}
                 <tr><td class="mobile-padding" style="padding: 20px 30px 10px 30px;">${hotelSection}</td></tr>
-                ${data.booking_type !== 'tickets_only' ? `<tr><td class="mobile-padding" style="padding: 10px 30px 30px 30px;">${promotionSection}</td></tr>` : ''}
+                <tr><td class="mobile-padding" style="padding: 10px 30px 30px 30px;">${promotionSection}</td></tr>
                 <tr><td class="mobile-padding" style="padding: 0 30px 30px 30px;"><p style="${S.p} font-size:14px; color:${C.textLight}; text-align:center; ${S.italic}">${priceDisclaimer}</p></td></tr>
                 ${flightBlock}
                 ${createBanner(T.banner_magic_continues, 'closing')}
