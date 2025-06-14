@@ -195,6 +195,10 @@ const LOGOS = {
                 return `<table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-top:20px; border-collapse: collapse;"><tr><td style="padding: 20px 25px; background-color: ${C[`${color}Light`]}; border-left: 5px solid ${C[color]}; border-radius: 0 8px 8px 0; mso-line-height-rule: exactly;"><h2 style="font-family:${S.fontStack}; font-size:18px; color:${C[color]}; margin:0 0 10px 0; font-weight:bold; line-height: 1.2;">${title}</h2><p style="font-family:${S.fontStack}; margin:0; text-align:justify; font-size: 16px; line-height: 1.5; color: ${C.textDark};">${text}</p></td></tr></table>`;
             }
 
+            function createBadgeTable(text, bgColor) {
+                return `<table border="0" cellpadding="0" cellspacing="0" role="presentation" style="display:inline-table; margin: 0 8px 8px 0; border-radius: 15px; border-collapse: separate; overflow: hidden; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"><tr><td style="background-color:${bgColor}; color:${C.white}; padding: 5px 12px; font-size: 14px; font-weight: bold; border-radius: 15px; mso-line-height-rule: exactly;" bgcolor="${bgColor}">${text}</td></tr></table>`;
+            }
+
             const T = {
                 banner1: "Votre Aventure Magique Commence Ici",
                 greeting: `Bonjour <strong style="${S.strong}">${data.client_name || 'estimé(e) voyageur(se)'}</strong>,`,
@@ -230,12 +234,12 @@ if (selectedHotels.length === 1) {
                     const hotel = selectedHotels[0];
                     const levelColor = C.level[hotel.level.toLowerCase().replace(/ /g, '_')] || C.textLight;
                     
-                    // Hotel level badge with bgcolor for Outlook compatibility
-                    let prosList = `<span style="background-color:${levelColor}; color:${C.white}; padding: 5px 12px; margin: 0 8px 8px 0; border-radius: 15px; font-size: 14px; font-weight: bold; display:inline-block;" bgcolor="${levelColor}">${hotel.level}</span>`;
+                    // Hotel level badge using single-cell table for Outlook compatibility
+                    let prosList = createBadgeTable(hotel.level, levelColor);
                     hotel.pointsForts.forEach((p, i) => {
                         const tagColor = C.tags[i % C.tags.length];
-                        // Point forte badges with bgcolor for Outlook compatibility
-                        prosList += `<span style="display:inline-block; background-color:${tagColor}; color:${C.white}; padding: 5px 12px; margin: 0 8px 8px 0; border-radius: 15px; font-size: 14px; font-weight: bold;" bgcolor="${tagColor}">${p}</span>`;
+                        // Point forte badges using single-cell table for Outlook compatibility
+                        prosList += createBadgeTable(p, tagColor);
                     });
 
                     let hotelCard = `
@@ -266,12 +270,12 @@ if (selectedHotels.length === 1) {
                     selectedHotels.forEach(hotel => {
                         const levelColor = C.level[hotel.level.toLowerCase().replace(/ /g, '_')] || C.textLight;
                         
-                        // Hotel level badge with bgcolor for Outlook compatibility
-                        let prosList = `<span style="background-color:${levelColor}; color:${C.white}; padding: 5px 12px; margin: 0 8px 8px 0; border-radius: 15px; font-size: 14px; font-weight: bold; display:inline-block;" bgcolor="${levelColor}">${hotel.level}</span>`;
+                        // Hotel level badge using single-cell table for Outlook compatibility
+                        let prosList = createBadgeTable(hotel.level, levelColor);
                         hotel.pointsForts.forEach((p, i) => {
                             const tagColor = C.tags[i % C.tags.length];
-                            // Point forte badges with bgcolor for Outlook compatibility
-                            prosList += `<span style="display:inline-block; background-color:${tagColor}; color:${C.white}; padding: 5px 12px; margin: 0 8px 8px 0; border-radius: 15px; font-size: 14px; font-weight: bold;" bgcolor="${tagColor}">${p}</span>`;
+                            // Point forte badges using single-cell table for Outlook compatibility
+                            prosList += createBadgeTable(p, tagColor);
                         });
 
                         hotelCards += `
@@ -393,9 +397,9 @@ if (selectedHotels.length === 1) {
     .logo-background {
       background-color: #0078C1 !important;
     }
-    /* Logo container with light background for logo readability */
+    /* Logo container with solid white background for logo readability */
     .logo-container {
-      background-color: #e9f2f9;
+      background-color: #ffffff;
       padding: 20px 30px;
       border-radius: 8px;
       max-width: 420px;
@@ -421,9 +425,9 @@ if (selectedHotels.length === 1) {
       .logo-background {
         background-color: #0078C1 !important;
       }
-      /* Darker logo container background for dark mode compatibility */
+      /* Solid white logo container background for dark mode compatibility */
       .logo-container {
-        background-color: #2a3f5f !important;
+        background-color: #ffffff !important;
       }
       /* Ensure badge colors remain visible in dark mode */
       [style*="background-color: #0078C1"] { background-color: #0078C1 !important; }
@@ -434,10 +438,9 @@ if (selectedHotels.length === 1) {
       [style*="background-color: #2196F3"] { background-color: #2196F3 !important; }
       [style*="background-color: #6f42c1"] { background-color: #6f42c1 !important; }
       [style*="background-color: #9C27B0"] { background-color: #9C27B0 !important; }
-      /* Ensure readability in dark mode */
+      /* Ensure readability in dark mode while maintaining solid backgrounds */
       [style*="color: #1a1a1a"] { color: #ffffff !important; }
       [style*="color: #4a4a4a"] { color: #cccccc !important; }
-      [style*="background-color: #ffffff"] { background-color: #1a1a1a !important; }
       [style*="background-color: #fafafa"] { background-color: #2a2a2a !important; }
       [style*="background-color: #e6f2fa"] { background-color: #1a2f3f !important; }
       [style*="background-color: #fff4e6"] { background-color: #3f2f1a !important; }
@@ -455,7 +458,7 @@ if (selectedHotels.length === 1) {
     }
     /* Logo container background for Outlook compatibility */
     .logo-container {
-      background-color: #2a3f5f !important;
+      background-color: #ffffff !important;
     }
     /* Logo background using Disney blue for Outlook */
     .logo-background {
@@ -473,7 +476,7 @@ if (selectedHotels.length === 1) {
     <v:fill type="solid" color="#0078C1"/>
     <v:textbox style="mso-fit-shape-to-text:true" inset="0,20px,0,20px">
     <![endif]-->
-    <table class="logo-container mobile-padding" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color: #e9f2f9;" bgcolor="#e9f2f9">
+    <table class="logo-container mobile-padding" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color: #ffffff;" bgcolor="#ffffff">
       <tr>
         <td align="center" style="width:50%;">
           <img src="${LOGOS.earmarked}" alt="Logo Earmarked - Services de voyage Disney" style="max-width:150px; height:auto; display:block; margin:0 auto;">
