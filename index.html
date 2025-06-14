@@ -145,305 +145,283 @@
         function formatDateFR(dateStr) { if (!dateStr) return ""; try { const date = new Date(dateStr + 'T00:00:00'); const options = { year: 'numeric', month: 'long', day: 'numeric' }; return date.toLocaleDateString('fr-FR', options); } catch (e) { return dateStr; } }
         function formatTime(timeStr) { if (!timeStr) return ""; try { const [hours, minutes] = timeStr.split(':'); return `${String(hours).padStart(2, '0')}h${String(minutes).padStart(2, '0')}`; } catch (e) { return timeStr; } }
 
-function generateEmailHTML(data) {
-    // Updated color palette for better contrast and dark mode support
-    const C = {
-        blue: '#0078C1',
-        blueDark: '#005a9c',
-        orange: '#FF6B35', // Better contrast than #FF7F50
-        textDark: '#1a1a1a', // Better than pure black
-        textLight: '#666666', // Better contrast
-        border: '#EAEAEA',
-        background: '#f8f8f8', // Slightly off-white
-        white: '#FFFFFF',
-        blueLight: '#e6f2fa',
-        orangeLight: '#fff4e6',
-        level: { value: '#28a745', moderate: '#2196F3', deluxe: '#6f42c1', deluxe_villa: '#9C27B0' },
-        tags: ['#0078C1', '#5A67D8', '#d9480f', '#0ca678']
-    };
+        function generateEmailHTML(data) {
+             const C = {
+                blue: '#0078C1',
+                blueDark: '#005a9c',
+                orange: '#FF7F50',
+                textDark: '#222222',
+                textLight: '#555555',
+                border: '#EAEAEA',
+                background: '#001f3f',
+                white: '#FFFFFF',
+                blueLight: '#e6f2fa',
+                orangeLight: '#fff4e6',
+                level: { value: '#28a745', moderate: '#2196F3', deluxe: '#6f42c1', deluxe_villa: '#9C27B0' },
+                tags: ['#0078C1', '#5A67D8', '#d9480f', '#0ca678']
+            };
 
-    const S = {
-        fontStack: `-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif`,
-        p: `font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; color: ${C.textDark}; margin: 16px 0; text-align: left; mso-line-height-rule: exactly;`,
-        strong: `font-weight: 600; color: ${C.textDark};`,
-        italic: `font-style: italic;`,
-    };
+            const S = {
+                fontStack: `Arial, Helvetica, sans-serif`,
+                p: `font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 1.6; color: ${C.textDark}; margin: 1em 0; text-align: justify;`,
+                strong: `font-weight: bold;`,
+                italic: `font-style: italic;`,
+            };
 
-    const LOGOS = {
-        earmarked: "https://boisterous-rabanadas-5fcb72.netlify.app/Logo_Fond_Blanc_2.png",
-        agency: "https://boisterous-rabanadas-5fcb72.netlify.app/Disney-EarMarked.png"
-    };
-    
-    function createBanner(text, type = 'main') {
-        let style, titleStyle, wrapperStyle;
-        switch (type) {
-            case 'closing': 
-                style = `background-color: ${C.orange}; padding: 12px 30px;`; 
-                titleStyle = `font-family: Georgia, serif; font-size: 24px; color: ${C.white}; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center; letter-spacing: 1px; mso-line-height-rule: exactly;`; 
-                wrapperStyle = `padding: 5px 0;`; 
-                break;
-            case 'sub': 
-                style = `background-color: ${C.blue}; padding: 10px 30px;`; 
-                titleStyle = `font-family: ${S.fontStack}; font-size: 20px; color: ${C.white}; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center; mso-line-height-rule: exactly;`; 
-                wrapperStyle = `padding: 0;`; 
-                break;
-            case 'main': 
-            default: 
-                style = `background-color: ${C.blue}; padding: 25px 30px;`; 
-                titleStyle = `font-family: Georgia, serif; font-size: 32px; color: ${C.white}; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center; letter-spacing: 1.5px; line-height: 36px; mso-line-height-rule: exactly;`; 
-                wrapperStyle = `padding: 10px 0;`; 
-                break;
-        }
-        return `<tr><td style="${style}"><div style="${wrapperStyle}"><h1 style="${titleStyle}">${text}</h1></div></td></tr>`;
-    }
-    
-    function createCalloutBox(title, text, color) {
-        const bgColor = color === 'orange' ? '#FFF9F5' : '#F0F8FF';
-        const borderColor = C[color] || C.blue;
-        return `<table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="margin-top:20px;"><tr><td style="padding: 20px 25px; background-color: ${bgColor}; border-left: 5px solid ${borderColor}; border-radius: 0 8px 8px 0;"><h2 style="font-family:${S.fontStack}; font-size:18px; color:${borderColor}; margin:0 0 10px 0; font-weight:bold; mso-line-height-rule: exactly;">${title}</h2><p style="font-family:${S.fontStack}; font-size: 15px; line-height: 22px; color: ${C.textDark}; margin:0; text-align:left; mso-line-height-rule: exactly;">${text}</p></td></tr></table>`;
-    }
-
-    // Keep all the French text exactly the same
-    const T = {
-        banner1: "Votre Aventure Magique Commence Ici",
-        greeting: `Bonjour <strong style="${S.strong}">${data.client_name || 'estimé(e) voyageur(se)'}</strong>,`,
-        intro1: `Je vous écris au nom de Voyages en Route, où nous avons le plaisir d'accompagner les familles et voyageurs dans la planification de leurs séjours. Je m'appelle Pierre-Luc Morin et je serais votre conseiller en voyages spécialisé en destinations <strong style="${S.strong}">Disney et Universal</strong>.`,
-        intro2: `Merci de nous avoir confié votre projet de voyage. J'ai pris soin de préparer une proposition basée sur les critères que vous avez partagés dans votre demande. Cette soumission est <strong style="${S.strong}">ajustable</strong>, et je serai heureux d'explorer avec vous différentes options afin de vous créer une expérience <strong style="${S.strong}">propre à vous et inoubliable</strong>.`,
-        disney_advantages_intro: `Séjourner dans un hôtel Disney, c'est profiter d'un univers immersif du matin au soir, mais aussi de <strong style="${S.strong}">nombreux avantages exclusifs</strong>&nbsp;:</p>`,
-        disney_advantages_list_items: [
-            `<strong style="${S.strong}">L'Early Theme Park Entry</strong>, pour accéder aux parcs avant l'ouverture officielle&nbsp;;`,
-            `Le <strong style="${S.strong}">transport gratuit</strong> vers tous les parcs et sites Disney (excluant les transferts aéroports)&nbsp;;`,
-            `L'<strong style="${S.strong}">accès simplifié</strong> aux réservations avec l'application Disney Experience&nbsp;;`,
-            `Et un <strong style="${S.strong}">service client exceptionnel</strong>, signé Disney, à chaque étape de votre séjour.`
-        ],
-        disney_price_disclaimer: "Veuillez noter que tous les prix pour l'hébergement et les billets Disney sont indiqués en dollars américains (USD) et sont sujets à disponibilité.",
-        tickets_only_price_disclaimer: "Veuillez noter que tous les prix des billets Disney sont indiqués en dollars américains (USD) et sont sujets à disponibilité.",
-        banner_travel_fees: "Itinéraire de Vol",
-        flight_intro: "Pour compléter votre voyage vers la magie, voici les détails concernant le transport aérien que nous avons exploré&nbsp;:",
-        flight_too_early: "Il est encore un peu tôt pour réserver les vols, car plusieurs compagnies aériennes n'ont pas encore publié leurs horaires. Cela dit, nous suivons la situation de près afin de vous proposer les meilleures options dès qu'elles seront disponibles. N'hésitez pas à me faire part de vos préférences en matière d'horaires ou de compagnies, pour que je puisse mieux cibler ce qui vous conviendrait le mieux.",
-        flight_price_info: `<em style="${S.italic}">Les prix sont à titre indicatif et peuvent changer à tout moment.</em>`,
-        flight_important_label: `IMPORTANT`,
-        flight_important_text: `Les tarifs aériens sont dynamiques et peuvent changer jusqu'à la réservation. Des frais de service de <strong style="${S.strong}">50$ CAD par personne</strong> s'appliquent pour la réservation des vols via nos services. En me confiant vos vols, je m'occupe de tout désagrément potentiel. Si vous optez pour une réservation personnelle, ces frais ne s'appliquent pas, mais le support en cas de problème avec les vols ne sera pas inclus pour cette portion.`,
-        banner_magic_continues: "La Magie Continue...",
-        closing1: `Prenez le temps de rêver à ces options et de considérer ce qui ferait de ce voyage une expérience <strong style="${S.strong}">véritablement inoubliable</strong>. Je suis à votre <strong style="${S.strong}">entière disposition</strong> pour répondre à toutes vos questions, affiner chaque détail ou procéder à la réservation de cette <em style="${S.italic}">aventure mémorable</em>.`,
-        closing2: `N'hésitez pas à me joindre par courriel (en répondant simplement à celui-ci) ou par téléphone au <strong style="${S.strong}">819-347-9103</strong>. <strong style="${S.strong}"><em style="${S.italic}">Merci de me faire savoir si le message a bien été reçu</em></strong>.`,
-        closing3: `Merci encore pour votre confiance. J'ai sincèrement hâte de transformer ce <strong style="${S.strong}">rêve Disney</strong> en une <strong style="${S.strong}">magnifique réalité pour vous&nbsp;!</strong>`
-    };
-    
-    let introSection = `<p style="${S.p}">${T.greeting}</p><p style="${S.p}">${T.intro1}</p><p style="${S.p}">${T.intro2}</p>`;
-    let hotelSection = '';
-    const selectedHotels = data.hotels || [];
-
-    if (data.booking_type === 'hotel_tickets' && selectedHotels.length > 0) {
-        if (selectedHotels.length === 1) {
-            const hotel = selectedHotels[0];
-            const levelColor = C.level[hotel.level.toLowerCase().replace(/ /g, '_')] || C.textLight;
+const LOGOS = {
+    earmarked: "https://boisterous-rabanadas-5fcb72.netlify.app/Logo_Fond_Blanc_2.png",
+    agency: "https://boisterous-rabanadas-5fcb72.netlify.app/Disney-EarMarked.png"
+};
             
-            let prosList = `<span style="background-color:${levelColor}; color:${C.white}; padding: 5px 12px; margin: 0 8px 8px 0; border-radius: 15px; font-size: 14px; font-weight: 600; display:inline-block;">${hotel.level}</span>`;
-            hotel.pointsForts.forEach((p, i) => {
-                const tagColor = C.tags[i % C.tags.length];
-                prosList += `<span style="display:inline-block; background-color:${tagColor}; color:${C.white}; padding: 5px 12px; margin: 0 8px 8px 0; border-radius: 15px; font-size: 14px; font-weight: 600;">${p}</span>`;
-            });
-
-            let hotelCard = `
-                <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="margin-top: 25px; border: 1px solid ${C.border}; border-radius: 8px;">
-                    <tr>
-                        <td style="background-color:${C.blue}; color:${C.white}; padding:15px 20px; border-radius: 8px 8px 0 0;">
-                            <strong style="font-family:${S.fontStack}; font-size:20px; color:${C.white};">${hotel.name}</strong>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="background-color:${C.white}; padding: 20px;">
-                            <p style="font-family:${S.fontStack}; font-size:15px; line-height:22px; color:${C.textLight}; margin:0 0 15px 0; text-align:left; mso-line-height-rule: exactly;">${hotel.description}</p>
-                            <div style="padding:10px 0;">${prosList}</div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="background-color:${C.blueLight}; padding: 15px 20px; text-align:center; border-radius: 0 0 8px 8px; border-top: 1px solid ${C.border};">
-                            <span style="font-size:14px; color:${C.textLight}; font-weight:600; text-transform:uppercase;">PRIX DU FORFAIT</span><br>
-                            <strong style="font-size:28px; color:${C.textDark}; line-height:32px;">${hotel.price ? hotel.price + '&nbsp;USD' : 'Voir PDF'}</strong>
-                        </td>
-                    </tr>
-                </table>
-            `;
-            hotelSection += `<p style="${S.p}">Pour votre séjour, voici l'option que j'ai sélectionnée pour vous :</p>${hotelCard}`;
-        } else {
-            hotelSection += `<p style="${S.p}">Voici plusieurs options d'hébergement pour votre séjour. Chaque proposition ci-dessous correspond à un forfait détaillé dans un document PDF distinct.</p>`;
-            selectedHotels.forEach(hotel => {
-                const levelColor = C.level[hotel.level.toLowerCase().replace(/ /g, '_')] || C.textLight;
-                
-                let prosList = `<span style="background-color:${levelColor}; color:${C.white}; padding: 5px 12px; margin: 0 8px 8px 0; border-radius: 15px; font-size: 14px; font-weight: 600; display:inline-block;">${hotel.level}</span>`;
-                hotel.pointsForts.forEach((p, i) => {
-                    const tagColor = C.tags[i % C.tags.length];
-                    prosList += `<span style="display:inline-block; background-color:${tagColor}; color:${C.white}; padding: 5px 12px; margin: 0 8px 8px 0; border-radius: 15px; font-size: 14px; font-weight: 600;">${p}</span>`;
-                });
-
-                hotelSection += `
-                    <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="margin-top: 25px; border: 1px solid ${C.border}; border-radius: 8px;">
-                        <tr>
-                            <td style="background-color:${C.blue}; color:${C.white}; padding:15px 20px; border-radius: 8px 8px 0 0;">
-                                <strong style="font-family:${S.fontStack}; font-size:20px; color:${C.white};">${hotel.name}</strong>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="background-color:${C.white}; padding: 20px;">
-                                <p style="font-family:${S.fontStack}; font-size:15px; line-height:22px; color:${C.textLight}; margin:0 0 15px 0; text-align:left; mso-line-height-rule: exactly;">${hotel.description}</p>
-                                <div style="padding:10px 0;">${prosList}</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="background-color:${C.blueLight}; padding: 15px 20px; text-align:center; border-radius: 0 0 8px 8px; border-top: 1px solid ${C.border};">
-                                <span style="font-size:14px; color:${C.textLight}; font-weight:600; text-transform:uppercase;">PRIX DU FORFAIT</span><br>
-                                <strong style="font-size:28px; color:${C.textDark}; line-height:32px;">${hotel.price ? hotel.price + '&nbsp;USD' : 'Voir PDF'}</strong>
-                            </td>
-                        </tr>
-                    </table>
-                `;
-            });
-        }
-        
-        hotelSection += `<p style="${S.p} margin-top:20px;">Chaque proposition de forfait inclut l'hébergement à l'hôtel ainsi que les billets d'entrée pour les parcs Disney. Tous les autres détails, inclusions et conditions se trouvent dans le ou les documents PDF correspondants.</p>`
-        let advantagesList = T.disney_advantages_list_items.map(item => `<li style="margin-bottom:8px;"><span style="color:${C.blue}; font-size:18px; vertical-align:middle; margin-right:8px; font-weight:bold;">&#10004;</span><span style="vertical-align:middle;">${item}</span></li>`).join('');
-        hotelSection += `<p style="${S.p} margin-top:30px; text-align:left;">${T.disney_advantages_intro}<ul style="margin:16px 0; padding:0; list-style-type:none; text-align:left;">${advantagesList}</ul>`;
-
-    } else if (data.booking_type === 'tickets_only') {
-        hotelSection = `<p style="${S.p}">J'ai préparé pour vous un document ci-joint indiquant le prix ainsi que les conditions applicables aux billets de parc.</p>`;
-    }
-
-    let promoText = "";
-    if (data.promotion_type === 'aucune') {
-        promoText = `Pour garantir votre place, un dépôt de seulement <strong style="${S.strong}">200 USD</strong> est requis. Les promotions Disney deviennent souvent disponibles et sont parfois complètement réservées à l'intérieur de quelques heures. Il est donc important de réserver d'avance pour que je sois en mesure de les obtenir pour vous de manière rapide et systématique, afin que vous ayez toujours le meilleur rapport qualité-prix. Le reste de la balance de paiement est aussi à effectuer 30 jours avant le check-in.`;
-    } else {
-        let promoEndDateInfo = data.promotion_end_date ? ` (prend fin le <strong style="${S.strong}">${formatDateFR(data.promotion_end_date)}</strong>)` : "";
-        let promoNameInfo = data.promotion_name ? `&nbsp;: <strong style="${S.strong}">${data.promotion_name}</strong>` : "";
-        promoText = `Une promotion est applicable pour votre séjour${promoNameInfo}${promoEndDateInfo}. L'offre est cependant <em style="${S.italic}">limitée</em>. Pour garantir votre place au cœur de la magie, un dépôt de seulement <strong style="${S.strong}">200 USD</strong> est requis. Ce dépôt est <strong style="${S.strong}">entièrement remboursable jusqu'à 30 jours avant votre arrivée</strong>, vous offrant une flexibilité totale. Le reste de la balance de paiement est aussi à effectuer 30 jours avant le check-in.`;
-    }
-    
-    let promotionSection = createCalloutBox("PROMOTIONS ET DÉPÔT REQUIS", promoText, "orange");
-    let priceDisclaimer = (data.booking_type === 'hotel_tickets' && selectedHotels.length > 0) ? T.disney_price_disclaimer : T.tickets_only_price_disclaimer;
-
-    let flightSection = '';
-    let flightBlock = '';
-    if (data.include_flights) {
-        const hasFlightInfo = [
-            data.departure_date_aller,
-            data.departure_time_aller,
-            data.departure_airport_aller,
-            data.arrival_airport_aller,
-            data.flight_multiple_reason,
-            ...(data.flights || []).flatMap(f => Object.values(f))
-        ].some(v => v && v.toString().trim() !== '');
-
-        if (hasFlightInfo) {
-            const arrow = `<span style="color:${C.orange}; font-weight:bold; font-size:24px; line-height:1;">&nbsp;&rarr;&nbsp;</span>`;
-
-            let flightDetails = '';
-            if (data.flight_too_early) {
-                flightDetails = `<p style="${S.p}">${T.flight_too_early}</p>`;
-            } else {
-                flightDetails = `<p style="${S.p}">${T.flight_intro}</p>`;
-                if ((data.flights || []).length > 1 && data.flight_multiple_reason) {
-                    flightDetails += `<p style="${S.p} font-style:italic;">${data.flight_multiple_reason.replace(/\n/g,'<br>')}</p>`;
+            function createBanner(text, type = 'main') {
+                let style, titleStyle, wrapperStyle;
+                switch (type) {
+                    case 'closing': style = `background-color: ${C.orange}; padding: 12px 30px;`; titleStyle = `font-family: Georgia, serif; font-size: 24px; color: ${C.white}; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center; letter-spacing: 1px;`; wrapperStyle = `padding: 5px 0;`; break;
+                    case 'sub': style = `background-color: ${C.blue}; padding: 10px 30px;`; titleStyle = `font-family: ${S.fontStack}; font-size: 20px; color: ${C.white}; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center;`; wrapperStyle = `padding: 0;`; break;
+                    case 'main': default: style = `background: linear-gradient(to right, ${C.blue}, ${C.blueDark}); padding: 25px 30px;`; titleStyle = `font-family: Georgia, serif; font-size: 32px; color: ${C.white}; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center; letter-spacing: 1.5px; line-height:1.2;`; wrapperStyle = `border-top: 1px solid rgba(255,255,255,0.3); border-bottom: 1px solid rgba(255,255,255,0.3); padding: 10px 0;`; break;
                 }
-
-                (data.flights || []).forEach((f, idx) => {
-                    flightDetails += `<table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="border: 1px solid #e0e0e0; padding: 15px; margin-top: 15px; border-radius: 8px; background-color: #fafafa;">`;
-                    if ((data.flights || []).length > 1) {
-                        flightDetails += `<tr><td><strong>Option ${idx + 1}</strong></td></tr>`;
-                    }
-                    
-                    // Vol aller
-                    flightDetails += `
-                        <tr><td style="padding-top: 10px;">
-                            <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="border: 1px solid #ddd; border-radius: 8px; padding: 15px; background-color: ${C.white};">
-                                <tr><td colspan="3"><h3 style="margin: 0 0 15px 0; font-family: ${S.fontStack}; color: ${C.textDark};">Vol aller</h3></td></tr>
-                                <tr>
-                                    <td width="45%" style="text-align:center; vertical-align:top;">
-                                        <div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Départ</div>
-                                        <div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${f.departure_airport_aller || 'N/A'}</div>
-                                        <div style="font-size:14px; color:${C.textDark};">📅&nbsp;${formatDateFR(f.departure_date_aller)}</div>
-                                        <div style="font-size:14px; color:${C.textDark};">🕒&nbsp;${formatTime(f.departure_time_aller)}</div>
-                                    </td>
-                                    <td width="10%" style="text-align:center; vertical-align:middle;">${arrow}</td>
-                                    <td width="45%" style="text-align:center; vertical-align:top;">
-                                        <div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Arrivée</div>
-                                        <div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${f.arrival_airport_aller || 'N/A'}</div>
-                                        <div style="font-size:14px; color:${C.textDark};">📅&nbsp;${formatDateFR(f.arrival_date_aller)}</div>
-                                        <div style="font-size:14px; color:${C.textDark};">🕒&nbsp;${formatTime(f.arrival_time_aller)}</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="3" style="padding-top:10px; text-align:center;">
-                                        <div style="font-size:14px; color:${C.textLight}; line-height:20px;">${f.airline_aller || ''}<br>${f.flight_number_aller || ''}</div>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td></tr>
-                    `;
-                    
-                    // Vol retour
-                    flightDetails += `
-                        <tr><td style="padding-top: 10px;">
-                            <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="border: 1px solid #ddd; border-radius: 8px; padding: 15px; background-color: ${C.white};">
-                                <tr><td colspan="3"><h3 style="margin: 0 0 15px 0; font-family: ${S.fontStack}; color: ${C.textDark};">Vol retour</h3></td></tr>
-                                <tr>
-                                    <td width="45%" style="text-align:center; vertical-align:top;">
-                                        <div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Départ</div>
-                                        <div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${f.departure_airport_retour || 'N/A'}</div>
-                                        <div style="font-size:14px; color:${C.textDark};">📅&nbsp;${formatDateFR(f.departure_date_retour)}</div>
-                                        <div style="font-size:14px; color:${C.textDark};">🕒&nbsp;${formatTime(f.departure_time_retour)}</div>
-                                    </td>
-                                    <td width="10%" style="text-align:center; vertical-align:middle;">${arrow}</td>
-                                    <td width="45%" style="text-align:center; vertical-align:top;">
-                                        <div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Arrivée</div>
-                                        <div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${f.arrival_airport_retour || 'N/A'}</div>
-                                        <div style="font-size:14px; color:${C.textDark};">📅&nbsp;${formatDateFR(f.arrival_date_retour)}</div>
-                                        <div style="font-size:14px; color:${C.textDark};">🕒&nbsp;${formatTime(f.arrival_time_retour)}</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="3" style="padding-top:10px; text-align:center;">
-                                        <div style="font-size:14px; color:${C.textLight}; line-height:20px;">${f.airline_retour || ''}<br>${f.flight_number_retour || ''}</div>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td></tr>
-                    `;
-                    
-                    // Prix
-                    flightDetails += `
-                        <tr><td style="padding-top: 10px;">
-                            <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color:${C.blueLight}; padding: 15px 20px; text-align:center; border-radius: 8px;">
-                                <tr>
-                                    <td>
-                                        <span style="font-size:14px; color:${C.textLight}; font-weight:600; text-transform:uppercase;">PRIX APPROXIMATIF DES VOLS</span><br>
-                                        <strong style="font-size:28px; color:${C.textDark}; line-height:32px;">${f.flight_price ? f.flight_price + '&nbsp;CAD' : 'N/A'}</strong>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td></tr>
-                    `;
-                    
-                    if (f.flight_notes) {
-                        flightDetails += `<tr><td style="padding-top: 10px;"><p style="${S.p} font-style:italic; font-weight:600; color:${C.textLight}; border-left:3px solid ${C.border}; padding-left:15px;">${f.flight_notes.replace(/\n/g,'<br>')}</p></td></tr>`;
-                    }
-                    flightDetails += `</table>`;
-                });
-
-                flightDetails += createCalloutBox(T.flight_important_label, T.flight_important_text, 'orange');
-                flightDetails += `<p style="${S.p} font-size:14px; color:${C.textLight}; text-align:left; margin-top:20px;">${T.flight_price_info}</p>`;
+                return `<tr><td style="${style}"><div style="${wrapperStyle}"><h1 style="${titleStyle}">${text}</h1></div></td></tr>`;
+            }
+            
+            function createCalloutBox(title, text, color) {
+                return `<table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-top:20px;"><tr><td style="padding: 20px 25px; background-color: ${C[`${color}Light`]}; border-left: 5px solid ${C[color]}; border-radius: 0 8px 8px 0;"><h2 style="font-family:${S.fontStack}; font-size:18px; color:${C[color]}; margin:0 0 10px 0; font-weight:bold;">${title}</h2><p style="font-family:${S.fontStack}; margin:0; text-align:justify;">${text}</p></td></tr></table>`;
             }
 
-            flightSection = `<tr><td style="padding: 20px 30px 30px 30px;">${flightDetails}</td></tr>`;
-            flightBlock = `${createBanner(T.banner_travel_fees, 'sub')}${flightSection}`;
-        }
+            const T = {
+                banner1: "Votre Aventure Magique Commence Ici",
+                greeting: `Bonjour <strong style="${S.strong}">${data.client_name || 'estimé(e) voyageur(se)'}</strong>,`,
+                intro1: `Je vous écris au nom de Voyages en Route, où nous avons le plaisir d’accompagner les familles et voyageurs dans la planification de leurs séjours. Je m'appelle Pierre-Luc Morin et je serais votre conseiller en voyages spécialisé en destinations <strong style="${S.strong}">Disney et Universal</strong>.`,
+                intro2: `Merci de nous avoir confié votre projet de voyage. J’ai pris soin de préparer une proposition basée sur les critères que vous avez partagés dans votre demande. Cette soumission est <strong style="${S.strong}">ajustable</strong>, et je serai heureux d’explorer avec vous différentes options afin de vous créer une expérience <strong style="${S.strong}">propre à vous et inoubliable</strong>.`,
+                disney_advantages_intro: `Séjourner dans un hôtel Disney, c’est profiter d’un univers immersif du matin au soir, mais aussi de <strong style="${S.strong}">nombreux avantages exclusifs</strong>&nbsp;:</p>`,
+                disney_advantages_list_items: [
+                    `<strong style="${S.strong}">L’Early Theme Park Entry</strong>, pour accéder aux parcs avant l’ouverture officielle&nbsp;;`,
+                    `Le <strong style="${S.strong}">transport gratuit</strong> vers tous les parcs et sites Disney (excluant les transferts aéroports)&nbsp;;`,
+                    `L’<strong style="${S.strong}">accès simplifié</strong> aux réservations avec l’application Disney Experience&nbsp;;`,
+                    `Et un <strong style="${S.strong}">service client exceptionnel</strong>, signé Disney, à chaque étape de votre séjour.`
+                ],
+                disney_price_disclaimer: "Veuillez noter que tous les prix pour l'hébergement et les billets Disney sont indiqués en dollars américains (USD) et sont sujets à disponibilité.",
+                tickets_only_price_disclaimer: "Veuillez noter que tous les prix des billets Disney sont indiqués en dollars américains (USD) et sont sujets à disponibilité.",
+                banner_travel_fees: "Itinéraire de Vol",
+                flight_intro: "Pour compléter votre voyage vers la magie, voici les détails concernant le transport aérien que nous avons exploré&nbsp;:",
+                flight_too_early: "Il est encore un peu tôt pour réserver les vols, car plusieurs compagnies aériennes n’ont pas encore publié leurs horaires. Cela dit, nous suivons la situation de près afin de vous proposer les meilleures options dès qu’elles seront disponibles. N’hésitez pas à me faire part de vos préférences en matière d’horaires ou de compagnies, pour que je puisse mieux cibler ce qui vous conviendrait le mieux.",
+                flight_price_info: `<em style="${S.italic}">Les prix sont à titre indicatif et peuvent changer à tout moment.</em>`,
+                flight_important_label: `IMPORTANT`,
+                flight_important_text: `Les tarifs aériens sont dynamiques et peuvent changer jusqu'à la réservation. Des frais de service de <strong style="${S.strong}">50$ CAD par personne</strong> s'appliquent pour la réservation des vols via nos services. En me confiant vos vols, je m'occupe de tout désagrément potentiel. Si vous optez pour une réservation personnelle, ces frais ne s'appliquent pas, mais le support en cas de problème avec les vols ne sera pas inclus pour cette portion.`,
+                banner_magic_continues: "La Magie Continue...",
+                closing1: `Prenez le temps de rêver à ces options et de considérer ce qui ferait de ce voyage une expérience <strong style="${S.strong}">véritablement inoubliable</strong>. Je suis à votre <strong style="${S.strong}">entière disposition</strong> pour répondre à toutes vos questions, affiner chaque détail ou procéder à la réservation de cette <em style="${S.italic}">aventure mémorable</em>.`,
+                closing2: `N'hésitez pas à me joindre par courriel (en répondant simplement à celui-ci) ou par téléphone au <strong style="${S.strong}">819-347-9103</strong>. <strong style="${S.strong}"><em style="${S.italic}">Merci de me faire savoir si le message a bien été reçu</em></strong>.`,
+                closing3: `Merci encore pour votre confiance. J'ai sincèrement hâte de transformer ce <strong style="${S.strong}">rêve Disney</strong> en une <strong style="${S.strong}">magnifique réalité pour vous&nbsp;!</strong>`
+            };
+            
+            let introSection = `<p style="${S.p}">${T.greeting}</p><p style="${S.p}">${T.intro1}</p><p style="${S.p}">${T.intro2}</p>`;
+            let hotelSection = '';
+            const selectedHotels = data.hotels || [];
+
+            if (data.booking_type === 'hotel_tickets' && selectedHotels.length > 0) {
+if (selectedHotels.length === 1) {
+                    const hotel = selectedHotels[0];
+                    const levelColor = C.level[hotel.level.toLowerCase().replace(/ /g, '_')] || C.textLight;
+                    
+                    let prosList = `<span style="background-color:${levelColor}; color:${C.white}; padding: 5px 12px; margin: 0 8px 8px 0; border-radius: 15px; font-size: 14px; font-weight: bold; display:inline-block;">${hotel.level}</span>`;
+                    hotel.pointsForts.forEach((p, i) => {
+                        const tagColor = C.tags[i % C.tags.length];
+                        prosList += `<span style="display:inline-block; background-color:${tagColor}; color:${C.white}; padding: 5px 12px; margin: 0 8px 8px 0; border-radius: 15px; font-size: 14px; font-weight: bold;">${p}</span>`;
+                    });
+
+                    let hotelCard = `
+                        <div class="hotel-card" style="margin-top: 25px; border: 1px solid ${C.border}; border-radius: 8px;">
+                            <div style="background-color:${C.blue}; color:${C.white}; padding:15px 20px; border-radius: 8px 8px 0 0;">
+                                <strong style="font-family:${S.fontStack}; font-size:20px;">${hotel.name}</strong>
+                            </div>
+                            <div style="background-color:${C.white}; padding: 20px;">
+                                <p style="font-family:${S.fontStack}; font-size:15px; line-height:1.5; color:${C.textLight}; margin:0 0 15px 0; text-align:justify;">${hotel.description}</p>
+                                <div style="padding:10px 0;">${prosList}</div>
+                            </div>
+                            <div style="background-color:${C.blueLight}; padding: 15px 20px; text-align:center; border-radius: 0 0 8px 8px; border-top: 1px solid ${C.border};">
+                                <span style="font-size:14px; color:${C.textLight}; font-weight:bold; text-transform:uppercase;">PRIX DU FORFAIT</span><br>
+                                <strong style="font-size:28px; color:${C.textDark}; line-height:1.2;">${hotel.price ? hotel.price + '&nbsp;USD' : 'Voir PDF'}</strong>
+                            </div>
+                        </div>
+                    `;
+                    hotelSection += `<p style="${S.p}">Pour votre séjour, voici l'option que j'ai sélectionnée pour vous :</p>${hotelCard}`;
+                } else {
+                    hotelSection += `<p style="${S.p}">Voici plusieurs options d’hébergement pour votre séjour. Chaque proposition ci-dessous correspond à un forfait détaillé dans un document PDF distinct.</p>`;
+                    let hotelCards = '';
+                    selectedHotels.forEach(hotel => {
+                        const levelColor = C.level[hotel.level.toLowerCase().replace(/ /g, '_')] || C.textLight;
+                        
+                        let prosList = `<span style="background-color:${levelColor}; color:${C.white}; padding: 5px 12px; margin: 0 8px 8px 0; border-radius: 15px; font-size: 14px; font-weight: bold; display:inline-block;">${hotel.level}</span>`;
+                        hotel.pointsForts.forEach((p, i) => {
+                            const tagColor = C.tags[i % C.tags.length];
+                            prosList += `<span style="display:inline-block; background-color:${tagColor}; color:${C.white}; padding: 5px 12px; margin: 0 8px 8px 0; border-radius: 15px; font-size: 14px; font-weight: bold;">${p}</span>`;
+                        });
+
+                        hotelCards += `
+                            <div class="hotel-card" style="margin-top: 25px; border: 1px solid ${C.border}; border-radius: 8px;">
+                                <div style="background-color:${C.blue}; color:${C.white}; padding:15px 20px; border-radius: 8px 8px 0 0;">
+                                    <strong style="font-family:${S.fontStack}; font-size:20px;">${hotel.name}</strong>
+                                </div>
+                                <div style="background-color:${C.white}; padding: 20px;">
+                                    <p style="font-family:${S.fontStack}; font-size:15px; line-height:1.5; color:${C.textLight}; margin:0 0 15px 0; text-align:justify;">${hotel.description}</p>
+                                    <div style="padding:10px 0;">${prosList}</div>
+                                </div>
+                                <div style="background-color:${C.blueLight}; padding: 15px 20px; text-align:center; border-radius: 0 0 8px 8px; border-top: 1px solid ${C.border};">
+                                    <span style="font-size:14px; color:${C.textLight}; font-weight:bold; text-transform:uppercase;">PRIX DU FORFAIT</span><br>
+                                    <strong style="font-size:28px; color:${C.textDark}; line-height:1.2;">${hotel.price ? hotel.price + '&nbsp;USD' : 'Voir PDF'}</strong>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    hotelSection += hotelCards;
+                }
+                
+                hotelSection += `<p style="${S.p} margin-top:20px;">Chaque proposition de forfait inclut l'hébergement à l'hôtel ainsi que les billets d'entrée pour les parcs Disney. Tous les autres détails, inclusions et conditions se trouvent dans le ou les documents PDF correspondants.</p>`
+                let advantagesList = T.disney_advantages_list_items.map(item => `<li style="margin-bottom:8px;"><span style="color:${C.blue}; font-size:18px; vertical-align:middle; margin-right:8px; font-weight:bold;">&#10004;</span><span style="vertical-align:middle;">${item}</span></li>`).join('');
+                hotelSection += `<p style="${S.p} margin-top:30px; text-align:left;">${T.disney_advantages_intro}<ul style="margin:1em 0; padding:0; list-style-type:none; text-align:left;">${advantagesList}</ul>`;
+
+            } else if (data.booking_type === 'tickets_only') {
+                hotelSection = `<p style="${S.p}">J’ai préparé pour vous un document ci-joint indiquant le prix ainsi que les conditions applicables aux billets de parc.</p>`;
+            }
+
+            let promoText = "";
+            if (data.promotion_type === 'aucune') {
+                promoText = `Pour garantir votre place, un dépôt de seulement <strong style="${S.strong}">200 USD</strong> est requis. Les promotions Disney deviennent souvent disponibles et sont parfois complètement réservées à l'intérieur de quelques heures. Il est donc important de réserver d'avance pour que je sois en mesure de les obtenir pour vous de manière rapide et systématique, afin que vous ayez toujours le meilleur rapport qualité-prix. Le reste de la balance de paiement est aussi à effectuer 30 jours avant le check-in.`;
+            } else {
+                let promoEndDateInfo = data.promotion_end_date ? ` (prend fin le <strong style="${S.strong}">${formatDateFR(data.promotion_end_date)}</strong>)` : "";
+                let promoNameInfo = data.promotion_name ? `&nbsp;: <strong style="${S.strong}">${data.promotion_name}</strong>` : "";
+                promoText = `Une promotion est applicable pour votre séjour${promoNameInfo}${promoEndDateInfo}. L’offre est cependant <em style="${S.italic}">limitée</em>. Pour garantir votre place au cœur de la magie, un dépôt de seulement <strong style="${S.strong}">200 USD</strong> est requis. Ce dépôt est <strong style="${S.strong}">entièrement remboursable jusqu'à 30 jours avant votre arrivée</strong>, vous offrant une flexibilité totale. Le reste de la balance de paiement est aussi à effectuer 30 jours avant le check-in.`;
+            }
+            
+            let promotionSection = createCalloutBox("PROMOTIONS ET DÉPÔT REQUIS", promoText, "orange");
+            let priceDisclaimer = (data.booking_type === 'hotel_tickets' && selectedHotels.length > 0) ? T.disney_price_disclaimer : T.tickets_only_price_disclaimer;
+
+            let flightSection = '';
+            let flightBlock = '';
+            if (data.include_flights) {
+                const hasFlightInfo = [
+                    data.departure_date_aller,
+                    data.departure_time_aller,
+                    data.departure_airport_aller,
+                    data.arrival_airport_aller,
+                    data.flight_multiple_reason,
+                    ...(data.flights || []).flatMap(f => Object.values(f))
+                ].some(v => v && v.toString().trim() !== '');
+
+                if (hasFlightInfo) {
+                    const arrow = `<span style="color:${C.orange}; font-weight:bold; font-size:24px; line-height:1;">&nbsp;&rarr;&nbsp;</span>`;
+
+                    let flightDetails = '';
+                    if (data.flight_too_early) {
+                        flightDetails = `<p style="${S.p}">${T.flight_too_early}</p>`;
+                    } else {
+                        flightDetails = `<p style="${S.p}">${T.flight_intro}</p>`;
+                        if ((data.flights || []).length > 1 && data.flight_multiple_reason) {
+                            flightDetails += `<p style="${S.p} font-style:italic;">${data.flight_multiple_reason.replace(/\n/g,'<br>')}</p>`;
+                        }
+
+                        (data.flights || []).forEach((f, idx) => {
+                            flightDetails += `<div style="border: 1px solid #e0e0e0; padding: 15px; margin-top: 15px; border-radius: 8px; background-color: #fafafa;">`;
+                            if ((data.flights || []).length > 1) {
+                                flightDetails += `<strong>Option ${idx + 1}</strong>`;
+                            }
+                            flightDetails += ` <div style="border: 1px solid #ddd; border-radius: 8px; padding: 10px 15px 15px 15px; margin-top:10px;"><h3>Vol aller</h3><table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td class="flight-column" style="width:45%; text-align:center; vertical-align:top;"><div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Départ</div><div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${f.departure_airport_aller || 'N/A'}</div><table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto; text-align:left;"><tr><td style="padding-bottom:10px;">📅&nbsp;${formatDateFR(f.departure_date_aller)}</td></tr><tr><td>🕒&nbsp;${formatTime(f.departure_time_aller)}</td></tr></table></td><td class="flight-arrow" style="width:10%; text-align:center; vertical-align:top;">${arrow}</td><td class="flight-column" style="width:45%; text-align:center; vertical-align:top;"><div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Arrivée</div><div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${f.arrival_airport_aller || 'N/A'}</div><table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto; text-align:left;"><tr><td style="padding-bottom:10px;">📅&nbsp;${formatDateFR(f.arrival_date_aller)}</td></tr><tr><td>🕒&nbsp;${formatTime(f.arrival_time_aller)}</td></tr></table></td></tr><tr><td colspan="3" style="padding-top:10px; text-align:center;"><div style="font-size:14px; color:${C.textLight}; line-height:1.3;">${f.airline_aller || ''}<br>${f.flight_number_aller || ''}</div></td></tr></table></div>`;
+                            flightDetails += `<div style="border: 1px solid #ddd; border-radius: 8px; padding: 10px 15px 15px 15px; margin-top:10px;"><h3>Vol retour</h3><table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td class="flight-column" style="width:45%; text-align:center; vertical-align:top;"><div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Départ</div><div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${f.departure_airport_retour || 'N/A'}</div><table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto; text-align:left;"><tr><td style="padding-bottom:10px;">📅&nbsp;${formatDateFR(f.departure_date_retour)}</td></tr><tr><td>🕒&nbsp;${formatTime(f.departure_time_retour)}</td></tr></table></td><td class="flight-arrow" style="width:10%; text-align:center; vertical-align:top;">${arrow}</td><td class="flight-column" style="width:45%; text-align:center; vertical-align:top;"><div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Arrivée</div><div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${f.arrival_airport_retour || 'N/A'}</div><table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto; text-align:left;"><tr><td style="padding-bottom:10px;">📅&nbsp;${formatDateFR(f.arrival_date_retour)}</td></tr><tr><td>🕒&nbsp;${formatTime(f.arrival_time_retour)}</td></tr></table></td></tr><tr><td colspan="3" style="padding-top:10px; text-align:center;"><div style="font-size:14px; color:${C.textLight}; line-height:1.3;">${f.airline_retour || ''}<br>${f.flight_number_retour || ''}</div></td></tr></table></div>`;
+                            flightDetails += `<div style="background-color:${C.blueLight}; padding: 15px 20px; text-align:center; border-radius: 0 0 8px 8px; border-top: 1px solid ${C.border};"><span style="font-size:14px; color:${C.textLight}; font-weight:bold; text-transform:uppercase;">PRIX APPROXIMATIF DES VOLS</span><br><strong style="font-size:28px; color:${C.textDark}; line-height:1.2;">${f.flight_price ? f.flight_price + '&nbsp;CAD' : 'N/A'}</strong></div>`;
+                            if (f.flight_notes) {
+                                flightDetails += `<p style="${S.p} font-style:italic; font-weight:bold; color:${C.textLight}; border-left:3px solid ${C.border}; padding-left:15px; margin-top:20px;">${f.flight_notes.replace(/\n/g,'<br>')}</p>`;
+                            }
+                            flightDetails += `</div>`;
+                        });
+
+                        flightDetails += createCalloutBox(T.flight_important_label, T.flight_important_text, 'orange');
+                        flightDetails += `<p style="${S.p} font-size:14px; color:${C.textLight}; text-align:left; margin-top:20px;">${T.flight_price_info}</p>`;
+                    }
+
+                    flightSection = `<tr><td style="padding: 20px 30px 30px 30px;">${flightDetails}</td></tr>`;
+                    flightBlock = `${createBanner(T.banner_travel_fees, 'sub')}${flightSection}`;
+                }
+            }
+
+            let closingSection = `<p style="${S.p}">${T.closing1}</p><p style="${S.p}">${T.closing2}</p><p style="${S.p}">${T.closing3}</p>`;
+            
+            const hotelBannerText = data.booking_type === 'tickets_only' ? "Billets de Parc Disney" : "Forfaits Hôtel & Billets Disney";
+
+            return `<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="x-apple-disable-message-reformatting">
+  <meta name="color-scheme" content="light dark">
+  <meta name="supported-color-schemes" content="light dark">
+  <title>${T.banner1}</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      supported-color-schemes: light dark;
     }
+    .logo-background {
+      background-color: #001f3f !important;
+    }
+    .logo-container {
+      background-color: #e9f2f9;
+      padding: 20px 30px;
+      border-radius: 8px;
+      max-width: 420px;
+      margin: auto;
+    }
+    /* Force text and background colors in dark mode */
+    @media (prefers-color-scheme: dark) {
+      body, table, td, p, span, a, h1, h2, h3, h4 {
+        color: #ffffff !important;
+      }
+      body, table, td {
+        background-color: #001f3f !important;
+      }
+      .logo-background {
+        background-color: #001f3f !important;
+      }
+    }
+  </style>
+  <!--[if mso]>
+  <style type="text/css">
+    body, table, td, p, span, a, h1, h2, h3, h4 {
+      background-color: #001f3f !important;
+      color: #ffffff !important;
+    }
+  </style>
+  <![endif]-->
+</head>
+<body style="margin:0; padding:0; background-color:${C.background};" bgcolor="${C.background}" data-ogsb data-ogsc><table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color:${C.background};"><tr><td align="center"><table width="680" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width: 680px; max-width: 100%; margin: 20px auto; background-color: ${C.white};"
+<tr>
+  <td class="logo-background" align="center" style="padding:20px 0;">
+    <table class="logo-container" border="0" cellpadding="0" cellspacing="0" role="presentation">
+      <tr>
+        <td align="center" style="width:50%;">
+          <img src="${LOGOS.earmarked}" alt="Logo Earmarked" style="max-width:150px; height:auto; display:block; margin:0 auto;">
+        </td>
+        <td align="center" style="width:50%;">
+          <img src="${LOGOS.agency}" alt="Logo agence" style="max-width:150px; height:auto; display:block; margin:0 auto;">
+        </td>
+      </tr>
+    </table>
+  </td>
+</tr>
 
-    let closingSection = `<p style="${S.p}">${T.closing1}</p><p style="${S.p}">${T.closing2}</p><p style="${S.p}">${T.closing3}</p>`;
-    
-    const hotelBannerText = data.booking_type === 'tickets_only' ? "Billets de Parc Disney" : "Forfaits Hôtel & Billets Disney";
+${createBanner(T.banner1, 'main')}
 
-                    // --- Le reste du script JS pour le formulaire reste identique ---
+<tr><td style="padding: 20px 30px 30px 30px;">${introSection}</td></tr>
+                ${createBanner(hotelBannerText, 'sub')}
+                <tr><td style="padding: 20px 30px 10px 30px;">${hotelSection}</td></tr>
+                <tr><td style="padding: 10px 30px 30px 30px;">${promotionSection}</td></tr>
+                <tr><td style="padding: 0 30px 30px 30px;"><p style="${S.p} font-size:14px; color:${C.textLight}; text-align:center; ${S.italic}">${priceDisclaimer}</p></td></tr>
+                ${flightBlock}
+                ${createBanner(T.banner_magic_continues, 'closing')}
+                <tr><td style="padding: 20px 30px 30px 30px;">${closingSection}</td></tr>
+            </table></td></tr></table></body></html>`;
+        }
+
+        // --- Le reste du script JS pour le formulaire reste identique ---
         document.addEventListener('DOMContentLoaded', function() {
             const hotelSelectionsDiv = document.getElementById('hotel_selections');
             const addHotelButton = document.getElementById('add_hotel_button');
@@ -672,153 +650,5 @@ function generateEmailHTML(data) {
             togglePromotionDetails();
         });
     </script>
-
-    // Updated HTML with better dark mode support
-    return `<!DOCTYPE html>
-<html lang="fr" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="format-detection" content="telephone=no, date=no, address=no, email=no, url=no">
-    <meta name="x-apple-disable-message-reformatting">
-    <meta name="color-scheme" content="light dark">
-    <meta name="supported-color-schemes" content="light dark">
-    <title>${T.banner1}</title>
-    <!--[if gte mso 9]>
-    <xml>
-        <o:OfficeDocumentSettings>
-            <o:AllowPNG/>
-            <o:PixelsPerInch>96</o:PixelsPerInch>
-        </o:OfficeDocumentSettings>
-    </xml>
-    <![endif]-->
-    <style>
-        :root {
-            color-scheme: light dark;
-            supported-color-schemes: light dark;
-        }
-        body {
-            margin: 0;
-            padding: 0;
-            word-spacing: normal;
-            background-color: #f8f8f8;
-        }
-        table {
-            border-collapse: collapse;
-            border-spacing: 0;
-        }
-        td {
-            padding: 0;
-        }
-        img {
-            height: auto;
-            outline: none;
-            text-decoration: none;
-            -ms-interpolation-mode: bicubic;
-        }
-        /* Dark mode styles */
-        @media (prefers-color-scheme: dark) {
-            body { background-color: #1e1e1e !important; }
-            .email-body { background-color: #2d2d2d !important; }
-            .content-bg { background-color: #2d2d2d !important; }
-            .text-dark { color: #f0f0f0 !important; }
-            .text-light { color: #cccccc !important; }
-            .bg-light { background-color: #3d3d3d !important; }
-            .border-color { border-color: #444444 !important; }
-            .logo-bg { background-color: #1a1a1a !important; }
-            .logo-container-bg { background-color: #2d2d2d !important; }
-            h1, h2, h3, p, span, strong { color: #f0f0f0 !important; }
-            .banner-blue { background-color: #1a5490 !important; }
-            .banner-orange { background-color: #cc5500 !important; }
-        }
-        /* Mobile styles */
-        @media screen and (max-width: 600px) {
-            .email-container { width: 100% !important; }
-            .padding-mobile { padding: 20px 15px !important; }
-        }
-    </style>
-</head>
-<body style="margin: 0; padding: 0; background-color: #f8f8f8; word-spacing: normal;">
-    <div role="article" aria-roledescription="email" lang="fr" style="text-size-adjust: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;">
-        <!--[if mso | IE]>
-        <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f8f8f8;">
-        <tr>
-        <td>
-        <![endif]-->
-        <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: 0 auto;">
-            <tr>
-                <td align="center">
-                    <table class="email-container" role="presentation" cellspacing="0" cellpadding="0" border="0" width="680" style="margin: 20px auto; background-color: #ffffff; width: 680px; max-width: 100%;">
-                        <!-- Logo Header -->
-                        <tr>
-                            <td class="logo-bg" align="center" style="padding: 20px 0; background-color: #001f3f;">
-                                <table class="logo-container-bg" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color: #e9f2f9; padding: 20px 30px; border-radius: 8px; max-width: 420px;">
-                                    <tr>
-                                        <td align="center" width="50%">
-                                            <img src="${LOGOS.earmarked}" alt="Logo Earmarked" width="150" style="display: block; max-width: 150px; width: 100%; height: auto;">
-                                        </td>
-                                        <td align="center" width="50%">
-                                            <img src="${LOGOS.agency}" alt="Logo agence" width="150" style="display: block; max-width: 150px; width: 100%; height: auto;">
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                        
-                        <!-- Main Banner -->
-                        ${createBanner(T.banner1, 'main')}
-                        
-                        <!-- Introduction -->
-                        <tr>
-                            <td class="content-bg padding-mobile" style="padding: 20px 30px 30px 30px; background-color: #ffffff;">
-                                ${introSection}
-                            </td>
-                        </tr>
-                        
-                        <!-- Hotel Section -->
-                        ${createBanner(hotelBannerText, 'sub')}
-                        <tr>
-                            <td class="content-bg padding-mobile" style="padding: 20px 30px 10px 30px; background-color: #ffffff;">
-                                ${hotelSection}
-                            </td>
-                        </tr>
-                        
-                        <!-- Promotion Section -->
-                        <tr>
-                            <td class="content-bg padding-mobile" style="padding: 10px 30px 30px 30px; background-color: #ffffff;">
-                                ${promotionSection}
-                            </td>
-                        </tr>
-                        
-                        <!-- Price Disclaimer -->
-                        <tr>
-                            <td class="content-bg padding-mobile" style="padding: 0 30px 30px 30px; background-color: #ffffff;">
-                                <p style="${S.p} font-size:14px; color:${C.textLight}; text-align:center; ${S.italic}">${priceDisclaimer}</p>
-                            </td>
-                        </tr>
-                        
-                        <!-- Flight Section -->
-                        ${flightBlock}
-                        
-                        <!-- Closing Banner -->
-                        ${createBanner(T.banner_magic_continues, 'closing')}
-                        
-                        <!-- Closing Text -->
-                        <tr>
-                            <td class="content-bg padding-mobile" style="padding: 20px 30px 30px 30px; background-color: #ffffff;">
-                                ${closingSection}
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
-        <!--[if mso | IE]>
-        </td>
-        </tr>
-        </table>
-        <![endif]-->
-    </div>
 </body>
 </html>
