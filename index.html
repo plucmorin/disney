@@ -178,7 +178,7 @@
 
 const LOGOS = {
     earmarked: "https://boisterous-rabanadas-5fcb72.netlify.app/Logo_Fond_Blanc_2.png",
-    agency: "https://boisterous-rabanadas-5fcb72.netlify.app/Disney-EarMarked.png"
+    agency: "https://boisterous-rabanadas-5fcb72.netlify.app/Disney-Earmarked.png"
 };
             
             function createBanner(text, type = 'main') {
@@ -413,6 +413,9 @@ if (selectedHotels.length === 1) {
       .mobile-text-center { text-align: center !important; }
       .flight-column { width: 100% !important; display: block !important; margin-bottom: 15px !important; }
       .flight-arrow { display: none !important; }
+      /* Logo mobile responsiveness */
+      .logo-cell-1, .logo-cell-2 { width: 100% !important; display: block !important; padding: 10px 0 !important; }
+      .logo-spacer { display: none !important; }
     }
     
     /* Force text and background colors in dark mode for Gmail and Outlook */
@@ -476,13 +479,14 @@ if (selectedHotels.length === 1) {
     <v:fill type="solid" color="#0078C1"/>
     <v:textbox style="mso-fit-shape-to-text:true" inset="0,20px,0,20px">
     <![endif]-->
-    <table class="logo-container mobile-padding" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color: #ffffff;" bgcolor="#ffffff">
+    <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color: #ffffff;" bgcolor="#ffffff">
       <tr>
-        <td align="center" style="width:50%;">
-          <img src="${LOGOS.earmarked}" alt="Logo Earmarked - Services de voyage Disney" style="max-width:150px; height:auto; display:block; margin:0 auto;">
+        <td class="logo-cell-1" align="center" style="width:510px; background-color:#ffffff;" bgcolor="#ffffff">
+          <img src="${LOGOS.earmarked}" alt="Logo Earmarked - Services de voyage Disney" width="510" height="246" style="display:block; margin:0 auto; max-width:100%; height:auto;">
         </td>
-        <td align="center" style="width:50%;">
-          <img src="${LOGOS.agency}" alt="Logo Disney EarMarked - Agence de voyage spécialisée Disney" style="max-width:150px; height:auto; display:block; margin:0 auto;">
+        <td class="logo-spacer" style="width:24px; background-color:#ffffff;" bgcolor="#ffffff">&nbsp;</td>
+        <td class="logo-cell-2" align="center" style="width:390px; background-color:#ffffff;" bgcolor="#ffffff">
+          <img src="${LOGOS.agency}" alt="Logo Disney EarMarked - Agence de voyage spécialisée Disney" width="390" height="246" style="display:block; margin:0 auto; max-width:100%; height:auto;">
         </td>
       </tr>
     </table>
