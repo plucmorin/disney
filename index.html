@@ -212,7 +212,7 @@ const LOGOS = {
                     `Et un <strong style="${S.strong}">service client exceptionnel</strong>, signé Disney, à chaque étape de votre séjour.`
                 ],
                 disney_price_disclaimer: "Veuillez noter que tous les prix pour l'hébergement et les billets Disney sont indiqués en dollars américains (USD) et sont sujets à disponibilité.",
-                tickets_only_price_disclaimer: "Veuillez noter que tous les prix des billets Disney sont indiqués en dollars américains (USD) et sont sujets à disponibilité.",
+                tickets_only_price_disclaimer: "Les billets de parc sont non remboursables et doivent être payés en totalité lors de la réservation. Consultez le PDF pour tous les détails. Les prix sont indiqués en dollars américains (USD) et demeurent sujets à disponibilité.",
                 banner_travel_fees: "Itinéraire de Vol",
                 flight_intro: "Pour compléter votre voyage vers la magie, voici les détails concernant le transport aérien que nous avons exploré&nbsp;:",
                 flight_too_early: "Il est encore un peu tôt pour réserver les vols, car plusieurs compagnies aériennes n’ont pas encore publié leurs horaires. Cela dit, nous suivons la situation de près afin de vous proposer les meilleures options dès qu’elles seront disponibles. N’hésitez pas à me faire part de vos préférences en matière d’horaires ou de compagnies, pour que je puisse mieux cibler ce qui vous conviendrait le mieux.",
@@ -308,19 +308,23 @@ if (selectedHotels.length === 1) {
                 hotelSection += `<p style="${S.p} margin-top:30px; text-align:left;">${T.disney_advantages_intro}<ul style="margin:1em 0; padding:0; list-style-type:none; text-align:left;">${advantagesList}</ul>`;
 
             } else if (data.booking_type === 'tickets_only') {
-                hotelSection = `<p style="${S.p}">J’ai préparé pour vous un document ci-joint indiquant le prix ainsi que les conditions applicables aux billets de parc.</p>`;
+                hotelSection = `<p style="${S.p}">Les billets de parc sont <strong style="${S.strong}">non remboursables</strong> et le paiement complet est exigé lors de la réservation. Consultez le document PDF joint pour tous les détails.</p>`;
             }
 
             let promoText = "";
-            if (data.promotion_type === 'aucune') {
+            if (data.booking_type !== 'tickets_only' && data.promotion_type === 'aucune') {
                 promoText = `Pour garantir votre place, un dépôt de seulement <strong style="${S.strong}">200 USD</strong> est requis. Les promotions Disney deviennent souvent disponibles et sont parfois complètement réservées à l'intérieur de quelques heures. Il est donc important de réserver d'avance pour que je sois en mesure de les obtenir pour vous de manière rapide et systématique, afin que vous ayez toujours le meilleur rapport qualité-prix. Le reste de la balance de paiement est aussi à effectuer 30 jours avant le check-in.`;
-            } else {
+            } else if (data.booking_type !== 'tickets_only') {
                 let promoEndDateInfo = data.promotion_end_date ? ` (prend fin le <strong style="${S.strong}">${formatDateFR(data.promotion_end_date)}</strong>)` : "";
                 let promoNameInfo = data.promotion_name ? `&nbsp;: <strong style="${S.strong}">${data.promotion_name}</strong>` : "";
                 promoText = `Une promotion est applicable pour votre séjour${promoNameInfo}${promoEndDateInfo}. L’offre est cependant <em style="${S.italic}">limitée</em>. Pour garantir votre place au cœur de la magie, un dépôt de seulement <strong style="${S.strong}">200 USD</strong> est requis. Ce dépôt est <strong style="${S.strong}">entièrement remboursable jusqu'à 30 jours avant votre arrivée</strong>, vous offrant une flexibilité totale. Le reste de la balance de paiement est aussi à effectuer 30 jours avant le check-in.`;
             }
-            
-            let promotionSection = createCalloutBox("PROMOTIONS ET DÉPÔT REQUIS", promoText, "orange");
+            let promotionSection = '';
+            if (data.booking_type === 'tickets_only') {
+                promotionSection = createCalloutBox("INFORMATIONS SUR LES BILLETS", `Les billets de parc sont <strong style="${S.strong}">non remboursables</strong> et doivent être payés en totalité lors de la réservation. Consultez le PDF joint pour l'ensemble des détails.`, "orange");
+            } else {
+                promotionSection = createCalloutBox("PROMOTIONS ET DÉPÔT REQUIS", promoText, "orange");
+            }
             let priceDisclaimer = (data.booking_type === 'hotel_tickets' && selectedHotels.length > 0) ? T.disney_price_disclaimer : T.tickets_only_price_disclaimer;
 
             let flightSection = '';
