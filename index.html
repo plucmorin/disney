@@ -554,6 +554,8 @@ ${createBanner(T.banner1, 'main')}
                 if (hotelSelectionsDiv.querySelectorAll('.hotel-option-group').length < 5) {
                     hotelSelectionsDiv.appendChild(createHotelSelector());
                     updateAddHotelButtonState();
+                    // Apply current booking type state to newly added hotel selector
+                    toggleHotelOptions();
                 }
             });
 
@@ -727,7 +729,28 @@ ${createBanner(T.banner1, 'main')}
                 updateFlightGroupVisibility();
                 toggleFlightTooEarly();
             }
-            function toggleHotelOptions() { hotelOptionsContainer.classList.toggle('hidden', bookingTypeSelect.value !== 'hotel_tickets'); }
+            function toggleHotelOptions() { 
+                const isHotelTickets = bookingTypeSelect.value === 'hotel_tickets';
+                hotelOptionsContainer.classList.toggle('hidden', !isHotelTickets);
+                
+                // Handle required attributes and field clearing
+                const hotelGroups = hotelSelectionsDiv.querySelectorAll('.hotel-option-group');
+                hotelGroups.forEach(group => {
+                    const nameSelect = group.querySelector('select[name="hotel_name"]');
+                    const priceInput = group.querySelector('input[name="hotel_price"]');
+                    
+                    if (isHotelTickets) {
+                        // Restore required attributes when switching to hotel+tickets
+                        nameSelect.setAttribute('required', '');
+                    } else {
+                        // Remove required attributes and clear values when switching to tickets only
+                        nameSelect.removeAttribute('required');
+                        priceInput.removeAttribute('required');
+                        nameSelect.value = '';
+                        priceInput.value = '';
+                    }
+                });
+            }
             function togglePromotionDetails() { promotionDetailsDiv.classList.toggle('hidden', promotionTypeSelect.value !== 'specifique'); }
 
             includeFlightsCheckbox.addEventListener('change', toggleFlightDetails);
