@@ -155,9 +155,9 @@
 
         function generateEmailHTML(data) {
              const C = {
-                blue: '#0070D1', // Disney Blue for maximum Outlook dark mode compatibility
+                blue: '#0078C1',
                 blueDark: '#005a9c',
-                orange: '#FFA500', // Orange for "Magie continue" header with dark mode compatibility
+                orange: '#FF7F50',
                 textDark: '#1a1a1a', // Improved contrast from #222222
                 textLight: '#4a4a4a', // Improved contrast from #555555
                 border: '#EAEAEA',
@@ -182,88 +182,21 @@ const LOGOS = {
 };
             
             function createBanner(text, type = 'main') {
-                // Banner function with VML rectangles for maximum Outlook dark mode compatibility
-                let style, titleStyle, wrapperStyle, bgColor;
+                let style, titleStyle, wrapperStyle;
                 switch (type) {
-                    case 'closing': 
-                        bgColor = C.orange;
-                        style = `background-color: ${bgColor}; padding: 12px 30px; mso-line-height-rule: exactly;`; 
-                        titleStyle = `font-family: Georgia, serif; font-size: 24px; color: ${C.white}; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center; letter-spacing: 1px; line-height: 1.2; mso-line-height-rule: exactly;`; 
-                        wrapperStyle = `padding: 5px 0;`; 
-                        break;
-                    case 'sub': 
-                        bgColor = C.blue;
-                        style = `background-color: ${bgColor}; padding: 10px 30px; mso-line-height-rule: exactly;`; 
-                        titleStyle = `font-family: ${S.fontStack}; font-size: 20px; color: ${C.white}; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center; line-height: 1.2; mso-line-height-rule: exactly;`; 
-                        wrapperStyle = `padding: 0;`; 
-                        break;
-                    case 'main': 
-                    default: 
-                        bgColor = C.blue;
-                        style = `background-color: ${bgColor}; padding: 25px 30px; mso-line-height-rule: exactly;`; 
-                        titleStyle = `font-family: Georgia, serif; font-size: 32px; color: ${C.white}; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center; letter-spacing: 1.5px; line-height:1.2; mso-line-height-rule: exactly;`; 
-                        wrapperStyle = `border-top: 1px solid rgba(255,255,255,0.3); border-bottom: 1px solid rgba(255,255,255,0.3); padding: 10px 0;`; 
-                        break;
+                    case 'closing': style = `background-color: ${C.orange}; padding: 12px 30px; mso-line-height-rule: exactly;`; titleStyle = `font-family: Georgia, serif; font-size: 24px; color: ${C.white}; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center; letter-spacing: 1px; line-height: 1.2; mso-line-height-rule: exactly;`; wrapperStyle = `padding: 5px 0;`; break;
+                    case 'sub': style = `background-color: ${C.blue}; padding: 10px 30px; mso-line-height-rule: exactly;`; titleStyle = `font-family: ${S.fontStack}; font-size: 20px; color: ${C.white}; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center; line-height: 1.2; mso-line-height-rule: exactly;`; wrapperStyle = `padding: 0;`; break;
+                    case 'main': default: style = `background-color: ${C.blue}; padding: 25px 30px; mso-line-height-rule: exactly;`; titleStyle = `font-family: Georgia, serif; font-size: 32px; color: ${C.white}; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center; letter-spacing: 1.5px; line-height:1.2; mso-line-height-rule: exactly;`; wrapperStyle = `border-top: 1px solid rgba(255,255,255,0.3); border-bottom: 1px solid rgba(255,255,255,0.3); padding: 10px 0;`; break;
                 }
-                
-                // VML rectangle for Outlook with colored background
-                return `<tr>
-                    <td style="${style}" bgcolor="${bgColor}">
-                        <!--[if mso]>
-                        <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:680px;">
-                        <v:fill type="solid" color="${bgColor}"/>
-                        <v:textbox style="mso-fit-shape-to-text:true" inset="0,${type === 'main' ? '25px' : type === 'closing' ? '12px' : '10px'},0,${type === 'main' ? '25px' : type === 'closing' ? '12px' : '10px'}">
-                        <![endif]-->
-                        <div style="${wrapperStyle}">
-                            <h1 style="${titleStyle}">${text}</h1>
-                        </div>
-                        <!--[if mso]>
-                        </v:textbox>
-                        </v:rect>
-                        <![endif]-->
-                    </td>
-                </tr>`;
+                return `<tr><td style="${style}"><div style="${wrapperStyle}"><h1 style="${titleStyle}">${text}</h1></div></td></tr>`;
             }
             
             function createCalloutBox(title, text, color) {
-                // Callout box with VML support for colored backgrounds in Outlook dark mode
-                return `<table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-top:20px; border-collapse: collapse;">
-                    <tr>
-                        <td style="padding: 20px 25px; background-color: ${C[`${color}Light`]}; border-left: 5px solid ${C[color]}; border-radius: 0 8px 8px 0; mso-line-height-rule: exactly;" bgcolor="${C[`${color}Light`]}">
-                            <!--[if mso]>
-                            <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:100%;">
-                            <v:fill type="solid" color="${C[`${color}Light`]}"/>
-                            <v:textbox style="mso-fit-shape-to-text:true" inset="20px,25px,20px,25px">
-                            <![endif]-->
-                            <h2 style="font-family:${S.fontStack}; font-size:18px; color:${C[color]}; margin:0 0 10px 0; font-weight:bold; line-height: 1.2;">${title}</h2>
-                            <p style="font-family:${S.fontStack}; margin:0; text-align:justify; font-size: 16px; line-height: 1.5; color: ${C.textDark};">${text}</p>
-                            <!--[if mso]>
-                            </v:textbox>
-                            </v:rect>
-                            <![endif]-->
-                        </td>
-                    </tr>
-                </table>`;
+                return `<table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-top:20px; border-collapse: collapse;"><tr><td style="padding: 20px 25px; background-color: ${C[`${color}Light`]}; border-left: 5px solid ${C[color]}; border-radius: 0 8px 8px 0; mso-line-height-rule: exactly;"><h2 style="font-family:${S.fontStack}; font-size:18px; color:${C[color]}; margin:0 0 10px 0; font-weight:bold; line-height: 1.2;">${title}</h2><p style="font-family:${S.fontStack}; margin:0; text-align:justify; font-size: 16px; line-height: 1.5; color: ${C.textDark};">${text}</p></td></tr></table>`;
             }
 
             function createBadgeTable(text, bgColor) {
-                // Badge table with VML support for maximum Outlook dark mode compatibility
-                return `<table border="0" cellpadding="0" cellspacing="0" role="presentation" style="display:inline-table; margin: 0 8px 8px 0; border-radius: 15px; border-collapse: separate; overflow: hidden; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
-                    <tr>
-                        <td style="background-color:${bgColor}; color:${C.white}; padding: 5px 12px; font-size: 14px; font-weight: bold; border-radius: 15px; mso-line-height-rule: exactly;" bgcolor="${bgColor}">
-                            <!--[if mso]>
-                            <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:auto;">
-                            <v:fill type="solid" color="${bgColor}"/>
-                            <v:textbox style="mso-fit-shape-to-text:true" inset="5px,12px,5px,12px">
-                            <![endif]-->
-                            ${text}
-                            <!--[if mso]>
-                            </v:textbox>
-                            </v:rect>
-                            <![endif]-->
-                        </td>
-                    </tr>
-                </table>`;
+                return `<table border="0" cellpadding="0" cellspacing="0" role="presentation" style="display:inline-table; margin: 0 8px 8px 0; border-radius: 15px; border-collapse: separate; overflow: hidden; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"><tr><td style="background-color:${bgColor}; color:${C.white}; padding: 5px 12px; font-size: 14px; font-weight: bold; border-radius: 15px; mso-line-height-rule: exactly;" bgcolor="${bgColor}">${text}</td></tr></table>`;
             }
 
             const T = {
@@ -312,18 +245,8 @@ if (selectedHotels.length === 1) {
                     let hotelCard = `
                         <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-top: 25px; border: 1px solid ${C.border}; border-radius: 8px; border-collapse: separate; overflow: hidden;">
                             <tr>
-                                <!-- Hotel header with VML support for Outlook dark mode compatibility -->
-                                <td style="background-color:${C.blue}; color:${C.white}; padding:15px 20px; mso-line-height-rule: exactly;" bgcolor="${C.blue}">
-                                    <!--[if mso]>
-                                    <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:100%;">
-                                    <v:fill type="solid" color="${C.blue}"/>
-                                    <v:textbox style="mso-fit-shape-to-text:true" inset="15px,20px,15px,20px">
-                                    <![endif]-->
+                                <td style="background-color:${C.blue}; color:${C.white}; padding:15px 20px; mso-line-height-rule: exactly;">
                                     <strong style="font-family:${S.fontStack}; font-size:20px; line-height: 1.2;">${hotel.name}</strong>
-                                    <!--[if mso]>
-                                    </v:textbox>
-                                    </v:rect>
-                                    <![endif]-->
                                 </td>
                             </tr>
                             <tr>
@@ -358,18 +281,8 @@ if (selectedHotels.length === 1) {
                         hotelCards += `
                             <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-top: 25px; border: 1px solid ${C.border}; border-radius: 8px; border-collapse: separate; overflow: hidden;">
                                 <tr>
-                                    <!-- Hotel header with VML support for Outlook dark mode compatibility -->
-                                    <td style="background-color:${C.blue}; color:${C.white}; padding:15px 20px; mso-line-height-rule: exactly;" bgcolor="${C.blue}">
-                                        <!--[if mso]>
-                                        <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:100%;">
-                                        <v:fill type="solid" color="${C.blue}"/>
-                                        <v:textbox style="mso-fit-shape-to-text:true" inset="15px,20px,15px,20px">
-                                        <![endif]-->
+                                    <td style="background-color:${C.blue}; color:${C.white}; padding:15px 20px; mso-line-height-rule: exactly;">
                                         <strong style="font-family:${S.fontStack}; font-size:20px; line-height: 1.2;">${hotel.name}</strong>
-                                        <!--[if mso]>
-                                        </v:textbox>
-                                        </v:rect>
-                                        <![endif]-->
                                     </td>
                                 </tr>
                                 <tr>
@@ -482,7 +395,7 @@ if (selectedHotels.length === 1) {
     
     /* Logo background - Disney blue for optimal visibility in all email clients */
     .logo-background {
-      background-color: #0070D1 !important;
+      background-color: #0078C1 !important;
     }
     /* Logo container with solid white background for logo readability */
     .logo-container {
@@ -510,15 +423,12 @@ if (selectedHotels.length === 1) {
       }
       /* Maintain Disney blue logo background in dark mode */
       .logo-background {
-        background-color: #0070D1 !important;
+        background-color: #0078C1 !important;
       }
       /* Solid white logo container background for dark mode compatibility */
       .logo-container {
         background-color: #ffffff !important;
       }
-      /* Ensure banner colors remain visible in dark mode - Disney Blue and Orange */
-      [style*="background-color: #0070D1"] { background-color: #0070D1 !important; }
-      [style*="background-color: #FFA500"] { background-color: #FFA500 !important; }
       /* Ensure badge colors remain visible in dark mode */
       [style*="background-color: #0078C1"] { background-color: #0078C1 !important; }
       [style*="background-color: #5A67D8"] { background-color: #5A67D8 !important; }
@@ -552,7 +462,7 @@ if (selectedHotels.length === 1) {
     }
     /* Logo background using Disney blue for Outlook */
     .logo-background {
-      background-color: #0070D1 !important;
+      background-color: #0078C1 !important;
     }
   </style>
   <![endif]-->
@@ -560,10 +470,10 @@ if (selectedHotels.length === 1) {
 <body style="margin:0; padding:0; background-color:${C.background}; font-family: Arial, Helvetica, sans-serif;" bgcolor="${C.background}" data-ogsb data-ogsc><table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color:${C.background};"><tr><td align="center"><table class="mobile-full-width" width="680" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width: 680px; max-width: 100%; margin: 20px auto; background-color: ${C.white};"
 <tr>
   <!-- Logo section with Disney blue background, bgcolor attribute for Outlook, and VML fallback -->
-  <td class="logo-background" align="center" style="padding:20px 0; background-color: #0070D1;" bgcolor="#0070D1">
+  <td class="logo-background" align="center" style="padding:20px 0; background-color: #0078C1;" bgcolor="#0078C1">
     <!--[if mso]>
     <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:680px;">
-    <v:fill type="solid" color="#0070D1"/>
+    <v:fill type="solid" color="#0078C1"/>
     <v:textbox style="mso-fit-shape-to-text:true" inset="0,20px,0,20px">
     <![endif]-->
     <table class="logo-container mobile-padding" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color: #ffffff;" bgcolor="#ffffff">
