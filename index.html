@@ -147,18 +147,30 @@
 
         function generateEmailHTML(data) {
              const C = {
+                // Light Mode Colors
                 blue: '#0078C1',
                 blueDark: '#005a9c',
                 orange: '#FF7F50',
                 textDark: '#222222',
                 textLight: '#555555',
                 border: '#EAEAEA',
-                background: '#001f3f',
+                outerBg: '#F0F2F5',
                 white: '#FFFFFF',
-                blueLight: '#e6f2fa',
-                orangeLight: '#fff4e6',
+                lightBlueBg: '#e6f2fa',
+                lightOrangeBg: '#fff4e6',
+                lightGreyBg: '#fafafa',
                 level: { value: '#28a745', moderate: '#2196F3', deluxe: '#6f42c1', deluxe_villa: '#9C27B0' },
-                tags: ['#0078C1', '#5A67D8', '#d9480f', '#0ca678']
+                tags: ['#0078C1', '#5A67D8', '#d9480f', '#0ca678'],
+
+                // Dark Mode Colors
+                darkOuterBg: '#121212',
+                darkInnerBg: '#1E1E1E',
+                darkText: '#EAEAEA',
+                darkTextSecondary: '#AAAAAA',
+                darkBorder: '#333333',
+                darkBlueBg: '#2a3a4d',
+                darkOrangeBg: '#4d322a',
+                darkGreyBg: '#2c2c2c'
             };
 
             const S = {
@@ -168,10 +180,10 @@
                 italic: `font-style: italic;`,
             };
 
-const LOGOS = {
-    earmarked: "https://boisterous-rabanadas-5fcb72.netlify.app/Logo_Fond_Blanc_2.png",
-    agency: "https://boisterous-rabanadas-5fcb72.netlify.app/Disney-EarMarked.png"
-};
+            const LOGOS = {
+                earmarked: "https://i.ibb.co/L9Y05Qp/Logo-Fond-Transparent.png",
+                agency: "https://i.ibb.co/D8NQXv2/Disney-Ear-Marked-white.png"
+            };
             
             function createBanner(text, type = 'main') {
                 let style, titleStyle, wrapperStyle;
@@ -180,11 +192,13 @@ const LOGOS = {
                     case 'sub': style = `background-color: ${C.blue}; padding: 10px 30px;`; titleStyle = `font-family: ${S.fontStack}; font-size: 20px; color: ${C.white}; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center;`; wrapperStyle = `padding: 0;`; break;
                     case 'main': default: style = `background: linear-gradient(to right, ${C.blue}, ${C.blueDark}); padding: 25px 30px;`; titleStyle = `font-family: Georgia, serif; font-size: 32px; color: ${C.white}; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center; letter-spacing: 1.5px; line-height:1.2;`; wrapperStyle = `border-top: 1px solid rgba(255,255,255,0.3); border-bottom: 1px solid rgba(255,255,255,0.3); padding: 10px 0;`; break;
                 }
-                return `<tr><td style="${style}"><div style="${wrapperStyle}"><h1 style="${titleStyle}">${text}</h1></div></td></tr>`;
+                return `<tr><td style="${style}"><div style="${wrapperStyle}"><h1 class="dark-mode-suppress" style="${titleStyle}">${text}</h1></div></td></tr>`;
             }
             
             function createCalloutBox(title, text, color) {
-                return `<table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-top:20px;"><tr><td style="padding: 20px 25px; background-color: ${C[`${color}Light`]}; border-left: 5px solid ${C[color]}; border-radius: 0 8px 8px 0;"><h2 style="font-family:${S.fontStack}; font-size:18px; color:${C[color]}; margin:0 0 10px 0; font-weight:bold;">${title}</h2><p style="font-family:${S.fontStack}; margin:0; text-align:justify;">${text}</p></td></tr></table>`;
+                const lightBg = color === 'orange' ? C.lightOrangeBg : C.lightBlueBg;
+                const darkBg = color === 'orange' ? C.darkOrangeBg : C.darkBlueBg;
+                return `<table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-top:20px;"><tr><td class="callout-box" style="padding: 20px 25px; background-color: ${lightBg}; border-left: 5px solid ${C[color]}; border-radius: 0 8px 8px 0;" data-dark-bg="${darkBg}"><h2 class="text-color" style="font-family:${S.fontStack}; font-size:18px; color:${C[color]}; margin:0 0 10px 0; font-weight:bold;">${title}</h2><p class="text-color" style="font-family:${S.fontStack}; margin:0; text-align:justify;">${text}</p></td></tr></table>`;
             }
 
             const T = {
@@ -213,13 +227,18 @@ const LOGOS = {
                 closing3: `Merci encore pour votre confiance. J'ai sincèrement hâte de transformer ce <strong style="${S.strong}">rêve Disney</strong> en une <strong style="${S.strong}">magnifique réalité pour vous&nbsp;!</strong>`
             };
             
-            let introSection = `<p style="${S.p}">${T.greeting}</p><p style="${S.p}">${T.intro1}</p><p style="${S.p}">${T.intro2}</p>`;
+            let introSection = `<p class="text-color" style="${S.p}">${T.greeting}</p><p class="text-color" style="${S.p}">${T.intro1}</p><p class="text-color" style="${S.p}">${T.intro2}</p>`;
             let hotelSection = '';
             const selectedHotels = data.hotels || [];
 
             if (data.booking_type === 'hotel_tickets' && selectedHotels.length > 0) {
-if (selectedHotels.length === 1) {
-                    const hotel = selectedHotels[0];
+                if (selectedHotels.length === 1) {
+                    hotelSection += `<p class="text-color" style="${S.p}">Pour votre séjour, voici l'option que j'ai sélectionnée pour vous :</p>`;
+                } else {
+                    hotelSection += `<p class="text-color" style="${S.p}">Voici plusieurs options d’hébergement pour votre séjour. Chaque proposition ci-dessous correspond à un forfait détaillé dans un document PDF distinct.</p>`;
+                }
+                
+                selectedHotels.forEach(hotel => {
                     const levelColor = C.level[hotel.level.toLowerCase().replace(/ /g, '_')] || C.textLight;
                     
                     let prosList = `<span style="background-color:${levelColor}; color:${C.white}; padding: 5px 12px; margin: 0 8px 8px 0; border-radius: 15px; font-size: 14px; font-weight: bold; display:inline-block;">${hotel.level}</span>`;
@@ -228,59 +247,29 @@ if (selectedHotels.length === 1) {
                         prosList += `<span style="display:inline-block; background-color:${tagColor}; color:${C.white}; padding: 5px 12px; margin: 0 8px 8px 0; border-radius: 15px; font-size: 14px; font-weight: bold;">${p}</span>`;
                     });
 
-                    let hotelCard = `
+                    hotelSection += `
                         <div class="hotel-card" style="margin-top: 25px; border: 1px solid ${C.border}; border-radius: 8px;">
                             <div style="background-color:${C.blue}; color:${C.white}; padding:15px 20px; border-radius: 8px 8px 0 0;">
-                                <strong style="font-family:${S.fontStack}; font-size:20px;">${hotel.name}</strong>
+                                <strong class="dark-mode-suppress" style="font-family:${S.fontStack}; font-size:20px;">${hotel.name}</strong>
                             </div>
-                            <div style="background-color:${C.white}; padding: 20px;">
-                                <p style="font-family:${S.fontStack}; font-size:15px; line-height:1.5; color:${C.textLight}; margin:0 0 15px 0; text-align:justify;">${hotel.description}</p>
+                            <div class="card-content-bg" style="background-color:${C.white}; padding: 20px;">
+                                <p class="text-color-secondary" style="font-family:${S.fontStack}; font-size:15px; line-height:1.5; color:${C.textLight}; margin:0 0 15px 0; text-align:justify;">${hotel.description}</p>
                                 <div style="padding:10px 0;">${prosList}</div>
                             </div>
-                            <div style="background-color:${C.blueLight}; padding: 15px 20px; text-align:center; border-radius: 0 0 8px 8px; border-top: 1px solid ${C.border};">
-                                <span style="font-size:14px; color:${C.textLight}; font-weight:bold; text-transform:uppercase;">PRIX DU FORFAIT</span><br>
-                                <strong style="font-size:28px; color:${C.textDark}; line-height:1.2;">${hotel.price ? hotel.price + '&nbsp;USD' : 'Voir PDF'}</strong>
+                            <div class="card-footer-bg" style="background-color:${C.lightBlueBg}; padding: 15px 20px; text-align:center; border-radius: 0 0 8px 8px; border-top: 1px solid ${C.border};">
+                                <span class="text-color-secondary" style="font-size:14px; color:${C.textLight}; font-weight:bold; text-transform:uppercase;">PRIX DU FORFAIT</span><br>
+                                <strong class="text-color" style="font-size:28px; color:${C.textDark}; line-height:1.2;">${hotel.price ? hotel.price + '&nbsp;USD' : 'Voir PDF'}</strong>
                             </div>
                         </div>
                     `;
-                    hotelSection += `<p style="${S.p}">Pour votre séjour, voici l'option que j'ai sélectionnée pour vous :</p>${hotelCard}`;
-                } else {
-                    hotelSection += `<p style="${S.p}">Voici plusieurs options d’hébergement pour votre séjour. Chaque proposition ci-dessous correspond à un forfait détaillé dans un document PDF distinct.</p>`;
-                    let hotelCards = '';
-                    selectedHotels.forEach(hotel => {
-                        const levelColor = C.level[hotel.level.toLowerCase().replace(/ /g, '_')] || C.textLight;
-                        
-                        let prosList = `<span style="background-color:${levelColor}; color:${C.white}; padding: 5px 12px; margin: 0 8px 8px 0; border-radius: 15px; font-size: 14px; font-weight: bold; display:inline-block;">${hotel.level}</span>`;
-                        hotel.pointsForts.forEach((p, i) => {
-                            const tagColor = C.tags[i % C.tags.length];
-                            prosList += `<span style="display:inline-block; background-color:${tagColor}; color:${C.white}; padding: 5px 12px; margin: 0 8px 8px 0; border-radius: 15px; font-size: 14px; font-weight: bold;">${p}</span>`;
-                        });
-
-                        hotelCards += `
-                            <div class="hotel-card" style="margin-top: 25px; border: 1px solid ${C.border}; border-radius: 8px;">
-                                <div style="background-color:${C.blue}; color:${C.white}; padding:15px 20px; border-radius: 8px 8px 0 0;">
-                                    <strong style="font-family:${S.fontStack}; font-size:20px;">${hotel.name}</strong>
-                                </div>
-                                <div style="background-color:${C.white}; padding: 20px;">
-                                    <p style="font-family:${S.fontStack}; font-size:15px; line-height:1.5; color:${C.textLight}; margin:0 0 15px 0; text-align:justify;">${hotel.description}</p>
-                                    <div style="padding:10px 0;">${prosList}</div>
-                                </div>
-                                <div style="background-color:${C.blueLight}; padding: 15px 20px; text-align:center; border-radius: 0 0 8px 8px; border-top: 1px solid ${C.border};">
-                                    <span style="font-size:14px; color:${C.textLight}; font-weight:bold; text-transform:uppercase;">PRIX DU FORFAIT</span><br>
-                                    <strong style="font-size:28px; color:${C.textDark}; line-height:1.2;">${hotel.price ? hotel.price + '&nbsp;USD' : 'Voir PDF'}</strong>
-                                </div>
-                            </div>
-                        `;
-                    });
-                    hotelSection += hotelCards;
-                }
+                });
                 
-                hotelSection += `<p style="${S.p} margin-top:20px;">Chaque proposition de forfait inclut l'hébergement à l'hôtel ainsi que les billets d'entrée pour les parcs Disney. Tous les autres détails, inclusions et conditions se trouvent dans le ou les documents PDF correspondants.</p>`
-                let advantagesList = T.disney_advantages_list_items.map(item => `<li style="margin-bottom:8px;"><span style="color:${C.blue}; font-size:18px; vertical-align:middle; margin-right:8px; font-weight:bold;">&#10004;</span><span style="vertical-align:middle;">${item}</span></li>`).join('');
-                hotelSection += `<p style="${S.p} margin-top:30px; text-align:left;">${T.disney_advantages_intro}<ul style="margin:1em 0; padding:0; list-style-type:none; text-align:left;">${advantagesList}</ul>`;
+                hotelSection += `<p class="text-color" style="${S.p} margin-top:20px;">Chaque proposition de forfait inclut l'hébergement à l'hôtel ainsi que les billets d'entrée pour les parcs Disney. Tous les autres détails, inclusions et conditions se trouvent dans le ou les documents PDF correspondants.</p>`
+                let advantagesList = T.disney_advantages_list_items.map(item => `<li class="text-color" style="margin-bottom:8px;"><span style="color:${C.blue}; font-size:18px; vertical-align:middle; margin-right:8px; font-weight:bold;">&#10004;</span><span style="vertical-align:middle;">${item}</span></li>`).join('');
+                hotelSection += `<p class="text-color" style="${S.p} margin-top:30px; text-align:left;">${T.disney_advantages_intro}<ul style="margin:1em 0; padding:0; list-style-type:none; text-align:left;">${advantagesList}</ul>`;
 
             } else if (data.booking_type === 'tickets_only') {
-                hotelSection = `<p style="${S.p}">J’ai préparé pour vous un document ci-joint indiquant le prix ainsi que les conditions applicables aux billets de parc.</p>`;
+                hotelSection = `<p class="text-color" style="${S.p}">J’ai préparé pour vous un document ci-joint indiquant le prix ainsi que les conditions applicables aux billets de parc.</p>`;
             }
 
             let promoText = "";
@@ -312,29 +301,32 @@ if (selectedHotels.length === 1) {
 
                     let flightDetails = '';
                     if (data.flight_too_early) {
-                        flightDetails = `<p style="${S.p}">${T.flight_too_early}</p>`;
+                        flightDetails = `<p class="text-color" style="${S.p}">${T.flight_too_early}</p>`;
                     } else {
-                        flightDetails = `<p style="${S.p}">${T.flight_intro}</p>`;
+                        flightDetails = `<p class="text-color" style="${S.p}">${T.flight_intro}</p>`;
                         if ((data.flights || []).length > 1 && data.flight_multiple_reason) {
-                            flightDetails += `<p style="${S.p} font-style:italic;">${data.flight_multiple_reason.replace(/\n/g,'<br>')}</p>`;
+                            flightDetails += `<p class="text-color" style="${S.p} font-style:italic;">${data.flight_multiple_reason.replace(/\n/g,'<br>')}</p>`;
                         }
 
                         (data.flights || []).forEach((f, idx) => {
-                            flightDetails += `<div style="border: 1px solid #e0e0e0; padding: 15px; margin-top: 15px; border-radius: 8px; background-color: #fafafa;">`;
+                            flightDetails += `<div class="flight-group-bg" style="border: 1px solid ${C.border}; padding: 15px; margin-top: 15px; border-radius: 8px; background-color: ${C.lightGreyBg};">`;
                             if ((data.flights || []).length > 1) {
-                                flightDetails += `<strong>Option ${idx + 1}</strong>`;
+                                flightDetails += `<strong class="text-color">Option ${idx + 1}</strong>`;
                             }
-                            flightDetails += ` <div style="border: 1px solid #ddd; border-radius: 8px; padding: 10px 15px 15px 15px; margin-top:10px;"><h3>Vol aller</h3><table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td class="flight-column" style="width:45%; text-align:center; vertical-align:top;"><div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Départ</div><div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${f.departure_airport_aller || 'N/A'}</div><table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto; text-align:left;"><tr><td style="padding-bottom:10px;">📅&nbsp;${formatDateFR(f.departure_date_aller)}</td></tr><tr><td>🕒&nbsp;${formatTime(f.departure_time_aller)}</td></tr></table></td><td class="flight-arrow" style="width:10%; text-align:center; vertical-align:top;">${arrow}</td><td class="flight-column" style="width:45%; text-align:center; vertical-align:top;"><div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Arrivée</div><div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${f.arrival_airport_aller || 'N/A'}</div><table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto; text-align:left;"><tr><td style="padding-bottom:10px;">📅&nbsp;${formatDateFR(f.arrival_date_aller)}</td></tr><tr><td>🕒&nbsp;${formatTime(f.arrival_time_aller)}</td></tr></table></td></tr><tr><td colspan="3" style="padding-top:10px; text-align:center;"><div style="font-size:14px; color:${C.textLight}; line-height:1.3;">${f.airline_aller || ''}<br>${f.flight_number_aller || ''}</div></td></tr></table></div>`;
-                            flightDetails += `<div style="border: 1px solid #ddd; border-radius: 8px; padding: 10px 15px 15px 15px; margin-top:10px;"><h3>Vol retour</h3><table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td class="flight-column" style="width:45%; text-align:center; vertical-align:top;"><div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Départ</div><div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${f.departure_airport_retour || 'N/A'}</div><table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto; text-align:left;"><tr><td style="padding-bottom:10px;">📅&nbsp;${formatDateFR(f.departure_date_retour)}</td></tr><tr><td>🕒&nbsp;${formatTime(f.departure_time_retour)}</td></tr></table></td><td class="flight-arrow" style="width:10%; text-align:center; vertical-align:top;">${arrow}</td><td class="flight-column" style="width:45%; text-align:center; vertical-align:top;"><div style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Arrivée</div><div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${f.arrival_airport_retour || 'N/A'}</div><table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto; text-align:left;"><tr><td style="padding-bottom:10px;">📅&nbsp;${formatDateFR(f.arrival_date_retour)}</td></tr><tr><td>🕒&nbsp;${formatTime(f.arrival_time_retour)}</td></tr></table></td></tr><tr><td colspan="3" style="padding-top:10px; text-align:center;"><div style="font-size:14px; color:${C.textLight}; line-height:1.3;">${f.airline_retour || ''}<br>${f.flight_number_retour || ''}</div></td></tr></table></div>`;
-                            flightDetails += `<div style="background-color:${C.blueLight}; padding: 15px 20px; text-align:center; border-radius: 0 0 8px 8px; border-top: 1px solid ${C.border};"><span style="font-size:14px; color:${C.textLight}; font-weight:bold; text-transform:uppercase;">PRIX APPROXIMATIF DES VOLS</span><br><strong style="font-size:28px; color:${C.textDark}; line-height:1.2;">${f.flight_price ? f.flight_price + '&nbsp;CAD' : 'N/A'}</strong></div>`;
+                            // Outbound Flight
+                            flightDetails += `<div class="flight-inputs" style="border: 1px solid ${C.border}; border-radius: 8px; padding: 10px 15px 15px 15px; margin-top:10px;"><h3 class="text-color">Vol aller</h3><table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td class="flight-column" style="width:45%; text-align:center; vertical-align:top;"><div class="text-color-secondary" style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Départ</div><div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${f.departure_airport_aller || 'N/A'}</div><table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto; text-align:left;"><tr><td class="text-color" style="padding-bottom:10px;">📅&nbsp;${formatDateFR(f.departure_date_aller)}</td></tr><tr><td class="text-color">🕒&nbsp;${formatTime(f.departure_time_aller)}</td></tr></table></td><td class="flight-arrow" style="width:10%; text-align:center; vertical-align:top;">${arrow}</td><td class="flight-column" style="width:45%; text-align:center; vertical-align:top;"><div class="text-color-secondary" style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Arrivée</div><div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${f.arrival_airport_aller || 'N/A'}</div><table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto; text-align:left;"><tr><td class="text-color" style="padding-bottom:10px;">📅&nbsp;${formatDateFR(f.arrival_date_aller)}</td></tr><tr><td class="text-color">🕒&nbsp;${formatTime(f.arrival_time_aller)}</td></tr></table></td></tr><tr><td colspan="3" style="padding-top:10px; text-align:center;"><div class="text-color-secondary" style="font-size:14px; color:${C.textLight}; line-height:1.3;">${f.airline_aller || ''}<br>${f.flight_number_aller || ''}</div></td></tr></table></div>`;
+                            // Return Flight
+                            flightDetails += `<div class="flight-inputs" style="border: 1px solid ${C.border}; border-radius: 8px; padding: 10px 15px 15px 15px; margin-top:10px;"><h3 class="text-color">Vol retour</h3><table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td class="flight-column" style="width:45%; text-align:center; vertical-align:top;"><div class="text-color-secondary" style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Départ</div><div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${f.departure_airport_retour || 'N/A'}</div><table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto; text-align:left;"><tr><td class="text-color" style="padding-bottom:10px;">📅&nbsp;${formatDateFR(f.departure_date_retour)}</td></tr><tr><td class="text-color">🕒&nbsp;${formatTime(f.departure_time_retour)}</td></tr></table></td><td class="flight-arrow" style="width:10%; text-align:center; vertical-align:top;">${arrow}</td><td class="flight-column" style="width:45%; text-align:center; vertical-align:top;"><div class="text-color-secondary" style="font-size:16px; color:${C.textLight}; text-transform:uppercase; margin-bottom:10px;">Arrivée</div><div style="font-size:20px; font-weight:bold; color:${C.blue}; margin-bottom:10px;">${f.arrival_airport_retour || 'N/A'}</div><table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto; text-align:left;"><tr><td class="text-color" style="padding-bottom:10px;">📅&nbsp;${formatDateFR(f.arrival_date_retour)}</td></tr><tr><td class="text-color">🕒&nbsp;${formatTime(f.arrival_time_retour)}</td></tr></table></td></tr><tr><td colspan="3" style="padding-top:10px; text-align:center;"><div class="text-color-secondary" style="font-size:14px; color:${C.textLight}; line-height:1.3;">${f.airline_retour || ''}<br>${f.flight_number_retour || ''}</div></td></tr></table></div>`;
+                            // Price and Notes
+                            flightDetails += `<div class="card-footer-bg" style="background-color:${C.lightBlueBg}; padding: 15px 20px; text-align:center; border-radius: 0 0 8px 8px; border-top: 1px solid ${C.border};"><span class="text-color-secondary" style="font-size:14px; color:${C.textLight}; font-weight:bold; text-transform:uppercase;">PRIX APPROXIMATIF DES VOLS</span><br><strong class="text-color" style="font-size:28px; color:${C.textDark}; line-height:1.2;">${f.flight_price ? f.flight_price + '&nbsp;CAD' : 'N/A'}</strong></div>`;
                             if (f.flight_notes) {
-                                flightDetails += `<p style="${S.p} font-style:italic; font-weight:bold; color:${C.textLight}; border-left:3px solid ${C.border}; padding-left:15px; margin-top:20px;">${f.flight_notes.replace(/\n/g,'<br>')}</p>`;
+                                flightDetails += `<p class="text-color" style="${S.p} font-style:italic; font-weight:bold; color:${C.textLight}; border-left:3px solid ${C.border}; padding-left:15px; margin-top:20px;">${f.flight_notes.replace(/\n/g,'<br>')}</p>`;
                             }
                             flightDetails += `</div>`;
                         });
 
                         flightDetails += createCalloutBox(T.flight_important_label, T.flight_important_text, 'orange');
-                        flightDetails += `<p style="${S.p} font-size:14px; color:${C.textLight}; text-align:left; margin-top:20px;">${T.flight_price_info}</p>`;
+                        flightDetails += `<p class="text-color-secondary" style="${S.p} font-size:14px; color:${C.textLight}; text-align:left; margin-top:20px;">${T.flight_price_info}</p>`;
                     }
 
                     flightSection = `<tr><td style="padding: 20px 30px 30px 30px;">${flightDetails}</td></tr>`;
@@ -342,7 +334,7 @@ if (selectedHotels.length === 1) {
                 }
             }
 
-            let closingSection = `<p style="${S.p}">${T.closing1}</p><p style="${S.p}">${T.closing2}</p><p style="${S.p}">${T.closing3}</p>`;
+            let closingSection = `<p class="text-color" style="${S.p}">${T.closing1}</p><p class="text-color" style="${S.p}">${T.closing2}</p><p class="text-color" style="${S.p}">${T.closing3}</p>`;
             
             const hotelBannerText = data.booking_type === 'tickets_only' ? "Billets de Parc Disney" : "Forfaits Hôtel & Billets Disney";
 
@@ -355,65 +347,118 @@ if (selectedHotels.length === 1) {
   <meta name="color-scheme" content="light dark">
   <meta name="supported-color-schemes" content="light dark">
   <title>${T.banner1}</title>
+  <!--[if mso]>
+  <style>
+    table {border-collapse:collapse;border-spacing:0;border:none;margin:0;}
+    div, td {padding:0;}
+    div {margin:0;border:0;}
+  </style>
+  <noscript>
+    <xml>
+      <o:OfficeDocumentSettings>
+        <o:PixelsPerInch>96</o:PixelsPerInch>
+      </o:OfficeDocumentSettings>
+    </xml>
+  </noscript>
+  <![endif]-->
   <style>
     :root {
       color-scheme: light dark;
       supported-color-schemes: light dark;
     }
-    .logo-background {
-      background-color: #001f3f !important;
-    }
-    .logo-container {
-      background-color: #e9f2f9;
-      padding: 20px 30px;
-      border-radius: 8px;
-      max-width: 420px;
-      margin: auto;
-    }
-    /* Force text and background colors in dark mode */
     @media (prefers-color-scheme: dark) {
-      body, table, td, p, span, a, h1, h2, h3, h4 {
-        color: #ffffff !important;
+      .outer-bg { background-color: ${C.darkOuterBg} !important; }
+      .main-bg { background-color: ${C.darkInnerBg} !important; }
+      .logo-header-bg { background-color: #000000 !important; }
+      .logo-container-bg { background-color: ${C.darkInnerBg} !important; }
+      
+      .text-color, .text-color p, .text-color strong, .text-color em, .text-color li, .text-color h2, .text-color h3 {
+        color: ${C.darkText} !important;
       }
-      body, table, td {
-        background-color: #001f3f !important;
+      .text-color-secondary, .text-color-secondary p, .text-color-secondary strong, .text-color-secondary em {
+        color: ${C.darkTextSecondary} !important;
       }
-      .logo-background {
-        background-color: #001f3f !important;
+      .dark-mode-suppress, .dark-mode-suppress strong {
+          color: ${C.white} !important;
       }
+      
+      .hotel-card, .flight-inputs { border-color: ${C.darkBorder} !important; }
+      .card-content-bg { background-color: ${C.darkInnerBg} !important; }
+      .card-footer-bg { background-color: ${C.darkGreyBg} !important; border-color: ${C.darkBorder} !important; }
+      .flight-group-bg { background-color: ${C.darkInnerBg} !important; border-color: ${C.darkBorder} !important; }
+      
+      .callout-box { background-color: var(--dark-bg-color) !important; }
     }
+    [data-ogsc] .outer-bg { background-color: ${C.darkOuterBg} !important; }
+    [data-ogsc] .main-bg { background-color: ${C.darkInnerBg} !important; }
+    [data-ogsc] .logo-header-bg { background-color: #000000 !important; }
+    [data-ogsc] .logo-container-bg { background-color: ${C.darkInnerBg} !important; }
+    
+    [data-ogsc] .text-color, [data-ogsc] .text-color p, [data-ogsc] .text-color strong, [data-ogsc] .text-color em, [data-ogsc] .text-color li, [data-ogsc] .text-color h2, [data-ogsc] .text-color h3 {
+        color: ${C.darkText} !important;
+    }
+    [data-ogsc] .text-color-secondary, [data-ogsc] .text-color-secondary p, [data-ogsc] .text-color-secondary strong, [data-ogsc] .text-color-secondary em {
+        color: ${C.darkTextSecondary} !important;
+    }
+    [data-ogsc] .dark-mode-suppress, [data-ogsc] .dark-mode-suppress strong {
+        color: ${C.white} !important;
+    }
+    
+    [data-ogsc] .hotel-card, [data-ogsc] .flight-inputs { border-color: ${C.darkBorder} !important; }
+    [data-ogsc] .card-content-bg { background-color: ${C.darkInnerBg} !important; }
+    [data-ogsc] .card-footer-bg { background-color: ${C.darkGreyBg} !important; border-color: ${C.darkBorder} !important; }
+    [data-ogsc] .flight-group-bg { background-color: ${C.darkInnerBg} !important; border-color: ${C.darkBorder} !important; }
+    
+    [data-ogsc] .callout-box { background-color: attr(data-dark-bg) !important; }
+
   </style>
 </head>
-<body style="margin:0; padding:0; background-color:${C.background};" bgcolor="${C.background}" data-ogsb data-ogsc><table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color:${C.background};"><tr><td align="center"><table width="680" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width: 680px; max-width: 100%; margin: 20px auto; background-color: ${C.white};"
-<tr>
-  <td class="logo-background" align="center" style="padding:20px 0; background-color:#001f3f;">
-    <table class="logo-container" border="0" cellpadding="0" cellspacing="0" role="presentation">
-      <tr>
-        <td align="center" style="width:50%;">
-          <img src="${LOGOS.earmarked}" alt="Logo Earmarked" style="max-width:150px; height:auto; display:block; margin:0 auto;">
-        </td>
-        <td align="center" style="width:50%;">
-          <img src="${LOGOS.agency}" alt="Logo agence" style="max-width:150px; height:auto; display:block; margin:0 auto;">
-        </td>
-      </tr>
-    </table>
-  </td>
-</tr>
+<body style="margin:0; padding:0; background-color:${C.outerBg};" class="outer-bg" data-ogsb>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color:${C.outerBg};" class="outer-bg">
+<tr><td align="center">
+<!--[if mso]>
+<table width="680" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width: 680px;">
+<tr><td>
+<![endif]-->
+<table width="680" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width: 100%; max-width: 680px; margin: 20px auto; background-color: ${C.white};" class="main-bg">
+    <tr>
+      <td class="logo-header-bg" align="center" style="padding:20px 0; background-color:#001f3f;">
+        <div class="logo-container-bg" style="max-width: 420px; margin: auto;">
+          <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
+            <tr>
+              <td align="center" style="width:50%; padding: 0 10px;">
+                <img src="${LOGOS.earmarked}" alt="Logo Earmarked" style="max-width:150px; height:auto; display:block; margin:0 auto; filter: brightness(0) invert(1);">
+              </td>
+              <td align="center" style="width:50%; padding: 0 10px;">
+                <img src="${LOGOS.agency}" alt="Logo agence" style="max-width:150px; height:auto; display:block; margin:0 auto;">
+              </td>
+            </tr>
+          </table>
+        </div>
+      </td>
+    </tr>
 
-${createBanner(T.banner1, 'main')}
+    ${createBanner(T.banner1, 'main')}
 
-<tr><td style="padding: 20px 30px 30px 30px;">${introSection}</td></tr>
-                ${createBanner(hotelBannerText, 'sub')}
-                <tr><td style="padding: 20px 30px 10px 30px;">${hotelSection}</td></tr>
-                <tr><td style="padding: 10px 30px 30px 30px;">${promotionSection}</td></tr>
-                <tr><td style="padding: 0 30px 30px 30px;"><p style="${S.p} font-size:14px; color:${C.textLight}; text-align:center; ${S.italic}">${priceDisclaimer}</p></td></tr>
-                ${flightBlock}
-                ${createBanner(T.banner_magic_continues, 'closing')}
-                <tr><td style="padding: 20px 30px 30px 30px;">${closingSection}</td></tr>
-            </table></td></tr></table></body></html>`;
+    <tr><td style="padding: 20px 30px 30px 30px;">${introSection}</td></tr>
+    ${createBanner(hotelBannerText, 'sub')}
+    <tr><td style="padding: 20px 30px 10px 30px;">${hotelSection}</td></tr>
+    <tr><td style="padding: 10px 30px 30px 30px;">${promotionSection}</td></tr>
+    <tr><td style="padding: 0 30px 30px 30px;"><p class="text-color-secondary" style="${S.p} font-size:14px; color:${C.textLight}; text-align:center; ${S.italic}">${priceDisclaimer}</p></td></tr>
+    ${flightBlock}
+    ${createBanner(T.banner_magic_continues, 'closing')}
+    <tr><td style="padding: 20px 30px 30px 30px;">${closingSection}</td></tr>
+</table>
+<!--[if mso]>
+</td></tr>
+</table>
+<![endif]-->
+</td></tr></table>
+</body>
+</html>`;
         }
 
-        // --- Le reste du script JS pour le formulaire reste identique ---
+        // --- The rest of the script JS for the form remains identical ---
         document.addEventListener('DOMContentLoaded', function() {
             const hotelSelectionsDiv = document.getElementById('hotel_selections');
             const addHotelButton = document.getElementById('add_hotel_button');
@@ -427,7 +472,7 @@ ${createBanner(T.banner1, 'main')}
                 
                 let content = `
                     <div class="hotel-option-header">
-                        <label>Option d'hôtel</label>
+                        <label>Option d'hôtel ${hotelCounter}</label>
                         <button type="button" class="remove-hotel-button" title="Supprimer cet hôtel">Supprimer</button>
                     </div>
                     <select name="hotel_name" required>
@@ -567,10 +612,7 @@ ${createBanner(T.banner1, 'main')}
                     if(name) {
                         const hotelData = getHotelByName(name);
                         data.hotels.push({
-                            name: name,
-                            description: hotelData.description,
-                            level: hotelData.level,
-                            pointsForts: hotelData.pointsForts,
+                            ...hotelData,
                             price: price
                         });
                     }
@@ -610,11 +652,26 @@ ${createBanner(T.banner1, 'main')}
             const copyHtmlButton = document.getElementById('copyHtmlButton');
             copyHtmlButton.addEventListener('click', function() {
                 const emailContent = emailOutputDiv.innerHTML;
-                 navigator.clipboard.writeText(emailContent).then(function() {
+                const blob = new Blob([emailContent], { type: 'text/html' });
+                const clipboardItem = new ClipboardItem({ 'text/html': blob });
+
+                navigator.clipboard.write([clipboardItem]).then(function() {
                     alert('Contenu HTML de l\'e-mail copié dans le presse-papiers !');
                 }, function(err) {
-                    alert('Erreur lors de la copie. Veuillez essayer manuellement.');
-                    console.error('Could not copy text: ', err);
+                    // Fallback for older browsers
+                    try {
+                        const textArea = document.createElement("textarea");
+                        textArea.value = emailContent;
+                        document.body.appendChild(textArea);
+                        textArea.focus();
+                        textArea.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(textArea);
+                        alert('Contenu HTML de l\'e-mail copié dans le presse-papiers !');
+                    } catch (e) {
+                        alert('Erreur lors de la copie. Veuillez essayer manuellement.');
+                        console.error('Could not copy text: ', e);
+                    }
                 });
             });
             
@@ -625,11 +682,7 @@ ${createBanner(T.banner1, 'main')}
             const promotionTypeSelect = document.getElementById('promotion_type');
             const promotionDetailsDiv = document.getElementById('promotion_details');
             
-            function toggleFlightDetails() {
-                flightDetailsDiv.classList.toggle('hidden', !includeFlightsCheckbox.checked);
-                updateFlightGroupVisibility();
-                toggleFlightTooEarly();
-            }
+            function toggleFlightDetails() { flightDetailsDiv.classList.toggle('hidden', !includeFlightsCheckbox.checked); }
             function toggleHotelOptions() { hotelOptionsContainer.classList.toggle('hidden', bookingTypeSelect.value !== 'hotel_tickets'); }
             function togglePromotionDetails() { promotionDetailsDiv.classList.toggle('hidden', promotionTypeSelect.value !== 'specifique'); }
 
