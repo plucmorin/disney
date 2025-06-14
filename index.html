@@ -443,153 +443,7 @@ function generateEmailHTML(data) {
     
     const hotelBannerText = data.booking_type === 'tickets_only' ? "Billets de Parc Disney" : "Forfaits Hôtel & Billets Disney";
 
-    // Updated HTML with better dark mode support
-    return `<!DOCTYPE html>
-<html lang="fr" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="format-detection" content="telephone=no, date=no, address=no, email=no, url=no">
-    <meta name="x-apple-disable-message-reformatting">
-    <meta name="color-scheme" content="light dark">
-    <meta name="supported-color-schemes" content="light dark">
-    <title>${T.banner1}</title>
-    <!--[if gte mso 9]>
-    <xml>
-        <o:OfficeDocumentSettings>
-            <o:AllowPNG/>
-            <o:PixelsPerInch>96</o:PixelsPerInch>
-        </o:OfficeDocumentSettings>
-    </xml>
-    <![endif]-->
-    <style>
-        :root {
-            color-scheme: light dark;
-            supported-color-schemes: light dark;
-        }
-        body {
-            margin: 0;
-            padding: 0;
-            word-spacing: normal;
-            background-color: #f8f8f8;
-        }
-        table {
-            border-collapse: collapse;
-            border-spacing: 0;
-        }
-        td {
-            padding: 0;
-        }
-        img {
-            height: auto;
-            outline: none;
-            text-decoration: none;
-            -ms-interpolation-mode: bicubic;
-        }
-        /* Dark mode styles */
-        @media (prefers-color-scheme: dark) {
-            body { background-color: #1e1e1e !important; }
-            .email-body { background-color: #2d2d2d !important; }
-            .content-bg { background-color: #2d2d2d !important; }
-            .text-dark { color: #f0f0f0 !important; }
-            .text-light { color: #cccccc !important; }
-            .bg-light { background-color: #3d3d3d !important; }
-            .border-color { border-color: #444444 !important; }
-            .logo-bg { background-color: #1a1a1a !important; }
-            .logo-container-bg { background-color: #2d2d2d !important; }
-            h1, h2, h3, p, span, strong { color: #f0f0f0 !important; }
-            .banner-blue { background-color: #1a5490 !important; }
-            .banner-orange { background-color: #cc5500 !important; }
-        }
-        /* Mobile styles */
-        @media screen and (max-width: 600px) {
-            .email-container { width: 100% !important; }
-            .padding-mobile { padding: 20px 15px !important; }
-        }
-    </style>
-</head>
-<body style="margin: 0; padding: 0; background-color: #f8f8f8; word-spacing: normal;">
-    <div role="article" aria-roledescription="email" lang="fr" style="text-size-adjust: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;">
-        <!--[if mso | IE]>
-        <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f8f8f8;">
-        <tr>
-        <td>
-        <![endif]-->
-        <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: 0 auto;">
-            <tr>
-                <td align="center">
-                    <table class="email-container" role="presentation" cellspacing="0" cellpadding="0" border="0" width="680" style="margin: 20px auto; background-color: #ffffff; width: 680px; max-width: 100%;">
-                        <!-- Logo Header -->
-                        <tr>
-                            <td class="logo-bg" align="center" style="padding: 20px 0; background-color: #001f3f;">
-                                <table class="logo-container-bg" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color: #e9f2f9; padding: 20px 30px; border-radius: 8px; max-width: 420px;">
-                                    <tr>
-                                        <td align="center" width="50%">
-                                            <img src="${LOGOS.earmarked}" alt="Logo Earmarked" width="150" style="display: block; max-width: 150px; width: 100%; height: auto;">
-                                        </td>
-                                        <td align="center" width="50%">
-                                            <img src="${LOGOS.agency}" alt="Logo agence" width="150" style="display: block; max-width: 150px; width: 100%; height: auto;">
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                        
-                        <!-- Main Banner -->
-                        ${createBanner(T.banner1, 'main')}
-                        
-                        <!-- Introduction -->
-                        <tr>
-                            <td class="content-bg padding-mobile" style="padding: 20px 30px 30px 30px; background-color: #ffffff;">
-                                ${introSection}
-                            </td>
-                        </tr>
-                        
-                        <!-- Hotel Section -->
-                        ${createBanner(hotelBannerText, 'sub')}
-                        <tr>
-                            <td class="content-bg padding-mobile" style="padding: 20px 30px 10px 30px; background-color: #ffffff;">
-                                ${hotelSection}
-                            </td>
-                        </tr>
-                        
-                        <!-- Promotion Section -->
-                        <tr>
-                            <td class="content-bg padding-mobile" style="padding: 10px 30px 30px 30px; background-color: #ffffff;">
-                                ${promotionSection}
-                            </td>
-                        </tr>
-                        
-                        <!-- Price Disclaimer -->
-                        <tr>
-                            <td class="content-bg padding-mobile" style="padding: 0 30px 30px 30px; background-color: #ffffff;">
-                                <p style="${S.p} font-size:14px; color:${C.textLight}; text-align:center; ${S.italic}">${priceDisclaimer}</p>
-                            </td>
-                        </tr>
-                        
-                        <!-- Flight Section -->
-                        ${flightBlock}
-                        
-                        <!-- Closing Banner -->
-                        ${createBanner(T.banner_magic_continues, 'closing')}
-                        
-                        <!-- Closing Text -->
-                        <tr>
-                            <td class="content-bg padding-mobile" style="padding: 20px 30px 30px 30px; background-color: #ffffff;">
-                                ${closingSection}
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
-        <!--[if mso | IE]>
-        </td>
-        </tr>
-        </table>
-        <![endif]-->
-                // --- Le reste du script JS pour le formulaire reste identique ---
+                    // --- Le reste du script JS pour le formulaire reste identique ---
         document.addEventListener('DOMContentLoaded', function() {
             const hotelSelectionsDiv = document.getElementById('hotel_selections');
             const addHotelButton = document.getElementById('add_hotel_button');
@@ -817,6 +671,154 @@ function generateEmailHTML(data) {
             toggleHotelOptions();
             togglePromotionDetails();
         });
+    </script>
+
+    // Updated HTML with better dark mode support
+    return `<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="format-detection" content="telephone=no, date=no, address=no, email=no, url=no">
+    <meta name="x-apple-disable-message-reformatting">
+    <meta name="color-scheme" content="light dark">
+    <meta name="supported-color-schemes" content="light dark">
+    <title>${T.banner1}</title>
+    <!--[if gte mso 9]>
+    <xml>
+        <o:OfficeDocumentSettings>
+            <o:AllowPNG/>
+            <o:PixelsPerInch>96</o:PixelsPerInch>
+        </o:OfficeDocumentSettings>
+    </xml>
+    <![endif]-->
+    <style>
+        :root {
+            color-scheme: light dark;
+            supported-color-schemes: light dark;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            word-spacing: normal;
+            background-color: #f8f8f8;
+        }
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+        td {
+            padding: 0;
+        }
+        img {
+            height: auto;
+            outline: none;
+            text-decoration: none;
+            -ms-interpolation-mode: bicubic;
+        }
+        /* Dark mode styles */
+        @media (prefers-color-scheme: dark) {
+            body { background-color: #1e1e1e !important; }
+            .email-body { background-color: #2d2d2d !important; }
+            .content-bg { background-color: #2d2d2d !important; }
+            .text-dark { color: #f0f0f0 !important; }
+            .text-light { color: #cccccc !important; }
+            .bg-light { background-color: #3d3d3d !important; }
+            .border-color { border-color: #444444 !important; }
+            .logo-bg { background-color: #1a1a1a !important; }
+            .logo-container-bg { background-color: #2d2d2d !important; }
+            h1, h2, h3, p, span, strong { color: #f0f0f0 !important; }
+            .banner-blue { background-color: #1a5490 !important; }
+            .banner-orange { background-color: #cc5500 !important; }
+        }
+        /* Mobile styles */
+        @media screen and (max-width: 600px) {
+            .email-container { width: 100% !important; }
+            .padding-mobile { padding: 20px 15px !important; }
+        }
+    </style>
+</head>
+<body style="margin: 0; padding: 0; background-color: #f8f8f8; word-spacing: normal;">
+    <div role="article" aria-roledescription="email" lang="fr" style="text-size-adjust: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;">
+        <!--[if mso | IE]>
+        <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f8f8f8;">
+        <tr>
+        <td>
+        <![endif]-->
+        <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: 0 auto;">
+            <tr>
+                <td align="center">
+                    <table class="email-container" role="presentation" cellspacing="0" cellpadding="0" border="0" width="680" style="margin: 20px auto; background-color: #ffffff; width: 680px; max-width: 100%;">
+                        <!-- Logo Header -->
+                        <tr>
+                            <td class="logo-bg" align="center" style="padding: 20px 0; background-color: #001f3f;">
+                                <table class="logo-container-bg" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color: #e9f2f9; padding: 20px 30px; border-radius: 8px; max-width: 420px;">
+                                    <tr>
+                                        <td align="center" width="50%">
+                                            <img src="${LOGOS.earmarked}" alt="Logo Earmarked" width="150" style="display: block; max-width: 150px; width: 100%; height: auto;">
+                                        </td>
+                                        <td align="center" width="50%">
+                                            <img src="${LOGOS.agency}" alt="Logo agence" width="150" style="display: block; max-width: 150px; width: 100%; height: auto;">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        
+                        <!-- Main Banner -->
+                        ${createBanner(T.banner1, 'main')}
+                        
+                        <!-- Introduction -->
+                        <tr>
+                            <td class="content-bg padding-mobile" style="padding: 20px 30px 30px 30px; background-color: #ffffff;">
+                                ${introSection}
+                            </td>
+                        </tr>
+                        
+                        <!-- Hotel Section -->
+                        ${createBanner(hotelBannerText, 'sub')}
+                        <tr>
+                            <td class="content-bg padding-mobile" style="padding: 20px 30px 10px 30px; background-color: #ffffff;">
+                                ${hotelSection}
+                            </td>
+                        </tr>
+                        
+                        <!-- Promotion Section -->
+                        <tr>
+                            <td class="content-bg padding-mobile" style="padding: 10px 30px 30px 30px; background-color: #ffffff;">
+                                ${promotionSection}
+                            </td>
+                        </tr>
+                        
+                        <!-- Price Disclaimer -->
+                        <tr>
+                            <td class="content-bg padding-mobile" style="padding: 0 30px 30px 30px; background-color: #ffffff;">
+                                <p style="${S.p} font-size:14px; color:${C.textLight}; text-align:center; ${S.italic}">${priceDisclaimer}</p>
+                            </td>
+                        </tr>
+                        
+                        <!-- Flight Section -->
+                        ${flightBlock}
+                        
+                        <!-- Closing Banner -->
+                        ${createBanner(T.banner_magic_continues, 'closing')}
+                        
+                        <!-- Closing Text -->
+                        <tr>
+                            <td class="content-bg padding-mobile" style="padding: 20px 30px 30px 30px; background-color: #ffffff;">
+                                ${closingSection}
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <!--[if mso | IE]>
+        </td>
+        </tr>
+        </table>
+        <![endif]-->
     </div>
 </body>
 </html>
