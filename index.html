@@ -37,21 +37,9 @@
         #emailOutput { padding: 20px; border: 1px solid #ccc; background-color: #f0f2f5; border-radius: 8px; min-height: 200px; overflow-x: auto;}
         .flight-inputs { border: 1px solid #ddd; border-radius: 8px; padding: 10px 15px 15px 15px; margin-top:10px; }
         .flight-option-group { border: 1px solid #e0e0e0; padding: 15px; margin-top: 15px; border-radius: 8px; background-color: #fafafa; }
-        #passwordOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 1000; }
-        #passwordOverlay form { background: #fff; padding: 20px; border-radius: 8px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-        #passwordOverlay input { width: 8ch; padding: 10px; font-size: 1.5em; text-align: center; }
-        #passwordOverlay button { margin-top: 10px; }
     </style>
 </head>
 <body>
-    <div id="passwordOverlay">
-        <form id="passwordForm">
-            <label for="passwordInput">Entrez le code d'accès&nbsp;:</label>
-            <input type="password" id="passwordInput" inputmode="numeric" pattern="\d{4}" maxlength="4" required>
-            <button type="submit">Valider</button>
-            <div id="passwordError" style="color:red; margin-top:5px;"></div>
-        </form>
-    </div>
     <div class="container">
         <h1>Générateur d'e-mail Disney</h1>
         <form id="disneyForm">
@@ -522,25 +510,6 @@ ${createBanner(T.banner1, 'main')}
                 ${flightBlock}
                 ${createBanner(T.banner_magic_continues, 'closing')}
                 <tr><td class="mobile-padding" style="padding: 20px 30px 30px 30px;">${closingSection}</td></tr>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const overlay = document.getElementById("passwordOverlay");
-            const form = document.getElementById("passwordForm");
-            const input = document.getElementById("passwordInput");
-            const errorDiv = document.getElementById("passwordError");
-            document.body.style.overflow = "hidden";
-            form.addEventListener("submit", function(e) {
-                e.preventDefault();
-                if (input.value === "9078") {
-                    overlay.style.display = "none";
-                    document.body.style.overflow = "";
-                } else {
-                    errorDiv.textContent = "Code incorrect";
-                    input.value = "";
-                }
-            });
-        });
-    </script>
             </table></td></tr></table></body></html>`;
         }
 
@@ -823,25 +792,6 @@ ${createBanner(T.banner1, 'main')}
             toggleFlightDetails();
             toggleHotelOptions();
             togglePromotionDetails();
-        });
-    </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const overlay = document.getElementById("passwordOverlay");
-            const form = document.getElementById("passwordForm");
-            const input = document.getElementById("passwordInput");
-            const errorDiv = document.getElementById("passwordError");
-            document.body.style.overflow = "hidden";
-            form.addEventListener("submit", function(e) {
-                e.preventDefault();
-                if (input.value === "9078") {
-                    overlay.style.display = "none";
-                    document.body.style.overflow = "";
-                } else {
-                    errorDiv.textContent = "Code incorrect";
-                    input.value = "";
-                }
-            });
         });
     </script>
 </body>
