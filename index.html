@@ -99,6 +99,8 @@
                 </div>
             </div>
             <button type="submit">Générer l'e-mail</button>
+            <button type="button" id="reminderFollowUpBtn">Rappel de relance</button>
+            <button type="button" id="reminderCallBtn">Rappel téléphonique</button>
         </form>
 
         <div id="emailOutputContainer">
@@ -717,7 +719,36 @@ ${createBanner(T.banner1, 'main')}
                     console.error('Could not copy text: ', err);
                 });
             });
-            
+
+            const reminderFollowUpBtn = document.getElementById('reminderFollowUpBtn');
+            const reminderCallBtn = document.getElementById('reminderCallBtn');
+            const clientNameInput = document.getElementById('client_name');
+
+            function formatForCalendar(date) {
+                return date.toISOString().replace(/-|:|\.\d{3}/g, '');
+            }
+
+            function generateCalendarLink(title, description, daysAhead, hour, minute) {
+                const start = new Date();
+                start.setDate(start.getDate() + daysAhead);
+                start.setHours(hour, minute, 0, 0);
+                const end = new Date(start.getTime() + 30 * 60 * 1000);
+                const dates = `${formatForCalendar(start)}/${formatForCalendar(end)}`;
+                return `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&details=${encodeURIComponent(description)}&dates=${dates}`;
+            }
+
+            reminderFollowUpBtn.addEventListener('click', function() {
+                const name = clientNameInput.value ? ` - ${clientNameInput.value}` : '';
+                const url = generateCalendarLink(`Relance${name}`, 'Envoyer un courriel de relance', 2, 9, 0);
+                window.open(url, '_blank');
+            });
+
+            reminderCallBtn.addEventListener('click', function() {
+                const name = clientNameInput.value ? ` - ${clientNameInput.value}` : '';
+                const url = generateCalendarLink(`Appel${name}`, 'Rappel téléphonique', 4, 17, 0);
+                window.open(url, '_blank');
+            });
+
             const includeFlightsCheckbox = document.getElementById('include_flights');
             const flightDetailsDiv = document.getElementById('flight_details');
             const bookingTypeSelect = document.getElementById('booking_type');
