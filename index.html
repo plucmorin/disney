@@ -738,14 +738,20 @@ ${createBanner(T.banner1, 'main')}
             }
 
             reminderFollowUpBtn.addEventListener('click', function() {
-                const name = clientNameInput.value ? ` - ${clientNameInput.value}` : '';
-                const url = generateCalendarLink(`Relance${name}`, 'Envoyer un courriel de relance', 2, 9, 0);
+                const rawName = clientNameInput.value.trim();
+                const nameSuffix = rawName ? ` - ${rawName}` : '';
+                const title = `Relance${nameSuffix}`;
+                const description = rawName ? `Envoyer un courriel de relance à ${rawName}` : 'Envoyer un courriel de relance';
+                const url = generateCalendarLink(title, description, 2, 9, 0);
                 window.open(url, '_blank');
             });
 
             reminderCallBtn.addEventListener('click', function() {
-                const name = clientNameInput.value ? ` - ${clientNameInput.value}` : '';
-                const url = generateCalendarLink(`Appel${name}`, 'Rappel téléphonique', 4, 17, 0);
+                const rawName = clientNameInput.value.trim();
+                const nameSuffix = rawName ? ` - ${rawName}` : '';
+                const title = `Appel${nameSuffix}`;
+                const description = rawName ? `Rappel téléphonique avec ${rawName}` : 'Rappel téléphonique';
+                const url = generateCalendarLink(title, description, 4, 17, 0);
                 window.open(url, '_blank');
             });
 
