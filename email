@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width,initial-scale=1">
+ <meta name="x-apple-disable-message-reformatting">
+ <meta name="color-scheme" content="light dark">
+ <meta name="supported-color-schemes" content="light dark">
+ <title>Votre Aventure Magique Commence Ici</title>
+ <style>
+/* Dark mode optimizations - preserve email readability */
+   @media (prefers-color-scheme: dark) {
+     /* Main content areas - keep light backgrounds for readability */
+     body, .email-content {
+       background-color: #1a1a1a !important;
+     }
+     
+     /* Preserve white backgrounds for main content blocks */
+     [style*="background-color: #ffffff"], 
+     [bgcolor="#ffffff"] {
+       background-color: #ffffff !important;
+       color: #1a1a1a !important;
+     }
+     
+     /* Maintain Disney blue branding */
+     .logo-background,
+     [style*="background-color: #0078C1"],
+     [bgcolor="#0078C1"] {
+       background-color: #0078C1 !important;
+       color: #ffffff !important;
+     }
+     
+     /* Logo container stays white for contrast */
+     .logo-container {
+       background-color: #ffffff !important;
+     }
+     
+     /* Preserve branded colors for headers and badges */
+     [style*="background-color: #5A67D8"] { background-color: #5A67D8 !important; }
+     [style*="background-color: #d9480f"] { background-color: #d9480f !important; }
+     [style*="background-color: #0ca678"] { background-color: #0ca678 !important; }
+     [style*="background-color: #28a745"] { background-color: #28a745 !important; }
+     [style*="background-color: #2196F3"] { background-color: #2196F3 !important; }
+     [style*="background-color: #6f42c1"] { background-color: #6f42c1 !important; }
+     [style*="background-color: #9C27B0"] { background-color: #9C27B0 !important; }
+     [style*="background-color: #FF7F50"] { background-color: #FF7F50 !important; }
+     
+     /* Light backgrounds for callout boxes */
+     [style*="background-color: #e6f2fa"],
+     [bgcolor="#e6f2fa"] {
+       background-color: #f0f8ff !important;
+       color: #1a1a1a !important;
+     }
+     
+     [style*="background-color: #fff4e6"],
+     [bgcolor="#fff4e6"] {
+       background-color: #fff8f0 !important;
+       color: #1a1a1a !important;
+     }
+     
+     /* Flight cards background */
+     [style*="background-color: #fafafa"],
+     [bgcolor="#fafafa"] {
+       background-color: #f8f9fa !important;
+       color: #1a1a1a !important;
+     }
+     
+     /* Ensure text remains readable on white backgrounds */
+     [style*="color: #1a1a1a"] { color: #1a1a1a !important; }
+     [style*="color: #4a4a4a"] { color: #4a4a4a !important; }
+     [style*="color: #0078C1"] { color: #0078C1 !important; }
+     
+     /* Fix list items and checkmarks */
+     ul li, ul li span, ul li strong {
+       color: #1a1a1a !important;
+     }
+     
+     /* Subtle border adjustments */
+     [style*="border: 1px solid #e0e0e0"] { border-color: #e0e0e0 !important; }
+     [style*="border: 1px solid #ddd"] { border-color: #ddd !important; }
+     [style*="border-top: 1px solid #ddd"] { border-color: #ddd !important; }
+   }
+ </style>
+ <!--[if mso]>
+ <style type="text/css">
+   /* Outlook-specific styles for MSO clients */
+   body, table, td, p, span, a, h1, h2, h3, h4 {
+     background-color: #001f3f !important;
+     color: #ffffff !important;
+   }
+   /* Logo container background for Outlook compatibility */
+   .logo-container {
+     background-color: #ffffff !important;
+   }
+   /* Logo background using Disney blue for Outlook */
+   .logo-background {
+     background-color: #0078C1 !important;
+   }
+ </style>
+ <![endif]-->
+</head>
+<body style="margin:0; padding:0; background-color:#001f3f; font-family: Arial, Helvetica, sans-serif;" bgcolor="#001f3f" data-ogsb data-ogsc><table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color:#001f3f;"><tr><td align="center"><table class="mobile-full-width" width="680" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width: 680px; max-width: 100%; margin: 20px auto; background-color: #FFFFFF;">
+<tr>
+ <!-- Logo section with Disney blue background, bgcolor attribute for Outlook, and VML fallback -->
+ <td class="logo-background" align="center" style="padding:20px 0; background-color: #0078C1;" bgcolor="#0078C1">
+   <!--[if mso]>
+   <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:680px;">
+   <v:fill type="solid" color="#0078C1"/>
+   <v:textbox style="mso-fit-shape-to-text:true" inset="0,20px,0,20px">
+   <![endif]-->
+   <table class="logo-container mobile-padding" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background-color: #ffffff;" bgcolor="#ffffff">
+     <tr>
+       <td align="center" style="width:50%;">
+         <img src="https://boisterous-rabanadas-5fcb72.netlify.app/Logo_Fond_Blanc_2.png" alt="Logo Earmarked - Services de voyage Disney" style="max-width:150px; height:auto; display:block; margin:0 auto;">
+       </td>
+       <td align="center" style="width:50%;">
+         <img src="https://boisterous-rabanadas-5fcb72.netlify.app/Disney-EarMarked.png" alt="Logo Disney EarMarked - Agence de voyage spécialisée Disney" style="max-width:150px; height:auto; display:block; margin:0 auto;">
+       </td>
+     </tr>
+   </table>
+   <!--[if mso]>
+   </v:textbox>
+   </v:rect>
+   <![endif]-->
+ </td>
+</tr>
+
+<tr><td style="background-color: #0078C1; padding: 25px 30px; mso-line-height-rule: exactly;" bgcolor="#0078C1"><div style="border-top: 1px solid rgba(255,255,255,0.3); border-bottom: 1px solid rgba(255,255,255,0.3); padding: 10px 0;"><h1 style="font-family: Georgia, serif; font-size: 32px; color: #FFFFFF; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center; letter-spacing: 1.5px; line-height:1.2; mso-line-height-rule: exactly;">Votre Aventure Magique Commence Ici</h1></div></td></tr>
+
+<tr><td class="mobile-padding" style="padding: 20px 30px 30px 30px;"><p style="font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 1.6; color: #1a1a1a; margin: 1em 0; text-align: justify;">Bonjour <strong style="font-weight: bold;">Pierre-Luc</strong>,</p><p style="font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 1.6; color: #1a1a1a; margin: 1em 0; text-align: justify;">Je vous écris au nom de Voyages en Route, où nous avons le plaisir d'accompagner les familles et voyageurs dans la planification de leurs séjours. Je m'appelle Pierre-Luc Morin et je serais votre conseiller en voyages spécialisé en destinations <strong style="font-weight: bold;">Disney et Universal</strong>.</p><p style="font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 1.6; color: #1a1a1a; margin: 1em 0; text-align: justify;">Merci de nous avoir confié votre projet de voyage. J'ai pris soin de préparer une proposition basée sur les critères que vous avez partagés dans votre demande. Cette soumission est <strong style="font-weight: bold;">ajustable</strong>, et je serai heureux d'explorer avec vous différentes options afin de vous créer une expérience <strong style="font-weight: bold;">propre à vous et inoubliable</strong>.</p></td></tr>
+               <tr><td style="background-color: #0078C1; padding: 10px 30px; mso-line-height-rule: exactly;" bgcolor="#0078C1"><div style="padding: 0;"><h1 style="font-family: Arial, Helvetica, sans-serif; font-size: 20px; color: #FFFFFF; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center; line-height: 1.2; mso-line-height-rule: exactly;">Forfaits Hôtel & Billets Disney</h1></div></td></tr>
+               <tr><td class="mobile-padding" style="padding: 20px 30px 10px 30px;"><p style="font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 1.6; color: #1a1a1a; margin: 1em 0; text-align: justify;">Voici plusieurs options d'hébergement pour votre séjour. Chaque proposition ci-dessous correspond à un forfait détaillé dans un document PDF distinct.</p>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-top: 25px; border: 1px solid #EAEAEA; border-radius: 8px; border-collapse: separate; overflow: hidden;">
+              <tr>
+                <td style="background-color:#0078C1; color:#FFFFFF; padding:15px 20px; mso-line-height-rule: exactly;" bgcolor="#0078C1">
+                  <strong style="font-family:Arial, Helvetica, sans-serif; font-size:20px; line-height: 1.2;">Riviera Resort</strong>
+                </td>
+              </tr>
+              <tr>
+                <td style="background-color:#FFFFFF; padding: 20px; mso-line-height-rule: exactly;" bgcolor="#FFFFFF">
+                  <p style="font-family:Arial, Helvetica, sans-serif; font-size:15px; line-height:1.5; color:#4a4a4a; margin:0 0 15px 0; text-align:justify;">Inspiré par l'élégance de la Riviera européenne, cet hôtel sophistiqué allie le glamour européen à la magie de Disney. Ses studios et villas offrent des vues magnifiques et une décoration raffinée.</p>
+                  <div style="padding:10px 0; line-height: 1.4;"><table border="0" cellpadding="0" cellspacing="0" role="presentation" style="display:inline-table; margin: 0 8px 8px 0; border-radius: 15px; border-collapse: separate; overflow: hidden; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"><tr><td style="background-color:#7B1FA2; color:#FFFFFF; padding: 5px 12px; font-size: 14px; font-weight: bold; border-radius: 15px; mso-line-height-rule: exactly;" bgcolor="#7B1FA2">Deluxe Villa</td></tr></table><table border="0" cellpadding="0" cellspacing="0" role="presentation" style="display:inline-table; margin: 0 8px 8px 0; border-radius: 15px; border-collapse: separate; overflow: hidden; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"><tr><td style="background-color:#004d7a; color:#FFFFFF; padding: 5px 12px; font-size: 14px; font-weight: bold; border-radius: 15px; mso-line-height-rule: exactly;" bgcolor="#004d7a">Station principale du Disney Skyliner</td></tr></table><table border="0" cellpadding="0" cellspacing="0" role="presentation" style="display:inline-table; margin: 0 8px 8px 0; border-radius: 15px; border-collapse: separate; overflow: hidden; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"><tr><td style="background-color:#3949AB; color:#FFFFFF; padding: 5px 12px; font-size: 14px; font-weight: bold; border-radius: 15px; mso-line-height-rule: exactly;" bgcolor="#3949AB">Restaurant sur le toit avec personnages (Topolino's)</td></tr></table><table border="0" cellpadding="0" cellspacing="0" role="presentation" style="display:inline-table; margin: 0 8px 8px 0; border-radius: 15px; border-collapse: separate; overflow: hidden; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"><tr><td style="background-color:#c73500; color:#FFFFFF; padding: 5px 12px; font-size: 14px; font-weight: bold; border-radius: 15px; mso-line-height-rule: exactly;" bgcolor="#c73500">Design européen élégant et artistique</td></tr></table><table border="0" cellpadding="0" cellspacing="0" role="presentation" style="display:inline-table; margin: 0 8px 8px 0; border-radius: 15px; border-collapse: separate; overflow: hidden; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"><tr><td style="background-color:#0d7050; color:#FFFFFF; padding: 5px 12px; font-size: 14px; font-weight: bold; border-radius: 15px; mso-line-height-rule: exactly;" bgcolor="#0d7050">Piscines magnifiques et jeux d'eau</td></tr></table></div>
+                </td>
+              </tr>
+              <tr>
+                <td style="background-color:#e6f2fa; padding: 15px 20px; text-align:center; border-top: 1px solid #EAEAEA; mso-line-height-rule: exactly;" bgcolor="#e6f2fa">
+                  <span style="font-size:14px; color:#4a4a4a; font-weight:bold; text-transform:uppercase; line-height: 1.2;">PRIX DU FORFAIT POUR TOUTE LA FAMILLE</span><br>
+                  <strong style="font-size:28px; color:#1a1a1a; line-height:1.2;">23445&nbsp;USD</strong>
+                </td>
+              </tr>
+            </table>
+          
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-top: 25px; border: 1px solid #EAEAEA; border-radius: 8px; border-collapse: separate; overflow: hidden;">
+              <tr>
+                <td style="background-color:#0078C1; color:#FFFFFF; padding:15px 20px; mso-line-height-rule: exactly;" bgcolor="#0078C1">
+                  <strong style="font-family:Arial, Helvetica, sans-serif; font-size:20px; line-height: 1.2;">All-Star Movies Resort</strong>
+                </td>
+              </tr>
+              <tr>
+                <td style="background-color:#FFFFFF; padding: 20px; mso-line-height-rule: exactly;" bgcolor="#FFFFFF">
+                  <p style="font-family:Arial, Helvetica, sans-serif; font-size:15px; line-height:1.5; color:#4a4a4a; margin:0 0 15px 0; text-align:justify;">Vibrez au rythme des classiques du cinéma Disney dans cet hôtel aux décors spectaculaires. Idéal pour les familles, chaque bâtiment est une célébration de films comme Fantasia ou Toy Story.</p>
+                  <div style="padding:10px 0; line-height: 1.4;"><table border="0" cellpadding="0" cellspacing="0" role="presentation" style="display:inline-table; margin: 0 8px 8px 0; border-radius: 15px; border-collapse: separate; overflow: hidden; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"><tr><td style="background-color:#1a5928; color:#FFFFFF; padding: 5px 12px; font-size: 14px; font-weight: bold; border-radius: 15px; mso-line-height-rule: exactly;" bgcolor="#1a5928">Value</td></tr></table><table border="0" cellpadding="0" cellspacing="0" role="presentation" style="display:inline-table; margin: 0 8px 8px 0; border-radius: 15px; border-collapse: separate; overflow: hidden; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"><tr><td style="background-color:#004d7a; color:#FFFFFF; padding: 5px 12px; font-size: 14px; font-weight: bold; border-radius: 15px; mso-line-height-rule: exactly;" bgcolor="#004d7a">Thématisation immersive et icônes géantes</td></tr></table><table border="0" cellpadding="0" cellspacing="0" role="presentation" style="display:inline-table; margin: 0 8px 8px 0; border-radius: 15px; border-collapse: separate; overflow: hidden; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"><tr><td style="background-color:#3949AB; color:#FFFFFF; padding: 5px 12px; font-size: 14px; font-weight: bold; border-radius: 15px; mso-line-height-rule: exactly;" bgcolor="#3949AB">L'une des options les plus abordables sur site</td></tr></table><table border="0" cellpadding="0" cellspacing="0" role="presentation" style="display:inline-table; margin: 0 8px 8px 0; border-radius: 15px; border-collapse: separate; overflow: hidden; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"><tr><td style="background-color:#c73500; color:#FFFFFF; padding: 5px 12px; font-size: 14px; font-weight: bold; border-radius: 15px; mso-line-height-rule: exactly;" bgcolor="#c73500">Grande aire de restauration 'World Premiere'</td></tr></table><table border="0" cellpadding="0" cellspacing="0" role="presentation" style="display:inline-table; margin: 0 8px 8px 0; border-radius: 15px; border-collapse: separate; overflow: hidden; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"><tr><td style="background-color:#0d7050; color:#FFFFFF; padding: 5px 12px; font-size: 14px; font-weight: bold; border-radius: 15px; mso-line-height-rule: exactly;" bgcolor="#0d7050">Piscine sur le thème de Fantasia</td></tr></table></div>
+                </td>
+              </tr>
+              <tr>
+                <td style="background-color:#e6f2fa; padding: 15px 20px; text-align:center; border-top: 1px solid #EAEAEA; mso-line-height-rule: exactly;" bgcolor="#e6f2fa">
+                  <span style="font-size:14px; color:#4a4a4a; font-weight:bold; text-transform:uppercase; line-height: 1.2;">PRIX DU FORFAIT POUR TOUTE LA FAMILLE</span><br>
+                  <strong style="font-size:28px; color:#1a1a1a; line-height:1.2;">2343.98&nbsp;USD</strong>
+                </td>
+              </tr>
+            </table>
+          <p style="font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 1.6; color: #1a1a1a; margin: 1em 0; text-align: justify; margin-top:20px;">Chaque proposition de forfait inclut l'hébergement à l'hôtel ainsi que les billets d'entrée pour les parcs Disney. Tous les autres détails, inclusions et conditions se trouvent dans le ou les documents PDF correspondants.</p><p style="font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 1.6; color: #1a1a1a; margin: 1em 0; text-align: justify; margin-top:30px; text-align:left;">Séjourner dans un hôtel Disney, c'est profiter d'un univers immersif du matin au soir, mais aussi de <strong style="font-weight: bold;">nombreux avantages exclusifs</strong>&nbsp;:<ul style="margin:1em 0; padding:0; list-style-type:none; text-align:left;"><li style="margin-bottom:8px;"><span style="color:#0078C1; font-size:18px; vertical-align:middle; margin-right:8px; font-weight:bold;">&#10004;</span><span style="vertical-align:middle;"><strong style="font-weight: bold;">L'Early Theme Park Entry</strong>, pour accéder aux parcs avant l'ouverture officielle&nbsp;;</span></li><li style="margin-bottom:8px;"><span style="color:#0078C1; font-size:18px; vertical-align:middle; margin-right:8px; font-weight:bold;">&#10004;</span><span style="vertical-align:middle;">Le <strong style="font-weight: bold;">transport gratuit</strong> vers tous les parcs et sites Disney (excluant les transferts aéroports)&nbsp;;</span></li><li style="margin-bottom:8px;"><span style="color:#0078C1; font-size:18px; vertical-align:middle; margin-right:8px; font-weight:bold;">&#10004;</span><span style="vertical-align:middle;">L'<strong style="font-weight: bold;">accès simplifié</strong> aux réservations avec l'application Disney Experience&nbsp;;</span></li><li style="margin-bottom:8px;"><span style="color:#0078C1; font-size:18px; vertical-align:middle; margin-right:8px; font-weight:bold;">&#10004;</span><span style="vertical-align:middle;">La possibilité de réserver les files rapides <strong style="font-weight: bold;">7 jours avant votre arrivée</strong> ;</span></li><li style="margin-bottom:8px;"><span style="color:#0078C1; font-size:18px; vertical-align:middle; margin-right:8px; font-weight:bold;">&#10004;</span><span style="vertical-align:middle;">La possibilité de bénéficier des <strong style="font-weight: bold;">plans repas Disney</strong> durant votre séjour ;</span></li><li style="margin-bottom:8px;"><span style="color:#0078C1; font-size:18px; vertical-align:middle; margin-right:8px; font-weight:bold;">&#10004;</span><span style="vertical-align:middle;">Et un <strong style="font-weight: bold;">service client exceptionnel</strong>, signé Disney, à chaque étape de votre séjour.</span></li></ul></td></tr>
+               <tr><td class="mobile-padding" style="padding: 10px 30px 30px 30px;"><table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-top:20px; border-collapse: collapse;"><tr><td style="padding: 20px 25px; background-color: #fff4e6; border-left: 5px solid #c73500; border-radius: 0 8px 8px 0; mso-line-height-rule: exactly;" bgcolor="#fff4e6"><h2 style="font-family:Arial, Helvetica, sans-serif; font-size:18px; color:#c73500; margin:0 0 10px 0; font-weight:bold; line-height: 1.2;">PROMOTIONS ET DÉPÔT REQUIS</h2><p style="font-family:Arial, Helvetica, sans-serif; margin:0; text-align:justify; font-size: 16px; line-height: 1.5; color: #1a1a1a;">Une promotion est applicable pour votre séjour&nbsp;: <strong style="font-weight: bold;">test</strong> (prend fin le <strong style="font-weight: bold;">22 février 2222</strong>). L'offre est cependant <em style="font-style: italic;">limitée</em>. Pour garantir votre place au cœur de la magie, un dépôt de seulement <strong style="font-weight: bold;">200 USD</strong> est requis. Ce dépôt est <strong style="font-weight: bold;">entièrement remboursable jusqu'à 30 jours avant votre arrivée</strong>, vous offrant une flexibilité totale. Le reste de la balance de paiement est aussi à effectuer 30 jours avant le check-in.</p></td></tr></table></td></tr>
+               <tr><td class="mobile-padding" style="padding: 0 30px 30px 30px;"><p style="font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 1.6; color: #1a1a1a; margin: 1em 0; text-align: justify; font-size:14px; color:#4a4a4a; text-align:center; font-style: italic;">Veuillez noter que tous les prix pour l'hébergement et les billets Disney sont indiqués en dollars américains (USD) et sont sujets à disponibilité.</p></td></tr>
+               <tr><td style="background-color: #0078C1; padding: 10px 30px; mso-line-height-rule: exactly;" bgcolor="#0078C1"><div style="padding: 0;"><h1 style="font-family: Arial, Helvetica, sans-serif; font-size: 20px; color: #FFFFFF; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center; line-height: 1.2; mso-line-height-rule: exactly;">Itinéraire de Vol</h1></div></td></tr><tr><td class="mobile-padding" style="padding: 20px 30px 30px 30px;"><p style="font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 1.6; color: #1a1a1a; margin: 1em 0; text-align: justify;">Pour compléter votre voyage vers la magie, voici les détails concernant le transport aérien que nous avons exploré&nbsp;:</p><table width="100%" border="0" cellpadding="0" cellspacing="0" style="border: 1px solid #e0e0e0; margin-top: 15px; border-radius: 8px; border-collapse: separate; overflow: hidden; background-color: #fafafa;" bgcolor="#fafafa"><tr><td style="padding: 15px;"> <table width="100%" border="0" cellpadding="0" cellspacing="0" style="border: 1px solid #ddd; border-radius: 8px; margin-top:10px; border-collapse: separate; overflow: hidden;"><tr><td style="background-color: #e6f2fa; padding: 10px 15px; border-bottom: 1px solid #ddd;" bgcolor="#e6f2fa"><h3 style="color: #0078C1; margin: 0; font-size: 18px; line-height: 1.2;">Vol aller</h3></td></tr><tr><td style="padding: 15px;"><table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td class="flight-column" style="width:45%; text-align:center; vertical-align:top;"><div style="font-size:16px; color:#4a4a4a; text-transform:uppercase; margin-bottom:10px;">Départ</div><div style="font-size:20px; font-weight:bold; color:#0078C1; margin-bottom:10px;">YUL - Montréal</div><table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto; text-align:left;"><tr><td style="padding-bottom:10px;">📅&nbsp;22 février 2222</td></tr><tr><td>🕒&nbsp;14h22</td></tr></table></td><td class="flight-arrow" style="width:10%; text-align:center; vertical-align:top;"><span style="color:#c73500; font-weight:bold; font-size:24px; line-height:1;">&nbsp;&rarr;&nbsp;</span></td><td class="flight-column" style="width:45%; text-align:center; vertical-align:top;"><div style="font-size:16px; color:#4a4a4a; text-transform:uppercase; margin-bottom:10px;">Arrivée</div><div style="font-size:20px; font-weight:bold; color:#0078C1; margin-bottom:10px;">MCO - Orlando</div><table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto; text-align:left;"><tr><td style="padding-bottom:10px;">📅&nbsp;22 février 2222</td></tr><tr><td>🕒&nbsp;14h22</td></tr></table></td></tr><tr><td colspan="3" style="padding-top:10px; text-align:center;"><div style="font-size:14px; color:#4a4a4a; line-height:1.3;">Air Canada<br>AC1676</div></td></tr></table></td></tr></table> </td></tr><tr><td style="padding: 0 15px 15px 15px;"><table width="100%" border="0" cellpadding="0" cellspacing="0" style="border: 1px solid #ddd; border-radius: 8px; margin-top:10px; border-collapse: separate; overflow: hidden;"><tr><td style="background-color: #e6f2fa; padding: 10px 15px; border-bottom: 1px solid #ddd;" bgcolor="#e6f2fa"><h3 style="color: #0078C1; margin: 0; font-size: 18px; line-height: 1.2;">Vol retour</h3></td></tr><tr><td style="padding: 15px;"><table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td class="flight-column" style="width:45%; text-align:center; vertical-align:top;"><div style="font-size:16px; color:#4a4a4a; text-transform:uppercase; margin-bottom:10px;">Départ</div><div style="font-size:20px; font-weight:bold; color:#0078C1; margin-bottom:10px;">MCO - Orlando</div><table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto; text-align:left;"><tr><td style="padding-bottom:10px;">📅&nbsp;22 février 2222</td></tr><tr><td>🕒&nbsp;14h22</td></tr></table></td><td class="flight-arrow" style="width:10%; text-align:center; vertical-align:top;"><span style="color:#c73500; font-weight:bold; font-size:24px; line-height:1;">&nbsp;&rarr;&nbsp;</span></td><td class="flight-column" style="width:45%; text-align:center; vertical-align:top;"><div style="font-size:16px; color:#4a4a4a; text-transform:uppercase; margin-bottom:10px;">Arrivée</div><div style="font-size:20px; font-weight:bold; color:#0078C1; margin-bottom:10px;">YUL - Montréal</div><table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto; text-align:left;"><tr><td style="padding-bottom:10px;">📅&nbsp;22 février 2222</td></tr><tr><td>🕒&nbsp;14h22</td></tr></table></td></tr><tr><td colspan="3" style="padding-top:10px; text-align:center;"><div style="font-size:14px; color:#4a4a4a; line-height:1.3;">Air Canada<br>AC1677</div></td></tr></table></td></tr></table></td></tr><tr><td style="background-color:#e6f2fa; padding: 15px 20px; text-align:center; border-top: 1px solid #EAEAEA; mso-line-height-rule: exactly;" bgcolor="#e6f2fa"><span style="font-size:14px; color:#4a4a4a; font-weight:bold; text-transform:uppercase;">PRIX APPROXIMATIF DES VOLS</span><br><strong style="font-size:28px; color:#1a1a1a; line-height:1.2;">1200&nbsp;CAD</strong></td></tr><tr><td style="padding: 15px;"><p style="font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 1.6; color: #1a1a1a; margin: 1em 0; text-align: justify; font-style:italic; font-weight:bold; color:#4a4a4a; border-left:3px solid #EAEAEA; padding-left:15px; margin:0;">Test</p></td></tr></table><table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-top:20px; border-collapse: collapse;"><tr><td style="padding: 20px 25px; background-color: #fff4e6; border-left: 5px solid #c73500; border-radius: 0 8px 8px 0; mso-line-height-rule: exactly;" bgcolor="#fff4e6"><h2 style="font-family:Arial, Helvetica, sans-serif; font-size:18px; color:#c73500; margin:0 0 10px 0; font-weight:bold; line-height: 1.2;">IMPORTANT</h2><p style="font-family:Arial, Helvetica, sans-serif; margin:0; text-align:justify; font-size: 16px; line-height: 1.5; color: #1a1a1a;">Les tarifs aériens sont dynamiques et peuvent changer jusqu'à la réservation. Des frais de service de <strong style="font-weight: bold;">50$ CAD par personne</strong> s'appliquent pour la réservation des vols via nos services. En me confiant vos vols, je m'occupe de tout désagrément potentiel. Si vous optez pour une réservation personnelle, ces frais ne s'appliquent pas, mais le support en cas de problème avec les vols ne sera pas inclus pour cette portion.</p></td></tr></table><p style="font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 1.6; color: #1a1a1a; margin: 1em 0; text-align: justify; font-size:14px; color:#4a4a4a; text-align:left; margin-top:20px;"><em style="font-style: italic;">Les prix sont à titre indicatif et peuvent changer à tout moment.</em></p></td></tr>
+               <tr><td style="background-color: #c73500; padding: 12px 30px; mso-line-height-rule: exactly;" bgcolor="#c73500"><div style="padding: 5px 0;"><h1 style="font-family: Georgia, serif; font-size: 24px; color: #FFFFFF; font-weight: bold; text-transform: uppercase; margin: 0; text-align: center; letter-spacing: 1px; line-height: 1.2; mso-line-height-rule: exactly;">La Magie Continue...</h1></div></td></tr>
+               <tr><td class="mobile-padding" style="padding: 20px 30px 30px 30px;"><p style="font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 1.6; color: #1a1a1a; margin: 1em 0; text-align: justify;">Prenez le temps de rêver à ces options et de considérer ce qui ferait de ce voyage une expérience <strong style="font-weight: bold;">véritablement inoubliable</strong>. Je suis à votre <strong style="font-weight: bold;">entière disposition</strong> pour répondre à toutes vos questions, affiner chaque détail ou procéder à la réservation de cette <em style="font-style: italic;">aventure mémorable</em>.</p><p style="font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 1.6; color: #1a1a1a; margin: 1em 0; text-align: justify;">N'hésitez pas à me joindre par courriel (en répondant simplement à celui-ci) ou par téléphone au <strong style="font-weight: bold;">819-347-9103</strong>. <strong style="font-weight: bold;"><em style="font-style: italic;">Merci de me faire savoir si le message a bien été reçu</em></strong>.</p><p style="font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 1.6; color: #1a1a1a; margin: 1em 0; text-align: justify;">Merci encore pour votre confiance. J'ai sincèrement hâte de transformer ce <strong style="font-weight: bold;">rêve Disney</strong> en une <strong style="font-weight: bold;">magnifique réalité pour vous&nbsp;!</strong></p></td></tr>
+           </table></td></tr></table></body></html>
